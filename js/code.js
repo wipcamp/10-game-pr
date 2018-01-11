@@ -35,10 +35,12 @@ var jumpTimer = 0;
 var jumpButton;
 var rightmove = 67;
 var leftmove = 40;
-var Wall
+var Wall1
 var Wall2
 var wall3
 var buttonStart
+var countjump
+var holdjump = false
 //////////////////////////////////////////////////////Menu/////////////////////////////////////////////////////////////////////////////////
 function preloadMenu() {
 	game.load.image('sky', 'images/Sky.png')
@@ -76,66 +78,67 @@ function preload() {
 	game.load.image('itemrun', 'images/itemrun.png')
 
 	this.game.load.image('sky', 'images/Sky.png')
-    this.game.load.image('clound', 'images/Clound.png')
-    this.game.load.image('palace', 'images/Palace.png')
-    this.game.load.image('bush', 'images/Bushes.png')
-    this.game.load.image('wall', 'images/Wall.png')
-    this.game.load.image('ground', 'images/Ground.png')
-    //zone2
-    this.game.load.image('tree', 'images/Trees.png')
-    this.game.load.image('bighouse', 'images/Bighouse.png')
-    //zone3
+	this.game.load.image('clound', 'images/Clound.png')
+	this.game.load.image('palace', 'images/Palace.png')
+	this.game.load.image('bush', 'images/Bushes.png')
+	this.game.load.image('wall', 'images/Wall.png')
+	this.game.load.image('ground', 'images/Ground.png')
+	//zone2
+	this.game.load.image('tree', 'images/Trees.png')
+	this.game.load.image('bighouse', 'images/Bighouse.png')
+	//zone3
 	this.game.load.image('smallhouse', 'images/Smallhouse.png')
-	
+
 	game.load.image('invisible', 'images/invisible.png')
 
 }
 function create() {
-	score = 490
+	countjump = 2;
+	score = 1
 	Hp = 1
 	background = game.add.tileSprite(0, 0, 2268, 1701, 'background')
 	background.scale.setTo(0.355, 0.3999)
 	background.fixedToCamera = true;
 
-game.time.events.loop(timespeed,updateScore,this)
+	game.time.events.loop(timespeed, updateScore, this)
 
 	this.sky = this.game.add.tileSprite(0,
-        0,
-        this.game.width,
-        this.game.cache.getImage('sky').height,
-        'sky'
-    );
-    this.clound = this.game.add.tileSprite(0,
-        30,
-        this.game.width,
-        this.game.cache.getImage('clound').height,
-        'clound'
-    );
-    this.bush = this.game.add.tileSprite(0,
-        400,
-        this.game.width,
-        this.game.cache.getImage('bush').height,
-        'bush'
-    );
-    this.palace = this.game.add.tileSprite(0,
-        50,
-        this.game.width,
-        this.game.cache.getImage('palace').height,
-        'palace'
-    );
-    this.wall = this.game.add.tileSprite(0,
-        220,
-        this.game.width,
-        this.game.cache.getImage('wall').height,
-        'wall'
-    );
-    this.ground = this.game.add.tileSprite(0,
-        this.game.height - this.game.cache.getImage('ground').height,
-        this.game.width,
-        this.game.cache.getImage('ground').height,
-        'ground'
+		0,
+		this.game.width,
+		this.game.cache.getImage('sky').height,
+		'sky'
 	);
-	
+	this.clound = this.game.add.tileSprite(0,
+		30,
+		this.game.width,
+		this.game.cache.getImage('clound').height,
+		'clound'
+	);
+	this.bush = this.game.add.tileSprite(0,
+		400,
+		this.game.width,
+		this.game.cache.getImage('bush').height,
+		'bush'
+	);
+	this.palace = this.game.add.tileSprite(0,
+		50,
+		this.game.width,
+		this.game.cache.getImage('palace').height,
+		'palace'
+	);
+	this.wall = this.game.add.tileSprite(0,
+		220,
+		this.game.width,
+		this.game.cache.getImage('wall').height,
+		'wall'
+	);
+	this.ground = this.game.add.tileSprite(0,
+		this.game.height - this.game.cache.getImage('ground').height,
+		this.game.width,
+		this.game.cache.getImage('ground').height,
+		'ground'
+	);
+
 	text = game.add.text(25, 25, 'Km : 0', { font: "40px Arial", fill: "#ffffff", align: "center" });
 
 
@@ -254,26 +257,27 @@ game.time.events.loop(timespeed,updateScore,this)
 		arrowcutObj.scale.setTo(0.25, 0.25)
 		arrowcutObj.body.setSize(50, 70, 0, -15);
 	}
-	Wall = game.add.group();
-	Wall.enableBody = true;
-	for (var i = 0; i < 24; i++) {
-		walll = Wall.create(-20, 0, 'floor');
-		walll.scale.setTo(0.25, 1000)
-		walll.body.setSize(50, 1, 0, -15);
-		walll.body.immovable = true;
-		walll.body.velocity.x = 0
+	Wall1 = game.add.sprite(0, 500, 'floor');
+	Wall1.enableBody = true;
+	Wall1.physicsBodyType = Phaser.Physics.ARCADE;
+	game.physics.enable(Wall1, Phaser.Physics.ARCADE);
+	Wall1.scale.setTo(0.25, 1000)
+	Wall1.body.immovable = true;
+	Wall1.visible = false;
 
-	}
-	Wall2 = game.add.group();
+
+
+
+	Wall2 = game.add.sprite(0, -100, 'floor');
 	Wall2.enableBody = true;
-	for (var i = 0; i < 24; i++) {
-		walll2 = Wall2.create(800, 0, 'floor');
-		walll2.scale.setTo(0.25, 1000)
-		walll2.body.setSize(50, 1, 0, -15);
-		walll2.body.immovable = true;
-		walll2.body.velocity.x = 0
+	Wall2.physicsBodyType = Phaser.Physics.ARCADE;
+	game.physics.enable(Wall2, Phaser.Physics.ARCADE);
+	Wall2.scale.setTo(0.25, 1000)
+	Wall2.body.immovable = true;
+	Wall2.visible = false;
 
-	}
+
+
 	Wall3 = game.add.group();
 	Wall3.enableBody = true;
 	for (var i = 0; i < 24; i++) {
@@ -477,7 +481,7 @@ function getRandomArbitrary4() {
 }
 
 function flashs() {
-    game.camera.flash(00000000, 500);
+	game.camera.flash(00000000, 500);
 }
 
 function updateScore() {
@@ -528,15 +532,21 @@ function ActiveHpplus() {
 
 }
 
+function collisionHandler() {
+	countjump = 2;
+	holdjump = false;
+}
 
 function update() {
 
+	game.physics.arcade.collide(player, FloorGroup, collisionHandler, null, this);
+
 	this.sky.tilePosition.x -= 2
-    this.clound.tilePosition.x -= 4
-    this.bush.tilePosition.x -= 6
-    this.palace.tilePosition.x -= 7
-    this.wall.tilePosition.x -= 9
-    this.ground.tilePosition.x -= 10
+	this.clound.tilePosition.x -= 4
+	this.bush.tilePosition.x -= 6
+	this.palace.tilePosition.x -= 7
+	this.wall.tilePosition.x -= 9
+	this.ground.tilePosition.x -= 10
 
 	background.tilePosition.x -= speed;
 	speed += 0.0010;//ความเร็วฉาก
@@ -544,24 +554,21 @@ function update() {
 	player.body.velocity.x = 0
 
 	if (score >= 500 & score <= 501) {
-        flashs()
-        this.palace.loadTexture('tree')
-        this.wall.loadTexture('bighouse')
-    }
-    if (score >= 1000 & score <= 1001) {
-        flashs()
-        this.wall.loadTexture('smallhouse')
-    }
+		flashs()
+		this.palace.loadTexture('tree')
+		this.wall.loadTexture('bighouse')
+	}
+	if (score >= 1000 & score <= 1001) {
+		flashs()
+		this.wall.loadTexture('smallhouse')
+	}
 
 	GenerateTerrain();
 
 
 
-	game.physics.arcade.collide(player, FloorGroup);
-	game.physics.arcade.collide(player, Wall);
+	game.physics.arcade.collide(player, Wall1);
 	game.physics.arcade.collide(player, Wall2);
-
-	
 
 	if (SystemOverlab) {
 		game.physics.arcade.overlap(player, ItemsheildGroup, getItemsheild, null, this);
@@ -573,6 +580,7 @@ function update() {
 		game.physics.arcade.overlap(player, ArrowGroup, HitsPlayer, null, this);
 		game.physics.arcade.overlap(player, SpirteGroup, HitsPlayer, null, this);
 		game.physics.arcade.overlap(player, Wall3, HitsPlayer, null, this);
+
 	} else {
 		game.physics.arcade.overlap(player, LogGroup, HitObj, null, this);
 		game.physics.arcade.overlap(player, TreecutGroup, HitObj, null, this);
@@ -595,10 +603,16 @@ function update() {
 	if (itemtimerun == 0) {
 		speed = boxspeed
 		itemtimerun--;
-		if (jumpButton.isDown && game.time.now > jumpTimer) {
-			player.body.velocity.y = -1100;
-			jumpTimer = game.time.now + 1100;
-
+		if (jumpButton.isDown && countjump > 0 && !holdjump) {
+			
+					player.body.velocity.y = -900;
+					countjump--
+					if (jumpButton.isDown) {
+						holdjump = true;
+						
+					}if(jumpButton.isUp){
+						holdjump = false;
+					}
 		}
 		rightmove = 67
 		leftmove = 40
@@ -610,10 +624,16 @@ function update() {
 		speed = 50
 		itemtimerun--;
 		player.body.velocity.x = speed
-		if (jumpButton.isDown && game.time.now > jumpTimer) {
-			player.body.velocity.y = -1100;
-			jumpTimer = game.time.now + 1100;
-
+		if (jumpButton.isDown && countjump > 0 && !holdjump) {
+			
+					player.body.velocity.y = -900;
+					countjump--
+					if (jumpButton.isDown) {
+						holdjump = true;
+						
+					}if(jumpButton.isUp){
+						holdjump = false;
+					}
 		}
 		player.body.collideWorldBounds = true;
 		rightmove = 0
@@ -636,17 +656,17 @@ function update() {
 
 
 
-	if (jumpButton.isDown && game.time.now > jumpTimer) {
-		player.body.velocity.y = -1100;
-		jumpTimer = game.time.now + 1100;
+	if (jumpButton.isDown && countjump > 0 && !holdjump) {
 
-	}
-
-	else if (cursors.right.isDown) {
-		player.body.velocity.x = rightmove * speed;
-	}
-	else if (cursors.left.isDown) {
-		player.body.velocity.x = -leftmove * speed;
+		player.body.velocity.y = -900;
+		countjump--
+		if (jumpButton.isDown) {
+			holdjump = true;
+			
+		}if(jumpButton.isUp){
+			holdjump = false;
+		}
+	
 	}
 
 

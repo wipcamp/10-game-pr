@@ -476,7 +476,7 @@ function getRandomArbitrary4() {
 	return Math.random() * (450 - 222 + 1) + 222;//สุ่มแกน  y
 }
 
-function flash() {
+function flashs() {
     game.camera.flash(00000000, 500);
 }
 
@@ -544,12 +544,12 @@ function update() {
 	player.body.velocity.x = 0
 
 	if (score >= 500 & score <= 501) {
-        flash()
+        flashs()
         this.palace.loadTexture('tree')
         this.wall.loadTexture('bighouse')
     }
     if (score >= 1000 & score <= 1001) {
-        flash()
+        flashs()
         this.wall.loadTexture('smallhouse')
     }
 

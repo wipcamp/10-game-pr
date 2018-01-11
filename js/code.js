@@ -91,11 +91,13 @@ function preload() {
 
 }
 function create() {
-	score = 1
+	score = 490
 	Hp = 1
 	background = game.add.tileSprite(0, 0, 2268, 1701, 'background')
 	background.scale.setTo(0.355, 0.3999)
 	background.fixedToCamera = true;
+
+game.time.events.loop(timespeed,updateScore,this)
 
 	this.sky = this.game.add.tileSprite(0,
         0,

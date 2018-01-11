@@ -43,15 +43,16 @@ var countjump
 var holdjump = false
 //////////////////////////////////////////////////////Menu/////////////////////////////////////////////////////////////////////////////////
 function preloadMenu() {
-	game.load.image('sky', 'images/Sky.png')
+	game.load.image('backgroundtitle', 'images/backgroundtitle.png')
 	game.load.image('play', 'images/play.png')
+
 }
 function createMenu() {
-	background = game.add.tileSprite(0, 0, 2268, 1701, 'sky')
-	background.scale.setTo(0.355, 0.3999)
-	background.fixedToCamera = true;
-	buttonStart = game.add.button(500, 300, 'play', toGame, this);
-	buttonStart.scale.setTo(1);
+	backgroundtitle = this.game.add.tileSprite(0, 0, 2268, 1701, 'backgroundtitle')
+	
+	backgroundtitle.fixedToCamera = true;
+	buttonStart = game.add.button(430, 300, 'play', toGame, this);
+	buttonStart.scale.setTo(0.5);
 	buttonStart.anchor.set(0.5);
 }
 function updateMenu() {
@@ -77,6 +78,10 @@ function preload() {
 	game.load.image('itemsheild', 'images/itemsheild.png')
 	game.load.image('itemrun', 'images/itemrun.png')
 
+
+
+	
+
 	this.game.load.image('sky', 'images/Sky.png')
 	this.game.load.image('clound', 'images/Clound.png')
 	this.game.load.image('palace', 'images/Palace.png')
@@ -90,6 +95,10 @@ function preload() {
 	this.game.load.image('smallhouse', 'images/Smallhouse.png')
 
 	game.load.image('invisible', 'images/invisible.png')
+
+
+	game.load.audio('hit', 'sound/hit.mp3');
+	
 
 }
 function create() {
@@ -141,7 +150,7 @@ function create() {
 
 	text = game.add.text(25, 25, 'Km : 0', { font: "40px Arial", fill: "#ffffff", align: "center" });
 
-
+	hitSound = this.add.audio('hit');
 
 
 	game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -489,6 +498,7 @@ function updateScore() {
 	text.setText('Km : ' + score);
 }
 function HitsPlayer(player, obj) {
+	hitSound.play();
 	if (Hp == 1) {
 		Hp = Hp - 1;
 		Checkhp()
@@ -680,19 +690,26 @@ function render() {
 /////////////////////////////////////////////////////////////////GameOver/////////////////////////////////////////////////////////////////
 
 function preloadGameOver() {
-	game.load.image('sky', 'images/Sky.png')
+	game.load.image('backgroundtitle', 'images/backgroundtitle.png')
 	game.load.image('play', 'images/play.png')
 	game.load.image('gameover', 'images/gameover.png')
+	game.load.image('menu', 'images/menubutton.png')
 }
 function createGameOver() {
-	background = game.add.tileSprite(0, 0, 2268, 1701, 'sky')
-	background.scale.setTo(0.355, 0.3999)
-	background.fixedToCamera = true;
-	gameover = game.add.sprite(50, 300, 'gameover')
-
-	buttonStart = game.add.button(500, 100, 'play', toGame, this);
-	buttonStart.scale.setTo(1);
+	backgroundtitle = this.game.add.tileSprite(0, 0, 2268, 1701, 'backgroundtitle')
+	
+	backgroundtitle.fixedToCamera = true;
+	buttonStart = game.add.button(400, 300, 'play', toGame, this);
+	buttonStart.scale.setTo(0.5);
 	buttonStart.anchor.set(0.5);
+
+	buttonmenu = game.add.button(370, 400, 'menu', tomenu, this);
+	buttonmenu.scale.setTo(0.125);
+	
+
+	gameOverTitle = this.game.add.sprite(50,50,"gameover");
+	gameOverTitle.anchor.setTo(-0.25,0.25);
+	gameOverTitle.scale.setTo(0.125,0.125);
 }
 function updateGameOver() {
 

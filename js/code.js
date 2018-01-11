@@ -533,22 +533,25 @@ function ActiveHpplus() {
 }
 
 function collisionHandler() {
+
 	countjump = 2;
-	holdjump = false;
+
+	player.body.velocity.y = 0;
+
 }
 
 function update() {
 
 	game.physics.arcade.collide(player, FloorGroup, collisionHandler, null, this);
 
-	this.sky.tilePosition.x -= 2
-	this.clound.tilePosition.x -= 4
-	this.bush.tilePosition.x -= 6
-	this.palace.tilePosition.x -= 7
-	this.wall.tilePosition.x -= 9
-	this.ground.tilePosition.x -= 10
+	this.sky.tilePosition.x -= 2 + speed
+	this.clound.tilePosition.x -= 4 + speed
+	this.bush.tilePosition.x -= 6 + speed
+	this.palace.tilePosition.x -= 7 + speed
+	this.wall.tilePosition.x -= 9 + speed
+	this.ground.tilePosition.x -= 10 + speed
 
-	background.tilePosition.x -= speed;
+
 	speed += 0.0010;//ความเร็วฉาก
 	timespeed -= 0.000000010;
 	player.body.velocity.x = 0
@@ -603,16 +606,15 @@ function update() {
 	if (itemtimerun == 0) {
 		speed = boxspeed
 		itemtimerun--;
-		if (jumpButton.isDown && countjump > 0 && !holdjump) {
-			
-					player.body.velocity.y = -900;
-					countjump--
-					if (jumpButton.isDown) {
-						holdjump = true;
-						
-					}if(jumpButton.isUp){
-						holdjump = false;
-					}
+		if (holdjump == false) {
+			if (jumpButton.isDown && countjump > 0) {
+				player.body.velocity.y = -900;
+				countjump--
+				holdjump = true
+			}
+		}
+		if (jumpButton.isUp) {
+			holdjump = false
 		}
 		rightmove = 67
 		leftmove = 40
@@ -624,16 +626,15 @@ function update() {
 		speed = 50
 		itemtimerun--;
 		player.body.velocity.x = speed
-		if (jumpButton.isDown && countjump > 0 && !holdjump) {
-			
-					player.body.velocity.y = -900;
-					countjump--
-					if (jumpButton.isDown) {
-						holdjump = true;
-						
-					}if(jumpButton.isUp){
-						holdjump = false;
-					}
+		if (holdjump == false) {
+			if (jumpButton.isDown && countjump > 0) {
+				player.body.velocity.y = -900;
+				countjump--
+				holdjump = true
+			}
+		}
+		if (jumpButton.isUp) {
+			holdjump = false
 		}
 		player.body.collideWorldBounds = true;
 		rightmove = 0
@@ -656,21 +657,20 @@ function update() {
 
 
 
-	if (jumpButton.isDown && countjump > 0 && !holdjump) {
-
-		player.body.velocity.y = -900;
-		countjump--
-		if (jumpButton.isDown) {
-			holdjump = true;
-			
-		}if(jumpButton.isUp){
-			holdjump = false;
+	if (holdjump == false) {
+		if (jumpButton.isDown && countjump > 0) {
+			player.body.velocity.y = -900;
+			countjump--
+			holdjump = true
 		}
-	
 	}
-
-
+	if (jumpButton.isUp) {
+		holdjump = false
+	}
 }
+
+
+
 
 
 function render() {

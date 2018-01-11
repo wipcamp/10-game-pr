@@ -74,45 +74,68 @@ function preload() {
 	game.load.image('spirte', 'images/spirte.png')
 	game.load.image('itemsheild', 'images/itemsheild.png')
 	game.load.image('itemrun', 'images/itemrun.png')
-	game.load.image('sky', 'images/Sky.png')
-	game.load.image('clound', 'images/Clound.png')
-	game.load.image('palace', 'images/Palace.png')
-	game.load.image('wall', 'images/Wall.png')
+
+	this.game.load.image('sky', 'images/Sky.png')
+    this.game.load.image('clound', 'images/Clound.png')
+    this.game.load.image('palace', 'images/Palace.png')
+    this.game.load.image('bush', 'images/Bushes.png')
+    this.game.load.image('wall', 'images/Wall.png')
+    this.game.load.image('ground', 'images/Ground.png')
+    //zone2
+    this.game.load.image('tree', 'images/Trees.png')
+    this.game.load.image('bighouse', 'images/Bighouse.png')
+    //zone3
+	this.game.load.image('smallhouse', 'images/Smallhouse.png')
+	
 	game.load.image('invisible', 'images/invisible.png')
 
 }
 function create() {
-	score = 1
+	score = 490
 	Hp = 1
 	background = game.add.tileSprite(0, 0, 2268, 1701, 'background')
 	background.scale.setTo(0.355, 0.3999)
 	background.fixedToCamera = true;
 
-	game.time.events.loop(timespeed, updateScore, this);
+game.time.events.loop(timespeed,updateScore,this)
+
 	this.sky = this.game.add.tileSprite(0,
-		0,
-		this.game.width,
-		this.game.cache.getImage('sky').height,
-		'sky'
+        0,
+        this.game.width,
+        this.game.cache.getImage('sky').height,
+        'sky'
+    );
+    this.clound = this.game.add.tileSprite(0,
+        30,
+        this.game.width,
+        this.game.cache.getImage('clound').height,
+        'clound'
+    );
+    this.bush = this.game.add.tileSprite(0,
+        400,
+        this.game.width,
+        this.game.cache.getImage('bush').height,
+        'bush'
+    );
+    this.palace = this.game.add.tileSprite(0,
+        50,
+        this.game.width,
+        this.game.cache.getImage('palace').height,
+        'palace'
+    );
+    this.wall = this.game.add.tileSprite(0,
+        220,
+        this.game.width,
+        this.game.cache.getImage('wall').height,
+        'wall'
+    );
+    this.ground = this.game.add.tileSprite(0,
+        this.game.height - this.game.cache.getImage('ground').height,
+        this.game.width,
+        this.game.cache.getImage('ground').height,
+        'ground'
 	);
-	this.clound = this.game.add.tileSprite(0,
-		30,
-		this.game.width,
-		this.game.cache.getImage('clound').height,
-		'clound'
-	);
-	this.palace = this.game.add.tileSprite(0,
-		110,
-		this.game.width,
-		this.game.cache.getImage('palace').height,
-		'palace'
-	);
-	this.wall = this.game.add.tileSprite(0,
-		this.game.height - this.game.cache.getImage('wall').height,
-		this.game.width,
-		this.game.cache.getImage('wall').height,
-		'wall'
-	);
+	
 	text = game.add.text(25, 25, 'Km : 0', { font: "40px Arial", fill: "#ffffff", align: "center" });
 
 
@@ -453,7 +476,9 @@ function getRandomArbitrary4() {
 	return Math.random() * (450 - 222 + 1) + 222;//สุ่มแกน  y
 }
 
-
+function flash() {
+    game.camera.flash(00000000, 500);
+}
 
 function updateScore() {
 	score += 1;
@@ -506,17 +531,27 @@ function ActiveHpplus() {
 
 function update() {
 
-
-	this.sky.tilePosition.x -= speed * 0.5
-	this.clound.tilePosition.x -= speed * 0.6
-	this.palace.tilePosition.x -= speed * 0.8
-	this.wall.tilePosition.x -= speed * 0.9
-
+	this.sky.tilePosition.x -= 2
+    this.clound.tilePosition.x -= 4
+    this.bush.tilePosition.x -= 6
+    this.palace.tilePosition.x -= 7
+    this.wall.tilePosition.x -= 9
+    this.ground.tilePosition.x -= 10
 
 	background.tilePosition.x -= speed;
 	speed += 0.0010;//ความเร็วฉาก
 	timespeed -= 0.000000010;
 	player.body.velocity.x = 0
+
+	if (score >= 500 & score <= 501) {
+        flash()
+        this.palace.loadTexture('tree')
+        this.wall.loadTexture('bighouse')
+    }
+    if (score >= 1000 & score <= 1001) {
+        flash()
+        this.wall.loadTexture('smallhouse')
+    }
 
 	GenerateTerrain();
 
@@ -616,6 +651,7 @@ function update() {
 
 
 }
+
 
 function render() {
 

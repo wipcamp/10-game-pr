@@ -1,8 +1,14 @@
 var game = new Phaser.Game(800, 600, Phaser.AUTO, "game")
-var main = { preload: preload, create: create, update: update, render: render }
+var Menu = { preload: preloadMenu, create: createMenu, update: updateMenu }
+var GamePlay = { preload: preload, create: create, update: update, render: render }
+var GameOver = { preload: preloadGameOver, create: createGameOver, update: updateGameOver }
 
-game.state.add('main', main)
-game.state.start('main')
+
+game.state.add('GameOver', GameOver)
+game.state.add('GamePlay', GamePlay)
+game.state.add('Menu', Menu)
+game.state.start('Menu')
+
 var Hp = 1;
 var score = 1;
 var text = 0;
@@ -15,6 +21,7 @@ var obstacleCooldown = 10;
 var pickItem;
 var ItemsheildGroup;
 var ItemrunGroup;
+var InvisibleGroup;
 var LogGroup;
 var SpirteGroup;
 var FloorGroup;
@@ -28,9 +35,36 @@ var jumpTimer = 0;
 var jumpButton;
 var rightmove = 67;
 var leftmove = 40;
-var Wall
+var Wall1
 var Wall2
+var wall3
+var buttonStart
+var countjump
+var holdjump = false
+//////////////////////////////////////////////////////Menu/////////////////////////////////////////////////////////////////////////////////
+function preloadMenu() {
+	game.load.image('backgroundtitle', 'images/backgroundtitle.png')
+	game.load.image('play', 'images/play.png')
 
+}
+function createMenu() {
+	backgroundtitle = this.game.add.tileSprite(0, 0, 2268, 1701, 'backgroundtitle')
+	
+	backgroundtitle.fixedToCamera = true;
+	buttonStart = game.add.button(430, 300, 'play', toGame, this);
+	buttonStart.scale.setTo(0.5);
+	buttonStart.anchor.set(0.5);
+}
+function updateMenu() {
+
+}
+
+function toGame() {
+	game.state.start('GamePlay');
+}
+
+
+///////////////////////////////////////////////////Game Play////////////////////////////////////////////////////////
 function preload() {
 	game.load.image('background', 'images/BG.jpg')
 	game.load.image('player', 'images/demon.png')
@@ -43,18 +77,40 @@ function preload() {
 	game.load.image('spirte', 'images/spirte.png')
 	game.load.image('itemsheild', 'images/itemsheild.png')
 	game.load.image('itemrun', 'images/itemrun.png')
-	game.load.image('sky', 'images/Sky.png')
-	game.load.image('clound', 'images/Clound.png')
-	game.load.image('palace', 'images/Palace.png')
-	game.load.image('wall', 'images/Wall.png')
+
+
+
+	
+
+	this.game.load.image('sky', 'images/Sky.png')
+	this.game.load.image('clound', 'images/Clound.png')
+	this.game.load.image('palace', 'images/Palace.png')
+	this.game.load.image('bush', 'images/Bushes.png')
+	this.game.load.image('wall', 'images/Wall.png')
+	this.game.load.image('ground', 'images/Ground.png')
+	//zone2
+	this.game.load.image('tree', 'images/Trees.png')
+	this.game.load.image('bighouse', 'images/Bighouse.png')
+	//zone3
+	this.game.load.image('smallhouse', 'images/Smallhouse.png')
+
+	game.load.image('invisible', 'images/invisible.png')
+
+
+	game.load.audio('hit', 'sound/hit.mp3');
+	
 
 }
 function create() {
+	countjump = 2;
+	score = 1
+	Hp = 1
 	background = game.add.tileSprite(0, 0, 2268, 1701, 'background')
 	background.scale.setTo(0.355, 0.3999)
 	background.fixedToCamera = true;
-	
-	game.time.events.loop(timespeed, updateScore, this);
+
+	game.time.events.loop(timespeed, updateScore, this)
+
 	this.sky = this.game.add.tileSprite(0,
 		0,
 		this.game.width,
@@ -67,25 +123,38 @@ function create() {
 		this.game.cache.getImage('clound').height,
 		'clound'
 	);
+	this.bush = this.game.add.tileSprite(0,
+		400,
+		this.game.width,
+		this.game.cache.getImage('bush').height,
+		'bush'
+	);
 	this.palace = this.game.add.tileSprite(0,
-		110,
+		50,
 		this.game.width,
 		this.game.cache.getImage('palace').height,
 		'palace'
 	);
 	this.wall = this.game.add.tileSprite(0,
-		this.game.height - this.game.cache.getImage('wall').height,
+		220,
 		this.game.width,
 		this.game.cache.getImage('wall').height,
 		'wall'
 	);
+	this.ground = this.game.add.tileSprite(0,
+		this.game.height - this.game.cache.getImage('ground').height,
+		this.game.width,
+		this.game.cache.getImage('ground').height,
+		'ground'
+	);
+
 	text = game.add.text(25, 25, 'Km : 0', { font: "40px Arial", fill: "#ffffff", align: "center" });
 
-
+	hitSound = this.add.audio('hit');
 
 
 	game.physics.startSystem(Phaser.Physics.ARCADE);
-	
+
 
 	player = game.add.sprite(50, 300, 'player')
 	player.scale.setTo(0.25, 0.25)
@@ -119,6 +188,20 @@ function create() {
 		itemsheildObj.scale.setTo(0.15, 0.15)
 		itemsheildObj.body.setSize(50, 70, 0, -15);
 	}
+	InvisibleGroup = game.add.group();
+	InvisibleGroup.enableBody = true;
+	InvisibleGroup.physicsBodyType = Phaser.Physics.ARCADE;
+	for (var i = 0; i < 16; i++) {
+		invisibleObj = InvisibleGroup.create(750, getRandomArbitrary4(), 'invisible');
+		invisibleObj.exists = false;
+		invisibleObj.visible = false;
+		invisibleObj.checkWorldBounds = true;
+		invisibleObj.events.onOutOfBounds.add(resetPostion, this);
+		invisibleObj.scale.setTo(0.15, 0.15)
+		invisibleObj.body.setSize(50, 70, 0, -15);
+	}
+
+
 	obstacleCooldown = game.rnd.integerInRange(0, 150);
 	obstacleCooldown2 = game.rnd.integerInRange(0, 400);
 	obstacleCooldown3 = game.rnd.integerInRange(400, 500);
@@ -183,24 +266,35 @@ function create() {
 		arrowcutObj.scale.setTo(0.25, 0.25)
 		arrowcutObj.body.setSize(50, 70, 0, -15);
 	}
-	Wall = game.add.group();
-	Wall.enableBody = true;
-	for (var i = 0; i < 24; i++) {
-		walll = Wall.create(-20, 0, 'floor');
-		walll.scale.setTo(0.25, 1000)
-		walll.body.setSize(50, 1, 0, -15);
-		walll.body.immovable = true;
-		walll.body.velocity.x = 0
+	Wall1 = game.add.sprite(0, 500, 'floor');
+	Wall1.enableBody = true;
+	Wall1.physicsBodyType = Phaser.Physics.ARCADE;
+	game.physics.enable(Wall1, Phaser.Physics.ARCADE);
+	Wall1.scale.setTo(0.25, 1000)
+	Wall1.body.immovable = true;
+	Wall1.visible = false;
 
-	}
-	Wall2 = game.add.group();
+
+
+
+	Wall2 = game.add.sprite(0, -100, 'floor');
 	Wall2.enableBody = true;
+	Wall2.physicsBodyType = Phaser.Physics.ARCADE;
+	game.physics.enable(Wall2, Phaser.Physics.ARCADE);
+	Wall2.scale.setTo(0.25, 1000)
+	Wall2.body.immovable = true;
+	Wall2.visible = false;
+
+
+
+	Wall3 = game.add.group();
+	Wall3.enableBody = true;
 	for (var i = 0; i < 24; i++) {
-		walll2 = Wall2.create(800, 0, 'floor');
-		walll2.scale.setTo(0.25, 1000)
-		walll2.body.setSize(50, 1, 0, -15);
-		walll2.body.immovable = true;
-		walll2.body.velocity.x = 0
+		walll3 = Wall3.create(0, 1200, 'floor');
+		walll3.scale.setTo(1000, 0.25)
+		walll3.body.setSize(50, 1, 0, -15);
+		walll3.body.immovable = true;
+		walll3.body.velocity.x = 0
 
 	}
 
@@ -332,14 +426,24 @@ function GenerateTerrain() {
 }
 
 function itemSpawner() {
-	var output = game.rnd.integerInRange(0, 2);
+	var output = game.rnd.integerInRange(0, 4);
 	if (output == 0) {
 		itemsheildUp();
 
-	} else if (output == 1)
+	} else if (output == 1) {
 		itemrunUp();
+	} else if (output = 2) {
+		iteminvisibleUp();
+	}
 }
 
+function iteminvisibleUp() {
+	itemCooldown = game.rnd.integerInRange(240, 400);
+	var position = game.rnd.integerInRange(750, 750);
+	ItemInvisible = InvisibleGroup.getFirstExists(false);
+	ItemInvisible.reset(position, getRandomArbitrary4());
+	ItemInvisible.body.velocity.x = -speed * 20;
+}
 function itemrunUp() {
 	itemCooldown = game.rnd.integerInRange(240, 400);
 	var position = game.rnd.integerInRange(750, 750);
@@ -385,13 +489,16 @@ function getRandomArbitrary4() {
 	return Math.random() * (450 - 222 + 1) + 222;//สุ่มแกน  y
 }
 
-
+function flashs() {
+	game.camera.flash(00000000, 500);
+}
 
 function updateScore() {
 	score += 1;
 	text.setText('Km : ' + score);
 }
 function HitsPlayer(player, obj) {
+	hitSound.play();
 	if (Hp == 1) {
 		Hp = Hp - 1;
 		Checkhp()
@@ -400,17 +507,22 @@ function HitsPlayer(player, obj) {
 		Hp = 1;
 	}
 }
-function HitObj(player,obj){
+function HitObj(player, obj) {
 	obj.kill();
 }
 function Checkhp() {
 	if (Hp < 1) {
-		player.kill();
+		game.state.start('GameOver')
+
 	}
 }
 function getItemsheild(player, item) {
 	item.kill();
 	ActiveHpplus()
+}
+function getIteminvisible(player, item) {
+	item.kill();
+
 }
 function getItemrun(player, item) {
 	item.kill();
@@ -422,7 +534,7 @@ function ActiveRunspped() {
 	speedb = boxspeed;
 	boxspeed = speed;
 
-	player
+
 
 }
 function ActiveHpplus() {
@@ -430,38 +542,58 @@ function ActiveHpplus() {
 
 }
 
+function collisionHandler() {
 
+	countjump = 2;
+
+	player.body.velocity.y = 0;
+
+}
 
 function update() {
 
+	game.physics.arcade.collide(player, FloorGroup, collisionHandler, null, this);
 
-	this.sky.tilePosition.x -= speed * 0.5
-	this.clound.tilePosition.x -=  speed* 0.6
-	this.palace.tilePosition.x -= speed * 0.8
-	this.wall.tilePosition.x -= speed * 0.9
+	this.sky.tilePosition.x -= 2 + speed
+	this.clound.tilePosition.x -= 4 + speed
+	this.bush.tilePosition.x -= 6 + speed
+	this.palace.tilePosition.x -= 7 + speed
+	this.wall.tilePosition.x -= 9 + speed
+	this.ground.tilePosition.x -= 10 + speed
 
 
-	background.tilePosition.x -= speed;
 	speed += 0.0010;//ความเร็วฉาก
 	timespeed -= 0.000000010;
 	player.body.velocity.x = 0
+
+	if (score >= 500 & score <= 501) {
+		flashs()
+		this.palace.loadTexture('tree')
+		this.wall.loadTexture('bighouse')
+	}
+	if (score >= 1000 & score <= 1001) {
+		flashs()
+		this.wall.loadTexture('smallhouse')
+	}
 
 	GenerateTerrain();
 
 
 
-	game.physics.arcade.collide(player, FloorGroup);
-	game.physics.arcade.collide(player, Wall);
+	game.physics.arcade.collide(player, Wall1);
 	game.physics.arcade.collide(player, Wall2);
 
 	if (SystemOverlab) {
 		game.physics.arcade.overlap(player, ItemsheildGroup, getItemsheild, null, this);
 		game.physics.arcade.overlap(player, ItemrunGroup, getItemrun, null, this);
+		game.physics.arcade.overlap(player, InvisibleGroup, getIteminvisible, null, this);
 		game.physics.arcade.overlap(player, LogGroup, HitsPlayer, null, this);
 		game.physics.arcade.overlap(player, TreecutGroup, HitsPlayer, null, this);
 		game.physics.arcade.overlap(player, RockGroup, HitsPlayer, null, this);
 		game.physics.arcade.overlap(player, ArrowGroup, HitsPlayer, null, this);
 		game.physics.arcade.overlap(player, SpirteGroup, HitsPlayer, null, this);
+		game.physics.arcade.overlap(player, Wall3, HitsPlayer, null, this);
+
 	} else {
 		game.physics.arcade.overlap(player, LogGroup, HitObj, null, this);
 		game.physics.arcade.overlap(player, TreecutGroup, HitObj, null, this);
@@ -470,23 +602,29 @@ function update() {
 		game.physics.arcade.overlap(player, SpirteGroup, HitObj, null, this);
 		game.physics.arcade.overlap(player, ItemsheildGroup, getItemsheild, null, this);
 		game.physics.arcade.overlap(player, ItemrunGroup, HitObj, null, this);
+		game.physics.arcade.overlap(player, InvisibleGroup, getIteminvisible, null, this);
+		game.physics.arcade.overlap(player, Wall3, HitsPlayer, null, this);
+
 	}
 
 	if (itemCooldown <= 0)
 		itemSpawner();
 	itemCooldown--;
 
-	if (Hp < 1) {
-		player.kill();
-	}
+
 
 	if (itemtimerun == 0) {
 		speed = boxspeed
 		itemtimerun--;
-		if (jumpButton.isDown && game.time.now > jumpTimer) {
-			player.body.velocity.y = -1100;
-			jumpTimer = game.time.now + 1100;
-
+		if (holdjump == false) {
+			if (jumpButton.isDown && countjump > 0) {
+				player.body.velocity.y = -900;
+				countjump--
+				holdjump = true
+			}
+		}
+		if (jumpButton.isUp) {
+			holdjump = false
 		}
 		rightmove = 67
 		leftmove = 40
@@ -498,10 +636,15 @@ function update() {
 		speed = 50
 		itemtimerun--;
 		player.body.velocity.x = speed
-		if (jumpButton.isDown && game.time.now > jumpTimer) {
-			player.body.velocity.y = -1100;
-			jumpTimer = game.time.now + 1100;
-
+		if (holdjump == false) {
+			if (jumpButton.isDown && countjump > 0) {
+				player.body.velocity.y = -900;
+				countjump--
+				holdjump = true
+			}
+		}
+		if (jumpButton.isUp) {
+			holdjump = false
 		}
 		player.body.collideWorldBounds = true;
 		rightmove = 0
@@ -522,27 +665,59 @@ function update() {
 		obstacleSpawner3();
 	obstacleCooldown3--;
 
-	
-
-	if (jumpButton.isDown && game.time.now > jumpTimer) {
-		player.body.velocity.y = -1100;
-		jumpTimer = game.time.now + 1100;
-		
-	}
-	
-	else if (cursors.right.isDown) {
-		player.body.velocity.x = rightmove * speed;
-	}
-	else if (cursors.left.isDown) {
-		player.body.velocity.x = -leftmove * speed;
-	}
 
 
+	if (holdjump == false) {
+		if (jumpButton.isDown && countjump > 0) {
+			player.body.velocity.y = -900;
+			countjump--
+			holdjump = true
+		}
+	}
+	if (jumpButton.isUp) {
+		holdjump = false
+	}
 }
+
+
+
+
 
 function render() {
 
 }
 
+/////////////////////////////////////////////////////////////////GameOver/////////////////////////////////////////////////////////////////
 
+function preloadGameOver() {
+	game.load.image('backgroundtitle', 'images/backgroundtitle.png')
+	game.load.image('play', 'images/play.png')
+	game.load.image('gameover', 'images/gameover.png')
+	game.load.image('menu', 'images/menubutton.png')
+}
+function createGameOver() {
+	backgroundtitle = this.game.add.tileSprite(0, 0, 2268, 1701, 'backgroundtitle')
+	
+	backgroundtitle.fixedToCamera = true;
+	buttonStart = game.add.button(400, 300, 'play', toGame, this);
+	buttonStart.scale.setTo(0.5);
+	buttonStart.anchor.set(0.5);
 
+	buttonmenu = game.add.button(370, 400, 'menu', tomenu, this);
+	buttonmenu.scale.setTo(0.125);
+	
+
+	gameOverTitle = this.game.add.sprite(50,50,"gameover");
+	gameOverTitle.anchor.setTo(-0.25,0.25);
+	gameOverTitle.scale.setTo(0.125,0.125);
+}
+function updateGameOver() {
+
+}
+
+function toGame() {
+	game.state.start('GamePlay');
+}
+function tomenu() {
+	game.state.start('Menu');
+}

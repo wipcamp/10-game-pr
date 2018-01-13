@@ -98,6 +98,10 @@ function preload() {
 
 
 	game.load.audio('hit', 'sound/hit.mp3');
+	game.load.audio('gamebgm','audio/gamebgm.mp3');
+	game.load.audio('itemx2','audio/speeditem.mp3');
+	game.load.audio('invisibleitem','audio/invisibleitem.mp3');
+	game.load.audio('shielditem','audio/sheilditem.mp3');
 	
 
 }
@@ -151,6 +155,12 @@ function create() {
 	text = game.add.text(25, 25, 'Km : 0', { font: "40px Arial", fill: "#ffffff", align: "center" });
 
 	hitSound = this.add.audio('hit');
+	gamebgm = this.add.audio('gamebgm');
+	itemx2 = this.add.audio('itemx2');
+	invisibleitem = this.add.audio('invisibleitem');
+	sheilditem = this.add.audio('sheilditem');
+
+	gamebgm.play();
 
 
 	game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -158,6 +168,21 @@ function create() {
 
 	player = game.add.sprite(50, 300, 'player')
 	player.scale.setTo(0.25, 0.25)
+
+	pause_label = game.add.text(650, 25, 'Pause', { font: "40px Arial", fill: "#FF6600", align: "center" });
+    pause_label.inputEnabled = true;
+    pause_label.events.onInputUp.add(function () {
+		game.paused = true;
+		playbutton = game.add.sprite(300, 300, 'playbutton')
+		playbutton.scale.setTo(0.5, 0.5)
+		playbutton.inputEnabled = true;
+        });
+		game.input.onDown.add(function () {
+		if (game.paused) {
+			game.paused = false;
+			playbutton.destroy();
+		}       
+	});
 
 
 
@@ -517,14 +542,17 @@ function Checkhp() {
 	}
 }
 function getItemsheild(player, item) {
+	shielditem.play();
 	item.kill();
 	ActiveHpplus()
 }
 function getIteminvisible(player, item) {
+	invisibleitem.play();
 	item.kill();
 
 }
 function getItemrun(player, item) {
+	itemx2.play();
 	item.kill();
 	itemtimerun = 200
 	SystemOverlab = false;

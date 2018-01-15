@@ -101,15 +101,11 @@ function preload() {
 
 
 	game.load.audio('hit', 'sound/hit.mp3');
-<<<<<<< Updated upstream
 	game.load.audio('gamebgm','audio/gamebgm.mp3');
 	game.load.audio('itemx2','audio/speeditem.mp3');
 	game.load.audio('invisibleitem','audio/invisibleitem.mp3');
 	game.load.audio('shielditem','audio/sheilditem.mp3');
 	
-=======
-
->>>>>>> Stashed changes
 
 }
 function create() {

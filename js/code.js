@@ -99,12 +99,12 @@ function preload() {
 
 	game.load.image('invisible', 'images/invisible.png')
 
-
 	game.load.audio('hit', 'sound/hit.mp3');
+	game.load.audio('shielditem','audio/shielditem.mp3')
 	game.load.audio('gamebgm','audio/gamebgm.mp3');
 	game.load.audio('itemx2','audio/speeditem.mp3');
 	game.load.audio('invisibleitem','audio/invisibleitem.mp3');
-	game.load.audio('shielditem','audio/sheilditem.mp3');
+	
 	
 
 }
@@ -559,19 +559,20 @@ function getIteminvisible(player, item) {
 	item.kill();
 	SystemOverlab = 3;
 	itemtimeinvisible = 200
+	itemtimerun =-1
 }
 function getItemrun(player, item) {
 	itemx2.play();
 	item.kill();
 	itemtimerun = 200
-	SystemOverlab = 2;
 	ActiveRunspped()
+	SystemOverlab = 2;
+	itemtimeinvisible = -1	
 }
 function ActiveRunspped() {
 	speedb = boxspeed;
 	boxspeed = speed;
-
-
+	
 
 }
 function ActiveHpplus() {
@@ -624,7 +625,7 @@ function update() {
 	game.physics.arcade.collide(player, Wall1);
 	game.physics.arcade.collide(player, Wall2);
 
-	if (SystemOverlab ==1) {
+	if (SystemOverlab == 1) {
 		game.physics.arcade.overlap(player, ItemsheildGroup, getItemsheild, null, this);
 		game.physics.arcade.overlap(player, ItemrunGroup, getItemrun, null, this);
 		game.physics.arcade.overlap(player, InvisibleGroup, getIteminvisible, null, this);
@@ -672,10 +673,8 @@ function update() {
 		if (jumpButton.isUp) {
 			holdjump = false
 		}
-		rightmove = 67
-		leftmove = 40
-		SystemOverlab = 1;
 		timespeed = 1500
+		SystemOverlab = 1;		
 		player.body.collideWorldBounds = false;
 	} else if (itemtimerun > 0) {
 		timespeed = 1
@@ -693,9 +692,6 @@ function update() {
 			holdjump = false
 		}
 		player.body.collideWorldBounds = true;
-		rightmove = 0
-		leftmove = 0
-
 	}
 
 
@@ -730,7 +726,7 @@ function update() {
 
 
 
-
+	
 
 	if (obstacleCooldown <= 0)
 		obstacleSpawner();
@@ -776,6 +772,7 @@ function preloadGameOver() {
 	game.load.image('menu', 'images/menubutton.png')
 }
 function createGameOver() {
+	
 	backgroundtitle = this.game.add.tileSprite(0, 0, 2268, 1701, 'backgroundtitle')
 
 	backgroundtitle.fixedToCamera = true;

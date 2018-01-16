@@ -74,21 +74,16 @@ function preload() {
 	game.load.image('spirte', 'images/spirte.png')
 	game.load.image('itemsheild', 'images/itemsheild.png')
 	game.load.image('itemrun', 'images/itemrun.png')
-
-	// this.game.load.image('sky', 'images/Sky.png')
-    // this.game.load.image('clound', 'images/Clound.png')
-    // this.game.load.image('palace', 'images/Palace.png')
-    // this.game.load.image('bush', 'images/Bushes.png')
-    // this.game.load.image('wall', 'images/Wall.png')
-    // this.game.load.image('ground', 'images/Ground.png')
-    // //zone2
-    // this.game.load.image('tree', 'images/Trees.png')
-    // this.game.load.image('bighouse', 'images/Bighouse.png')
-    // //zone3
-	// this.game.load.image('smallhouse', 'images/Smallhouse.png')
-	
 	game.load.image('invisible', 'images/invisible.png')
 
+	//tempฉาก
+	this.game.load.image('sky', 'images/Sky.png')
+    this.game.load.image('clound', 'images/Clound.png')
+    this.game.load.image('palace', 'images/Palace.png')
+    this.game.load.image('bush', 'images/Bushes.png')
+    this.game.load.image('wall', 'images/Wall.png')
+    this.game.load.image('ground', 'images/Ground.png')
+	
 	//ฉากฝั่งราม
 	this.game.load.image('skyr', 'images/sky_r.png')
 	this.game.load.image('cloudr', 'images/cloud_r.png')
@@ -122,7 +117,7 @@ function create() {
 	background.scale.setTo(0.355, 0.3999)
 	background.fixedToCamera = true;
 
-game.time.events.loop(timespeed,updateScore,this)
+	game.time.events.loop(timespeed,updateScore,this)
 
 	this.sky = this.game.add.tileSprite(0,
         0,
@@ -137,7 +132,7 @@ game.time.events.loop(timespeed,updateScore,this)
         'clound'
     );
     this.bush = this.game.add.tileSprite(0,
-        400,
+        220,
         this.game.width,
         this.game.cache.getImage('bush').height,
         'bush'
@@ -163,19 +158,12 @@ game.time.events.loop(timespeed,updateScore,this)
 	
 	text = game.add.text(25, 25, 'Km : 0', { font: "40px Arial", fill: "#ffffff", align: "center" });
 
-
-
-
 	game.physics.startSystem(Phaser.Physics.ARCADE);
-
 
 	player = game.add.sprite(50, 300, 'player')
 	player.scale.setTo(0.25, 0.25)
 
-
-
 	itemCooldown = game.rnd.integerInRange(0, 240);
-
 
 	ItemrunGroup = game.add.group();
 	ItemrunGroup.enableBody = true;

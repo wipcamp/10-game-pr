@@ -100,7 +100,7 @@ function preload() {
 	game.load.image('invisible', 'images/invisible.png')
 
 	game.load.audio('hit', 'sound/hit.mp3');
-	game.load.audio('shielditem','audio/shielditem.mp3')
+	game.load.audio('sheildlditem','audio/shielditem.mp3')
 	game.load.audio('gamebgm','audio/gamebgm.mp3');
 	game.load.audio('itemx2','audio/speeditem.mp3');
 	game.load.audio('invisibleitem','audio/invisibleitem.mp3');
@@ -148,12 +148,7 @@ function create() {
 		this.game.cache.getImage('wall').height,
 		'wall'
 	);
-	this.ground = this.game.add.tileSprite(0,
-		this.game.height - this.game.cache.getImage('ground').height,
-		this.game.width,
-		this.game.cache.getImage('ground').height,
-		'ground'
-	);
+	
 
 	text = game.add.text(25, 25, 'Km : 0', { font: "40px Arial", fill: "#F0E68C", align: "center" });
 
@@ -549,7 +544,7 @@ function Checkhp() {
 	}
 }
 function getItemsheild(player, item) {
-	shielditem.play();
+	sheilditem.play();
 	item.kill();
 	ActiveHpplus()
 
@@ -601,7 +596,7 @@ function update() {
 	this.bush.tilePosition.x -= 4 + speed
 	this.palace.tilePosition.x -= 5 + speed
 	this.wall.tilePosition.x -= 5 + speed
-	this.ground.tilePosition.x -= 5 + speed
+	
 
 
 	speed += 0.0010;//ความเร็วฉาก
@@ -787,6 +782,10 @@ function createGameOver() {
 	gameOverTitle = this.game.add.sprite(50, 50, "gameover");
 	gameOverTitle.anchor.setTo(-0.25, 0.25);
 	gameOverTitle.scale.setTo(0.125, 0.125);
+
+	gamebgm.stop();
+
+
 }
 function updateGameOver() {
 

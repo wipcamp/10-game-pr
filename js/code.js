@@ -75,19 +75,44 @@ function preload() {
 	game.load.image('itemsheild', 'images/itemsheild.png')
 	game.load.image('itemrun', 'images/itemrun.png')
 
-	this.game.load.image('sky', 'images/Sky.png')
-    this.game.load.image('clound', 'images/Clound.png')
-    this.game.load.image('palace', 'images/Palace.png')
-    this.game.load.image('bush', 'images/Bushes.png')
-    this.game.load.image('wall', 'images/Wall.png')
-    this.game.load.image('ground', 'images/Ground.png')
-    //zone2
-    this.game.load.image('tree', 'images/Trees.png')
-    this.game.load.image('bighouse', 'images/Bighouse.png')
-    //zone3
-	this.game.load.image('smallhouse', 'images/Smallhouse.png')
+	// this.game.load.image('sky', 'images/Sky.png')
+    // this.game.load.image('clound', 'images/Clound.png')
+    // this.game.load.image('palace', 'images/Palace.png')
+    // this.game.load.image('bush', 'images/Bushes.png')
+    // this.game.load.image('wall', 'images/Wall.png')
+    // this.game.load.image('ground', 'images/Ground.png')
+    // //zone2
+    // this.game.load.image('tree', 'images/Trees.png')
+    // this.game.load.image('bighouse', 'images/Bighouse.png')
+    // //zone3
+	// this.game.load.image('smallhouse', 'images/Smallhouse.png')
 	
 	game.load.image('invisible', 'images/invisible.png')
+
+	//ฉากฝั่งราม
+	this.game.load.image('skyr', 'images/sky_r.png')
+	this.game.load.image('cloudr', 'images/cloud_r.png')
+	this.game.load.image('bushr', 'images/bush_r.png')
+	this.game.load.image('palacer', 'images/palace_r.png')
+	this.game.load.image('wallr', 'images/wall_r.png')
+	//โซนสอง
+	this.game.load.image('treer', 'images/tree_r.png')
+	this.game.load.image('houser', 'images/house_r.png')
+
+	//ฉากฝั่งทศ
+	this.game.load.image('skyt', 'images/sky_t.png')
+	this.game.load.image('cloudt', 'images/cloud_t.png')
+	this.game.load.image('busht', 'images/bush_t.png')
+	this.game.load.image('palacet', 'images/palace_t.png')
+	this.game.load.image('wallt', 'images/wall_t.png')
+	//โซนสอง
+	this.game.load.image('treet', 'images/tree_t.png')
+	this.game.load.image('houset', 'images/house_t.png')
+
+	//ฉากลานกว้าง
+	this.game.load.image('bstone', 'images/bstone.png')
+	this.game.load.image('treedead', 'images/treedead.png')
+	this.game.load.image('sstone', 'images/sstone.png')
 
 }
 function create() {
@@ -531,6 +556,8 @@ function ActiveHpplus() {
 
 function update() {
 
+	//พื้นหลัง
+
 	this.sky.tilePosition.x -= 2
     this.clound.tilePosition.x -= 4
     this.bush.tilePosition.x -= 6
@@ -543,6 +570,7 @@ function update() {
 	timespeed -= 0.000000010;
 	player.body.velocity.x = 0
 
+	//เปลี่ยนฉาก
 	if (score >= 500 & score <= 501) {
         flash()
         this.palace.loadTexture('tree')
@@ -552,6 +580,8 @@ function update() {
         flash()
         this.wall.loadTexture('smallhouse')
     }
+
+	//
 
 	GenerateTerrain();
 

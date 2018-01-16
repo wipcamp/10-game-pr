@@ -14,6 +14,7 @@ var score = 1;
 var text = 0;
 var pause;
 var speed = 7;
+var sppedobj = 700
 var speedb;
 var itemCooldown = 10;
 var itemtimerun = -5;
@@ -43,6 +44,8 @@ var countjump
 var holdjump = false
 var countwarningarrow = 10
 var itemtimeinvisible = 0;
+
+
 //////////////////////////////////////////////////////Menu/////////////////////////////////////////////////////////////////////////////////
 function preloadMenu() {
 	game.load.image('backgroundtitle', 'images/backgroundtitle.png')
@@ -100,18 +103,30 @@ function preload() {
 	game.load.image('invisible', 'images/invisible.png')
 
 	game.load.audio('hit', 'sound/hit.mp3');
-	game.load.audio('sheildlditem','audio/shielditem.mp3')
-	game.load.audio('gamebgm','audio/gamebgm.mp3');
-	game.load.audio('itemx2','audio/speeditem.mp3');
-	game.load.audio('invisibleitem','audio/invisibleitem.mp3');
-	
-	
+	game.load.audio('sheildlditem', 'audio/shielditem.mp3')
+	game.load.audio('gamebgm', 'audio/gamebgm.mp3');
+	game.load.audio('itemx2', 'audio/speeditem.mp3');
+	game.load.audio('invisibleitem', 'audio/invisibleitem.mp3');
+
+
 
 }
 function create() {
+	text = 0;
+	speed = 5;
+	sppedobj = 450;
 	countjump = 2;
-	score = 1
+	score = 990
 	Hp = 1
+	itemCooldown = 10;
+	itemtimerun = -5;
+	obstacleCooldown = 10;
+	timespeed = 150
+	SystemOverlab = 1;
+	tileSize = 70;
+	floor;
+	probCliff = 0.4;
+
 	background = game.add.tileSprite(0, 0, 2268, 1701, 'background')
 	background.scale.setTo(0.355, 0.3999)
 	background.fixedToCamera = true;
@@ -148,7 +163,7 @@ function create() {
 		this.game.cache.getImage('wall').height,
 		'wall'
 	);
-	
+
 
 	text = game.add.text(25, 25, 'Km : 0', { font: "40px Arial", fill: "#F0E68C", align: "center" });
 
@@ -171,18 +186,18 @@ function create() {
 	player.scale.setTo(0.25, 0.25)
 
 	pause_label = game.add.text(650, 25, 'Pause', { font: "40px Arial", fill: "#FF6600", align: "center" });
-    pause_label.inputEnabled = true;
-    pause_label.events.onInputUp.add(function () {
+	pause_label.inputEnabled = true;
+	pause_label.events.onInputUp.add(function () {
 		game.paused = true;
 		playbutton = game.add.sprite(300, 300, 'playbutton')
 		playbutton.scale.setTo(0.5, 0.5)
 		playbutton.inputEnabled = true;
-        });
-		game.input.onDown.add(function () {
+	});
+	game.input.onDown.add(function () {
 		if (game.paused) {
 			game.paused = false;
 			playbutton.destroy();
-		}       
+		}
 	});
 
 
@@ -228,9 +243,10 @@ function create() {
 	}
 
 
-	obstacleCooldown = game.rnd.integerInRange(0, 150);
-	obstacleCooldown2 = game.rnd.integerInRange(0, 400);
-	obstacleCooldown3 = game.rnd.integerInRange(400, 500);
+	obstacleCooldown = game.rnd.integerInRange(200, 400);
+	obstacleCooldown2 = game.rnd.integerInRange(200, 400);
+	obstacleCooldown3 = game.rnd.integerInRange(2000, 3000);
+
 
 	LogGroup = game.add.group();
 	LogGroup.enableBody = true;
@@ -292,13 +308,13 @@ function create() {
 		arrowcutObj.scale.setTo(0.25, 0.25)
 		arrowcutObj.body.setSize(50, 70, 0, -15);
 	}
-	Wall1 = game.add.sprite(0, 500, 'wallblock');
+	Wall1 = game.add.sprite(60, 500, 'wallblock');
 	Wall1.enableBody = true;
 	Wall1.physicsBodyType = Phaser.Physics.ARCADE;
 	game.physics.enable(Wall1, Phaser.Physics.ARCADE);
 	Wall1.scale.setTo(0.25, 1000)
 	Wall1.body.immovable = true;
-	Wall1.visible = true;
+	Wall1.visible = false;
 
 
 
@@ -322,7 +338,7 @@ function create() {
 	for (var i = 0; i < 24; i++) {
 		floor = FloorGroup.create(i * tileSize, 540, 'floor');
 		floor.body.immovable = true;
-		floor.body.velocity.x = -speed * 51.50;
+		floor.body.velocity.x = -sppedobj * 51.50;
 		floor.scale.setTo(0.45, 0.45)
 
 	}
@@ -385,9 +401,9 @@ function logDeploy() {
 	obstacleCooldown = game.rnd.integerInRange(200, 400);
 	obstacleCooldown2 = game.rnd.integerInRange(100, 200);
 	var position = game.rnd.integerInRange(750, 750);
-	Log = LogGroup.getFirstExists(false);
-	Log.reset(position, 475);
-	Log.body.velocity.x = -speed * 48;
+	log = LogGroup.getFirstExists(false);
+	log.reset(position, 475);
+	log.body.velocity.x = -sppedobj * 48;
 }
 function spirteDeploy() {
 	obstacleCooldown = game.rnd.integerInRange(200, 400);
@@ -395,7 +411,7 @@ function spirteDeploy() {
 	var position = game.rnd.integerInRange(750, 750);
 	spirte = SpirteGroup.getFirstExists(false);
 	spirte.reset(position, 475);
-	spirte.body.velocity.x = -speed * 49;
+	spirte.body.velocity.x = -sppedobj * 49;
 }
 function treecutDeploy() {
 	obstacleCooldown = game.rnd.integerInRange(200, 400);
@@ -403,7 +419,7 @@ function treecutDeploy() {
 	var position = game.rnd.integerInRange(750, 750);
 	treecut = TreecutGroup.getFirstExists(false);
 	treecut.reset(position, 475);
-	treecut.body.velocity.x = -speed * 49;
+	treecut.body.velocity.x = -sppedobj * 49;
 }
 function rockDeploy() {
 	obstacleCooldown = game.rnd.integerInRange(200, 400);
@@ -411,14 +427,14 @@ function rockDeploy() {
 	var position = game.rnd.integerInRange(750, 750);
 	rock = RockGroup.getFirstExists(false);
 	rock.reset(position, 475);
-	rock.body.velocity.x = -speed * 48.5;
+	rock.body.velocity.x = -sppedobj * 48.5;
 }
 function arrowDeploy() {
 	obstacleCooldown3 = game.rnd.integerInRange(700, 900);
 	var position = getRandomArbitrary4()
 	arrow = ArrowGroup.getFirstExists(false);
 	arrow.reset(750, position);
-	arrow.body.velocity.x = -speed * 100;
+	arrow.body.velocity.x = -spped * 100;
 }
 function warningarrow() {
 	countwarningarrow = 200;
@@ -554,7 +570,7 @@ function getIteminvisible(player, item) {
 	item.kill();
 	SystemOverlab = 3;
 	itemtimeinvisible = 200
-	itemtimerun =-1
+	itemtimerun = -1
 }
 function getItemrun(player, item) {
 	itemx2.play();
@@ -562,12 +578,12 @@ function getItemrun(player, item) {
 	itemtimerun = 200
 	ActiveRunspped()
 	SystemOverlab = 2;
-	itemtimeinvisible = -1	
+	itemtimeinvisible = -1
 }
 function ActiveRunspped() {
 	speedb = boxspeed;
 	boxspeed = speed;
-	
+
 
 }
 function ActiveHpplus() {
@@ -579,6 +595,10 @@ function collisionHandler() {
 
 	countjump = 2;
 
+}
+
+function sped(aa) {
+	aa.body.velocity.x = -sppedobj
 }
 
 function update() {
@@ -596,20 +616,23 @@ function update() {
 	this.bush.tilePosition.x -= 4 + speed
 	this.palace.tilePosition.x -= 5 + speed
 	this.wall.tilePosition.x -= 5 + speed
-	
 
 
+
+	sppedobj +=0.0010
 	speed += 0.0010;//ความเร็วฉาก
 	timespeed -= 0.000000010;
 	player.body.velocity.x = 0
 
 	if (score >= 500 & score <= 501) {
+
 		flashs()
 		this.palace.loadTexture('tree')
 		this.wall.loadTexture('bighouse')
 	}
 	if (score >= 1000 & score <= 1001) {
 		flashs()
+		this.palace.loadTexture('tree')
 		this.wall.loadTexture('smallhouse')
 	}
 
@@ -631,7 +654,7 @@ function update() {
 		game.physics.arcade.overlap(player, SpirteGroup, HitsPlayer, null, this);
 		game.physics.arcade.overlap(player, Wall3, HitsPlayer, null, this);
 
-	} else if(SystemOverlab == 2) {
+	} else if (SystemOverlab == 2) {
 		game.physics.arcade.overlap(player, LogGroup, HitObj, null, this);
 		game.physics.arcade.overlap(player, TreecutGroup, HitObj, null, this);
 		game.physics.arcade.overlap(player, RockGroup, HitObj, null, this);
@@ -640,13 +663,15 @@ function update() {
 		game.physics.arcade.overlap(player, ItemsheildGroup, getItemsheild, null, this);
 		game.physics.arcade.overlap(player, ItemrunGroup, HitObj, null, this);
 		game.physics.arcade.overlap(player, InvisibleGroup, HitObj, null, this);
-	
 
-	} else if(SystemOverlab == 3) {
+
+	} else if (SystemOverlab == 3) {
 		game.physics.arcade.overlap(player, ItemsheildGroup, getItemsheild, null, this);
 		game.physics.arcade.overlap(player, ItemrunGroup, HitObj, null, this);
 		game.physics.arcade.overlap(player, InvisibleGroup, HitObj, null, this);
+		game.physics.arcade.overlap(player, Wall3, HitsPlayer, null, this);
 		
+
 
 	}
 
@@ -669,13 +694,12 @@ function update() {
 			holdjump = false
 		}
 		timespeed = 1500
-		SystemOverlab = 1;		
+		SystemOverlab = 1;
 		player.body.collideWorldBounds = false;
 	} else if (itemtimerun > 0) {
 		timespeed = 1
 		speed = 50
 		itemtimerun--;
-		player.body.velocity.x = speed
 		if (holdjump == false) {
 			if (jumpButton.isDown && countjump > 0) {
 				player.body.velocity.y = -900;
@@ -691,7 +715,7 @@ function update() {
 
 
 	if (itemtimeinvisible == 0) {  ////ส่วนของ ล่องหน
-	
+
 		if (holdjump == false) {
 			if (jumpButton.isDown && countjump > 0) {
 				player.body.velocity.y = -900;
@@ -721,7 +745,7 @@ function update() {
 
 
 
-	
+
 
 	if (obstacleCooldown <= 0)
 		obstacleSpawner();
@@ -737,6 +761,11 @@ function update() {
 
 	warningarrow();
 
+	RockGroup.forEachExists(sped, this, null)
+	FloorGroup.forEachExists(sped, this, null)
+	SpirteGroup.forEachExists(sped, this, null)
+	LogGroup.forEachExists(sped, this, null)
+	TreecutGroup.forEachExists(sped,this,null)
 
 	if (holdjump == false) {
 		if (jumpButton.isDown && countjump > 0) {
@@ -767,7 +796,7 @@ function preloadGameOver() {
 	game.load.image('menu', 'images/menubutton.png')
 }
 function createGameOver() {
-	
+
 	backgroundtitle = this.game.add.tileSprite(0, 0, 2268, 1701, 'backgroundtitle')
 
 	backgroundtitle.fixedToCamera = true;

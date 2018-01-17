@@ -82,19 +82,15 @@ function preload() {
 	game.load.image('spirte', 'images/spirte.png')
 	game.load.image('itemsheild', 'images/itemsheild.png')
 	game.load.image('itemrun', 'images/itemrun.png')
-<<<<<<< HEAD
 	game.load.image('wallblock', 'images/wallblock.png')
 
 
 
 
-=======
 	game.load.image('invisible', 'images/invisible.png')
->>>>>>> devsaguins
 
 	//tempฉาก
 	this.game.load.image('sky', 'images/Sky.png')
-<<<<<<< HEAD
 	this.game.load.image('clound', 'images/Clound.png')
 	this.game.load.image('palace', 'images/Palace.png')
 	this.game.load.image('bush', 'images/Bushes.png')
@@ -107,13 +103,12 @@ function preload() {
 	this.game.load.image('smallhouse', 'images/Smallhouse.png')
 
 	game.load.image('invisible', 'images/invisible.png')
-=======
     this.game.load.image('clound', 'images/Clound.png')
     this.game.load.image('palace', 'images/Palace.png')
     this.game.load.image('bush', 'images/Bushes.png')
     this.game.load.image('wall', 'images/Wall.png')
     this.game.load.image('ground', 'images/Ground.png')
-	
+
 	//ฉากฝั่งราม
 	this.game.load.image('skyr', 'images/sky_r.png')
 	this.game.load.image('cloudr', 'images/cloud_r.png')
@@ -138,7 +133,6 @@ function preload() {
 	this.game.load.image('bstone', 'images/bstone.png')
 	this.game.load.image('treedead', 'images/treedead.png')
 	this.game.load.image('sstone', 'images/sstone.png')
->>>>>>> devsaguins
 
 	game.load.audio('hit', 'sound/hit.mp3');
 	game.load.audio('sheildlditem', 'audio/shielditem.mp3')
@@ -165,11 +159,13 @@ function create() {
 	floor;
 	probCliff = 0.4;
 
+	game.time.events.loop(timespeed, updateScore, this)
+	
+
 	background = game.add.tileSprite(0, 0, 2268, 1701, 'background')
 	background.scale.setTo(0.355, 0.3999)
 	background.fixedToCamera = true;
 
-<<<<<<< HEAD
 	game.time.events.loop(timespeed, updateScore, this)
 
 	this.sky = this.game.add.tileSprite(0,
@@ -201,48 +197,44 @@ function create() {
 		this.game.width,
 		this.game.cache.getImage('wall').height,
 		'wall'
-=======
-	game.time.events.loop(timespeed,updateScore,this)
-
+	);
 	this.sky = this.game.add.tileSprite(0,
-        0,
-        this.game.width,
-        this.game.cache.getImage('sky').height,
-        'sky'
-    );
-    this.clound = this.game.add.tileSprite(0,
-        30,
-        this.game.width,
-        this.game.cache.getImage('clound').height,
-        'clound'
-    );
-    this.bush = this.game.add.tileSprite(0,
-        220,
-        this.game.width,
-        this.game.cache.getImage('bush').height,
-        'bush'
-    );
-    this.palace = this.game.add.tileSprite(0,
-        50,
-        this.game.width,
-        this.game.cache.getImage('palace').height,
-        'palace'
-    );
-    this.wall = this.game.add.tileSprite(0,
-        220,
-        this.game.width,
-        this.game.cache.getImage('wall').height,
-        'wall'
-    );
-    this.ground = this.game.add.tileSprite(0,
-        this.game.height - this.game.cache.getImage('ground').height,
-        this.game.width,
-        this.game.cache.getImage('ground').height,
-        'ground'
->>>>>>> devsaguins
+			0,
+			this.game.width,
+			this.game.cache.getImage('sky').height,
+			'sky'
+		);
+	this.clound = this.game.add.tileSprite(0,
+		30,
+		this.game.width,
+		this.game.cache.getImage('clound').height,
+		'clound'
+	);
+	this.bush = this.game.add.tileSprite(0,
+		220,
+		this.game.width,
+		this.game.cache.getImage('bush').height,
+		'bush'
+	);
+	this.palace = this.game.add.tileSprite(0,
+		50,
+		this.game.width,
+		this.game.cache.getImage('palace').height,
+		'palace'
+	);
+	this.wall = this.game.add.tileSprite(0,
+		220,
+		this.game.width,
+		this.game.cache.getImage('wall').height,
+		'wall'
+	);
+	this.ground = this.game.add.tileSprite(0,
+		this.game.height - this.game.cache.getImage('ground').height,
+		this.game.width,
+		this.game.cache.getImage('ground').height,
+		'ground'
 	);
 
-<<<<<<< HEAD
 
 	text = game.add.text(25, 25, 'Km : 0', { font: "40px Arial", fill: "#F0E68C", align: "center" });
 
@@ -281,13 +273,11 @@ function create() {
 
 
 
-=======
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 
 	player = game.add.sprite(50, 300, 'player')
 	player.scale.setTo(0.25, 0.25)
 
->>>>>>> devsaguins
 	itemCooldown = game.rnd.integerInRange(0, 240);
 
 	ItemrunGroup = game.add.group();
@@ -688,17 +678,16 @@ function sped(aa) {
 
 function update() {
 
-<<<<<<< HEAD
-=======
+
 	//พื้นหลัง
 
 	this.sky.tilePosition.x -= 2
-    this.clound.tilePosition.x -= 4
-    this.bush.tilePosition.x -= 6
-    this.palace.tilePosition.x -= 7
-    this.wall.tilePosition.x -= 9
-    this.ground.tilePosition.x -= 10
->>>>>>> devsaguins
+	this.clound.tilePosition.x -= 4
+	this.bush.tilePosition.x -= 6
+	this.palace.tilePosition.x -= 7
+	this.wall.tilePosition.x -= 9
+	this.ground.tilePosition.x -= 10
+
 
 
 	game.physics.arcade.collide(player, FloorGroup, collisionHandler, null, this);
@@ -715,7 +704,7 @@ function update() {
 
 
 
-	sppedobj +=0.0010
+	sppedobj += 0.0010
 	speed += 0.0010;//ความเร็วฉาก
 	timespeed -= 0.000000010;
 	player.body.velocity.x = 0
@@ -769,7 +758,7 @@ function update() {
 		game.physics.arcade.overlap(player, ItemrunGroup, HitObj, null, this);
 		game.physics.arcade.overlap(player, InvisibleGroup, HitObj, null, this);
 		game.physics.arcade.overlap(player, Wall3, HitsPlayer, null, this);
-		
+
 
 
 	}
@@ -864,7 +853,7 @@ function update() {
 	FloorGroup.forEachExists(sped, this, null)
 	SpirteGroup.forEachExists(sped, this, null)
 	LogGroup.forEachExists(sped, this, null)
-	TreecutGroup.forEachExists(sped,this,null)
+	TreecutGroup.forEachExists(sped, this, null)
 
 	if (holdjump == false) {
 		if (jumpButton.isDown && countjump > 0) {

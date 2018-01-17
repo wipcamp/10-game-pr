@@ -47,7 +47,7 @@ var itemtimeinvisible = 0;
 var countdeploy;
 var countdeploy1;
 var chek = true;
-
+//ฉาก
 var countzonemain = 1;
 var countzone = 1;
 

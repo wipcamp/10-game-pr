@@ -228,12 +228,6 @@ function create() {
 		this.game.cache.getImage('wall').height,
 		'wall'
 	);
-	this.ground = this.game.add.tileSprite(0,
-		this.game.height - this.game.cache.getImage('ground').height,
-		this.game.width,
-		this.game.cache.getImage('ground').height,
-		'ground'
-	);
 
 
 	text = game.add.text(25, 25, 'Km : 0', { font: "40px Arial", fill: "#F0E68C", align: "center" });
@@ -252,9 +246,6 @@ function create() {
 
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 
-
-	player = game.add.sprite(100, 300, 'player')
-	player.scale.setTo(0.25, 0.25)
 
 	pause_label = game.add.text(650, 25, 'Pause', { font: "40px Arial", fill: "#FF6600", align: "center" });
 	pause_label.inputEnabled = true;
@@ -275,7 +266,7 @@ function create() {
 
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 
-	player = game.add.sprite(50, 300, 'player')
+	player = game.add.sprite(100, 300, 'player')
 	player.scale.setTo(0.25, 0.25)
 
 	itemCooldown = game.rnd.integerInRange(0, 240);
@@ -686,7 +677,6 @@ function update() {
 	this.bush.tilePosition.x -= 6
 	this.palace.tilePosition.x -= 7
 	this.wall.tilePosition.x -= 9
-	this.ground.tilePosition.x -= 10
 
 
 

@@ -82,13 +82,19 @@ function preload() {
 	game.load.image('spirte', 'images/spirte.png')
 	game.load.image('itemsheild', 'images/itemsheild.png')
 	game.load.image('itemrun', 'images/itemrun.png')
+<<<<<<< HEAD
 	game.load.image('wallblock', 'images/wallblock.png')
 
 
 
 
+=======
+	game.load.image('invisible', 'images/invisible.png')
+>>>>>>> devsaguins
 
+	//tempฉาก
 	this.game.load.image('sky', 'images/Sky.png')
+<<<<<<< HEAD
 	this.game.load.image('clound', 'images/Clound.png')
 	this.game.load.image('palace', 'images/Palace.png')
 	this.game.load.image('bush', 'images/Bushes.png')
@@ -101,6 +107,38 @@ function preload() {
 	this.game.load.image('smallhouse', 'images/Smallhouse.png')
 
 	game.load.image('invisible', 'images/invisible.png')
+=======
+    this.game.load.image('clound', 'images/Clound.png')
+    this.game.load.image('palace', 'images/Palace.png')
+    this.game.load.image('bush', 'images/Bushes.png')
+    this.game.load.image('wall', 'images/Wall.png')
+    this.game.load.image('ground', 'images/Ground.png')
+	
+	//ฉากฝั่งราม
+	this.game.load.image('skyr', 'images/sky_r.png')
+	this.game.load.image('cloudr', 'images/cloud_r.png')
+	this.game.load.image('bushr', 'images/bush_r.png')
+	this.game.load.image('palacer', 'images/palace_r.png')
+	this.game.load.image('wallr', 'images/wall_r.png')
+	//โซนสอง
+	this.game.load.image('treer', 'images/tree_r.png')
+	this.game.load.image('houser', 'images/house_r.png')
+
+	//ฉากฝั่งทศ
+	this.game.load.image('skyt', 'images/sky_t.png')
+	this.game.load.image('cloudt', 'images/cloud_t.png')
+	this.game.load.image('busht', 'images/bush_t.png')
+	this.game.load.image('palacet', 'images/palace_t.png')
+	this.game.load.image('wallt', 'images/wall_t.png')
+	//โซนสอง
+	this.game.load.image('treet', 'images/tree_t.png')
+	this.game.load.image('houset', 'images/house_t.png')
+
+	//ฉากลานกว้าง
+	this.game.load.image('bstone', 'images/bstone.png')
+	this.game.load.image('treedead', 'images/treedead.png')
+	this.game.load.image('sstone', 'images/sstone.png')
+>>>>>>> devsaguins
 
 	game.load.audio('hit', 'sound/hit.mp3');
 	game.load.audio('sheildlditem', 'audio/shielditem.mp3')
@@ -131,6 +169,7 @@ function create() {
 	background.scale.setTo(0.355, 0.3999)
 	background.fixedToCamera = true;
 
+<<<<<<< HEAD
 	game.time.events.loop(timespeed, updateScore, this)
 
 	this.sky = this.game.add.tileSprite(0,
@@ -162,8 +201,48 @@ function create() {
 		this.game.width,
 		this.game.cache.getImage('wall').height,
 		'wall'
+=======
+	game.time.events.loop(timespeed,updateScore,this)
+
+	this.sky = this.game.add.tileSprite(0,
+        0,
+        this.game.width,
+        this.game.cache.getImage('sky').height,
+        'sky'
+    );
+    this.clound = this.game.add.tileSprite(0,
+        30,
+        this.game.width,
+        this.game.cache.getImage('clound').height,
+        'clound'
+    );
+    this.bush = this.game.add.tileSprite(0,
+        220,
+        this.game.width,
+        this.game.cache.getImage('bush').height,
+        'bush'
+    );
+    this.palace = this.game.add.tileSprite(0,
+        50,
+        this.game.width,
+        this.game.cache.getImage('palace').height,
+        'palace'
+    );
+    this.wall = this.game.add.tileSprite(0,
+        220,
+        this.game.width,
+        this.game.cache.getImage('wall').height,
+        'wall'
+    );
+    this.ground = this.game.add.tileSprite(0,
+        this.game.height - this.game.cache.getImage('ground').height,
+        this.game.width,
+        this.game.cache.getImage('ground').height,
+        'ground'
+>>>>>>> devsaguins
 	);
 
+<<<<<<< HEAD
 
 	text = game.add.text(25, 25, 'Km : 0', { font: "40px Arial", fill: "#F0E68C", align: "center" });
 
@@ -202,8 +281,14 @@ function create() {
 
 
 
-	itemCooldown = game.rnd.integerInRange(0, 240);
+=======
+	game.physics.startSystem(Phaser.Physics.ARCADE);
 
+	player = game.add.sprite(50, 300, 'player')
+	player.scale.setTo(0.25, 0.25)
+
+>>>>>>> devsaguins
+	itemCooldown = game.rnd.integerInRange(0, 240);
 
 	ItemrunGroup = game.add.group();
 	ItemrunGroup.enableBody = true;
@@ -603,6 +688,17 @@ function sped(aa) {
 
 function update() {
 
+<<<<<<< HEAD
+=======
+	//พื้นหลัง
+
+	this.sky.tilePosition.x -= 2
+    this.clound.tilePosition.x -= 4
+    this.bush.tilePosition.x -= 6
+    this.palace.tilePosition.x -= 7
+    this.wall.tilePosition.x -= 9
+    this.ground.tilePosition.x -= 10
+>>>>>>> devsaguins
 
 
 	game.physics.arcade.collide(player, FloorGroup, collisionHandler, null, this);
@@ -624,6 +720,7 @@ function update() {
 	timespeed -= 0.000000010;
 	player.body.velocity.x = 0
 
+	//เปลี่ยนฉาก
 	if (score >= 500 & score <= 501) {
 
 		flashs()
@@ -635,6 +732,8 @@ function update() {
 		this.palace.loadTexture('tree')
 		this.wall.loadTexture('smallhouse')
 	}
+
+	//
 
 	GenerateTerrain();
 

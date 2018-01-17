@@ -53,9 +53,13 @@ var countzone = 1;
 function preloadMenu() {
 	game.load.image('backgroundtitle', 'images/backgroundtitle.png')
 	game.load.image('play', 'images/play.png')
+	game.load.audio('menu','sound/playgame.mp3');
 
 }
 function createMenu() {
+	menu = this.add.audio('menu');
+	menu.play();
+
 	backgroundtitle = this.game.add.tileSprite(0, 0, 2268, 1701, 'backgroundtitle')
 	backgroundtitle.fixedToCamera = true;
 	buttonStart = game.add.button(430, 300, 'play', toGame, this);

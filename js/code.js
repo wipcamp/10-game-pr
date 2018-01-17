@@ -45,6 +45,9 @@ var holdjump = false
 var countwarningarrow = 10
 var itemtimeinvisible = 0;
 
+var countzonemain = 1;
+var countzone = 1;
+
 
 //////////////////////////////////////////////////////Menu/////////////////////////////////////////////////////////////////////////////////
 function preloadMenu() {
@@ -54,7 +57,6 @@ function preloadMenu() {
 }
 function createMenu() {
 	backgroundtitle = this.game.add.tileSprite(0, 0, 2268, 1701, 'backgroundtitle')
-
 	backgroundtitle.fixedToCamera = true;
 	buttonStart = game.add.button(430, 300, 'play', toGame, this);
 	buttonStart.scale.setTo(0.5);
@@ -83,31 +85,19 @@ function preload() {
 	game.load.image('itemsheild', 'images/itemsheild.png')
 	game.load.image('itemrun', 'images/itemrun.png')
 	game.load.image('wallblock', 'images/wallblock.png')
-
-
-
-
 	game.load.image('invisible', 'images/invisible.png')
 
 	//tempฉาก
 	this.game.load.image('sky', 'images/Sky.png')
-	this.game.load.image('clound', 'images/Clound.png')
+	this.game.load.image('cloud', 'images/Cloud.png')
 	this.game.load.image('palace', 'images/Palace.png')
 	this.game.load.image('bush', 'images/Bushes.png')
 	this.game.load.image('wall', 'images/Wall.png')
-	this.game.load.image('ground', 'images/Ground.png')
-	//zone2
+	//โซนสอง
 	this.game.load.image('tree', 'images/Trees.png')
 	this.game.load.image('bighouse', 'images/Bighouse.png')
-	//zone3
+	//โซนสาม
 	this.game.load.image('smallhouse', 'images/Smallhouse.png')
-
-	game.load.image('invisible', 'images/invisible.png')
-    this.game.load.image('clound', 'images/Clound.png')
-    this.game.load.image('palace', 'images/Palace.png')
-    this.game.load.image('bush', 'images/Bushes.png')
-    this.game.load.image('wall', 'images/Wall.png')
-    this.game.load.image('ground', 'images/Ground.png')
 
 	//ฉากฝั่งราม
 	this.game.load.image('skyr', 'images/sky_r.png')
@@ -148,7 +138,7 @@ function create() {
 	speed = 5;
 	sppedobj = 450;
 	countjump = 2;
-	score = 990
+	score = 400
 	Hp = 1
 	itemCooldown = 10;
 	itemtimerun = -5;
@@ -174,11 +164,11 @@ function create() {
 		this.game.cache.getImage('sky').height,
 		'sky'
 	);
-	this.clound = this.game.add.tileSprite(0,
+	this.cloud = this.game.add.tileSprite(0,
 		30,
 		this.game.width,
-		this.game.cache.getImage('clound').height,
-		'clound'
+		this.game.cache.getImage('cloud').height,
+		'cloud'
 	);
 	this.bush = this.game.add.tileSprite(0,
 		400,
@@ -198,43 +188,6 @@ function create() {
 		this.game.cache.getImage('wall').height,
 		'wall'
 	);
-	this.sky = this.game.add.tileSprite(0,
-			0,
-			this.game.width,
-			this.game.cache.getImage('sky').height,
-			'sky'
-		);
-	this.clound = this.game.add.tileSprite(0,
-		30,
-		this.game.width,
-		this.game.cache.getImage('clound').height,
-		'clound'
-	);
-	this.bush = this.game.add.tileSprite(0,
-		220,
-		this.game.width,
-		this.game.cache.getImage('bush').height,
-		'bush'
-	);
-	this.palace = this.game.add.tileSprite(0,
-		50,
-		this.game.width,
-		this.game.cache.getImage('palace').height,
-		'palace'
-	);
-	this.wall = this.game.add.tileSprite(0,
-		220,
-		this.game.width,
-		this.game.cache.getImage('wall').height,
-		'wall'
-	);
-	this.ground = this.game.add.tileSprite(0,
-		this.game.height - this.game.cache.getImage('ground').height,
-		this.game.width,
-		this.game.cache.getImage('ground').height,
-		'ground'
-	);
-
 
 	text = game.add.text(25, 25, 'Km : 0', { font: "40px Arial", fill: "#F0E68C", align: "center" });
 
@@ -252,9 +205,6 @@ function create() {
 
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 
-
-	player = game.add.sprite(100, 300, 'player')
-	player.scale.setTo(0.25, 0.25)
 
 	pause_label = game.add.text(650, 25, 'Pause', { font: "40px Arial", fill: "#FF6600", align: "center" });
 	pause_label.inputEnabled = true;
@@ -275,7 +225,7 @@ function create() {
 
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 
-	player = game.add.sprite(50, 300, 'player')
+	player = game.add.sprite(100, 300, 'player')
 	player.scale.setTo(0.25, 0.25)
 
 	itemCooldown = game.rnd.integerInRange(0, 240);
@@ -390,10 +340,6 @@ function create() {
 	Wall1.scale.setTo(0.25, 1000)
 	Wall1.body.immovable = true;
 	Wall1.visible = false;
-
-
-
-
 
 	Wall3 = game.add.group();
 	Wall3.enableBody = true;
@@ -686,7 +632,6 @@ function update() {
 	this.bush.tilePosition.x -= 6
 	this.palace.tilePosition.x -= 7
 	this.wall.tilePosition.x -= 9
-	this.ground.tilePosition.x -= 10
 
 
 
@@ -696,13 +641,12 @@ function update() {
 	game.physics.arcade.collide(SpirteGroup, FloorGroup)
 	game.physics.arcade.collide(RockGroup, FloorGroup)
 
+	//พื้นหลัง
 	this.sky.tilePosition.x -= 1 + speed
-	this.clound.tilePosition.x -= 2 + speed
+	this.cloud.tilePosition.x -= 2 + speed
 	this.bush.tilePosition.x -= 4 + speed
 	this.palace.tilePosition.x -= 5 + speed
 	this.wall.tilePosition.x -= 5 + speed
-
-
 
 	sppedobj += 0.0010
 	speed += 0.0010;//ความเร็วฉาก
@@ -710,23 +654,62 @@ function update() {
 	player.body.velocity.x = 0
 
 	//เปลี่ยนฉาก
+	if(countzone==1){
+		countzonemain = 1
+		this.sky.loadTexture('skyr')
+		this.cloud.loadTexture('cloudr')
+		this.bush.loadTexture('bushr')
+		this.palace.loadTexture('palacer')
+		this.wall.loadTexture('wallr')
+	}
+	if(countzone==2){
+		countzonemain = 2
+		this.sky.loadTexture('skyt')
+		this.cloud.loadTexture('cloudt')
+		this.bush.loadTexture('busht')
+		this.palace.loadTexture('palacet')
+		this.wall.loadTexture('wallt')
+	}
 	if (score >= 500 & score <= 501) {
-
-		flashs()
-		this.palace.loadTexture('tree')
-		this.wall.loadTexture('bighouse')
+		if(countzone==1){
+			countzone = 10
+			if(countzone==10){
+				flashs()
+				this.palace.loadTexture('treer')
+				this.wall.loadTexture('houser')
+			}
+		}
+		if(countzone==2){
+			countzone = 20
+			if(countzone==20){
+				flashs()
+				this.palace.loadTexture('treet')
+				this.wall.loadTexture('houset')
+			}
+		}
 	}
-	if (score >= 1000 & score <= 1001) {
-		flashs()
-		this.palace.loadTexture('tree')
-		this.wall.loadTexture('smallhouse')
+	if (score >= 600 & score <= 601) {
+		if(countzone==10){
+			countzone = 30
+			if(countzone==30){
+			flashs()
+			this.bush.loadTexture('bstone')
+			this.palace.loadTexture('treedead')
+			this.wall.loadTexture('sstone')
+			}
+		}
+		if(countzone==20){
+			countzone = 30
+			if(countzone==30){
+			flashs()
+			this.bush.loadTexture('bstone')
+			this.palace.loadTexture('treedead')
+			this.wall.loadTexture('sstone')
+			}
+		}
 	}
-
-	//
-
+	
 	GenerateTerrain();
-
-
 
 	game.physics.arcade.collide(player, Wall1);
 	game.physics.arcade.collide(player, Wall2);
@@ -902,6 +885,12 @@ function createGameOver() {
 
 	gamebgm.stop();
 
+	if(countzonemain==1){
+		countzone = 1
+	}
+	if(countzonemain==2){
+		countzone = 2
+	}
 
 }
 function updateGameOver() {

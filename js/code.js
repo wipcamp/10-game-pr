@@ -14,7 +14,7 @@ var score = 1;
 var text = 0;
 var pause;
 var speed = 7;
-var sppedobj = 700
+var speedobj = 700
 var speedb;
 var itemCooldown = 10;
 var itemtimerun = -5;
@@ -44,6 +44,9 @@ var countjump
 var holdjump = false
 var countwarningarrow = 10
 var itemtimeinvisible = 0;
+var countdeploy;
+var countdeploy1;
+var chek = true;
 
 
 //////////////////////////////////////////////////////Menu/////////////////////////////////////////////////////////////////////////////////
@@ -146,9 +149,12 @@ function preload() {
 function create() {
 	text = 0;
 	speed = 5;
-	sppedobj = 450;
+	speedobj = 450;
 	countjump = 2;
 	score = 990
+	countdeploy1 = 700
+	countdeploy = 500
+	
 	Hp = 1
 	itemCooldown = 10;
 	itemtimerun = -5;
@@ -228,6 +234,7 @@ function create() {
 		this.game.cache.getImage('wall').height,
 		'wall'
 	);
+	
 
 
 	text = game.add.text(25, 25, 'Km : 0', { font: "40px Arial", fill: "#F0E68C", align: "center" });
@@ -266,7 +273,7 @@ function create() {
 
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 
-	player = game.add.sprite(100, 300, 'player')
+	player = game.add.sprite(80, 300, 'player')
 	player.scale.setTo(0.25, 0.25)
 
 	itemCooldown = game.rnd.integerInRange(0, 240);
@@ -309,8 +316,8 @@ function create() {
 	}
 
 
-	obstacleCooldown = game.rnd.integerInRange(200, 400);
-	obstacleCooldown2 = game.rnd.integerInRange(200, 400);
+	obstacleCooldown = game.rnd.integerInRange(countdeploy, countdeploy1);
+	obstacleCooldown2 = game.rnd.integerInRange(countdeploy, countdeploy1);
 	obstacleCooldown3 = game.rnd.integerInRange(2000, 3000);
 
 
@@ -404,7 +411,7 @@ function create() {
 	for (var i = 0; i < 24; i++) {
 		floor = FloorGroup.create(i * tileSize, 540, 'floor');
 		floor.body.immovable = true;
-		floor.body.velocity.x = -sppedobj * 51.50;
+		floor.body.velocity.x = -speedobj * 51.50;
 		floor.scale.setTo(0.45, 0.45)
 
 	}
@@ -464,43 +471,51 @@ function obstacleSpawner3() {
 	}
 }
 function logDeploy() {
-	obstacleCooldown = game.rnd.integerInRange(200, 400);
-	obstacleCooldown2 = game.rnd.integerInRange(100, 200);
+	obstacleCooldown = game.rnd.integerInRange(countdeploy, countdeploy1);
+	obstacleCooldown2 = game.rnd.integerInRange(countdeploy, countdeploy1);
 	var position = game.rnd.integerInRange(750, 750);
 	log = LogGroup.getFirstExists(false);
 	log.reset(position, 475);
-	log.body.velocity.x = -sppedobj * 48;
+	log.body.velocity.x = -speedobj * 48;
+	countdeploy1 -= 20
+	countdeploy -= 10
 }
 function spirteDeploy() {
-	obstacleCooldown = game.rnd.integerInRange(200, 400);
-	obstacleCooldown2 = game.rnd.integerInRange(100, 200);
+	obstacleCooldown = game.rnd.integerInRange(countdeploy, countdeploy1);
+	obstacleCooldown2 = game.rnd.integerInRange(countdeploy, countdeploy1);
 	var position = game.rnd.integerInRange(750, 750);
 	spirte = SpirteGroup.getFirstExists(false);
 	spirte.reset(position, 475);
-	spirte.body.velocity.x = -sppedobj * 49;
+	spirte.body.velocity.x = -speedobj * 49;
+	countdeploy1 -= 15
+	countdeploy -= 10
 }
 function treecutDeploy() {
-	obstacleCooldown = game.rnd.integerInRange(200, 400);
-	obstacleCooldown2 = game.rnd.integerInRange(100, 200);
+	obstacleCooldown = game.rnd.integerInRange(countdeploy, countdeploy1);
+	obstacleCooldown2 = game.rnd.integerInRange(countdeploy, countdeploy1);
 	var position = game.rnd.integerInRange(750, 750);
 	treecut = TreecutGroup.getFirstExists(false);
 	treecut.reset(position, 475);
-	treecut.body.velocity.x = -sppedobj * 49;
+	treecut.body.velocity.x = -speedobj * 49;
+	countdeploy1 -= 13
+	countdeploy -= 10
 }
 function rockDeploy() {
-	obstacleCooldown = game.rnd.integerInRange(200, 400);
-	obstacleCooldown2 = game.rnd.integerInRange(100, 200);
+	obstacleCooldown = game.rnd.integerInRange(countdeploy, countdeploy1);
+	obstacleCooldown2 = game.rnd.integerInRange(countdeploy, countdeploy1);
 	var position = game.rnd.integerInRange(750, 750);
 	rock = RockGroup.getFirstExists(false);
 	rock.reset(position, 475);
-	rock.body.velocity.x = -sppedobj * 48.5;
+	rock.body.velocity.x = -speedobj * 48.5;
+	countdeploy1 -= 17
+	countdeploy -= 10
 }
 function arrowDeploy() {
-	obstacleCooldown3 = game.rnd.integerInRange(700, 900);
+	obstacleCooldown3 = game.rnd.integerInRange(600, 900);
 	var position = getRandomArbitrary4()
 	arrow = ArrowGroup.getFirstExists(false);
 	arrow.reset(750, position);
-	arrow.body.velocity.x = -spped * 100;
+	arrow.body.velocity.x = -speed * 150;
 }
 function warningarrow() {
 	countwarningarrow = 200;
@@ -664,27 +679,25 @@ function collisionHandler() {
 }
 
 function sped(aa) {
-	aa.body.velocity.x = -sppedobj
+	aa.body.velocity.x = -speedobj
 }
+
+function checkobj(aa) {
+	if(chek=false)
+	aa.kill;
+}
+
 
 function update() {
 
 
 	//พื้นหลัง
 
-	this.sky.tilePosition.x -= 2
-	this.clound.tilePosition.x -= 4
-	this.bush.tilePosition.x -= 6
-	this.palace.tilePosition.x -= 7
-	this.wall.tilePosition.x -= 9
-
-
-
 	game.physics.arcade.collide(player, FloorGroup, collisionHandler, null, this);
-	game.physics.arcade.collide(RockGroup, FloorGroup)
-	game.physics.arcade.collide(LogGroup, FloorGroup)
-	game.physics.arcade.collide(SpirteGroup, FloorGroup)
-	game.physics.arcade.collide(RockGroup, FloorGroup)
+	game.physics.arcade.collide(RockGroup, FloorGroup,chek =true)
+	game.physics.arcade.collide(LogGroup, FloorGroup,chek =true)
+	game.physics.arcade.collide(SpirteGroup, FloorGroup,chek =true)
+	game.physics.arcade.collide(RockGroup, FloorGroup,chek =true)
 
 	this.sky.tilePosition.x -= 1 + speed
 	this.clound.tilePosition.x -= 2 + speed
@@ -694,7 +707,7 @@ function update() {
 
 
 
-	sppedobj += 0.0010
+	speedobj += 0.0010
 	speed += 0.0010;//ความเร็วฉาก
 	timespeed -= 0.000000010;
 	player.body.velocity.x = 0
@@ -827,10 +840,12 @@ function update() {
 
 	if (obstacleCooldown <= 0)
 		obstacleSpawner();
+		
 	obstacleCooldown--;
 
 	if (obstacleCooldown2 <= 0)
 		obstacleSpawner2();
+		
 	obstacleCooldown2--;
 
 	if (obstacleCooldown3 <= 0)
@@ -844,6 +859,12 @@ function update() {
 	SpirteGroup.forEachExists(sped, this, null)
 	LogGroup.forEachExists(sped, this, null)
 	TreecutGroup.forEachExists(sped, this, null)
+
+	RockGroup.forEachExists(checkobj, this, null)
+	FloorGroup.forEachExists(checkobj, this, null)
+	SpirteGroup.forEachExists(checkobj, this, null)
+	LogGroup.forEachExists(checkobj, this, null)
+	TreecutGroup.forEachExists(checkobj, this, null)
 
 	if (holdjump == false) {
 		if (jumpButton.isDown && countjump > 0) {

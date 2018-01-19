@@ -93,7 +93,7 @@ function preload() {
 	game.load.image('itemrun', 'images/itemrun.png')
 	game.load.image('wallblock', 'images/wallblock.png')
 	game.load.image('invisible', 'images/invisible.png')
-
+	game.load.image('play', 'images/play.png')
 	//tempฉาก
 	this.game.load.image('sky', 'images/Sky.png')
 	this.game.load.image('cloud', 'images/Cloud.png')
@@ -131,6 +131,9 @@ function preload() {
 	this.game.load.image('treedead', 'images/treedead.png')
 	this.game.load.image('sstone', 'images/sstone.png')
 
+	//menupause
+	game.load.image('framemenu', 'images/menu.jpg')
+
 	game.load.audio('hit', 'sound/hit.mp3');
 	game.load.audio('sheildlditem', 'audio/shielditem.mp3')
 	game.load.audio('gamebgm', 'audio/gamebgm.mp3');
@@ -145,10 +148,14 @@ function create() {
 	speed = 5;
 	speedobj = 450;
 	countjump = 2;
+<<<<<<< Updated upstream
 	score = 990
 	countdeploy1 = 700
 	countdeploy = 500
 	
+=======
+	score = 1;
+>>>>>>> Stashed changes
 	Hp = 1
 	itemCooldown = 10;
 	itemtimerun = -5;
@@ -240,27 +247,14 @@ function create() {
 	itemx2 = this.add.audio('itemx2');
 	invisibleitem = this.add.audio('invisibleitem');
 	sheilditem = this.add.audio('sheilditem');
-
+	menu.stop();
 	gamebgm.play();
 
 
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 
 
-	pause_label = game.add.text(650, 25, 'Pause', { font: "40px Arial", fill: "#FF6600", align: "center" });
-	pause_label.inputEnabled = true;
-	pause_label.events.onInputUp.add(function () {
-		game.paused = true;
-		playbutton = game.add.sprite(300, 300, 'playbutton')
-		playbutton.scale.setTo(0.5, 0.5)
-		playbutton.inputEnabled = true;
-	});
-	game.input.onDown.add(function () {
-		if (game.paused) {
-			game.paused = false;
-			playbutton.destroy();
-		}
-	});
+	
 
 
 
@@ -421,6 +415,22 @@ function create() {
 
 	cursors = game.input.keyboard.createCursorKeys();
 	jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+
+	pause_label = game.add.text(650, 25, 'Pause', { font: "40px Arial", fill: "#FF6600", align: "center" });
+	pause_label.inputEnabled = true;
+	pause_label.events.onInputUp.add(function () {
+		game.paused = true;
+		framemenu = game.add.sprite(170, 80, 'framemenu')
+		playbutton = game.add.sprite(300, 300, 'play')
+		playbutton.scale.setTo(0.5, 0.5)
+		playbutton.inputEnabled = true;
+	});
+	jumpButton.isDown.add(function () {
+		if (game.paused) {
+			game.paused = false;
+			playbutton.destroy();
+		}
+	});
 }
 
 function obstacleSpawner() {
@@ -523,6 +533,8 @@ function GenerateTerrain() {
 				delta = Math.random() * ((2 - 1.5) + 1) + 1.5;
 				lastCliff = true;
 				lastVertical = false;
+				
+
 			}
 
 
@@ -678,6 +690,7 @@ function checkobj(aa) {
 
 
 function update() {
+	
 
 
 	//พื้นหลัง

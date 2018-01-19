@@ -134,7 +134,7 @@ function preload() {
 	game.load.image('framemenu', 'images/menu.jpg')
 
 	game.load.audio('hit', 'sound/hit.mp3');
-	game.load.audio('sheildlditem', 'audio/shielditem.mp3')
+	game.load.audio('sheilditem', 'audio/shielditem.mp3')
 	game.load.audio('gamebgm', 'audio/gamebgm.mp3');
 	game.load.audio('itemx2', 'audio/speeditem.mp3');
 	game.load.audio('invisibleitem', 'audio/invisibleitem.mp3');
@@ -215,6 +215,7 @@ function create() {
 	sheilditem = this.add.audio('sheilditem');
 	menu.stop();
 	gamebgm.play();
+	gamebgm.loopFull();
 
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -336,7 +337,7 @@ function create() {
 	Wall3 = game.add.group();
 	Wall3.enableBody = true;
 	for (var i = 0; i < 24; i++) {
-		walll3 = Wall3.create(0, 1200, 'busht');
+		walll3 = Wall3.create(0, 1200, 'floor');
 		walll3.scale.setTo(1000, 0.25)
 		walll3.body.setSize(50, 1, 0, -15);
 		walll3.body.immovable = true;
@@ -381,11 +382,15 @@ function create() {
 		playbutton = game.add.sprite(300, 300, 'play')
 		playbutton.scale.setTo(0.5, 0.5)
 		playbutton.inputEnabled = true;
+		gamebgm.pause();
 	});
-	jumpButton.isDown.add(function () {
+	game.input.onDown.add(function () {
 		if (game.paused) {
 			game.paused = false;
 			playbutton.destroy();
+			framemenu.destroy();
+			gamebgm.resume();
+			
 		}
 	});
 }

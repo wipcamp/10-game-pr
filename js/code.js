@@ -54,28 +54,148 @@ var countzone = 1;
 
 //////////////////////////////////////////////////////Menu/////////////////////////////////////////////////////////////////////////////////
 function preloadMenu() {
-	game.load.image('backgroundtitle', 'images/backgroundtitle.png')
-	game.load.image('play', 'images/play.png')
-	game.load.audio('menu','sound/playgame.mp3');
+	game.load.image('skyr', 'images/sky_r.png')
+	game.load.image('cloudr', 'images/cloud_r.png')
+	game.load.image('bushr', 'images/bush_r.png')
+	game.load.image('palacer', 'images/palace_r.png')
+	game.load.image('wallr', 'images/wall_r.png')
+	game.load.image('logo', 'images/logo.png')
+	game.load.image('floor', 'images/floor.png')
+	game.load.audio('menu', 'sound/playgame.mp3');
+	game.load.image('options', 'images/options.png')
+	game.load.image('frame', 'images/frame.png')
+	game.load.image('credit', 'images/credit.png')
+	game.load.image('back', 'images/back.png')
+
 
 }
 function createMenu() {
+
+
 	menu = this.add.audio('menu');
 	menu.play();
 
-	backgroundtitle = this.game.add.tileSprite(0, 0, 2268, 1701, 'backgroundtitle')
-	backgroundtitle.fixedToCamera = true;
-	buttonStart = game.add.button(430, 300, 'play', toGame, this);
-	buttonStart.scale.setTo(0.5);
-	buttonStart.anchor.set(0.5);
+
+	sky = game.add.tileSprite(0,
+		0,
+		game.width,
+		game.cache.getImage('skyr').height,
+		'skyr'
+	);
+	cloud = game.add.tileSprite(0,
+		30,
+		game.width,
+		game.cache.getImage('cloudr').height,
+		'cloudr'
+	);
+	bush = game.add.tileSprite(0,
+		220,
+		game.width,
+		game.cache.getImage('bushr').height,
+		'bushr'
+	);
+	palace = game.add.tileSprite(0,
+		50,
+		game.width,
+		game.cache.getImage('palacer').height,
+		'palacer'
+	);
+	wall = game.add.tileSprite(0,
+		220,
+		game.width,
+		game.cache.getImage('wallr').height,
+		'wallr'
+	);
+
+
+	FloorGroup = game.add.group();
+	FloorGroup.enableBody = true;
+
+	for (var i = 0; i < 500; i++) {
+		floor = FloorGroup.create(i * tileSize, 540, 'floor');
+		floor.body.immovable = true;
+		floor.body.velocity.x = -speedobj * 0.25;
+		floor.scale.setTo(0.45, 0.45)
+
+
+	}
+
+	var logo = game.add.sprite(800, 80, "logo");
+	logo.scale.setTo(0.45, 0.45)
+	var tween = game.add.tween(logo);
+	tween.to({ x: 200 }, 3000, 'Linear', true, 0);
+
+
+
+	var text = game.add.text(300, 420, '- Tab to play -', { font: "40px Arial", fill: "#1c1c1c", align: "center" });
+	text.alpha = 0;
+	game.add.tween(text).to({ alpha: 1 }, 500, Phaser.Easing.Linear.None, true, 0, 1000, false);
+
+	
+
+
+	option = game.add.button(720, 25, 'options', tosetting, this);
+	option.scale.setTo(0.025, 0.025)
+	
+
+
+	jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+
+
 }
+function tosetting(){
+		frame = game.add.sprite(225, 60, 'frame')
+		frame.scale.setTo(2, 2);
+		credit = game.add.button(340, 380, 'credit',tocredit,this);
+		credit.scale.setTo(0.25);
+		backd= game.add.button(390, 480, 'back',todestroy,this)
+		backd.scale.setTo(0.25, 0.25);
+		
+
+}
+
+function todestroy(){
+	frame.destroy();
+	backd.destroy();
+	credit.destroy();
+	
+
+
+}
+function tocredit(){
+		frame = game.add.sprite(225, 60, 'frame')
+		frame.scale.setTo(2, 2);
+		var name1= game.add.text(300, 180, '1:xxxx xxx:xxxx', { font: "30px Arial", fill: "#1c1c1c", align: "center" });
+		var name2= game.add.text(300, 220, '2:xxxx xxx:xxxx', { font: "30px Arial", fill: "#1c1c1c", align: "center" });
+		var name3= game.add.text(300, 260, '3:xxxx xxx:xxxx', { font: "30px Arial", fill: "#1c1c1c", align: "center" });
+		var name4= game.add.text(300, 300, '4:xxxx xxx:xxxx', { font: "30px Arial", fill: "#1c1c1c", align: "center" });
+		var name5= game.add.text(300, 340, '5:xxxx xxx:xxxx', { font: "30px Arial", fill: "#1c1c1c", align: "center" });
+		var name6= game.add.text(300, 380, '6:xxxx xxx:xxxx', { font: "30px Arial", fill: "#1c1c1c", align: "center" });
+		var name7= game.add.text(300, 420, '7:xxxx xxx:xxxx', { font: "30px Arial", fill: "#1c1c1c", align: "center" });
+		var backs = game.add.button(390, 480, 'back',tosetting,this)
+		backs.scale.setTo(0.25, 0.25);
+		backd.destroy();
+}
+
 function updateMenu() {
+	speedobj += 0.0010
+	speed += 0.0001;//ความเร็วฉาก
+	timespeed -= 0.000000010;
 
+
+	sky.tilePosition.x -= 1 + speed
+	cloud.tilePosition.x -= 2 + speed
+	bush.tilePosition.x -= 4 + speed
+	palace.tilePosition.x -= 5 + speed
+	wall.tilePosition.x -= 5 + speed
+
+	if (jumpButton.isDown) {
+		game.state.start('GamePlay');
+	}
 }
 
-function toGame() {
-	game.state.start('GamePlay');
-}
+
+
 
 
 ///////////////////////////////////////////////////Game Play////////////////////////////////////////////////////////
@@ -132,7 +252,9 @@ function preload() {
 	this.game.load.image('sstone', 'images/sstone.png')
 
 	//menupause
-	game.load.image('framemenu', 'images/menu.jpg')
+	game.load.image('framemenu', 'images/menu.png')
+	game.load.image('menu', 'images/menubutton.png')
+
 
 	game.load.audio('hit', 'sound/hit.mp3');
 	game.load.audio('sheilditem', 'audio/shielditem.mp3')
@@ -151,7 +273,7 @@ function create() {
 	score = 990
 	countdeploy1 = 700
 	countdeploy = 500
-	
+
 	Hp = 1
 	itemCooldown = 10;
 	itemtimerun = -5;
@@ -163,7 +285,8 @@ function create() {
 	probCliff = 0.4;
 
 	game.time.events.loop(timespeed, updateScore, this)
-	
+
+
 
 	background = game.add.tileSprite(0, 0, 2268, 1701, 'background')
 	background.scale.setTo(0.355, 0.3999)
@@ -202,11 +325,11 @@ function create() {
 		'wall'
 	);
 	this.sky = this.game.add.tileSprite(0,
-			0,
-			this.game.width,
-			this.game.cache.getImage('sky').height,
-			'sky'
-		);
+		0,
+		this.game.width,
+		this.game.cache.getImage('sky').height,
+		'sky'
+	);
 	this.cloud = this.game.add.tileSprite(0,
 		30,
 		this.game.width,
@@ -231,7 +354,7 @@ function create() {
 		this.game.cache.getImage('wall').height,
 		'wall'
 	);
-	
+
 
 	text = game.add.text(25, 25, 'Km : 0', { font: "40px Arial", fill: "#F0E68C", align: "center" });
 
@@ -251,7 +374,7 @@ function create() {
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 
 
-	
+
 
 
 
@@ -417,22 +540,30 @@ function create() {
 	pause_label.inputEnabled = true;
 	pause_label.events.onInputUp.add(function () {
 		game.paused = true;
-		framemenu = game.add.sprite(170, 80, 'framemenu')
-		playbutton = game.add.sprite(300, 300, 'play')
-		playbutton.scale.setTo(0.5, 0.5)
-		playbutton.inputEnabled = true;
+		scorepause = game.add.text(315, 190, 'Score:' + score, { font: "40px font", fill: "#000000", align: "center" });
+		framemenu = game.add.sprite(225, 60, 'framemenu')
+		framemenu.scale.setTo(0.75, 0.75)
+		buttonmenu = game.add.button(370, 300, 'menu', tomenu, this);
+		buttonmenu.scale.setTo(0.125);
 		gamebgm.pause();
+
+		function tomenu() {
+			game.state.start('Menu');
+		}
 	});
 	game.input.onDown.add(function () {
 		if (game.paused) {
 			game.paused = false;
-			playbutton.destroy();
+			buttonmenu.destroy();
 			framemenu.destroy();
 			gamebgm.resume();
-			
+			scorepause.destroy();
+
 		}
 	});
 }
+
+
 
 function obstacleSpawner() {
 	var output = game.rnd.integerInRange(0, 3);
@@ -534,7 +665,7 @@ function GenerateTerrain() {
 				delta = Math.random() * ((2 - 1.5) + 1) + 1.5;
 				lastCliff = true;
 				lastVertical = false;
-				
+
 
 			}
 
@@ -685,8 +816,8 @@ function sped(aa) {
 }
 
 function checkobj(aa) {
-	if(chek=false)
-	aa.kill;
+	if (chek = false)
+		aa.kill;
 }
 
 
@@ -696,10 +827,10 @@ function update() {
 	//พื้นหลัง
 
 	game.physics.arcade.collide(player, FloorGroup, collisionHandler, null, this);
-	game.physics.arcade.collide(RockGroup, FloorGroup,chek =true)
-	game.physics.arcade.collide(LogGroup, FloorGroup,chek =true)
-	game.physics.arcade.collide(SpirteGroup, FloorGroup,chek =true)
-	game.physics.arcade.collide(RockGroup, FloorGroup,chek =true)
+	game.physics.arcade.collide(RockGroup, FloorGroup, chek = true)
+	game.physics.arcade.collide(LogGroup, FloorGroup, chek = true)
+	game.physics.arcade.collide(SpirteGroup, FloorGroup, chek = true)
+	game.physics.arcade.collide(RockGroup, FloorGroup, chek = true)
 
 	//พื้นหลัง
 	this.sky.tilePosition.x -= 1 + speed
@@ -716,7 +847,7 @@ function update() {
 	player.body.velocity.x = 0
 
 	//เปลี่ยนฉาก
-	if(countzone==1){
+	if (countzone == 1) {
 		countzonemain = 1
 		this.sky.loadTexture('skyr')
 		this.cloud.loadTexture('cloudr')
@@ -724,7 +855,7 @@ function update() {
 		this.palace.loadTexture('palacer')
 		this.wall.loadTexture('wallr')
 	}
-	if(countzone==2){
+	if (countzone == 2) {
 		countzonemain = 2
 		this.sky.loadTexture('skyt')
 		this.cloud.loadTexture('cloudt')
@@ -733,17 +864,17 @@ function update() {
 		this.wall.loadTexture('wallt')
 	}
 	if (score >= 500 & score <= 501) {
-		if(countzone==1){
+		if (countzone == 1) {
 			countzone = 10
-			if(countzone==10){
+			if (countzone == 10) {
 				flashs()
 				this.palace.loadTexture('treer')
 				this.wall.loadTexture('houser')
 			}
 		}
-		if(countzone==2){
+		if (countzone == 2) {
 			countzone = 20
-			if(countzone==20){
+			if (countzone == 20) {
 				flashs()
 				this.palace.loadTexture('treet')
 				this.wall.loadTexture('houset')
@@ -751,26 +882,26 @@ function update() {
 		}
 	}
 	if (score >= 600 & score <= 601) {
-		if(countzone==10){
+		if (countzone == 10) {
 			countzone = 30
-			if(countzone==30){
-			flashs()
-			this.bush.loadTexture('bstone')
-			this.palace.loadTexture('treedead')
-			this.wall.loadTexture('sstone')
+			if (countzone == 30) {
+				flashs()
+				this.bush.loadTexture('bstone')
+				this.palace.loadTexture('treedead')
+				this.wall.loadTexture('sstone')
 			}
 		}
-		if(countzone==20){
+		if (countzone == 20) {
 			countzone = 30
-			if(countzone==30){
-			flashs()
-			this.bush.loadTexture('bstone')
-			this.palace.loadTexture('treedead')
-			this.wall.loadTexture('sstone')
+			if (countzone == 30) {
+				flashs()
+				this.bush.loadTexture('bstone')
+				this.palace.loadTexture('treedead')
+				this.wall.loadTexture('sstone')
 			}
 		}
 	}
-	
+
 	GenerateTerrain();
 
 	game.physics.arcade.collide(player, Wall1);
@@ -882,12 +1013,12 @@ function update() {
 
 	if (obstacleCooldown <= 0)
 		obstacleSpawner();
-		
+
 	obstacleCooldown--;
 
 	if (obstacleCooldown2 <= 0)
 		obstacleSpawner2();
-		
+
 	obstacleCooldown2--;
 
 	if (obstacleCooldown3 <= 0)
@@ -955,10 +1086,10 @@ function createGameOver() {
 
 	gamebgm.stop();
 
-	if(countzonemain==1){
+	if (countzonemain == 1) {
 		countzone = 1
 	}
-	if(countzonemain==2){
+	if (countzonemain == 2) {
 		countzone = 2
 	}
 

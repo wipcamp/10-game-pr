@@ -294,24 +294,8 @@ function create() {
 
 	game.time.events.loop(timespeed, updateScore, this)
 
-	this.sky = this.game.add.tileSprite(0,
-		0,
-		this.game.width,
-		this.game.cache.getImage('sky').height,
-		'sky'
-	);
-	this.cloud = this.game.add.tileSprite(0,
-		30,
-		this.game.width,
-		this.game.cache.getImage('cloud').height,
-		'cloud'
-	);
-	this.bush = this.game.add.tileSprite(0,
-		220,
-		this.game.width,
-		this.game.cache.getImage('wall').height,
-		'wall'
-	);
+	
+	
 	this.sky = this.game.add.tileSprite(0,
 			0,
 			this.game.width,
@@ -657,8 +641,6 @@ function GenerateTerrain() {
 
 
 			}
-
-
 			else {
 				lastCliff = false;
 				lastVertical = false;

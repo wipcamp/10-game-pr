@@ -9,6 +9,20 @@ game.state.add('GamePlay', GamePlay)
 game.state.add('Menu', Menu)
 game.state.start('Menu')
 
+WebFontConfig = {
+
+    //  'active' means all requested fonts have finished loading
+    //  We set a 1 second delay before calling 'createText'.
+    //  For some reason if we don't the browser cannot render the text the first time it's created.
+
+    //  The Google Fonts we want to load (specify as many as you like in the array)
+    google: {
+      families: ['Revalia']
+    }
+
+};
+
+
 var Hp = 1;
 var score = 1;
 var text = 0;
@@ -53,6 +67,9 @@ var countzone = 1;
 
 //////////////////////////////////////////////////////Menu/////////////////////////////////////////////////////////////////////////////////
 function preloadMenu() {
+	game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
+
+
 	game.load.image('skyr', 'images/sky_r.png')
 	game.load.image('cloudr', 'images/cloud_r.png')
 	game.load.image('bushr', 'images/bush_r.png')
@@ -129,7 +146,7 @@ function createMenu() {
 
 
 
-	var text = game.add.text(300, 420, '- Tab to play -', { font: "40px Arial", fill: "#1c1c1c", align: "center" });
+	var text = game.add.text(300, 420, '- Tab to play -', { font: "40px Revalia", fill: "#1c1c1c", align: "center" });
 	text.alpha = 0;
 	game.add.tween(text).to({ alpha: 1 }, 500, Phaser.Easing.Linear.None, true, 0, 1000, false);
 
@@ -349,10 +366,6 @@ function create() {
 
 
 	
-
-
-
-	game.physics.startSystem(Phaser.Physics.ARCADE);
 
 	player = game.add.sprite(80, 300, 'player')
 	player.scale.setTo(0.25, 0.25)

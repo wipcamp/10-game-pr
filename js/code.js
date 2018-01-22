@@ -80,7 +80,7 @@ function toGame() {
 ///////////////////////////////////////////////////Game Play////////////////////////////////////////////////////////
 function preload() {
 	game.load.image('background', 'images/BG.jpg')
-	game.load.image('player', 'images/demon.png')
+	game.load.image('player', 'images/huge.png')
 	game.load.image('floor', 'images/floor.png')
 	game.load.image('pause', 'images/pause.png');
 	game.load.image('rock', 'images/rock.png')

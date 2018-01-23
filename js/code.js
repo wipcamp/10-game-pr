@@ -176,21 +176,24 @@ function tosetting(){
 		frames.scale.setTo(2, 2);
 		credits = game.add.button(340, 380, 'credit',tocredit,this);
 		credits.scale.setTo(0.25);
-		mute = game.add.sprite(275, 170, 'mute')
-		mute.scale.setTo(0.5);
-		mute.inputEnabled = true;
-		mute.events.onInputUp.add(function () {
-		menu.mute = true;
-	});
-		
-		unmute = game.add.sprite(450, 170, 'unmute')
-		unmute.scale.setTo(0.125);
+		unmute = game.add.sprite(275, 170, 'mute')
+		unmute.scale.setTo(0.5);
 		unmute.inputEnabled = true;
 		unmute.events.onInputUp.add(function () {
-		
+			if(game.mute = false){
+				game.mute = true
+				
+			}
+			else if(game.mute = true){
+				game.mute = false
 
-		menu.mute = false;
+			}
+
+		
 	});
+		
+		
+	
 		backd= game.add.button(390, 480, 'back',todestroy,this)
 		backd.scale.setTo(0.25, 0.25);
 		name1.kill();
@@ -546,7 +549,7 @@ function create() {
 	game.physics.enable([player, background], Phaser.Physics.ARCADE);
 
 
-	player.body.gravity.y = 2000;
+	player.body.gravity.y = 3500;
 	player.enableBody = true;
 	player.body.collideWorldBounds = false;
 
@@ -1066,19 +1069,7 @@ function update() {
 	LogGroup.forEachExists(checkobj, this, null)
 	TreecutGroup.forEachExists(checkobj, this, null)
 
-	if (holdjump == false) {
-		if (jumpButton.isDown && countjump > 0) {
-			player.body.velocity.y = -900;
-			countjump--
-			holdjump = true
-		}
-	}
-	if (jumpButton.isUp) {
-		holdjump = false
-	}
 }
-
-
 
 
 

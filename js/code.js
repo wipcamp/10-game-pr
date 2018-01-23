@@ -60,6 +60,17 @@ var itemtimeinvisible = 0;
 var countdeploy;
 var countdeploy1;
 var chek = true;
+var	name1;
+var name2;
+var name3;
+var name4;
+var name5;
+var name6;
+var name7;
+var gamebgm;
+var menu;
+
+
 //ฉาก
 var countzonemain = 1;
 var countzone = 1;
@@ -84,7 +95,11 @@ function preloadMenu() {
 	game.load.image('back', 'images/back.png')
 	game.load.image('backgroundtitle', 'images/backgroundtitle.png')
 	game.load.image('play', 'images/play.png')
-	game.load.audio('menu', 'sound/playgame.mp3');
+	
+	game.load.image('play', 'images/play.png')
+	game.load.image('mute', 'images/mute.png')
+	game.load.image('unmute', 'images/unmute.png')
+	game.load.image('unmuteb', 'images/unmuteb.png')
 
 
 }
@@ -150,50 +165,69 @@ function createMenu() {
 	text.alpha = 0;
 	game.add.tween(text).to({ alpha: 1 }, 500, Phaser.Easing.Linear.None, true, 0, 1000, false);
 
-	
-
-
 	option = game.add.button(720, 25, 'options', tosetting, this);
 	option.scale.setTo(0.025, 0.025)
-	
-
-
 	jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-
 
 }
 function tosetting(){
-		frame = game.add.sprite(225, 60, 'frame')
-		frame.scale.setTo(2, 2);
-		credit = game.add.button(340, 380, 'credit',tocredit,this);
-		credit.scale.setTo(0.25);
+		
+		frames = game.add.sprite(225, 60, 'frame')
+		frames.scale.setTo(2, 2);
+		credits = game.add.button(340, 380, 'credit',tocredit,this);
+		credits.scale.setTo(0.25);
+		mute = game.add.sprite(275, 170, 'mute')
+		mute.scale.setTo(0.5);
+		mute.inputEnabled = true;
+		mute.events.onInputUp.add(function () {
+		menu.mute = true;
+	});
+		
+		unmute = game.add.sprite(450, 170, 'unmute')
+		unmute.scale.setTo(0.125);
+		unmute.inputEnabled = true;
+		unmute.events.onInputUp.add(function () {
+		
+
+		menu.mute = false;
+	});
 		backd= game.add.button(390, 480, 'back',todestroy,this)
 		backd.scale.setTo(0.25, 0.25);
-		
+		name1.kill();
+		name2.kill();
+		name3.kill();
+		name4.kill();
+		name5.kill();
+		name6.kill();
+		name7.kill();
+		backs.kill();
+		framed.kill();
 
 }
 
 function todestroy(){
-	frame.destroy();
-	backd.destroy();
-	credit.destroy();
+	console.log("in to destroy");
+	frames.kill();
+	backd.kill();
+	credits.kill();
+	framed.kill();
 	
-
-
 }
 function tocredit(){
-		frame = game.add.sprite(225, 60, 'frame')
-		frame.scale.setTo(2, 2);
-		var name1= game.add.text(300, 180, '1:xxxx xxx:xxxx', { font: "30px Arial", fill: "#1c1c1c", align: "center" });
-		var name2= game.add.text(300, 220, '2:xxxx xxx:xxxx', { font: "30px Arial", fill: "#1c1c1c", align: "center" });
-		var name3= game.add.text(300, 260, '3:xxxx xxx:xxxx', { font: "30px Arial", fill: "#1c1c1c", align: "center" });
-		var name4= game.add.text(300, 300, '4:xxxx xxx:xxxx', { font: "30px Arial", fill: "#1c1c1c", align: "center" });
-		var name5= game.add.text(300, 340, '5:xxxx xxx:xxxx', { font: "30px Arial", fill: "#1c1c1c", align: "center" });
-		var name6= game.add.text(300, 380, '6:xxxx xxx:xxxx', { font: "30px Arial", fill: "#1c1c1c", align: "center" });
-		var name7= game.add.text(300, 420, '7:xxxx xxx:xxxx', { font: "30px Arial", fill: "#1c1c1c", align: "center" });
-		var backs = game.add.button(390, 480, 'back',tosetting,this)
+		framed = game.add.sprite(225, 60, 'frame')
+		framed.scale.setTo(2, 2);
+		 name1= game.add.text(300, 180, '1:xxxx xxx:xxxx', { font: "30px Arial", fill: "#1c1c1c", align: "center" });
+		 name2= game.add.text(300, 220, '2:xxxx xxx:xxxx', { font: "30px Arial", fill: "#1c1c1c", align: "center" });
+		 name3= game.add.text(300, 260, '3:xxxx xxx:xxxx', { font: "30px Arial", fill: "#1c1c1c", align: "center" });
+		 name4= game.add.text(300, 300, '4:xxxx xxx:xxxx', { font: "30px Arial", fill: "#1c1c1c", align: "center" });
+		 name5= game.add.text(300, 340, '5:xxxx xxx:xxxx', { font: "30px Arial", fill: "#1c1c1c", align: "center" });
+		 name6= game.add.text(300, 380, '6:xxxx xxx:xxxx', { font: "30px Arial", fill: "#1c1c1c", align: "center" });
+		 name7= game.add.text(300, 420, '7:xxxx xxx:xxxx', { font: "30px Arial", fill: "#1c1c1c", align: "center" });
+		 backs = game.add.button(390, 480, 'back',tosetting,this)
 		backs.scale.setTo(0.25, 0.25);
-		backd.destroy();
+		backd.kill();
+		credits.kill();
+		frames.kill();
 }
 
 function updateMenu() {
@@ -527,7 +561,7 @@ function create() {
 	pause_label.events.onInputUp.add(function () {
 		game.paused = true;
 		scorepause = game.add.text(315, 190, 'Score:' + score, { font: "40px font", fill: "#000000", align: "center" });
-		framemenu = game.add.sprite(225, 60, 'framemenu')
+		framemenu =  game.add.sprite(225, 60, 'framemenu')
 		framemenu.scale.setTo(0.75, 0.75)
 		buttonmenu = game.add.button(370, 300, 'menu', tomenu, this);
 		buttonmenu.scale.setTo(0.125);

@@ -149,7 +149,7 @@ function createMenu() {
 
 
 
-	var text = game.add.text(300, 420, '- aaadddWDWฟหกฟหก -', { font: "40px chaiyaEak", fill: "#1c1c1c", align: "center" });
+	var text = game.add.text(270, 420, '- กดปุ่มเพื่อเริ่มเกม -', { font: "60px SOV_Assadong_C", fill: "#1c1c1c", align: "center" });
 	text.alpha = 0;
 	game.add.tween(text).to({ alpha: 1 }, 500, Phaser.Easing.Linear.None, true, 0, 1000, false);
 
@@ -314,8 +314,8 @@ function create() {
 	speed = 5;
 	speedobj = 450;
 	countjump = 2;
-	countdeploy1 = 600
-	countdeploy = 500
+	countdeploy1 = 500
+	countdeploy = 400
 	score = 1;
 	Hp = 1
 	itemCooldown = 10;
@@ -370,12 +370,12 @@ function create() {
 	);
 
 
-	text = game.add.text(25, 25, 'หลา : 0', { font: "40px SOV_Assadong_C", fill: "#F0E68C", align: "center" });
+	text = game.add.text(25, 25, 'หลา : 0', { font: "60px SOV_Assadong_C", fill: "#FF6600", align: "center" });
 
-	text2 = game.add.text(25, 70, 'arrow in coming : ', { font: "40px SOV_Assadong_C", fill: "#DC143C", align: "center" });
+	text2 = game.add.text(25, 70, 'ระวังธนูกำลังจะมาใน  : ', { font: "60px SOV_Assadong_C", fill: "#DC143C", align: "center" });
 	text2.visible = false;
 
-	text3 = game.add.text(300, 400, 'GetReady... ', { font: "40px SOV_Assadong_C", fill: "#DC143C", align: "center" });
+	text3 = game.add.text(300, 400, 'เตรียมพร้อมม...!! ', { font: "60px SOV_Assadong_C", fill: "#DC143C", align: "center" });
 	text3.visible = true;
 
 	hitSound = this.add.audio('hit');
@@ -537,7 +537,7 @@ function create() {
 	game.physics.enable([player, background], Phaser.Physics.ARCADE);
 
 
-	player.body.gravity.y = 2400;
+	player.body.gravity.y = 2800;
 	player.enableBody = true;
 	player.body.collideWorldBounds = false;
 
@@ -547,11 +547,11 @@ function create() {
 	cursors = game.input.keyboard.createCursorKeys();
 	jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
-	pause_label = game.add.text(650, 25, 'Pause', { font: "40px Arial", fill: "#FF6600", align: "center" });
+	pause_label = game.add.text(650, 25, 'Pause', { font: "60px SOV_Assadong_C", fill: "#FF6600", align: "center" });
 	pause_label.inputEnabled = true;
 	pause_label.events.onInputUp.add(function () {
 		game.paused = true;
-		scorepause = game.add.text(315, 190, 'Score:' + score, { font: "40px font", fill: "#000000", align: "center" });
+		scorepause = game.add.text(315, 190, 'Score:' + score, { font: "40px SOV_Assadong_C", fill: "#000000", align: "center" });
 		framemenu =  game.add.sprite(225, 60, 'framemenu')
 		framemenu.scale.setTo(0.75, 0.75)
 		buttonmenu = game.add.button(370, 300, 'menu', tomenu, this);
@@ -704,21 +704,21 @@ function itemSpawner() {
 }
 
 function iteminvisibleUp() {
-	itemCooldown = game.rnd.integerInRange(240, 400);
+	itemCooldown = game.rnd.integerInRange(400, 600);
 	var position = game.rnd.integerInRange(750, 750);
 	ItemInvisible = InvisibleGroup.getFirstExists(false);
 	ItemInvisible.reset(position, getRandomArbitrary4());
 	ItemInvisible.body.velocity.x = -speed * 20;
 }
 function itemrunUp() {
-	itemCooldown = game.rnd.integerInRange(240, 400);
+	itemCooldown = game.rnd.integerInRange(400, 600);
 	var position = game.rnd.integerInRange(750, 750);
 	Itemsheild = ItemsheildGroup.getFirstExists(false);
 	Itemsheild.reset(position, getRandomArbitrary4());
 	Itemsheild.body.velocity.x = -speed * 20;
 }
 function itemsheildUp() {
-	itemCooldown = game.rnd.integerInRange(240, 400);
+	itemCooldown = game.rnd.integerInRange(400, 600);
 	var position = game.rnd.integerInRange(750, 750);
 	Itemrun = ItemrunGroup.getFirstExists(false);
 	Itemrun.reset(position, getRandomArbitrary4());
@@ -1050,6 +1050,12 @@ function update() {
 	SpirteGroup.forEachExists(sped, this, null)
 	LogGroup.forEachExists(sped, this, null)
 	TreecutGroup.forEachExists(sped, this, null)
+	ItemrunGroup.forEachExists(sped, this, null)
+	ItemsheildGroup.forEachExists(sped, this, null)
+	InvisibleGroup.forEachExists(sped, this, null)
+
+	
+
 
 	RockGroup.forEachExists(checkobj, this, null)
 	FloorGroup.forEachExists(checkobj, this, null)

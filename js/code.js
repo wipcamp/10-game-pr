@@ -1,26 +1,15 @@
 var game = new Phaser.Game(800, 600, Phaser.AUTO, "game")
 var Menu = { preload: preloadMenu, create: createMenu, update: updateMenu }
-var GamePlay = { preload: preload, create: create, update: update, render: render }
+var GamePlayGiant = { preload: preload, create: create, update: update, render: render }
+var GamePlayRam = { preload: preload2, create: create2, update: update2, render: render2 }
 var GameOver = { preload: preloadGameOver, create: createGameOver, update: updateGameOver }
 
 
 game.state.add('GameOver', GameOver)
-game.state.add('GamePlay', GamePlay)
+game.state.add('GamePlay', GamePlayRam)
+game.state.add('GamePlay', GamePlayGiant)
 game.state.add('Menu', Menu)
 game.state.start('Menu')
-
-WebFontConfig = {
-
-    //  'active' means all requested fonts have finished loading
-    //  We set a 1 second delay before calling 'createText'.
-    //  For some reason if we don't the browser cannot render the text the first time it's created.
-
-    //  The Google Fonts we want to load (specify as many as you like in the array)
-    google: {
-      families: ['Revalia']
-    }
-
-};
 
 
 var Hp = 1;
@@ -78,8 +67,7 @@ var countzone = 1;
 
 //////////////////////////////////////////////////////Menu/////////////////////////////////////////////////////////////////////////////////
 function preloadMenu() {
-	game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
-
+	//game.load.script('webfont', '\assets\fonts\Test.TTF');
 
 	game.load.image('skyr', 'images/sky_r.png')
 	game.load.image('cloudr', 'images/cloud_r.png')
@@ -161,7 +149,7 @@ function createMenu() {
 
 
 
-	var text = game.add.text(300, 420, '- Tab to play -', { font: "40px Revalia", fill: "#1c1c1c", align: "center" });
+	var text = game.add.text(300, 420, '- aaadddWDWฟหกฟหก -', { font: "40px chaiyaEak", fill: "#1c1c1c", align: "center" });
 	text.alpha = 0;
 	game.add.tween(text).to({ alpha: 1 }, 500, Phaser.Easing.Linear.None, true, 0, 1000, false);
 
@@ -382,12 +370,12 @@ function create() {
 	);
 
 
-	text = game.add.text(25, 25, 'Km : 0', { font: "40px Arial", fill: "#F0E68C", align: "center" });
+	text = game.add.text(25, 25, 'หลา : 0', { font: "40px SOV_Assadong_C", fill: "#F0E68C", align: "center" });
 
-	text2 = game.add.text(25, 70, 'arrow in coming : ', { font: "40px Arial", fill: "#DC143C", align: "center" });
+	text2 = game.add.text(25, 70, 'arrow in coming : ', { font: "40px SOV_Assadong_C", fill: "#DC143C", align: "center" });
 	text2.visible = false;
 
-	text3 = game.add.text(300, 400, 'GetReady... ', { font: "40px Arial", fill: "#DC143C", align: "center" });
+	text3 = game.add.text(300, 400, 'GetReady... ', { font: "40px SOV_Assadong_C", fill: "#DC143C", align: "center" });
 	text3.visible = true;
 
 	hitSound = this.add.audio('hit');
@@ -549,7 +537,7 @@ function create() {
 	game.physics.enable([player, background], Phaser.Physics.ARCADE);
 
 
-	player.body.gravity.y = 3500;
+	player.body.gravity.y = 2400;
 	player.enableBody = true;
 	player.body.collideWorldBounds = false;
 
@@ -775,7 +763,7 @@ function updateScore() {
 	
 	if (countStart >= 60){
 		score += 1;
-		text.setText('Km : ' + score);
+		text.setText('หลา : ' + score);
 		game.add.tween(text3).to( { alpha: 0 }, 2000, Phaser.Easing.Linear.None, true);				
 		
 	}else if(countStart<60){
@@ -1076,6 +1064,29 @@ function update() {
 function render() {
 
 }
+
+///////////////////////////////////////////////////////////GiantGamePlay/////////////////////////////////////////////////////////////////
+
+function preload2(){
+
+}
+
+function create2(){
+
+}
+
+function update2(){
+	
+}
+
+
+function render2(){
+
+}
+
+
+
+
 
 /////////////////////////////////////////////////////////////////GameOver/////////////////////////////////////////////////////////////////
 

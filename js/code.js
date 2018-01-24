@@ -155,9 +155,9 @@ function createMenu() {
 }
 function tosetting(){
 		
-		frames = game.add.sprite(225, 60, 'frame')
-		frames.scale.setTo(2, 2);
-		credits = game.add.button(340, 380, 'credit',tocredit,this);
+		frames = game.add.sprite(150, 60, 'frame')
+		frames.scale.setTo(0.5, 0.5);
+		credits = game.add.button(340, 340, 'credit',tocredit,this);
 		credits.scale.setTo(0.25);
 		unmute = game.add.sprite(275, 170, 'mute')
 		unmute.scale.setTo(0.5);
@@ -200,8 +200,8 @@ function todestroy(){
 	
 }
 function tocredit(){
-		framed = game.add.sprite(225, 60, 'frame')
-		framed.scale.setTo(2, 2);
+	frames = game.add.sprite(150, 60, 'frame')
+	frames.scale.setTo(0.5, 0.5);
 		 name1= game.add.text(300, 180, '1:xxxx xxx:xxxx', { font: "30px Arial", fill: "#1c1c1c", align: "center" });
 		 name2= game.add.text(300, 220, '2:xxxx xxx:xxxx', { font: "30px Arial", fill: "#1c1c1c", align: "center" });
 		 name3= game.add.text(300, 260, '3:xxxx xxx:xxxx', { font: "30px Arial", fill: "#1c1c1c", align: "center" });

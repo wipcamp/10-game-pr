@@ -81,7 +81,6 @@ function preloadMenu() {
 	game.load.image('frame', 'images/frame.png')
 	game.load.image('credit', 'images/credit.png')
 	game.load.image('back', 'images/back.png')
-	game.load.image('backgroundtitle', 'images/backgroundtitle.png')
 	game.load.image('play', 'images/play.png')
 	
 	game.load.image('play', 'images/play.png')
@@ -244,7 +243,6 @@ function updateMenu() {
 
 ///////////////////////////////////////////////////Game Play////////////////////////////////////////////////////////
 function preload() {
-	game.load.image('background', 'images/BG.jpg')
 	game.load.image('player', 'images/huge.png')
 	game.load.image('floor', 'images/floor.png')
 	game.load.image('pause', 'images/pause.png');
@@ -363,7 +361,7 @@ function create() {
 		'palace'
 	);
 	this.wall = this.game.add.tileSprite(0,
-		220,
+		240,
 		this.game.width,
 		this.game.cache.getImage('wall').height,
 		'wall'
@@ -547,7 +545,7 @@ function create() {
 	cursors = game.input.keyboard.createCursorKeys();
 	jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
-	pause_label = game.add.text(650, 25, 'Pause', { font: "60px SOV_Assadong_C", fill: "#FF6600", align: "center" });
+	pause_label = game.add.text(630, 25, 'พักการเล่น', { font: "60px SOV_Assadong_C", fill: "#FF6600", align: "center" });
 	pause_label.inputEnabled = true;
 	pause_label.events.onInputUp.add(function () {
 		game.paused = true;
@@ -663,7 +661,7 @@ function warningarrow() {
 	countwarningarrow = 200;
 	if (obstacleCooldown3 <= countwarningarrow) {
 		text2.visible = true
-		text2.setText('arrow in coming :' + obstacleCooldown3);
+		text2.setText('ระวัง...ธนูกำลังมา :' + obstacleCooldown3);
 	} else
 		text2.visible = false
 }
@@ -673,7 +671,7 @@ function GenerateTerrain() {
 		if (FloorGroup.getAt(i).body.x <= -tileSize) {
 
 			if (i < probCliff && !lastCliff && !lastVertical) {
-				delta = Math.random() * ((4 - 1.5) + 1) + 1.5;
+				delta = Math.random() * ((3 - 1.5) + 1) + 1.5;
 				lastCliff = true;
 				lastVertical = false;
 
@@ -1011,6 +1009,7 @@ function update() {
 		SystemOverlab = 1;
 		player.body.collideWorldBounds = false;
 	} else if (itemtimeinvisible > 0) {
+		
 		itemtimeinvisible--;
 		player.body.velocity.x = speed
 		if (holdjump == false) {
@@ -1097,16 +1096,13 @@ function render2(){
 /////////////////////////////////////////////////////////////////GameOver/////////////////////////////////////////////////////////////////
 
 function preloadGameOver() {
-	game.load.image('backgroundtitle', 'images/backgroundtitle.png')
 	game.load.image('play', 'images/play.png')
 	game.load.image('gameover', 'images/gameover.png')
 	game.load.image('menu', 'images/menubutton.png')
 }
 function createGameOver() {
 
-	backgroundtitle = this.game.add.tileSprite(0, 0, 2268, 1701, 'backgroundtitle')
 
-	backgroundtitle.fixedToCamera = true;
 	buttonStart = game.add.button(400, 300, 'play', toGame, this);
 	buttonStart.scale.setTo(0.5);
 	buttonStart.anchor.set(0.5);

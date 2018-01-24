@@ -85,8 +85,7 @@ function preloadMenu() {
 	
 	game.load.image('play', 'images/play.png')
 	game.load.image('mute', 'images/mute.png')
-	game.load.image('unmute', 'images/unmute.png')
-	game.load.image('unmuteb', 'images/unmuteb.png')
+	
 
 
 }
@@ -253,6 +252,7 @@ function preload() {
 	game.load.image('wallblock', 'images/wallblock.png')
 	game.load.image('invisible', 'images/invisible.png')
 	game.load.image('play', 'images/play.png')
+	game.load.image('effectShelid','effectShelid/effectShelid.png')
 
 	//ฉากฝั่งราม
 	this.game.load.image('skyr', 'images/sky_r.png')
@@ -286,7 +286,7 @@ function create() {
 	countjump = 2;
 	countdeploy1 = 500
 	countdeploy = 400
-	score = 490;
+	score = 1;
 	Hp = 1
 	itemCooldown = 10;
 	itemtimerun = -5;

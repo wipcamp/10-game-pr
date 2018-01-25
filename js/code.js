@@ -805,8 +805,8 @@ function collisionHandler() {
 	countjump = 2;
 
 }
-function collisionHandler2() {
-
+function invisiblesystem() {
+	game.add.tween(player).to({ alpha: 1 }, 1800, Phaser.Easing.Linear.None, true, 0, 1000, false);
 }
 
 function sped(aa) {
@@ -934,7 +934,7 @@ function update() {
 		SystemOverlab = 1;
 		player.body.collideWorldBounds = false;
 	} else if (itemtimeinvisible > 0) {
-		
+		player.alpha =
 		itemtimeinvisible--;
 		player.body.velocity.x = speed
 		if (holdjump == false) {
@@ -944,6 +944,7 @@ function update() {
 				holdjump = true
 			}
 		}
+		invisiblesystem();
 		if (jumpButton.isUp) {
 			holdjump = false
 		}

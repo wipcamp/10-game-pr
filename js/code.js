@@ -84,8 +84,8 @@ function preloadMenu() {
 	game.load.image('play', 'images/play.png')
 	
 	game.load.image('play', 'images/play.png')
-	game.load.image('mute', 'images/mute.png')
-	
+	game.load.image('mute', 'images/ลำโพง.png')
+
 
 
 }
@@ -159,10 +159,10 @@ function tosetting(){
 		frames.scale.setTo(0.5, 0.5);
 		credits = game.add.button(340, 340, 'credit',tocredit,this);
 		credits.scale.setTo(0.25);
-		unmute = game.add.sprite(275, 170, 'mute')
-		unmute.scale.setTo(0.5);
-		unmute.inputEnabled = true;
-		unmute.events.onInputUp.add(function () {
+		mute = game.add.sprite(275, 170, 'mute')
+		mute.scale.setTo(0.5);
+		mute.inputEnabled = true;
+		mute.events.onInputUp.add(function () {
 			if(game.mute = false){
 				game.mute = true
 				

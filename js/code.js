@@ -1106,6 +1106,7 @@ function createGameOver() {
 		countzone = 2
 	}
 
+	
 }
 function updateGameOver() {
 

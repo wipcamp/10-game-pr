@@ -252,7 +252,7 @@ function preload() {
 	game.load.image('wallblock', 'images/wallblock.png')
 	game.load.image('invisible', 'images/invisible.png')
 	game.load.image('play', 'images/play.png')
-	game.load.image('effectShelid','effectShelid/effectShelid.png')
+	game.load.image('effectShelid','images/effectShelid.png')
 
 	//ฉากฝั่งราม
 	this.game.load.image('skyr', 'images/sky_r.png')
@@ -357,11 +357,16 @@ function create() {
 
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 
-	player = game.add.sprite(80, 300, 'player')
+	player = game.add.sprite(200, 300, 'player')
 	player.scale.setTo(0.25, 0.25)
+	player.anchor.set(0.5)
+
+	effectShelid = game.add.sprite(100,310,'effectShelid')
+	effectShelid.scale.setTo(0.25, 0.25)
+	effectShelid.anchor.set(0.5)
+	effectShelid.visible = false;
 
 	itemCooldown = game.rnd.integerInRange(500, 600);
-
 	ItemrunGroup = game.add.group();
 	ItemrunGroup.enableBody = true;
 	ItemrunGroup.physicsBodyType = Phaser.Physics.ARCADE;
@@ -472,6 +477,8 @@ function create() {
 	Wall1.body.immovable = true;
 	Wall1.visible = false;
 
+
+
 	Wall3 = game.add.group();
 	Wall3.enableBody = true;
 	for (var i = 0; i < 24; i++) {
@@ -500,6 +507,7 @@ function create() {
 
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 	game.physics.enable([player, background], Phaser.Physics.ARCADE);
+	game.physics.enable([effectShelid, background], Phaser.Physics.ARCADE);
 
 
 	player.body.gravity.y = 2800;
@@ -743,6 +751,8 @@ function HitsPlayer(player, obj) {
 		Checkhp()
 	} else if (Hp == 2) {
 		obj.kill();
+		effectShelid.visible = false;		
+
 		Hp = 1;
 	}
 }
@@ -758,6 +768,7 @@ function Checkhp() {
 function getItemsheild(player, item) {
 	sheilditem.play();
 	item.kill();
+	
 	ActiveHpplus()
 
 }
@@ -783,6 +794,7 @@ function ActiveRunspped() {
 
 }
 function ActiveHpplus() {
+	effectShelid.visible = true;
 	Hp = 2;
 
 }
@@ -790,6 +802,9 @@ function ActiveHpplus() {
 function collisionHandler() {
 
 	countjump = 2;
+
+}
+function collisionHandler2() {
 
 }
 
@@ -804,7 +819,6 @@ function checkobj(aa) {
 
 
 function update() {
-
 	game.physics.arcade.collide(player, FloorGroup, collisionHandler, null, this);
 	game.physics.arcade.collide(RockGroup, FloorGroup, chek = true)
 	game.physics.arcade.collide(LogGroup, FloorGroup, chek = true)
@@ -837,7 +851,7 @@ function update() {
 	}
 
 	GenerateTerrain();
-
+	
 	game.physics.arcade.collide(player, Wall1);
 	game.physics.arcade.collide(player, Wall2);
 
@@ -933,9 +947,8 @@ function update() {
 			holdjump = false
 		}
 	}
-
-
-
+	effectShelid.body.y = player.body.y-20;
+	effectShelid.body.x = player.body.x-65;
 
 
 	if (obstacleCooldown <= 0)

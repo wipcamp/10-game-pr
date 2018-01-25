@@ -58,6 +58,7 @@ var name6;
 var name7;
 var gamebgm;
 var menu;
+var option;
 
 
 //ฉาก
@@ -79,12 +80,9 @@ function preloadMenu() {
 	game.load.audio('menu', 'sound/playgame.mp3');
 	game.load.image('options', 'images/options.png')
 	game.load.image('frame', 'images/frame.png')
-	game.load.image('credit', 'images/credit.png')
 	game.load.image('back', 'images/back.png')
-	game.load.image('play', 'images/play.png')
-	
-	game.load.image('play', 'images/play.png')
 	game.load.image('mute', 'images/ลำโพง.png')
+	game.load.image('credit', 'images/credit.png')
 
 
 
@@ -154,31 +152,19 @@ function createMenu() {
 
 }
 function tosetting(){
-		
+		option.kill();
 		frames = game.add.sprite(150, 60, 'frame')
 		frames.scale.setTo(0.5, 0.5);
-		credits = game.add.button(340, 340, 'credit',tocredit,this);
+		credits = game.add.button(340, 250, 'credit',tocredit,this);
 		credits.scale.setTo(0.25);
-		mute = game.add.sprite(275, 170, 'mute')
+		mute = game.add.button(500, 170, 'mute',tosetmute,this)
 		mute.scale.setTo(0.5);
-		mute.inputEnabled = true;
-		mute.events.onInputUp.add(function () {
-			if(game.mute = false){
-				game.mute = true
-				
-			}
-			else if(game.mute = true){
-				game.mute = false
-
-			}
-
 		
-	});
 		
 		
 	
-		backd= game.add.button(390, 480, 'back',todestroy,this)
-		backd.scale.setTo(0.25, 0.25);
+		backd= game.add.button(370, 340, 'back',todestroy,this)
+		backd.scale.setTo(0.5, 0.5);
 		name1.kill();
 		name2.kill();
 		name3.kill();
@@ -188,32 +174,50 @@ function tosetting(){
 		name7.kill();
 		backs.kill();
 		framed.kill();
+		
 
 }
+
 
 function todestroy(){
 	console.log("in to destroy");
 	frames.kill();
 	backd.kill();
 	credits.kill();
-	framed.kill();
+	mute.kill();
+	
+	option = game.add.button(720, 25, 'options', tosetting, this);
+	option.scale.setTo(0.025, 0.025)
+	
+	
 	
 }
+function tosetmute(){
+	if(!game.sound.mute){
+		game.sound.mute = true;
+	}
+	else if(game.sound.mute){
+		game.sound.mute = false;
+	}
+	
+}
+
 function tocredit(){
-	frames = game.add.sprite(150, 60, 'frame')
-	frames.scale.setTo(0.5, 0.5);
-		 name1= game.add.text(300, 180, '1:xxxx xxx:xxxx', { font: "30px Arial", fill: "#1c1c1c", align: "center" });
-		 name2= game.add.text(300, 220, '2:xxxx xxx:xxxx', { font: "30px Arial", fill: "#1c1c1c", align: "center" });
-		 name3= game.add.text(300, 260, '3:xxxx xxx:xxxx', { font: "30px Arial", fill: "#1c1c1c", align: "center" });
-		 name4= game.add.text(300, 300, '4:xxxx xxx:xxxx', { font: "30px Arial", fill: "#1c1c1c", align: "center" });
-		 name5= game.add.text(300, 340, '5:xxxx xxx:xxxx', { font: "30px Arial", fill: "#1c1c1c", align: "center" });
-		 name6= game.add.text(300, 380, '6:xxxx xxx:xxxx', { font: "30px Arial", fill: "#1c1c1c", align: "center" });
-		 name7= game.add.text(300, 420, '7:xxxx xxx:xxxx', { font: "30px Arial", fill: "#1c1c1c", align: "center" });
-		 backs = game.add.button(390, 480, 'back',tosetting,this)
-		backs.scale.setTo(0.25, 0.25);
+	framed = game.add.sprite(150, 60, 'frame')
+	framed.scale.setTo(0.5, 0.5);
+		 name1= game.add.text(300, 180, '1:xxxx xxx:xxxx', { font: "30px Arial", fill: "#FFFFFF", align: "center" });
+		 name2= game.add.text(300, 220, '2:xxxx xxx:xxxx', { font: "30px Arial", fill: "#FFFFFF", align: "center" });
+		 name3= game.add.text(300, 260, '3:xxxx xxx:xxxx', { font: "30px Arial", fill: "#FFFFFF", align: "center" });
+		 name4= game.add.text(300, 300, '4:xxxx xxx:xxxx', { font: "30px Arial", fill: "#FFFFFF", align: "center" });
+		 name5= game.add.text(300, 340, '5:xxxx xxx:xxxx', { font: "30px Arial", fill: "#FFFFFF", align: "center" });
+		 name6= game.add.text(300, 380, '6:xxxx xxx:xxxx', { font: "30px Arial", fill: "#FFFFFF", align: "center" });
+		 name7= game.add.text(300, 420, '7:xxxx xxx:xxxx', { font: "30px Arial", fill: "#FFFFFF", align: "center" });
+		 backs = game.add.button(340, 340, 'back',tosetting,this)
+		backs.scale.setTo(0.5, 0.5);
 		backd.kill();
 		credits.kill();
 		frames.kill();
+		mute.kill();
 }
 
 function updateMenu() {
@@ -252,6 +256,7 @@ function preload() {
 	game.load.image('wallblock', 'images/wallblock.png')
 	game.load.image('invisible', 'images/invisible.png')
 	game.load.image('play', 'images/play.png')
+	game.load.image('effectShelid','images/effectShelid.png')
 
 	//ฉากฝั่งราม
 	this.game.load.image('skyr', 'images/sky_r.png')
@@ -268,14 +273,9 @@ function preload() {
 	this.game.load.image('sstone', 'images/sstone.png')
 
 	//menupause
-	game.load.image('framemenu', 'images/menu.png')
-	game.load.image('menu', 'images/menubutton.png')
-
-	game.load.audio('hit', 'sound/hit.mp3');
-	game.load.audio('sheilditem', 'audio/shielditem.mp3')
-	game.load.audio('gamebgm', 'audio/gamebgm.mp3');
-	game.load.audio('itemx2', 'audio/speeditem.mp3');
-	game.load.audio('invisibleitem', 'audio/invisibleitem.mp3');
+	game.load.image('frame', 'images/frame.png')
+	game.load.image('back', 'images/back.png')
+	game.load.image('mute', 'images/ลำโพง.png')
 
 }
 function create() {
@@ -285,7 +285,7 @@ function create() {
 	countjump = 2;
 	countdeploy1 = 500
 	countdeploy = 400
-	score = 490;
+	score = 1;
 	Hp = 1
 	itemCooldown = 10;
 	itemtimerun = -5;
@@ -353,13 +353,43 @@ function create() {
 	menu.stop();
 	gamebgm.play();
 	gamebgm.loopFull();
+	//////////////////////////////////////
+	
+
+
+
+
+
+
+
+	//////////////////////////////////////
 
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 
-	player = game.add.sprite(80, 300, 'player')
+	player = game.add.sprite(200, 300, 'player')
 	player.scale.setTo(0.25, 0.25)
+	player.anchor.set(0.5)
+
+	effectShelid = game.add.sprite(100,310,'effectShelid')
+	effectShelid.scale.setTo(0.25, 0.25)
+	effectShelid.anchor.set(0.5)
+	effectShelid.visible = false;
 
 	itemCooldown = game.rnd.integerInRange(500, 600);
+	
+	FloorGroup = game.add.group();
+	FloorGroup.enableBody = true;
+
+	for (var i = 0; i < 24; i++) {
+		floor = FloorGroup.create(i * tileSize, 540, 'floor');
+		floor.body.immovable = true;
+		floor.body.velocity.x = -speedobj * 51.50;
+		floor.scale.setTo(0.45, 0.45)
+
+	}
+	lastFloor = floor;
+	lastCliff = false;
+	lastVertical = false;
 
 	ItemrunGroup = game.add.group();
 	ItemrunGroup.enableBody = true;
@@ -471,6 +501,8 @@ function create() {
 	Wall1.body.immovable = true;
 	Wall1.visible = false;
 
+
+
 	Wall3 = game.add.group();
 	Wall3.enableBody = true;
 	for (var i = 0; i < 24; i++) {
@@ -499,6 +531,7 @@ function create() {
 
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 	game.physics.enable([player, background], Phaser.Physics.ARCADE);
+	game.physics.enable([effectShelid, background], Phaser.Physics.ARCADE);
 
 
 	player.body.gravity.y = 2800;
@@ -511,31 +544,8 @@ function create() {
 	cursors = game.input.keyboard.createCursorKeys();
 	jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
-	pause_label = game.add.text(630, 25, 'พักการเล่น', { font: "60px SOV_Assadong_C", fill: "#FF6600", align: "center" });
-	pause_label.inputEnabled = true;
-	pause_label.events.onInputUp.add(function () {
-		game.paused = true;
-		scorepause = game.add.text(315, 190, 'Score:' + score, { font: "40px SOV_Assadong_C", fill: "#000000", align: "center" });
-		framemenu =  game.add.sprite(225, 60, 'framemenu')
-		framemenu.scale.setTo(0.75, 0.75)
-		buttonmenu = game.add.button(370, 300, 'menu', tomenu, this);
-		buttonmenu.scale.setTo(0.125);
-		gamebgm.pause();
-
-		function tomenu() {
-			game.state.start('Menu');
-		}
-	});
-	game.input.onDown.add(function () {
-		if (game.paused) {
-			game.paused = false;
-			buttonmenu.destroy();
-			framemenu.destroy();
-			gamebgm.resume();
-			scorepause.destroy();
-
-		}
-	});
+	
+	
 }
 
 
@@ -742,6 +752,8 @@ function HitsPlayer(player, obj) {
 		Checkhp()
 	} else if (Hp == 2) {
 		obj.kill();
+		effectShelid.visible = false;		
+
 		Hp = 1;
 	}
 }
@@ -757,6 +769,7 @@ function Checkhp() {
 function getItemsheild(player, item) {
 	sheilditem.play();
 	item.kill();
+	
 	ActiveHpplus()
 
 }
@@ -782,6 +795,7 @@ function ActiveRunspped() {
 
 }
 function ActiveHpplus() {
+	effectShelid.visible = true;
 	Hp = 2;
 
 }
@@ -789,6 +803,9 @@ function ActiveHpplus() {
 function collisionHandler() {
 
 	countjump = 2;
+
+}
+function collisionHandler2() {
 
 }
 
@@ -803,7 +820,6 @@ function checkobj(aa) {
 
 
 function update() {
-
 	game.physics.arcade.collide(player, FloorGroup, collisionHandler, null, this);
 	game.physics.arcade.collide(RockGroup, FloorGroup, chek = true)
 	game.physics.arcade.collide(LogGroup, FloorGroup, chek = true)
@@ -836,7 +852,7 @@ function update() {
 	}
 
 	GenerateTerrain();
-
+	
 	game.physics.arcade.collide(player, Wall1);
 	game.physics.arcade.collide(player, Wall2);
 
@@ -932,9 +948,8 @@ function update() {
 			holdjump = false
 		}
 	}
-
-
-
+	effectShelid.body.y = player.body.y-20;
+	effectShelid.body.x = player.body.x-65;
 
 
 	if (obstacleCooldown <= 0)

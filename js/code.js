@@ -1,17 +1,18 @@
 var game = new Phaser.Game(800, 600, Phaser.AUTO, "game")
 var Menu = { preload: preloadMenu, create: createMenu, update: updateMenu }
 // var CutScene = {preload : preloadCutScene,create:createCutScence,update:updateCutScene}
-// var Intro= {preload : preloadIntro,create:createIntro,update:updateIntro}
+var Intro = { preload: preloadIntro, create: createIntro, update: updateIntro }
 var GamePlayRam = { preload: preload, create: create, update: update, render: render }
 var GamePlayGiant = { preload: preload2, create: create2, update: update2, render: render2 }
 var GameOver = { preload: preloadGameOver, create: createGameOver, update: updateGameOver }
 
 game.state.add('Menu', Menu)
+game.state.add('Intro', Intro)
 game.state.add('GameOver', GameOver)
 game.state.add('GamePlay1', GamePlayRam)
 game.state.add('GamePlay2', GamePlayGiant)
 
-game.state.start('Menu')
+game.state.start('Intro')
 
 var player;
 var Hp = 1;
@@ -19,7 +20,7 @@ var score = 1;
 var text = 0;
 var pause;
 var speed = 7;
-var speedobj 
+var speedobj
 var speedb;
 var itemCooldown = 10;
 var itemtimerun = -5;
@@ -76,7 +77,44 @@ var busht
 var palacet
 var wallt
 
-   
+var selectmenu;
+////////////////////////////////////////////////////Intro menu/////////////////////////////////////////////////////////
+
+function preloadIntro() {
+	game.load.image('monkey', 'images/itemrun.png')
+	game.load.image('huke', 'images/itemsheild.png')
+}
+
+
+
+
+function createIntro() {
+	monkey = game.add.button(200, 300, 'monkey', checkselect, this, 1, 0, 1);
+	monkey.scale.setTo(0.25, 0.25)
+	monkey.anchor.set(0.5)
+
+	huke = game.add.button(600, 300, 'huke', checkselect2, this, 1, 0, 1);
+	huke.scale.setTo(0.25, 0.25)
+	huke.anchor.set(0.5)
+
+}
+
+function checkselect() {
+	selectmenu = 1;
+	tomenu()
+}
+function checkselect2() {
+	selectmenu = 2;
+	tomenu()
+}
+
+function updateIntro() {
+
+}
+
+
+
+
 
 //////////////////////////////////////////////////////Menu/////////////////////////////////////////////////////////////////////////////////
 function preloadMenu() {
@@ -89,11 +127,17 @@ function preloadMenu() {
 	game.load.image('wallr', 'images/wall_r.png')
 	game.load.image('logo', 'images/logo.png')
 	game.load.image('floor', 'images/floor.png')
+	//ฉากฝั่งทศ 
+	this.game.load.image('skyt', 'images/sky_t.png')
+	this.game.load.image('cloudt', 'images/cloud_t.png')
+	this.game.load.image('busht', 'images/bush_t.png')
+	this.game.load.image('palacet', 'images/palace_t.png')
+	this.game.load.image('wallt', 'images/wall_t.png')
 	game.load.audio('menu', 'sound/playgame.mp3');
 	game.load.image('options', 'images/options.png')
 	game.load.image('frame', 'images/frame.png')
 	game.load.image('back', 'images/back.png')
-	game.load.spritesheet('mute', 'images/mute.png',125,94)
+	game.load.spritesheet('mute', 'images/mute.png', 125, 94)
 	game.load.image('credit', 'images/credit.png')
 
 
@@ -105,37 +149,71 @@ function createMenu() {
 	menu = this.add.audio('menu');
 	menu.play();
 
-
-	skyr = game.add.tileSprite(0,
-		0,
-		game.width,
-		game.cache.getImage('skyr').height,
-		'skyr'
-	);
-	cloudr = game.add.tileSprite(0,
-		30,
-		game.width,
-		game.cache.getImage('cloudr').height,
-		'cloudr'
-	);
-	bushr = game.add.tileSprite(0,
-		220,
-		game.width,
-		game.cache.getImage('bushr').height,
-		'bushr'
-	);
-	palacer = game.add.tileSprite(0,
-		50,
-		game.width,
-		game.cache.getImage('palacer').height,
-		'palacer'
-	);
-	wallr = game.add.tileSprite(0,
-		220,
-		game.width,
-		game.cache.getImage('wallr').height,
-		'wallr'
-	);
+	if (selectmenu == 1) {
+		console.log("this")
+		skyr = game.add.tileSprite(0,
+			0,
+			game.width,
+			game.cache.getImage('skyr').height,
+			'skyr'
+		);
+		cloudr = game.add.tileSprite(0,
+			30,
+			game.width,
+			game.cache.getImage('cloudr').height,
+			'cloudr'
+		);
+		bushr = game.add.tileSprite(0,
+			220,
+			game.width,
+			game.cache.getImage('bushr').height,
+			'bushr'
+		);
+		palacer = game.add.tileSprite(0,
+			50,
+			game.width,
+			game.cache.getImage('palacer').height,
+			'palacer'
+		);
+		wallr = game.add.tileSprite(0,
+			220,
+			game.width,
+			game.cache.getImage('wallr').height,
+			'wallr'
+		);
+	} else if (selectmenu == 2) {
+		console.log("that")
+		skyr = game.add.tileSprite(0,
+			0,
+			game.width,
+			game.cache.getImage('skyt').height,
+			'skyt'
+		);
+		cloudr = game.add.tileSprite(0,
+			30,
+			game.width,
+			game.cache.getImage('cloudt').height,
+			'cloudt'
+		);
+		bushr = game.add.tileSprite(0,
+			220,
+			game.width,
+			game.cache.getImage('busht').height,
+			'busht'
+		);
+		palacer = game.add.tileSprite(0,
+			50,
+			game.width,
+			game.cache.getImage('palacet').height,
+			'palacet'
+		);
+		wallr = game.add.tileSprite(0,
+			220,
+			game.width,
+			game.cache.getImage('wallt').height,
+			'wallt'
+		);
+	}
 
 	FloorGroup = game.add.group();
 	FloorGroup.enableBody = true;
@@ -165,29 +243,29 @@ function createMenu() {
 
 
 }
-function tosetting(){
-		option.kill();
-		frames = game.add.sprite(150, 60, 'frame')
-		frames.scale.setTo(0.5, 0.5);
-		credits = game.add.button(340, 250, 'credit',tocredit,this,1,0,1);
-		credits.scale.setTo(0.25);
-		mute = game.add.button(500, 170, 'mute',tosetmute,this)
-		mute.scale.setTo(0.5);
-		
-		
-	
-		backd= game.add.button(370, 340, 'back',todestroy,this)
-		backd.scale.setTo(0.5, 0.5);
-		name1.kill();
-		name2.kill();
-		name3.kill();
-		name4.kill();
-		name5.kill();
-		name6.kill();
-		name7.kill();
-		backs.kill();
-		framed.kill();
-		
+function tosetting() {
+	option.kill();
+	frames = game.add.sprite(150, 60, 'frame')
+	frames.scale.setTo(0.5, 0.5);
+	credits = game.add.button(340, 250, 'credit', tocredit, this, 1, 0, 1);
+	credits.scale.setTo(0.25);
+	mute = game.add.button(500, 170, 'mute', tosetmute, this)
+	mute.scale.setTo(0.5);
+
+
+
+	backd = game.add.button(370, 340, 'back', todestroy, this)
+	backd.scale.setTo(0.5, 0.5);
+	name1.kill();
+	name2.kill();
+	name3.kill();
+	name4.kill();
+	name5.kill();
+	name6.kill();
+	name7.kill();
+	backs.kill();
+	framed.kill();
+
 
 
 
@@ -262,7 +340,12 @@ function updateMenu() {
 	wallr.tilePosition.x -= 7 + speed
 
 	if (jumpButton.isDown) {
-		game.state.start('GamePlay1');
+		if (selectmenu == 1) {
+			game.state.start('GamePlay1');
+		} else if (selectmenu == 2) {
+			game.state.start('GamePlay2');
+
+		}
 	}
 }
 
@@ -274,7 +357,7 @@ function updateMenu() {
 function preload() {
 	game.load.image('player', 'images/monkey.png')
 	game.load.image('floor', 'images/floor.png')
-	
+
 	game.load.image('rock', 'images/rock.png')
 	game.load.image('arrow', 'images/arrow.png')
 	game.load.image('treecut', 'images/treecut.png')
@@ -304,16 +387,16 @@ function preload() {
 	//menupause
 	game.load.image('pause', 'images/pausebutton.png')
 	game.load.image('frame', 'images/frame.png')
-	game.load.spritesheet('home', 'images/home.png',553, 188);
+	game.load.spritesheet('home', 'images/home.png', 553, 188);
 
 
 	//audio
-	game.load.audio('gamebgm','audio/gamebgm.mp3')
-	game.load.audio('invisibleitem','audio/invisibleitem.mp3')
-	game.load.audio('sheilditem','audio/shielditem.mp3')
-	game.load.audio('itemx2','audio/speeditem.mp3')
-	game.load.audio('hit','sound/hit.mp3')
-	
+	game.load.audio('gamebgm', 'audio/gamebgm.mp3')
+	game.load.audio('invisibleitem', 'audio/invisibleitem.mp3')
+	game.load.audio('sheilditem', 'audio/shielditem.mp3')
+	game.load.audio('itemx2', 'audio/speeditem.mp3')
+	game.load.audio('hit', 'sound/hit.mp3')
+
 
 
 }
@@ -384,9 +467,9 @@ function create() {
 	text3.visible = true;
 
 	hitSound = this.add.audio('hit');
-	
+
 	gamebgm = this.add.audio('gamebgm');
-	
+
 	itemx2 = this.add.audio('itemx2');
 	invisibleitem = this.add.audio('invisibleitem');
 	sheilditem = this.add.audio('sheilditem');
@@ -413,7 +496,7 @@ function create() {
 
 	FloorGroup = game.add.group();
 	FloorGroup.enableBody = true;
-	
+
 
 	for (var i = 0; i < 24; i++) {
 		floor = FloorGroup.create(i * tileSize, 540, 'floor');
@@ -483,12 +566,12 @@ function create() {
 	SpirteGroup = game.add.group();
 	SpirteGroup.enableBody = true;
 	SpirteGroup.angle = 17;
-	SpirteGroup.anchor =0.5;
+	SpirteGroup.anchor = 0.5;
 	SpirteGroup.physicsBodyType = Phaser.Physics.ARCADE;
 	for (var i = 0; i < 16; i++) {
 		spirteObj = SpirteGroup.create(700, 300, 'spirte');
 		spirteObj.exists = false;
-		spirteObj.visible = true;
+		spirteObj.visible = false;
 		spirteObj.checkWorldBounds = true;
 		spirteObj.events.onOutOfBounds.add(resetPostion, this);
 		spirteObj.scale.setTo(0.25, 0.25)
@@ -554,7 +637,7 @@ function create() {
 
 
 	game.physics.startSystem(Phaser.Physics.ARCADE);
-	game.physics.enable([player,FloorGroup, background], Phaser.Physics.ARCADE);
+	game.physics.enable([player, FloorGroup, background], Phaser.Physics.ARCADE);
 	game.physics.enable([effectShelid, background], Phaser.Physics.ARCADE);
 
 
@@ -571,27 +654,27 @@ function create() {
 
 
 }
-function topause(){
+function topause() {
 	pause.kill();
 	game.paused = true;
 	frames = game.add.sprite(150, 60, 'frame')
 	frames.scale.setTo(0.5, 0.5);
-	buttons = game.add.button(300, 250, 'home' ,gotomenu, this, 1, 0, 1 );
-	buttons.scale.setTo(0.25,0.25)
-	
+	buttons = game.add.button(300, 250, 'home', gotomenu, this, 1, 0, 1);
+	buttons.scale.setTo(0.25, 0.25)
+
 }
-function gotomenu(){
+function gotomenu() {
 	game.state.start("Menu");
 	console.log("asdasdasdsad")
-}	
-function tosetmute(){
-		if(!game.sound.mute){
-			game.sound.mute = true;
-		}
-		else if(game.sound.mute){
-			game.sound.mute = false;
-		}
-		
+}
+function tosetmute() {
+	if (!game.sound.mute) {
+		game.sound.mute = true;
+	}
+	else if (game.sound.mute) {
+		game.sound.mute = false;
+	}
+
 }
 
 function obstacleSpawner() {
@@ -952,7 +1035,7 @@ function update() {
 		speed = 50
 		speedobj = 900
 		itemtimerun--;
-		
+
 		if (holdjump == false) {
 			if (jumpButton.isDown && countjump > 0) {
 				player.body.velocity.y = -900;
@@ -1045,81 +1128,81 @@ function render() {
 
 ///////////////////////////////////////////////////////////GiantGamePlay/////////////////////////////////////////////////////////////////
 
-function preload2(){ 
- 
+function preload2() {
+
 	//ฉากฝั่งทศ 
-	this.game.load.image('skyt', 'images/sky_t.png') 
-	this.game.load.image('cloudt', 'images/cloud_t.png') 
-	this.game.load.image('busht', 'images/bush_t.png') 
-	this.game.load.image('palacet', 'images/palace_t.png') 
-	this.game.load.image('wallt', 'images/wall_t.png') 
+	this.game.load.image('skyt', 'images/sky_t.png')
+	this.game.load.image('cloudt', 'images/cloud_t.png')
+	this.game.load.image('busht', 'images/bush_t.png')
+	this.game.load.image('palacet', 'images/palace_t.png')
+	this.game.load.image('wallt', 'images/wall_t.png')
 	//โซนสอง 
-	this.game.load.image('treet', 'images/tree_t.png') 
-	this.game.load.image('houset', 'images/house_t.png') 
+	this.game.load.image('treet', 'images/tree_t.png')
+	this.game.load.image('houset', 'images/house_t.png')
 	//ฉากลานกว้าง 
-	this.game.load.image('bstone', 'images/bstone.png') 
-	this.game.load.image('treedead', 'images/treedead.png') 
-	this.game.load.image('sstone', 'images/sstone.png') 
-  } 
-   
-  function create2(){ 
-   
-	skyt = game.add.tileSprite(0, 
-	  0, 
-	  game.width, 
-	  game.cache.getImage('skyt').height, 
-	  'skyt' 
-	); 
-	cloudt = game.add.tileSprite(0, 
-	  30, 
-	  game.width, 
-	  game.cache.getImage('cloudt').height, 
-	  'cloudt' 
-	); 
-	busht = game.add.tileSprite(0, 
-	  220, 
-	  game.width, 
-	  game.cache.getImage('busht').height, 
-	  'busht' 
-	); 
-	palacet = game.add.tileSprite(0, 
-	  50, 
-	  game.width, 
-	  game.cache.getImage('palacet').height, 
-	  'palacet' 
-	); 
-	wallt = game.add.tileSprite(0, 
-	  220, 
-	  game.width, 
-	  game.cache.getImage('wallt').height, 
-	  'wallt' 
-	); 
-  } 
-   
-  function update2(){ 
-	 
-  } 
-	//พื้นหลังเลื่อน 
-	skyt.tilePosition.x -= 1 + speed; 
-	cloudt.tilePosition.x -= 2 + speed 
-	busht.tilePosition.x -= 4 + speed 
-	palacet.tilePosition.x -= 5 + speed 
-	wallt.tilePosition.x -= 7 + speed 
-   
-	//เปลี่ยนฉาก 
-	if (score >= 500 & score <= 501) { 
-	  flashs() 
-	  this.palacet.loadTexture('treet') 
-	  this.wallt.loadTexture('houset')   
-	} 
-	if (score >= 1100 & score <= 1101) { 
-	  flashs() 
-	  this.busht.loadTexture('bstone') 
-	  this.palacet.loadTexture('treedead') 
-	  this.wallt.loadTexture('sstone') 
-	} 
-   
-   
+	this.game.load.image('bstone', 'images/bstone.png')
+	this.game.load.image('treedead', 'images/treedead.png')
+	this.game.load.image('sstone', 'images/sstone.png')
+}
+
+function create2() {
+
+	skyt = game.add.tileSprite(0,
+		0,
+		game.width,
+		game.cache.getImage('skyt').height,
+		'skyt'
+	);
+	cloudt = game.add.tileSprite(0,
+		30,
+		game.width,
+		game.cache.getImage('cloudt').height,
+		'cloudt'
+	);
+	busht = game.add.tileSprite(0,
+		220,
+		game.width,
+		game.cache.getImage('busht').height,
+		'busht'
+	);
+	palacet = game.add.tileSprite(0,
+		50,
+		game.width,
+		game.cache.getImage('palacet').height,
+		'palacet'
+	);
+	wallt = game.add.tileSprite(0,
+		220,
+		game.width,
+		game.cache.getImage('wallt').height,
+		'wallt'
+	);
+}
+
+function update2() {
+
+}
+//พื้นหลังเลื่อน 
+skyt.tilePosition.x -= 1 + speed;
+cloudt.tilePosition.x -= 2 + speed
+busht.tilePosition.x -= 4 + speed
+palacet.tilePosition.x -= 5 + speed
+wallt.tilePosition.x -= 7 + speed
+
+//เปลี่ยนฉาก 
+if (score >= 500 & score <= 501) {
+	flashs()
+	this.palacet.loadTexture('treet')
+	this.wallt.loadTexture('houset')
+}
+if (score >= 1100 & score <= 1101) {
+	flashs()
+	this.busht.loadTexture('bstone')
+	this.palacet.loadTexture('treedead')
+	this.wallt.loadTexture('sstone')
+}
+
+
 function render2() {
 
 }
@@ -1166,7 +1249,10 @@ function updateGameOver() {
 }
 
 function toGame() {
-	game.state.start('GamePlay');
+	game.state.start('GamePlay1');
+}
+function toGame2() {
+	game.state.start('GamePlay2');
 }
 function tomenu() {
 	game.state.start('Menu');

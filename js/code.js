@@ -59,6 +59,8 @@ var name7;
 var gamebgm;
 var menu;
 var option;
+var pause;
+var coutinues;
 
 
 //ฉาก
@@ -81,7 +83,7 @@ function preloadMenu() {
 	game.load.image('options', 'images/options.png')
 	game.load.image('frame', 'images/frame.png')
 	game.load.image('back', 'images/back.png')
-	game.load.image('mute', 'images/ลำโพง.png')
+	game.load.spritesheet('mute', 'images/mute.png',125,94)
 	game.load.image('credit', 'images/credit.png')
 
 
@@ -155,11 +157,10 @@ function tosetting(){
 		option.kill();
 		frames = game.add.sprite(150, 60, 'frame')
 		frames.scale.setTo(0.5, 0.5);
-		credits = game.add.button(340, 250, 'credit',tocredit,this);
+		credits = game.add.button(340, 250, 'credit',tocredit,this,1,0,1);
 		credits.scale.setTo(0.25);
 		mute = game.add.button(500, 170, 'mute',tosetmute,this)
 		mute.scale.setTo(0.5);
-		
 		
 		
 	
@@ -245,7 +246,7 @@ function updateMenu() {
 function preload() {
 	game.load.image('player', 'images/huge.png')
 	game.load.image('floor', 'images/floor.png')
-	game.load.image('pause', 'images/pause.png');
+	
 	game.load.image('rock', 'images/rock.png')
 	game.load.image('arrow', 'images/arrow.png')
 	game.load.image('treecut', 'images/treecut.png')
@@ -273,9 +274,19 @@ function preload() {
 	this.game.load.image('sstone', 'images/sstone.png')
 
 	//menupause
+	game.load.image('pause', 'images/pausebutton.png')
 	game.load.image('frame', 'images/frame.png')
-	game.load.image('back', 'images/back.png')
-	game.load.image('mute', 'images/ลำโพง.png')
+	game.load.spritesheet('home', 'images/home.png',553, 188);
+
+
+	//audio
+	game.load.audio('gamebgm','audio/gamebgm.mp3')
+	game.load.audio('invisibleitem','audio/invisibleitem.mp3')
+	game.load.audio('sheilditem','audio/shielditem.mp3')
+	game.load.audio('itemx2','audio/speeditem.mp3')
+	game.load.audio('hit','sound/hit.mp3')
+	
+
 
 }
 function create() {
@@ -346,23 +357,19 @@ function create() {
 	text3.visible = true;
 
 	hitSound = this.add.audio('hit');
+	
 	gamebgm = this.add.audio('gamebgm');
+	
 	itemx2 = this.add.audio('itemx2');
 	invisibleitem = this.add.audio('invisibleitem');
 	sheilditem = this.add.audio('sheilditem');
 	menu.stop();
 	gamebgm.play();
 	gamebgm.loopFull();
-	//////////////////////////////////////
-	
 
+	pause = game.add.button(720, 25, 'pause', topause, this);
+	pause.scale.setTo(0.25, 0.25)
 
-
-
-
-
-
-	//////////////////////////////////////
 
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -547,8 +554,28 @@ function create() {
 	
 	
 }
-
-
+function topause(){
+	pause.kill();
+	game.paused = true;
+	frames = game.add.sprite(150, 60, 'frame')
+	frames.scale.setTo(0.5, 0.5);
+	buttons = game.add.button(300, 250, 'home' ,gotomenu, this, 1, 0, 1 );
+	buttons.scale.setTo(0.25,0.25)
+	
+}
+function gotomenu(){
+	game.state.start("Menu");
+	console.log("asdasdasdsad")
+}	
+function tosetmute(){
+		if(!game.sound.mute){
+			game.sound.mute = true;
+		}
+		else if(game.sound.mute){
+			game.sound.mute = false;
+		}
+		
+}
 
 function obstacleSpawner() {
 	var output = game.rnd.integerInRange(0, 3);

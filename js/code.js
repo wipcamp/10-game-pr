@@ -1954,8 +1954,13 @@ function updateGameOver() {
 
 
 function toGame() {
+	if(selectmenu == 1){
 	game.state.start('GamePlay1');
 	gameoversound.stop();
+	}else if (selectmenu == 2){
+		game.state.start('GamePlay2');
+		gameoversound.stop();
+	}
 }
 function toGame2() {
 	game.state.start('GamePlay2');

@@ -354,6 +354,7 @@ function updateMenu() {
 function preload() {
 	game.load.image('player', 'images/monkey.png')
 	game.load.image('floor', 'images/floor.png')
+	game.load.image('floorback', 'images/floorback.png')
 
 	game.load.image('rock', 'images/rock.png')
 	game.load.image('arrow', 'images/arrow.png')
@@ -377,9 +378,12 @@ function preload() {
 	this.game.load.image('treer', 'images/tree_r.png')
 	this.game.load.image('houser', 'images/house_r.png')
 	//ฉากลานกว้าง
+	this.game.load.image('mountain', 'images/mountain.png')
 	this.game.load.image('bstone', 'images/bstone.png')
 	this.game.load.image('treedead', 'images/treedead.png')
 	this.game.load.image('sstone', 'images/sstone.png')
+	//blank
+	this.game.load.image('blank', 'images/blank.png')
 
 	//menupause
 	game.load.image('pause', 'images/pausebutton.png')
@@ -404,7 +408,7 @@ function create() {
 	countjump = 2;
 	countdeploy1 = 500
 	countdeploy = 400
-	score = 1000;
+	score = 450;
 	Hp = 1
 	itemCooldown = 10;
 	itemtimerun = -5;
@@ -430,28 +434,40 @@ function create() {
 		'skyr'
 	);
 	this.cloudr = this.game.add.tileSprite(0,
-		30,
+		50,
 		this.game.width,
 		this.game.cache.getImage('cloudr').height,
 		'cloudr'
 	);
+	this.mountain = this.game.add.tileSprite(0,
+		147,
+		this.game.width,
+		this.game.cache.getImage('blank').height,
+		'blank'
+	);
 	this.bushr = this.game.add.tileSprite(0,
-		220,
+		450,
 		this.game.width,
 		this.game.cache.getImage('bushr').height,
 		'bushr'
 	);
 	this.palacer = this.game.add.tileSprite(0,
-		50,
+		100,
 		this.game.width,
 		this.game.cache.getImage('palacer').height,
 		'palacer'
 	);
 	this.wallr = this.game.add.tileSprite(0,
-		220,
+		310,
 		this.game.width,
 		this.game.cache.getImage('wallr').height,
 		'wallr'
+	);
+	this.floorback = this.game.add.tileSprite(0,
+		536,
+		this.game.width,
+		this.game.cache.getImage('floorback').height,
+		'floorback'
 	);
 
 
@@ -496,11 +512,9 @@ function create() {
 
 
 	for (var i = 0; i < 24; i++) {
-		floor = FloorGroup.create(i * tileSize, 540, 'floor');
+		floor = FloorGroup.create(i * tileSize, 536, 'floor');
 		floor.body.immovable = true;
 		floor.body.velocity.x = -speedobj * 51.50;
-		floor.scale.setTo(0.45, 0.45)
-
 	}
 	lastFloor = floor;
 	lastCliff = false;
@@ -954,9 +968,11 @@ function update() {
 	//พื้นหลังเลื่อน
 	this.skyr.tilePosition.x -= 1 + speed
 	this.cloudr.tilePosition.x -= 2 + speed
+	this.mountain.tilePosition.x -= 3 + speed
 	this.bushr.tilePosition.x -= 4 + speed
 	this.palacer.tilePosition.x -= 5 + speed
 	this.wallr.tilePosition.x -= 7 + speed
+	this.floorback.tilePosition.x -= 3 + speed
 
 	speedobj += 0.0010
 	speed += 0.0010;//ความเร็วฉาก
@@ -973,9 +989,10 @@ function update() {
 	if (score >= 1100 & score <= 1101) {
 		flashs()
 		speed = 4.5
+		this.mountain.loadTexture('mountain')
 		this.bushr.loadTexture('bstone')
 		this.palacer.loadTexture('treedead')
-		this.wallr.loadTexture('sstone')
+		this.wallr.loadTexture('blank')
 	}
 
 	GenerateTerrain();

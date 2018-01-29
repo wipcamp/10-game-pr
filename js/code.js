@@ -76,7 +76,7 @@ var cloudt;
 var busht
 var palacet
 var wallt
-
+var gameoversound
 var selectmenu;
 ////////////////////////////////////////////////////Intro menu/////////////////////////////////////////////////////////
 
@@ -133,13 +133,15 @@ function preloadMenu() {
 	this.game.load.image('busht', 'images/bush_t.png')
 	this.game.load.image('palacet', 'images/palace_t.png')
 	this.game.load.image('wallt', 'images/wall_t.png')
-	game.load.audio('menu', 'sound/playgame.mp3');
+	game.load.audio('menu', 'audio/soundmenu.mp3');
 	game.load.image('options', 'images/options.png')
 	game.load.image('frame', 'images/frame.png')
+	game.load.image('framecredit', 'images/framecredit.png')
 	game.load.image('back', 'images/back.png')
 	game.load.spritesheet('mute', 'images/mute.png', 125, 94)
 	game.load.image('credit', 'images/credit.png')
-
+	game.load.image('press', 'images/กดปุ่มเว้นวรรค.png')
+	game.load.image('worker', 'images/worker.png')
 
 
 }
@@ -148,6 +150,8 @@ function createMenu() {
 
 	menu = this.add.audio('menu');
 	menu.play();
+	menu.loopFull();
+	
 
 	if (selectmenu == 1) {
 		console.log("this")
@@ -164,7 +168,7 @@ function createMenu() {
 			'cloudr'
 		);
 		bushr = game.add.tileSprite(0,
-			220,
+			200,
 			game.width,
 			game.cache.getImage('bushr').height,
 			'bushr'
@@ -176,7 +180,7 @@ function createMenu() {
 			'palacer'
 		);
 		wallr = game.add.tileSprite(0,
-			220,
+			330,
 			game.width,
 			game.cache.getImage('wallr').height,
 			'wallr'
@@ -196,7 +200,7 @@ function createMenu() {
 			'cloudt'
 		);
 		bushr = game.add.tileSprite(0,
-			220,
+			200,
 			game.width,
 			game.cache.getImage('busht').height,
 			'busht'
@@ -208,33 +212,23 @@ function createMenu() {
 			'palacet'
 		);
 		wallr = game.add.tileSprite(0,
-			220,
+			330,
 			game.width,
 			game.cache.getImage('wallt').height,
 			'wallt'
 		);
 	}
 
-	FloorGroup = game.add.group();
-	FloorGroup.enableBody = true;
-
-	for (var i = 0; i < 500; i++) {
-		floor = FloorGroup.create(i * tileSize, 540, 'floor');
-		floor.body.immovable = true;
-		floor.body.velocity.x = -speedobj * 0.25;
-		floor.scale.setTo(0.45, 0.45)
-
-
-	}
-
+	
 	var logo = game.add.sprite(800, 80, "logo");
-	logo.scale.setTo(0.45, 0.45)
+	logo.scale.setTo(0.35, 0.35)
 	var tween = game.add.tween(logo);
-	tween.to({ x: 200 }, 3000, 'Linear', true, 0);
-
-	var text = game.add.text(270, 420, '- กดปุ่มเพื่อเริ่มเกม -', { font: "60px Myfont1	", fill: "#1c1c1c", align: "center" });
-	text.alpha = 0;
-	game.add.tween(text).to({ alpha: 1 }, 500, Phaser.Easing.Linear.None, true, 0, 1000, false);
+	tween.to({ x: 150 }, 3000, 'Linear', true, 0);
+	
+	press = game.add.sprite(170, 480, "press");
+	press.alpha = 0;
+	press.scale.setTo(0.175, 0.175)
+	game.add.tween(press).to({ alpha: 1 }, 500, Phaser.Easing.Linear.None, true, 0, 1000, false);
 
 	option = game.add.button(720, 25, 'options', tosetting, this);
 	option.scale.setTo(0.025, 0.025)
@@ -251,9 +245,6 @@ function tosetting() {
 	credits.scale.setTo(0.25);
 	mute = game.add.button(500, 170, 'mute', tosetmute, this)
 	mute.scale.setTo(0.5);
-
-
-
 	backd = game.add.button(370, 340, 'back', todestroy, this)
 	backd.scale.setTo(0.5, 0.5);
 	name1.kill();
@@ -264,23 +255,8 @@ function tosetting() {
 	name6.kill();
 	name7.kill();
 	backs.kill();
-	framed.kill();
-
-
-
-
-
-	backd = game.add.button(370, 340, 'back', todestroy, this)
-	backd.scale.setTo(0.5, 0.5);
-	name1.kill();
-	name2.kill();
-	name3.kill();
-	name4.kill();
-	name5.kill();
-	name6.kill();
-	name7.kill();
-	backs.kill();
-	framed.kill();
+	framecredit.kill();
+	worker.kill();
 
 
 }
@@ -310,17 +286,19 @@ function tosetmute() {
 }
 
 function tocredit() {
-	framed = game.add.sprite(150, 60, 'frame')
-	framed.scale.setTo(0.5, 0.5);
-	name1 = game.add.text(300, 180, '1:xxxx xxx:xxxx', { font: "30px Arial", fill: "#FFFFFF", align: "center" });
-	name2 = game.add.text(300, 220, '2:xxxx xxx:xxxx', { font: "30px Arial", fill: "#FFFFFF", align: "center" });
-	name3 = game.add.text(300, 260, '3:xxxx xxx:xxxx', { font: "30px Arial", fill: "#FFFFFF", align: "center" });
-	name4 = game.add.text(300, 300, '4:xxxx xxx:xxxx', { font: "30px Arial", fill: "#FFFFFF", align: "center" });
-	name5 = game.add.text(300, 340, '5:xxxx xxx:xxxx', { font: "30px Arial", fill: "#FFFFFF", align: "center" });
-	name6 = game.add.text(300, 380, '6:xxxx xxx:xxxx', { font: "30px Arial", fill: "#FFFFFF", align: "center" });
-	name7 = game.add.text(300, 420, '7:xxxx xxx:xxxx', { font: "30px Arial", fill: "#FFFFFF", align: "center" });
-	backs = game.add.button(340, 340, 'back', tosetting, this)
-	backs.scale.setTo(0.5, 0.5);
+	framecredit = game.add.sprite(230, 10, 'framecredit')
+	framecredit.scale.setTo(0.27, 0.27);
+	worker = game.add.sprite(370, 120, 'worker')
+	worker.scale.setTo(0.29, 0.29);
+	name1 = game.add.text(340, 200, '1:xxxx xxx:xxxx', { font: "25px Arial", fill: "#FFFFFF", align: "center" });
+	name2 = game.add.text(340, 240, '2:xxxx xxx:xxxx', { font: "25px Arial", fill: "#FFFFFF", align: "center" });
+	name3 = game.add.text(340, 280, '3:xxxx xxx:xxxx', { font: "25px Arial", fill: "#FFFFFF", align: "center" });
+	name4 = game.add.text(340, 320, '4:xxxx xxx:xxxx', { font: "25px Arial", fill: "#FFFFFF", align: "center" });
+	name5 = game.add.text(340, 360, '5:xxxx xxx:xxxx', { font: "25px Arial", fill: "#FFFFFF", align: "center" });
+	name6 = game.add.text(340, 400, '6:xxxx xxx:xxxx', { font: "25px Arial", fill: "#FFFFFF", align: "center" });
+	name7 = game.add.text(340, 440, '7:xxxx xxx:xxxx', { font: "25px Arial", fill: "#FFFFFF", align: "center" });
+	backs = game.add.button(300, 130, 'back', tosetting, this)
+	backs.scale.setTo(0.25, 0.25);
 	backd.kill();
 	credits.kill();
 	frames.kill();
@@ -369,6 +347,7 @@ function preload() {
 	game.load.image('invisible', 'images/invisible.png')
 	game.load.image('play', 'images/play.png')
 	game.load.image('effectShelid', 'images/effectShelid.png')
+	game.load.image('โยชน์', 'images/โยชน์สีดำ.png')
 
 	//ฉากฝั่งราม
 	this.game.load.image('skyr', 'images/sky_r.png')
@@ -388,7 +367,9 @@ function preload() {
 	game.load.image('pause', 'images/pausebutton.png')
 	game.load.image('frame', 'images/frame.png')
 	game.load.spritesheet('home', 'images/home.png', 553, 188);
-
+	game.load.spritesheet('resume', 'images/home.png', 553, 188);
+	game.load.image('ยุติ', 'images/ยุติ.png')
+	
 
 	//audio
 	game.load.audio('gamebgm', 'audio/gamebgm.mp3')
@@ -407,7 +388,7 @@ function create() {
 	countjump = 2;
 	countdeploy1 = 500
 	countdeploy = 400
-	score = 1000;
+	score = 0;
 	Hp = 1
 	itemCooldown = 10;
 	itemtimerun = -5;
@@ -451,14 +432,16 @@ function create() {
 		'palacer'
 	);
 	this.wallr = this.game.add.tileSprite(0,
-		220,
+		270,
 		this.game.width,
 		this.game.cache.getImage('wallr').height,
 		'wallr'
 	);
 
+	โยชน์ = game.add.sprite(25, 25, 'โยชน์')
+	โยชน์.scale.setTo(0.25, 0.25)
 
-	text = game.add.text(25, 25, 'หลา : 0', { font: "60px Myfont1", fill: "#FF6600", align: "center" });
+	text = game.add.text(160, 17, '0', { font: "60px Myfont1", fill: "#000000", align: "center" });
 
 	text2 = game.add.text(25, 70, 'ระวังธนูกำลังจะมาใน  : ', { font: "60px Myfont1", fill: "#DC143C", align: "center" });
 	text2.visible = false;
@@ -657,15 +640,32 @@ function create() {
 function topause() {
 	pause.kill();
 	game.paused = true;
+
 	frames = game.add.sprite(150, 60, 'frame')
 	frames.scale.setTo(0.5, 0.5);
-	buttons = game.add.button(300, 250, 'home', gotomenu, this, 1, 0, 1);
-	buttons.scale.setTo(0.25, 0.25)
+	ยุติ = game.add.sprite(250, 190, 'ยุติ')
+	ยุติ.scale.setTo(0.25, 0.25);
+	home= game.add.button(270, 300, 'home', gotomenu, this, 1, 0, 1);
+	home.scale.setTo(0.25, 0.25)
+	resume = game.add.button(460, 300, 'home', gotoplay, this, 1, 0, 1);
+	resume.scale.setTo(0.25, 0.25)
+	
 
 }
+
 function gotomenu() {
 	game.state.start("Menu");
+	gamebgm.stop();
 	console.log("asdasdasdsad")
+}
+function gotoplay() {
+	game.paused = false;
+	frames.kill();
+	home.kill();
+	resume.kill();
+	ยุติ.kill();
+	pause = game.add.button(720, 25, 'pause', topause, this);
+	pause.scale.setTo(0.25, 0.25)
 }
 function tosetmute() {
 	if (!game.sound.mute) {
@@ -864,7 +864,7 @@ function updateScore() {
 
 	if (countStart >= 60) {
 		score += 1;
-		text.setText('โย๊ชน์ : ' + score);
+		text.setText('' + score);
 		game.add.tween(text3).to({ alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
 
 	} else if (countStart < 60) {
@@ -1214,25 +1214,39 @@ function render2() {
 /////////////////////////////////////////////////////////////////GameOver/////////////////////////////////////////////////////////////////
 
 function preloadGameOver() {
-	game.load.image('play', 'images/play.png')
-	game.load.image('gameover', 'images/gameover.png')
-	game.load.image('menu', 'images/menubutton.png')
+	
+	
+	game.load.image('gameoverframe', 'images/gameoverframe.png')
+	game.load.audio('gameoversound','audio/Sound Game Over.mp3')
+	game.load.spritesheet('play', 'images/เริ่มใหม่.png',475,206);
+	game.load.image('สิ้นชีพ', 'images/สิ้นชีพ.png')
+	game.load.image('คะแนน', 'images/คะแนน.png')
+	game.load.spritesheet('หน้าหลัก', 'images/หน้าหลัก.png',638,180);
+	
+	
 }
 function createGameOver() {
 
 
-	buttonStart = game.add.button(400, 300, 'play', toGame, this);
-	buttonStart.scale.setTo(0.5);
-	buttonStart.anchor.set(0.5);
+	gameoversound = this.add.audio('gameoversound');
+	gameoversound.play();
+	gameoversound.loopFull();
+	
 
-	buttonmenu = game.add.button(370, 400, 'menu', tomenu, this);
-	buttonmenu.scale.setTo(0.125);
-
-
-	gameOverTitle = this.game.add.sprite(50, 50, "gameover");
-	gameOverTitle.anchor.setTo(-0.25, 0.25);
-	gameOverTitle.scale.setTo(0.125, 0.125);
-
+	gameoverframe = game.add.sprite(120, 7, 'gameoverframe')
+	gameoverframe.scale.setTo(0.30, 0.30)
+	คะแนน = game.add.sprite(200, 220, 'คะแนน')
+	คะแนน.scale.setTo(0.30, 0.30)
+	สิ้นชีพ = game.add.sprite(350, 110, 'สิ้นชีพ')
+	สิ้นชีพ.scale.setTo(0.30, 0.30)
+	score = game.add.text(370, 210, ''+score, { font: "50px Arial", fill: "#FFFFFF", align: "center" });
+	
+	
+	play = game.add.button(270, 310,'play',toGame,this,1,0,1);
+	play.scale.setTo(0.25, 0.25)
+	หน้าหลัก = game.add.button(450, 320,'หน้าหลัก',wentmenu,this,1,0,1);
+	หน้าหลัก.scale.setTo(0.25, 0.25)
+	
 	gamebgm.stop();
 
 	if (countzonemain == 1) {
@@ -1245,15 +1259,27 @@ function createGameOver() {
 
 }
 function updateGameOver() {
-
+	
+	
 }
+
 
 function toGame() {
 	game.state.start('GamePlay1');
+	gameoversound.stop();
 }
 function toGame2() {
 	game.state.start('GamePlay2');
+	gameoversound.stop();
 }
 function tomenu() {
 	game.state.start('Menu');
+	
+	
+}
+function wentmenu() {
+	game.state.start('Menu');
+	gameoversound.stop();
+	
+	
 }

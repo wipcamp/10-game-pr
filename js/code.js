@@ -139,7 +139,7 @@ function preloadMenu() {
 	game.load.image('framecredit', 'images/framecredit.png')
 	game.load.image('back', 'images/back.png')
 	game.load.spritesheet('mute', 'images/mute.png', 125, 94)
-	game.load.image('credit', 'images/credit.png')
+	game.load.spritesheet('credit', 'images/ปุ่มทีมงาน.png',471,165)
 	game.load.image('press', 'images/กดปุ่มเว้นวรรค.png')
 	game.load.image('worker', 'images/worker.png')
 
@@ -241,8 +241,8 @@ function tosetting() {
 	option.kill();
 	frames = game.add.sprite(150, 60, 'frame')
 	frames.scale.setTo(0.5, 0.5);
-	credits = game.add.button(340, 250, 'credit', tocredit, this, 1, 0, 1);
-	credits.scale.setTo(0.25);
+	credits = game.add.button(240, 250, 'credit', tocredit, this, 1, 0, 1);
+	credits.scale.setTo(0.285);
 	mute = game.add.button(500, 170, 'mute', tosetmute, this)
 	mute.scale.setTo(0.5);
 	backd = game.add.button(370, 340, 'back', todestroy, this)

@@ -407,7 +407,7 @@ function create() {
 	countjump = 2;
 	countdeploy1 = 500
 	countdeploy = 400
-	score = 1000;
+	score = 0;
 	Hp = 1
 	itemCooldown = 10;
 	itemtimerun = -5;
@@ -1179,7 +1179,7 @@ function create2() {
 	countjump = 2;
 	countdeploy1 = 500
 	countdeploy = 400
-	score = 1000;
+	score = 0;
 	Hp = 1
 	itemCooldown = 10;
 	itemtimerun = -5;

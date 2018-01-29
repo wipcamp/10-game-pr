@@ -151,64 +151,64 @@ function createMenu() {
 
 	if (selectmenu == 1) {
 		console.log("this")
-		skyr = game.add.tileSprite(0,
+		sky = game.add.tileSprite(0,
 			0,
 			game.width,
 			game.cache.getImage('skyr').height,
 			'skyr'
 		);
-		cloudr = game.add.tileSprite(0,
-			30,
+		cloud = game.add.tileSprite(0,
+			50,
 			game.width,
 			game.cache.getImage('cloudr').height,
 			'cloudr'
 		);
-		bushr = game.add.tileSprite(0,
-			220,
+		bush = game.add.tileSprite(0,
+			450,
 			game.width,
 			game.cache.getImage('bushr').height,
 			'bushr'
 		);
-		palacer = game.add.tileSprite(0,
-			50,
+		palace = game.add.tileSprite(0,
+			100,
 			game.width,
 			game.cache.getImage('palacer').height,
 			'palacer'
 		);
-		wallr = game.add.tileSprite(0,
-			220,
+		wall = game.add.tileSprite(0,
+			310,
 			game.width,
 			game.cache.getImage('wallr').height,
 			'wallr'
 		);
 	} else if (selectmenu == 2) {
 		console.log("that")
-		skyr = game.add.tileSprite(0,
+		sky = game.add.tileSprite(0,
 			0,
 			game.width,
 			game.cache.getImage('skyt').height,
 			'skyt'
 		);
-		cloudr = game.add.tileSprite(0,
-			30,
+		cloud = game.add.tileSprite(0,
+			50,
 			game.width,
 			game.cache.getImage('cloudt').height,
 			'cloudt'
 		);
-		bushr = game.add.tileSprite(0,
-			220,
+		bush = game.add.tileSprite(0,
+			450,
 			game.width,
 			game.cache.getImage('busht').height,
 			'busht'
 		);
-		palacer = game.add.tileSprite(0,
-			50,
+		palace = game.add.tileSprite(0,
+			100,
 			game.width,
 			game.cache.getImage('palacet').height,
 			'palacet'
 		);
-		wallr = game.add.tileSprite(0,
-			220,
+		wall = game.add.tileSprite(0,
+			310,
 			game.width,
 			game.cache.getImage('wallt').height,
 			'wallt'
@@ -219,12 +219,9 @@ function createMenu() {
 	FloorGroup.enableBody = true;
 
 	for (var i = 0; i < 500; i++) {
-		floor = FloorGroup.create(i * tileSize, 540, 'floor');
+		floor = FloorGroup.create(i * tileSize, 536, 'floor');
 		floor.body.immovable = true;
 		floor.body.velocity.x = -speedobj * 0.25;
-		floor.scale.setTo(0.45, 0.45)
-
-
 	}
 
 	var logo = game.add.sprite(800, 80, "logo");
@@ -333,11 +330,11 @@ function updateMenu() {
 	timespeed -= 0.000000010;
 
 
-	skyr.tilePosition.x -= 1 + speed
-	cloudr.tilePosition.x -= 2 + speed
-	bushr.tilePosition.x -= 4 + speed
-	palacer.tilePosition.x -= 5 + speed
-	wallr.tilePosition.x -= 7 + speed
+	sky.tilePosition.x -= 1 + speed
+	cloud.tilePosition.x -= 2 + speed
+	bush.tilePosition.x -= 4 + speed
+	palace.tilePosition.x -= 5 + speed
+	wall.tilePosition.x -= 7 + speed
 
 	if (jumpButton.isDown) {
 		if (selectmenu == 1) {

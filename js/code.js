@@ -371,7 +371,7 @@ function preload() {
 	game.load.image('pause', 'images/pausebutton.png')
 	game.load.image('frame', 'images/frame.png')
 	game.load.spritesheet('home', 'images/home.png', 553, 188);
-	game.load.spritesheet('resume', 'images/home.png', 553, 188);
+	game.load.spritesheet('resume', 'images/continue.png', 457, 186);
 	game.load.image('ยุติ', 'images/ยุติ.png')
 	
 
@@ -659,10 +659,8 @@ function topause() {
 	frames.scale.setTo(0.5, 0.5);
 	ยุติ = game.add.sprite(250, 190, 'ยุติ')
 	ยุติ.scale.setTo(0.25, 0.25);
-	home= game.add.button(270, 300, 'home', gotomenu, this, 1, 0, 1);
-	home.scale.setTo(0.25, 0.25)
-	resume = game.add.button(460, 300, 'home', gotoplay, this, 1, 0, 1);
-	resume.scale.setTo(0.25, 0.25)
+	
+	
 	
 
 }
@@ -1186,6 +1184,8 @@ function preload2() {
 	game.load.image('pause', 'images/pausebutton.png')
 	game.load.image('frame', 'images/frame.png')
 	game.load.spritesheet('home', 'images/home.png', 553, 188);
+	game.load.image('ยุติ', 'images/ยุติ.png')
+	game.load.spritesheet('resume', 'images/continue.png', 457, 186);
 
 
 	//audio
@@ -1471,7 +1471,7 @@ function topause() {
 	ยุติ.scale.setTo(0.25, 0.25);
 	home= game.add.button(270, 300, 'home', gotomenu, this, 1, 0, 1);
 	home.scale.setTo(0.25, 0.25)
-	resume = game.add.button(460, 300, 'home', gotoplay, this, 1, 0, 1);
+	resume = game.add.button(460, 300, 'resume', gotoplay, this, 1, 0, 1);
 	resume.scale.setTo(0.25, 0.25)
 	
    

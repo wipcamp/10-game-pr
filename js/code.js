@@ -290,13 +290,13 @@ function tocredit() {
 	framecredit.scale.setTo(0.27, 0.27);
 	worker = game.add.sprite(370, 120, 'worker')
 	worker.scale.setTo(0.29, 0.29);
-	name1 = game.add.text(340, 200, '1:xxxx xxx:xxxx', { font: "25px Arial", fill: "#FFFFFF", align: "center" });
-	name2 = game.add.text(340, 240, '2:xxxx xxx:xxxx', { font: "25px Arial", fill: "#FFFFFF", align: "center" });
-	name3 = game.add.text(340, 280, '3:xxxx xxx:xxxx', { font: "25px Arial", fill: "#FFFFFF", align: "center" });
-	name4 = game.add.text(340, 320, '4:xxxx xxx:xxxx', { font: "25px Arial", fill: "#FFFFFF", align: "center" });
-	name5 = game.add.text(340, 360, '5:xxxx xxx:xxxx', { font: "25px Arial", fill: "#FFFFFF", align: "center" });
-	name6 = game.add.text(340, 400, '6:xxxx xxx:xxxx', { font: "25px Arial", fill: "#FFFFFF", align: "center" });
-	name7 = game.add.text(340, 440, '7:xxxx xxx:xxxx', { font: "25px Arial", fill: "#FFFFFF", align: "center" });
+	name1 = game.add.text(340, 200, '1:xxxx xxx:xxxx', { font: "25px Myfont1", fill: "#FFFFFF", align: "center" });
+	name2 = game.add.text(340, 240, '2:xxxx xxx:xxxx', { font: "25px Myfont1", fill: "#FFFFFF", align: "center" });
+	name3 = game.add.text(340, 280, '3:xxxx xxx:xxxx', { font: "25px Myfont1", fill: "#FFFFFF", align: "center" });
+	name4 = game.add.text(340, 320, '4:xxxx xxx:xxxx', { font: "25px Myfont1", fill: "#FFFFFF", align: "center" });
+	name5 = game.add.text(340, 360, '5:xxxx xxx:xxxx', { font: "25px Myfont1", fill: "#FFFFFF", align: "center" });
+	name6 = game.add.text(340, 400, '6:xxxx xxx:xxxx', { font: "25px Myfont1", fill: "#FFFFFF", align: "center" });
+	name7 = game.add.text(340, 440, '7:xxxx xxx:xxxx', { font: "25px Myfont1", fill: "#FFFFFF", align: "center" });
 	backs = game.add.button(300, 130, 'back', tosetting, this)
 	backs.scale.setTo(0.25, 0.25);
 	backd.kill();
@@ -376,7 +376,7 @@ function preload() {
 	game.load.audio('invisibleitem', 'audio/invisibleitem.mp3')
 	game.load.audio('sheilditem', 'audio/shielditem.mp3')
 	game.load.audio('itemx2', 'audio/speeditem.mp3')
-	game.load.audio('hit', 'sound/hit.mp3')
+	game.load.audio('hit', 'audio/Hit.mp3')
 
 
 
@@ -466,7 +466,7 @@ function create() {
 
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 
-	player = game.add.sprite(200, 300, 'player')
+	player = game.add.sprite(200, 350, 'player')
 	player.scale.setTo(0.25, 0.25)
 	player.anchor.set(0.5)
 
@@ -904,7 +904,7 @@ function getIteminvisible(player, item) {
 	invisibleitem.play();
 	item.kill();
 	SystemOverlab = 3;
-	itemtimeinvisible = 200
+	itemtimeinvisible = 500
 	itemtimerun = -1
 }
 function getItemrun(player, item) {
@@ -1144,6 +1144,7 @@ function preload2() {
 	game.load.image('invisible', 'images/invisible.png')
 	game.load.image('play', 'images/play.png')
 	game.load.image('effectShelid', 'images/effectShelid.png')
+	game.load.image('โยชน์', 'images/โยชน์สีดำ.png')
 
 	//ฉากฝั่งทศ 
 	this.game.load.image('skyt', 'images/sky_t.png')
@@ -1230,7 +1231,7 @@ function create2() {
 	);
 
 
-	text = game.add.text(25, 25, ' : 0', { font: "60px Myfont1", fill: "#FF6600", align: "center" });
+	text = game.add.text(170, 20, '0', { font: "60px Myfont1", fill: "#000000", align: "center" });
 
 	text2 = game.add.text(25, 70, 'ระวังธนูกำลังจะมาใน  : ', { font: "60px Myfont1", fill: "#DC143C", align: "center" });
 	text2.visible = false;
@@ -1422,6 +1423,8 @@ function create2() {
 
 	cursors = game.input.keyboard.createCursorKeys();
 	jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+	โยชน์ = game.add.sprite(25, 25, 'โยชน์')
+	โยชน์.scale.setTo(0.25, 0.25)
 
 
 
@@ -1429,25 +1432,41 @@ function create2() {
 function topause() {
 	pause.kill();
 	game.paused = true;
+   
 	frames = game.add.sprite(150, 60, 'frame')
 	frames.scale.setTo(0.5, 0.5);
-	buttons = game.add.button(300, 250, 'home', gotomenu, this, 1, 0, 1);
-	buttons.scale.setTo(0.25, 0.25)
-
-}
-function gotomenu() {
+	ยุติ = game.add.sprite(250, 190, 'ยุติ')
+	ยุติ.scale.setTo(0.25, 0.25);
+	home= game.add.button(270, 300, 'home', gotomenu, this, 1, 0, 1);
+	home.scale.setTo(0.25, 0.25)
+	resume = game.add.button(460, 300, 'home', gotoplay, this, 1, 0, 1);
+	resume.scale.setTo(0.25, 0.25)
+	
+   
+  }
+  function gotomenu() {
 	game.state.start("Menu");
+	gamebgm.stop();
 	console.log("asdasdasdsad")
-}
-function tosetmute() {
+  }
+  function gotoplay() {
+	game.paused = false;
+	frames.kill();
+	home.kill();
+	resume.kill();
+	ยุติ.kill();
+	pause = game.add.button(720, 25, 'pause', topause, this);
+	pause.scale.setTo(0.25, 0.25)
+  }
+  function tosetmute() {
 	if (!game.sound.mute) {
-		game.sound.mute = true;
+	  game.sound.mute = true;
 	}
 	else if (game.sound.mute) {
-		game.sound.mute = false;
+	  game.sound.mute = false;
 	}
-
-}
+   
+  }
 
 function obstacleSpawner() {
 	var output = game.rnd.integerInRange(0, 3);
@@ -1636,7 +1655,7 @@ function updateScore() {
 
 	if (countStart >= 60) {
 		score += 1;
-		text.setText('โย๊ชน์ : ' + score);
+		text.setText('' + score);
 		game.add.tween(text3).to({ alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
 
 	} else if (countStart < 60) {
@@ -1911,7 +1930,8 @@ function preloadGameOver() {
 	game.load.image('สิ้นชีพ', 'images/สิ้นชีพ.png')
 	game.load.image('คะแนน', 'images/คะแนน.png')
 	game.load.spritesheet('หน้าหลัก', 'images/หน้าหลัก.png',638,180);
-	
+	game.load.spritesheet('แบ่งปัน', 'images/แบ่งปัน.png',463,187 );
+	game.load.spritesheet('ลำดับ', 'images/ลำดับ.png',463,187 );	
 	
 }
 function createGameOver() {
@@ -1924,26 +1944,31 @@ function createGameOver() {
 
 	gameoverframe = game.add.sprite(120, 7, 'gameoverframe')
 	gameoverframe.scale.setTo(0.30, 0.30)
-	คะแนน = game.add.sprite(200, 220, 'คะแนน')
+	คะแนน = game.add.sprite(310, 220, 'คะแนน')
 	คะแนน.scale.setTo(0.30, 0.30)
-	สิ้นชีพ = game.add.sprite(350, 110, 'สิ้นชีพ')
+	สิ้นชีพ = game.add.sprite(350, 130, 'สิ้นชีพ')
 	สิ้นชีพ.scale.setTo(0.30, 0.30)
-	score = game.add.text(370, 210, ''+score, { font: "50px Arial", fill: "#FFFFFF", align: "center" });
 	
 	
-	play = game.add.button(270, 310,'play',toGame,this,1,0,1);
+	scoretext = game.add.text(500, 210, ''+score, { font: "50px Myfont1", fill: "#FFFFFF", align: "center" });
+
+	
+	play = game.add.button(270, 340,'play',toGame,this,1,0,1);
 	play.scale.setTo(0.25, 0.25)
-	หน้าหลัก = game.add.button(450, 320,'หน้าหลัก',wentmenu,this,1,0,1);
+	หน้าหลัก = game.add.button(450, 350,'หน้าหลัก',wentmenu,this,1,0,1);
 	หน้าหลัก.scale.setTo(0.25, 0.25)
+	แบ่งปัน= game.add.button(270, 430,'แบ่งปัน',tofacebook,this,1,0,1);
+	แบ่งปัน.scale.setTo(0.25, 0.25)
+	ลำดับ= game.add.button(450, 430,'ลำดับ',toranking,this,1,0,1);
+	ลำดับ.scale.setTo(0.25, 0.25)
+	if(score <= 1000){
+		funnytext = game.add.text(350, 270, "กากว่ะ", { font: "40px Myfont1", fill: "#FFFFFF", align: "center" });
+	}else{
+	 	funnytext = game.add.text(350, 270, "ยังอ่อนอยู่", { font: "40px Myfont1", fill: "#FFFFFF", align: "center" });
+	}
 	
 	gamebgm.stop();
-
-	if (countzonemain == 1) {
-		countzone = 1
-	}
-	if (countzonemain == 2) {
-		countzone = 2
-	}
+	
 
 
 }
@@ -1969,6 +1994,15 @@ function tomenu() {
 function wentmenu() {
 	game.state.start('Menu');
 	gameoversound.stop();
+	
+	
+}
+function tofacebook() {
+	
+	
+}
+
+function toranking() {
 	
 	
 }

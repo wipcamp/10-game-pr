@@ -186,6 +186,12 @@ function createMenu() {
 			game.cache.getImage('wallr').height,
 			'wallr'
 		);
+		floor = game.add.tileSprite(0,
+			536,
+			game.width,
+			game.cache.getImage('floor').height,
+			'floor'
+		);
 	} else if (selectmenu == 2) {
 		console.log("that")
 		sky = game.add.tileSprite(0,
@@ -217,6 +223,12 @@ function createMenu() {
 			game.width,
 			game.cache.getImage('wallt').height,
 			'wallt'
+		);
+		floor = game.add.tileSprite(0,
+			536,
+			game.width,
+			game.cache.getImage('floor').height,
+			'floor'
 		);
 	}
 
@@ -317,6 +329,7 @@ function updateMenu() {
 	bush.tilePosition.x -= 4 + speed
 	palace.tilePosition.x -= 5 + speed
 	wall.tilePosition.x -= 7 + speed
+	floor.tilePosition.x -= 3 + speed
 
 	if (jumpButton.isDown) {
 		if (selectmenu == 1) {

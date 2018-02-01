@@ -129,11 +129,11 @@ function preloadMenu() {
 	game.load.image('wallr', 'images/wall_r.png')
 	game.load.image('logor', 'images/logo_r.png')
 	//ฉากฝั่งทศ 
-	this.game.load.image('skyt', 'images/sky_t.png')
-	this.game.load.image('cloudt', 'images/cloud_t.png')
-	this.game.load.image('busht', 'images/bush_t.png')
-	this.game.load.image('palacet', 'images/palace_t.png')
-	this.game.load.image('wallt', 'images/wall_t.png')
+	game.load.image('skyt', 'images/sky_t.png')
+	game.load.image('cloudt', 'images/cloud_t.png')
+	game.load.image('busht', 'images/bush_t.png')
+	game.load.image('palacet', 'images/palace_t.png')
+	game.load.image('wallt', 'images/wall_t.png')
 	game.load.image('logot', 'images/logo_t.png')
 
 	game.load.image('floor', 'images/floor.png')

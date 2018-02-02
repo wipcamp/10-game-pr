@@ -19,7 +19,7 @@ var Hp = 1;
 var score = 1;
 var text = 0;
 var pause;
-var speed = 5;
+var speed = 7;
 var speedobj
 var speedb;
 var itemCooldown = 10;
@@ -34,7 +34,7 @@ var SpirteGroup;
 var FloorGroup;
 var RockGroup;
 var boxspeed;
-var timespeed = 150 ///ของ loop
+var timespeed = 150
 var countStart = 0;
 var SystemOverlab = 1;
 var tileSize = 70
@@ -65,8 +65,8 @@ var menu;
 var option;
 var pause;
 var coutinues;
-var boxspeedobj;///ของitem
-var speedobjdb;///ของitem
+var boxspeedobj;
+var speedobjdb;
 var itemsheildtime;
 
 //ฉาก
@@ -82,21 +82,33 @@ var selectmenu;
 ////////////////////////////////////////////////////Intro menu/////////////////////////////////////////////////////////
 
 function preloadIntro() {
-	game.load.image('monkey', 'images/itemrun.png')
-	game.load.image('huke', 'images/itemsheild.png')
+	game.load.spritesheet('giant', 'images/ตัวละครยักษ์.png', 765, 957, 2);
+	game.load.spritesheet('monkey', 'images/ตัวละครลิง.png', 786, 951, 2);
+	game.load.image('pressgiant', 'images/itemsheild.png')
+	game.load.image('pressmonkey', 'images/itemrun.png')
+	
 }
 
 
 
 
 function createIntro() {
-	monkey = game.add.button(200, 300, 'monkey', checkselect, this, 1, 0, 1);
-	monkey.scale.setTo(0.25, 0.25)
-	monkey.anchor.set(0.5)
+	pressgiant = game.add.button(490, 400, 'pressgiant', checkselect2, this);
+	pressgiant.scale.setTo(0.25, 0.25)
+	pressmonkey = game.add.button(120, 400, 'pressmonkey', checkselect, this);
+	pressmonkey.scale.setTo(0.25, 0.25)
 
-	huke = game.add.button(600, 300, 'huke', checkselect2, this, 1, 0, 1);
-	huke.scale.setTo(0.25, 0.25)
-	huke.anchor.set(0.5)
+	giant = game.add.sprite(680, 150, 'giant');
+	giant.scale.setTo(-0.25, 0.25)
+	giant.animations.add('walk');
+	giant.animations.play('walk', 5, true);
+	
+	monkey = game.add.sprite(110, 150, 'monkey');
+	monkey.scale.setTo(0.25, 0.25)
+	monkey.animations.add('walk');
+	monkey.animations.play('walk', 5, true);
+
+  
 
 }
 
@@ -121,22 +133,19 @@ function updateIntro() {
 function preloadMenu() {
 	//game.load.script('webfont', '\assets\fonts\Test.TTF');
 
-	//ฉากฝั่งราม
 	game.load.image('skyr', 'images/sky_r.png')
 	game.load.image('cloudr', 'images/cloud_r.png')
 	game.load.image('bushr', 'images/bush_r.png')
 	game.load.image('palacer', 'images/palace_r.png')
 	game.load.image('wallr', 'images/wall_r.png')
-	game.load.image('logor', 'images/logo_r.png')
-	//ฉากฝั่งทศ 
-	game.load.image('skyt', 'images/sky_t.png')
-	game.load.image('cloudt', 'images/cloud_t.png')
-	game.load.image('busht', 'images/bush_t.png')
-	game.load.image('palacet', 'images/palace_t.png')
-	game.load.image('wallt', 'images/wall_t.png')
-	game.load.image('logot', 'images/logo_t.png')
-
+	game.load.image('logo', 'images/logo.png')
 	game.load.image('floor', 'images/floor.png')
+	//ฉากฝั่งทศ 
+	this.game.load.image('skyt', 'images/sky_t.png')
+	this.game.load.image('cloudt', 'images/cloud_t.png')
+	this.game.load.image('busht', 'images/bush_t.png')
+	this.game.load.image('palacet', 'images/palace_t.png')
+	this.game.load.image('wallt', 'images/wall_t.png')
 	game.load.audio('menu', 'audio/soundmenu.mp3');
 	game.load.image('options', 'images/options.png')
 	game.load.image('frame', 'images/frame.png')
@@ -189,12 +198,6 @@ function createMenu() {
 			game.cache.getImage('wallr').height,
 			'wallr'
 		);
-		floor = game.add.tileSprite(0,
-			536,
-			game.width,
-			game.cache.getImage('floor').height,
-			'floor'
-		);
 	} else if (selectmenu == 2) {
 		console.log("that")
 		sky = game.add.tileSprite(0,
@@ -227,28 +230,18 @@ function createMenu() {
 			game.cache.getImage('wallt').height,
 			'wallt'
 		);
-		floor = game.add.tileSprite(0,
-			536,
-			game.width,
-			game.cache.getImage('floor').height,
-			'floor'
-		);
 	}
 
-	if(selectmenu==1){
-		var logo = game.add.sprite(800, 60, "logor");
-		var tween = game.add.tween(logo);
-		tween.to({ x: 150 }, 3000, 'Linear', true, 0)
-	} else if (selectmenu == 2) {
-		var logo = game.add.sprite(800, 60, "logot");
-		var tween = game.add.tween(logo);
-		tween.to({ x: 150 }, 3000, 'Linear', true, 0)
-	}
 
-	press = game.add.sprite(150, 450, "press");
+	var logo = game.add.sprite(800, 80, "logo");
+	logo.scale.setTo(0.35, 0.35)
+	var tween = game.add.tween(logo);
+	tween.to({ x: 150 }, 3000, 'Linear', true, 0);
+
+	press = game.add.sprite(150, 420, "press");
 	press.alpha = 0;
 	press.scale.setTo(0.175, 0.175)
-	game.add.tween(press).to({ alpha: 1 }, 500, Phaser.Easing.Linear.None, true, 0, 1000, false);
+	game.add.tween(press).to({ alpha: 1 }, 1000, Phaser.Easing.Linear.None, true, 0, 1000, false);
 
 	option = game.add.button(720, 25, 'options', tosetting, this);
 	option.scale.setTo(0.025, 0.025)
@@ -263,10 +256,12 @@ function tosetting() {
 	frames.scale.setTo(0.5, 0.5);
 	credits = game.add.button(240, 250, 'credit', tocredit, this, 1, 0, 1);
 	credits.scale.setTo(0.285);
-	mute = game.add.button(500, 170, 'mute', tosetmute, this)
+	mute = game.add.button(550, 170, 'mute', tosetmute, this)
 	mute.scale.setTo(0.5);
 	backd = game.add.button(370, 340, 'back', todestroy, this)
 	backd.scale.setTo(0.5, 0.5);
+	thanks = game.add.button(450,250, 'credit', tothanks, this, 1, 0, 1);
+	thanks.scale.setTo(0.285);
 	name1.kill();
 	name2.kill();
 	name3.kill();
@@ -277,10 +272,12 @@ function tosetting() {
 	backs.kill();
 	framecredit.kill();
 	worker.kill();
-
+	
 
 }
+function tothanks(){
 
+}
 
 function todestroy() {
 	console.log("in to destroy");
@@ -288,6 +285,7 @@ function todestroy() {
 	backd.kill();
 	credits.kill();
 	mute.kill();
+	thanks.kill();
 
 	option = game.add.button(720, 25, 'options', tosetting, this);
 	option.scale.setTo(0.025, 0.025)
@@ -323,6 +321,7 @@ function tocredit() {
 	credits.kill();
 	frames.kill();
 	mute.kill();
+	thanks.kill();
 }
 
 function updateMenu() {
@@ -336,7 +335,6 @@ function updateMenu() {
 	bush.tilePosition.x -= 4 + speed
 	palace.tilePosition.x -= 5 + speed
 	wall.tilePosition.x -= 7 + speed
-	floor.tilePosition.x -= 3 + speed
 
 	if (jumpButton.isDown) {
 		if (selectmenu == 1) {
@@ -354,7 +352,7 @@ function updateMenu() {
 
 ///////////////////////////////////////////////////Game Play////////////////////////////////////////////////////////
 function preload() {
-	game.load.image('player', 'images/monkey.png')
+	game.load.spritesheet('player', 'images/ตัวละครลิง.png', 786, 951, 2);
 	game.load.image('floor', 'images/floor.png')
 	game.load.image('floorback', 'images/floorback.png')
 
@@ -392,7 +390,7 @@ function preload() {
 	game.load.image('pause', 'images/pausebutton.png')
 	game.load.image('frame', 'images/frame.png')
 	game.load.spritesheet('home', 'images/home.png', 553, 188);
-	game.load.spritesheet('resume', 'images/continue.png', 457, 186);
+	game.load.spritesheet('resume', 'images/ปุ่มเล่นต่อ.png', 455, 185);
 	game.load.image('ยุติ', 'images/ยุติ.png')
 
 
@@ -403,12 +401,13 @@ function preload() {
 	game.load.audio('itemx2', 'audio/speeditem.mp3')
 	game.load.audio('hit', 'audio/Hit.mp3')
 
-
+	game.load.script('BlurX', 'https://cdn.rawgit.com/photonstorm/phaser/master/v2/filters/BlurX.js');
+    game.load.script('BlurY', 'https://cdn.rawgit.com/photonstorm/phaser/master/v2/filters/BlurY.js');
 
 }
 function create() {
 	text = 0;
-	speed = 4;
+	speed = 5;
 	speedobj = 450;
 	countjump = 2;
 	countdeploy1 = 500
@@ -504,8 +503,9 @@ function create() {
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 
 	player = game.add.sprite(200, 350, 'player')
-	player.scale.setTo(0.25, 0.25)
-	player.anchor.set(0.5)
+	player.scale.setTo(0.125, 0.125)
+	player.animations.add('walk');
+	player.animations.play('walk', 10, true);
 
 	effectShelid = game.add.sprite(100, 310, 'effectShelid')
 	effectShelid.scale.setTo(0.25, 0.25)
@@ -644,7 +644,7 @@ function create() {
 	Wall3 = game.add.group();
 	Wall3.enableBody = true;
 	for (var i = 0; i < 24; i++) {
-		walll3 = Wall3.create(0, 900, 'floor');
+		walll3 = Wall3.create(0, 1200, 'floor');
 		walll3.scale.setTo(1000, 0.25)
 		walll3.body.setSize(50, 1, 0, -15);
 		walll3.body.immovable = true;
@@ -680,8 +680,10 @@ function topause() {
 	frames.scale.setTo(0.5, 0.5);
 	ยุติ = game.add.sprite(250, 190, 'ยุติ')
 	ยุติ.scale.setTo(0.25, 0.25);
-	
-	
+	blurX = game.add.filter('BlurX');
+	blurY = game.add.filter('BlurY');
+
+    
 	
 
 
@@ -950,6 +952,7 @@ function getItemrun(player, item) {
 	itemtimeinvisible = -1
 }
 function ActiveRunspped() {
+	
 	speedb = boxspeed;
 	boxspeed = speed;
 	speedobjdb = boxspeedobj;
@@ -1182,7 +1185,7 @@ function render() {
 function preload2() {
 
 
-	game.load.image('player', 'images/huge.png')
+	game.load.spritesheet('player', 'images/ตัวละครยักษ์.png', 765, 957, 2);
 	game.load.image('floor', 'images/floor.png')
 	game.load.image('floorback', 'images/floorback.png')
 
@@ -1222,7 +1225,7 @@ function preload2() {
 	game.load.image('frame', 'images/frame.png')
 	game.load.spritesheet('home', 'images/home.png', 553, 188);
 	game.load.image('ยุติ', 'images/ยุติ.png')
-	game.load.spritesheet('resume', 'images/continue.png', 457, 186);
+	game.load.spritesheet('resume', 'images/ปุ่มเล่นต่อ.png', 455, 185);
 
 
 	//audio
@@ -1234,7 +1237,7 @@ function preload2() {
 }
 function create2() {
 	text = 0;
-	speed = 4;
+	speed = 5;
 	speedobj = 450;
 	countjump = 2;
 	countdeploy1 = 500
@@ -1327,9 +1330,10 @@ function create2() {
 
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 
-	player = game.add.sprite(200, 300, 'player')
-	player.scale.setTo(0.25, 0.25)
-	player.anchor.set(0.5)
+	player = game.add.sprite(200, 350, 'player')
+	player.scale.setTo(0.125, 0.125)
+	player.animations.add('walk');
+	player.animations.play('walk', 10, true);
 
 	effectShelid = game.add.sprite(100, 310, 'effectShelid')
 	effectShelid.scale.setTo(0.25, 0.25)
@@ -1447,12 +1451,12 @@ function create2() {
 	ArrowGroup.enableBody = true;
 	ArrowGroup.physicsBodyType = Phaser.Physics.ARCADE;
 	for (var i = 0; i < 16; i++) {
-		arrowcutObj = ArrowGroup.create(750, getRandomArbitrary4(), 'arrow');
+		arrowcutObj = ArrowGroup.create(700, getRandomArbitrary4(), 'arrow');
 		arrowcutObj.exists = false;
 		arrowcutObj.visible = false;
 		arrowcutObj.checkWorldBounds = true;
 		arrowcutObj.events.onOutOfBounds.add(resetPostion, this);
-		arrowcutObj.scale.setTo(0.09999, 0.09999)
+		arrowcutObj.scale.setTo(0.25, 0.25)
 		arrowcutObj.body.setSize(50, 70, 0, -15);
 	}
 	Wall1 = game.add.sprite(60, 500, 'wallblock');
@@ -1468,7 +1472,7 @@ function create2() {
 	Wall3 = game.add.group();
 	Wall3.enableBody = true;
 	for (var i = 0; i < 24; i++) {
-		walll3 = Wall3.create(0, 1000, 'floor');
+		walll3 = Wall3.create(0, 1200, 'floor');
 		walll3.scale.setTo(1000, 0.25)
 		walll3.body.setSize(50, 1, 0, -15);
 		walll3.body.immovable = true;
@@ -1768,6 +1772,8 @@ function getIteminvisible(player, item) {
 	itemtimerun = -1
 }
 function getItemrun(player, item) {
+	player.animations.add('walk');
+	player.animations.play('walk',50, true);
 	itemx2.play();
 	item.kill();
 	itemtimerun = 200
@@ -2020,9 +2026,41 @@ function preloadGameOver() {
 	game.load.spritesheet('หน้าหลัก', 'images/หน้าหลัก.png', 638, 180);
 	game.load.spritesheet('แบ่งปัน', 'images/แบ่งปัน.png', 463, 187);
 	game.load.spritesheet('ลำดับ', 'images/ลำดับ.png', 463, 187);
+	game.load.image('star', 'images/star.png');
 
 }
+var distance = 300;
+var speed = 4;
+var stars;
+
+var max = 200;
+var xx = [];
+var yy = [];
+var zz = [];
 function createGameOver() {
+
+	if (game.renderType === Phaser.WEBGL)
+    {
+        max = 2000;
+    }
+
+    var sprites = game.add.spriteBatch();
+
+    stars = [];
+
+    for (var i = 0; i < max; i++)
+    {
+        xx[i] = Math.floor(Math.random() * 800) - 400;
+        yy[i] = Math.floor(Math.random() * 600) - 300;
+        zz[i] = Math.floor(Math.random() * 1700) - 100;
+
+        var star = game.make.sprite(0, 0, 'star');
+        star.anchor.set(0.5);
+
+        sprites.addChild(star);
+
+        stars.push(star);
+    }
 
 
 	gameoversound = this.add.audio('gameoversound');
@@ -2061,7 +2099,24 @@ function createGameOver() {
 
 }
 function updateGameOver() {
+	for (var i = 0; i < max; i++)
+    {
+        stars[i].perspective = distance / (distance - zz[i]);
+        stars[i].x = game.world.centerX + xx[i] * stars[i].perspective;
+        stars[i].y = game.world.centerY + yy[i] * stars[i].perspective;
 
+        zz[i] += speed;
+
+        if (zz[i] > 290)
+        {
+            zz[i] -= 600;
+        }
+
+        stars[i].alpha = Math.min(stars[i].perspective / 2, 1);
+        stars[i].scale.set(stars[i].perspective / 2);
+        stars[i].rotation += 0.1;
+
+    }
 
 }
 

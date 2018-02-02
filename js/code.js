@@ -19,7 +19,7 @@ var Hp = 1;
 var score = 1;
 var text = 0;
 var pause;
-var speed = 7;
+var speed = 5;
 var speedobj
 var speedb;
 var itemCooldown = 10;
@@ -34,7 +34,7 @@ var SpirteGroup;
 var FloorGroup;
 var RockGroup;
 var boxspeed;
-var timespeed = 150
+var timespeed = 150 ///ของ loop
 var countStart = 0;
 var SystemOverlab = 1;
 var tileSize = 70
@@ -65,8 +65,8 @@ var menu;
 var option;
 var pause;
 var coutinues;
-var boxspeedobj;
-var speedobjdb;
+var boxspeedobj;///ของitem
+var speedobjdb;///ของitem
 var itemsheildtime;
 
 //ฉาก
@@ -408,7 +408,7 @@ function preload() {
 }
 function create() {
 	text = 0;
-	speed = 5;
+	speed = 4;
 	speedobj = 450;
 	countjump = 2;
 	countdeploy1 = 500
@@ -644,7 +644,7 @@ function create() {
 	Wall3 = game.add.group();
 	Wall3.enableBody = true;
 	for (var i = 0; i < 24; i++) {
-		walll3 = Wall3.create(0, 1200, 'floor');
+		walll3 = Wall3.create(0, 900, 'floor');
 		walll3.scale.setTo(1000, 0.25)
 		walll3.body.setSize(50, 1, 0, -15);
 		walll3.body.immovable = true;
@@ -1234,7 +1234,7 @@ function preload2() {
 }
 function create2() {
 	text = 0;
-	speed = 5;
+	speed = 4;
 	speedobj = 450;
 	countjump = 2;
 	countdeploy1 = 500
@@ -1447,12 +1447,12 @@ function create2() {
 	ArrowGroup.enableBody = true;
 	ArrowGroup.physicsBodyType = Phaser.Physics.ARCADE;
 	for (var i = 0; i < 16; i++) {
-		arrowcutObj = ArrowGroup.create(700, getRandomArbitrary4(), 'arrow');
+		arrowcutObj = ArrowGroup.create(750, getRandomArbitrary4(), 'arrow');
 		arrowcutObj.exists = false;
 		arrowcutObj.visible = false;
 		arrowcutObj.checkWorldBounds = true;
 		arrowcutObj.events.onOutOfBounds.add(resetPostion, this);
-		arrowcutObj.scale.setTo(0.25, 0.25)
+		arrowcutObj.scale.setTo(0.09999, 0.09999)
 		arrowcutObj.body.setSize(50, 70, 0, -15);
 	}
 	Wall1 = game.add.sprite(60, 500, 'wallblock');
@@ -1468,7 +1468,7 @@ function create2() {
 	Wall3 = game.add.group();
 	Wall3.enableBody = true;
 	for (var i = 0; i < 24; i++) {
-		walll3 = Wall3.create(0, 1200, 'floor');
+		walll3 = Wall3.create(0, 1000, 'floor');
 		walll3.scale.setTo(1000, 0.25)
 		walll3.body.setSize(50, 1, 0, -15);
 		walll3.body.immovable = true;

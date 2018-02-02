@@ -1,6 +1,7 @@
 var game = new Phaser.Game(800, 600, Phaser.AUTO, "game")
 var Menu = { preload: preloadMenu, create: createMenu, update: updateMenu }
 // var CutScene = {preload : preloadCutScene,create:createCutScence,update:updateCutScene}
+// var CutScene2 = {preload : preloadCutScene2,create:createCutScence2,update:updateCutScene2}
 var Intro = { preload: preloadIntro, create: createIntro, update: updateIntro }
 var GamePlayRam = { preload: preload, create: create, update: update, render: render }
 var GamePlayGiant = { preload: preload2, create: create2, update: update2, render: render2 }
@@ -68,6 +69,7 @@ var coutinues;
 var boxspeedobj;
 var speedobjdb;
 var itemsheildtime;
+var checkpuase;
 
 //ฉาก
 var countzonemain = 1;
@@ -663,13 +665,15 @@ function create() {
 
 
 	Wall3 = game.add.group();
+	
 	Wall3.enableBody = true;
 	for (var i = 0; i < 24; i++) {
-		walll3 = Wall3.create(0, 1200, 'floor');
+		walll3 = Wall3.create(0, 750, 'floor');
 		walll3.scale.setTo(1000, 0.25)
 		walll3.body.setSize(50, 1, 0, -15);
 		walll3.body.immovable = true;
 		walll3.body.velocity.x = 0
+		walll3.visible =true;
 
 
 	}
@@ -1492,7 +1496,7 @@ function create2() {
 	Wall3 = game.add.group();
 	Wall3.enableBody = true;
 	for (var i = 0; i < 24; i++) {
-		walll3 = Wall3.create(0, 1200, 'floor');
+		walll3 = Wall3.create(0, 750, 'floor');
 		walll3.scale.setTo(1000, 0.25)
 		walll3.body.setSize(50, 1, 0, -15);
 		walll3.body.immovable = true;
@@ -1538,6 +1542,7 @@ function topause() {
 
 }
 function gotomenu() {
+	game.paused = false;
 	game.state.start("Menu");
 	gamebgm.stop();
 	console.log("asdasdasdsad")

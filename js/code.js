@@ -159,6 +159,29 @@ function preloadMenu() {
 
 }
 function createMenu() {
+	framecredit = game.add.sprite(230, 10, 'framecredit')
+	framecredit.scale.setTo(0.27, 0.27);
+	worker = game.add.sprite(370, 120, 'worker')
+	worker.scale.setTo(0.29, 0.29);
+	name1 = game.add.text(340, 200, '1:xxxx xxx:xxxx', { font: "25px Myfont1", fill: "#FFFFFF", align: "center" });
+	name2 = game.add.text(340, 240, '2:xxxx xxx:xxxx', { font: "25px Myfont1", fill: "#FFFFFF", align: "center" });
+	name3 = game.add.text(340, 280, '3:xxxx xxx:xxxx', { font: "25px Myfont1", fill: "#FFFFFF", align: "center" });
+	name4 = game.add.text(340, 320, '4:xxxx xxx:xxxx', { font: "25px Myfont1", fill: "#FFFFFF", align: "center" });
+	name5 = game.add.text(340, 360, '5:xxxx xxx:xxxx', { font: "25px Myfont1", fill: "#FFFFFF", align: "center" });
+	name6 = game.add.text(340, 400, '6:xxxx xxx:xxxx', { font: "25px Myfont1", fill: "#FFFFFF", align: "center" });
+	name7 = game.add.text(340, 440, '7:xxxx xxx:xxxx', { font: "25px Myfont1", fill: "#FFFFFF", align: "center" });
+	backs = game.add.button(300, 130, 'back', tosetting, this)
+	backs.scale.setTo(0.25, 0.25);
+	name1.kill();
+	name2.kill();
+	name3.kill();
+	name4.kill();
+	name5.kill();
+	name6.kill();
+	name7.kill();
+	backs.kill();
+	framecredit.kill();
+	worker.kill();
 
 
 	menu = this.add.audio('menu');
@@ -365,7 +388,6 @@ function preload() {
 	game.load.image('itemrun', 'images/itemrun.png')
 	game.load.image('wallblock', 'images/wallblock.png')
 	game.load.image('invisible', 'images/invisible.png')
-	game.load.image('play', 'images/play.png')
 	game.load.image('effectShelid', 'images/effectShelid.png')
 	game.load.image('โยชน์', 'images/โยชน์สีดำ.png')
 
@@ -401,8 +423,7 @@ function preload() {
 	game.load.audio('itemx2', 'audio/speeditem.mp3')
 	game.load.audio('hit', 'audio/Hit.mp3')
 
-	game.load.script('BlurX', 'https://cdn.rawgit.com/photonstorm/phaser/master/v2/filters/BlurX.js');
-    game.load.script('BlurY', 'https://cdn.rawgit.com/photonstorm/phaser/master/v2/filters/BlurY.js');
+
 
 }
 function create() {
@@ -1198,7 +1219,6 @@ function preload2() {
 	game.load.image('itemrun', 'images/itemrun.png')
 	game.load.image('wallblock', 'images/wallblock.png')
 	game.load.image('invisible', 'images/invisible.png')
-	game.load.image('play', 'images/play.png')
 	game.load.image('effectShelid', 'images/effectShelid.png')
 	game.load.image('โยชน์', 'images/โยชน์สีดำ.png')
 

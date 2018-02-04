@@ -70,6 +70,7 @@ var boxspeedobj;
 var speedobjdb;
 var itemsheildtime;
 var checkpuase;
+var speeda = 6;
 
 //ฉาก
 var countzonemain = 1;
@@ -819,7 +820,7 @@ function arrowDeploy() {
 	var position = getRandomArbitrary4()
 	arrow = ArrowGroup.getFirstExists(false);
 	arrow.reset(750, position);
-	arrow.body.velocity.x = -speed * 150;
+	arrow.body.velocity.x = -speeda * 150;
 }
 function warningarrow() {
 	countwarningarrow = 200;

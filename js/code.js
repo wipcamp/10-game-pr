@@ -413,6 +413,7 @@ function preload() {
 	game.load.spritesheet('home', 'images/home.png', 553, 188);
 	game.load.spritesheet('resume', 'images/ปุ่มเล่นต่อ.png', 455, 185);
 	game.load.image('ยุติ', 'images/ยุติ.png')
+	game.load.spritesheet('เตรียมพร้อม','images/เตรียมพร้อม.png')
 
 
 	//audio
@@ -502,7 +503,8 @@ function create() {
 	text2 = game.add.text(25, 70, 'ระวังธนูกำลังจะมาใน  : ', { font: "60px Myfont1", fill: "#DC143C", align: "center" });
 	text2.visible = false;
 
-	text3 = game.add.text(300, 400, 'เตรียมพร้อมม...!! ', { font: "60px Myfont1", fill: "#DC143C", align: "center" });
+	text3 = game.add.sprite(350,450,'เตรียมพร้อม')
+	text3.scale.setTo(0.25, 0.25)
 	text3.visible = true;
 
 	hitSound = this.add.audio('hit');
@@ -923,7 +925,7 @@ function updateScore() {
 	if (countStart >= 60) {
 		score += 1;
 		text.setText('' + score);
-		game.add.tween(text3).to({ alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
+		game.add.tween(text3).to({ alpha: 0 }, 2000, Phaser.Easing.Linear.None, true);
 
 	} else if (countStart < 60) {
 		text3.visible = true;
@@ -1247,6 +1249,7 @@ function preload2() {
 	game.load.spritesheet('home', 'images/home.png', 553, 188);
 	game.load.image('ยุติ', 'images/ยุติ.png')
 	game.load.spritesheet('resume', 'images/ปุ่มเล่นต่อ.png', 455, 185);
+	game.load.spritesheet('เตรียมพร้อม','images/เตรียมพร้อม.png')
 
 
 	//audio
@@ -1331,7 +1334,8 @@ function create2() {
 	text2 = game.add.text(25, 70, 'ระวังธนูกำลังจะมาใน  : ', { font: "60px Myfont1", fill: "#DC143C", align: "center" });
 	text2.visible = false;
 
-	text3 = game.add.text(300, 400, 'เตรียมพร้อมม...!! ', { font: "60px Myfont1", fill: "#DC143C", align: "center" });
+	text3 = game.add.sprite(350,450,'เตรียมพร้อม')
+	text3.scale.setTo(0.25, 0.25)
 	text3.visible = true;
 
 	hitSound = this.add.audio('hit');
@@ -1748,12 +1752,12 @@ function flashs() {
 
 function updateScore() {
 
-	if (countStart >= 60) {
+	if (countStart >=50) {
 		score += 1;
 		text.setText('' + score);
 		game.add.tween(text3).to({ alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
 
-	} else if (countStart < 60) {
+	} else if (countStart < 50) {
 		text3.visible = true;
 		countStart++
 	}

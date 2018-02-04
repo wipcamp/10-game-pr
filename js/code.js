@@ -136,18 +136,22 @@ function updateIntro() {
 function preloadMenu() {
 	//game.load.script('webfont', '\assets\fonts\Test.TTF');
 
+	//ฉากฝั่งราม
 	game.load.image('skyr', 'images/sky_r.png')
 	game.load.image('cloudr', 'images/cloud_r.png')
 	game.load.image('bushr', 'images/bush_r.png')
 	game.load.image('palacer', 'images/palace_r.png')
 	game.load.image('wallr', 'images/wall_r.png')
-	game.load.image('logor', 'images/logo_r.png') 
+	game.load.image('logor', 'images/logo_r.png')
 	//ฉากฝั่งทศ 
-	game.load.image('skyt', 'images/sky_t.png') 
-	game.load.image('cloudt', 'images/cloud_t.png') 
-	game.load.image('busht', 'images/bush_t.png') 
-	game.load.image('palacet', 'images/palace_t.png') 
-	game.load.image('wallt', 'images/wall_t.png') 
+	game.load.image('skyt', 'images/sky_t.png')
+	game.load.image('cloudt', 'images/cloud_t.png')
+	game.load.image('busht', 'images/bush_t.png')
+	game.load.image('palacet', 'images/palace_t.png')
+	game.load.image('wallt', 'images/wall_t.png')
+	game.load.image('logot', 'images/logo_t.png')
+
+	game.load.image('floor', 'images/floor.png')
 	game.load.audio('menu', 'audio/soundmenu.mp3');
 	game.load.image('options', 'images/options.png')
 	game.load.image('frame', 'images/frame.png')
@@ -157,36 +161,10 @@ function preloadMenu() {
 	game.load.spritesheet('credit', 'images/ปุ่มทีมงาน.png',471,165)
 	game.load.image('press', 'images/กดปุ่มเว้นวรรค.png')
 	game.load.image('worker', 'images/worker.png')
-	game.load.image('logot', 'images/logo_t.png') 
- 
-	game.load.image('floor', 'images/floor.png') 
 
 
 }
 function createMenu() {
-	framecredit = game.add.sprite(230, 10, 'framecredit')
-	framecredit.scale.setTo(0.27, 0.27);
-	worker = game.add.sprite(370, 120, 'worker')
-	worker.scale.setTo(0.29, 0.29);
-	name1 = game.add.text(340, 200, '1:xxxx xxx:xxxx', { font: "25px Myfont1", fill: "#FFFFFF", align: "center" });
-	name2 = game.add.text(340, 240, '2:xxxx xxx:xxxx', { font: "25px Myfont1", fill: "#FFFFFF", align: "center" });
-	name3 = game.add.text(340, 280, '3:xxxx xxx:xxxx', { font: "25px Myfont1", fill: "#FFFFFF", align: "center" });
-	name4 = game.add.text(340, 320, '4:xxxx xxx:xxxx', { font: "25px Myfont1", fill: "#FFFFFF", align: "center" });
-	name5 = game.add.text(340, 360, '5:xxxx xxx:xxxx', { font: "25px Myfont1", fill: "#FFFFFF", align: "center" });
-	name6 = game.add.text(340, 400, '6:xxxx xxx:xxxx', { font: "25px Myfont1", fill: "#FFFFFF", align: "center" });
-	name7 = game.add.text(340, 440, '7:xxxx xxx:xxxx', { font: "25px Myfont1", fill: "#FFFFFF", align: "center" });
-	backs = game.add.button(300, 130, 'back', tosetting, this)
-	backs.scale.setTo(0.25, 0.25);
-	name1.kill();
-	name2.kill();
-	name3.kill();
-	name4.kill();
-	name5.kill();
-	name6.kill();
-	name7.kill();
-	backs.kill();
-	framecredit.kill();
-	worker.kill();
 
 
 	menu = this.add.audio('menu');
@@ -195,9 +173,7 @@ function createMenu() {
 
 
 	if (selectmenu == 1) {
-		var logo = game.add.sprite(800, 60, "logor"); 
-		var tween = game.add.tween(logo); 
-		tween.to({ x: 150 }, 3000, 'Linear', true, 0) 
+		console.log("this")
 		sky = game.add.tileSprite(0,
 			0,
 			game.width,
@@ -228,11 +204,14 @@ function createMenu() {
 			game.cache.getImage('wallr').height,
 			'wallr'
 		);
+		floor = game.add.tileSprite(0,
+			536,
+			game.width,
+			game.cache.getImage('floor').height,
+			'floor'
+		);
 	} else if (selectmenu == 2) {
-
-		var logo = game.add.sprite(800, 60, "logot"); 
-		var tween = game.add.tween(logo); 
-		tween.to({ x: 150 }, 3000, 'Linear', true, 0) 
+		console.log("that")
 		sky = game.add.tileSprite(0,
 			0,
 			game.width,
@@ -263,18 +242,28 @@ function createMenu() {
 			game.cache.getImage('wallt').height,
 			'wallt'
 		);
+		floor = game.add.tileSprite(0,
+			536,
+			game.width,
+			game.cache.getImage('floor').height,
+			'floor'
+		);
 	}
 
+	if(selectmenu==1){
+		var logo = game.add.sprite(800, 60, "logor");
+		var tween = game.add.tween(logo);
+		tween.to({ x: 150 }, 3000, 'Linear', true, 0)
+	} else if (selectmenu == 2) {
+		var logo = game.add.sprite(800, 60, "logot");
+		var tween = game.add.tween(logo);
+		tween.to({ x: 150 }, 3000, 'Linear', true, 0)
+	}
 
-	var logo = game.add.sprite(800, 80, "logo");
-	logo.scale.setTo(0.35, 0.35)
-	var tween = game.add.tween(logo);
-	tween.to({ x: 150 }, 3000, 'Linear', true, 0);
-
-	press = game.add.sprite(150, 450, "press"); 
+	press = game.add.sprite(150, 450, "press");
 	press.alpha = 0;
 	press.scale.setTo(0.175, 0.175)
-	game.add.tween(press).to({ alpha: 1 }, 1000, Phaser.Easing.Linear.None, true, 0, 1000, false);
+	game.add.tween(press).to({ alpha: 1 }, 500, Phaser.Easing.Linear.None, true, 0, 1000, false);
 
 	option = game.add.button(720, 25, 'options', tosetting, this);
 	option.scale.setTo(0.025, 0.025)
@@ -313,7 +302,6 @@ function tothanks(){
 }
 
 function todestroy() {
-	console.log("in to destroy");
 	frames.kill();
 	backd.kill();
 	credits.kill();
@@ -368,6 +356,7 @@ function updateMenu() {
 	bush.tilePosition.x -= 4 + speed
 	palace.tilePosition.x -= 5 + speed
 	wall.tilePosition.x -= 7 + speed
+	floor.tilePosition.x -= 4+speed;
 
 	if (jumpButton.isDown) {
 		if (selectmenu == 1) {

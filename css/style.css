@@ -14,5 +14,8 @@ a {
 }
 @font-face {
   font-family: 'Myfont1';
-  src: url(BSRUBANSOMDEJ-SemiBold.otf);
-}
+  src: url(chaiyaEak.TTF);
+}@font-face {
+    font-family: 'Myfont2';
+    src: url(SOV_jarukbali.ttf);
+  }

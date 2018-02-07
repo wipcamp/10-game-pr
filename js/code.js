@@ -1,6 +1,7 @@
 var game = new Phaser.Game(800, 600, Phaser.AUTO, "game")
 var Menu = { preload: preloadMenu, create: createMenu, update: updateMenu }
 // var CutScene = {preload : preloadCutScene,create:createCutScence,update:updateCutScene}
+var Endcredit = { preload: preloadEndcredit, create: createEndcredit, update: updateEndcredit }
 var Howtoplay = { preload: preloadHowtoplay, create: createHowtoplay, update: updateHowtoplay }
 var Intro = { preload: preloadIntro, create: createIntro, update: updateIntro }
 var GamePlayRam = { preload: preload, create: create, update: update, render: render }
@@ -12,6 +13,7 @@ var GameOver = { preload: preloadGameOver, create: createGameOver, update: updat
 game.state.add('Menu', Menu)
 game.state.add('Intro', Intro)
 game.state.add('Howtoplay', Howtoplay)
+game.state.add('Endcredit', Endcredit)
 game.state.add('GameOver', GameOver)
 game.state.add('GamePlay1', GamePlayRam)
 game.state.add('GamePlay2', GamePlayGiant)
@@ -201,12 +203,9 @@ function preloadMenu() {
 
 
 }
+
 function createMenu() {
-	framecredit = game.add.sprite(230, 10, 'framecredit')
-	framecredit.scale.setTo(0.27, 0.27);
-	worker = game.add.sprite(370, 120, 'worker')
-}
-function createMenu() {
+	
 	framecredit = game.add.sprite(230, 10, 'framecredit')
 	framecredit.scale.setTo(0.27, 0.27);
 	worker = game.add.sprite(370, 120, 'worker')
@@ -384,19 +383,7 @@ function tosetmute() {
 }
 
 function tocredit() {
-	framecredit = game.add.sprite(230, 10, 'framecredit')
-	framecredit.scale.setTo(0.27, 0.27);
-	worker = game.add.sprite(370, 120, 'worker')
-	worker.scale.setTo(0.29, 0.29);
-	name1 = game.add.text(340, 200, '1:xxxx xxx:xxxx', { font: "25px Myfont1", fill: "#FFFFFF", align: "center" });
-	name2 = game.add.text(340, 240, '2:xxxx xxx:xxxx', { font: "25px Myfont1", fill: "#FFFFFF", align: "center" });
-	name3 = game.add.text(340, 280, '3:xxxx xxx:xxxx', { font: "25px Myfont1", fill: "#FFFFFF", align: "center" });
-	name4 = game.add.text(340, 320, '4:xxxx xxx:xxxx', { font: "25px Myfont1", fill: "#FFFFFF", align: "center" });
-	name5 = game.add.text(340, 360, '5:xxxx xxx:xxxx', { font: "25px Myfont1", fill: "#FFFFFF", align: "center" });
-	name6 = game.add.text(340, 400, '6:xxxx xxx:xxxx', { font: "25px Myfont1", fill: "#FFFFFF", align: "center" });
-	name7 = game.add.text(340, 440, '7:xxxx xxx:xxxx', { font: "25px Myfont1", fill: "#FFFFFF", align: "center" });
-	backs = game.add.button(300, 130, 'back', tosetting, this)
-	backs.scale.setTo(0.25, 0.25);
+	game.state.start('Endcredit')
 	backd.kill();
 	credits.kill();
 	frames.kill();
@@ -428,7 +415,7 @@ function updateMenu() {
 ///////////////////////////////////////////////////////////////How to play////////////////////////////////////////////////////////////////////////
 function preloadHowtoplay() {
 	game.load.image('press', 'images/กดปุ่มเว้นวรรค.png')
-	
+
 }
 
 
@@ -2257,4 +2244,20 @@ function tofacebook() {
 function toranking() {
 
 
+}
+///////////////////////////////////////////////////////////////End Credit//////////////////////////////////////////////////////////////////////////
+function preloadEndcredit() {
+	game.load.spritesheet('play', 'images/เริ่มใหม่.png', 475, 206);
+}
+function createEndcredit() {
+	tosetmute()
+	pressgiant = game.add.button(490, 400, 'play', gotomenubycredit, this);
+	pressgiant.scale.setTo(0.25, 0.25)
+}
+function updateEndcredit() {
+
+}
+function gotomenubycredit(){
+	tosetmute();
+	game.state.start('Menu')
 }

@@ -1,6 +1,7 @@
 var game = new Phaser.Game(800, 600, Phaser.AUTO, "game")
 var Menu = { preload: preloadMenu, create: createMenu, update: updateMenu }
 // var CutScene = {preload : preloadCutScene,create:createCutScence,update:updateCutScene}
+// var CutScene2 = {preload : preloadCutScene2,create:createCutScence2,update:updateCutScene2}
 var Intro = { preload: preloadIntro, create: createIntro, update: updateIntro }
 var GamePlayRam = { preload: preload, create: create, update: update, render: render }
 var GamePlayGiant = { preload: preload2, create: create2, update: update2, render: render2 }
@@ -69,6 +70,8 @@ var coutinues;
 var boxspeedobj;
 var speedobjdb;
 var itemsheildtime;
+var checkpuase;
+var speeda = 6;
 
 //ฉาก
 var countzonemain = 1;
@@ -134,19 +137,22 @@ function updateIntro() {
 function preloadMenu() {
 	//game.load.script('webfont', '\assets\fonts\Test.TTF');
 
+	//ฉากฝั่งราม
 	game.load.image('skyr', 'images/sky_r.png')
 	game.load.image('cloudr', 'images/cloud_r.png')
 	game.load.image('bushr', 'images/bush_r.png')
 	game.load.image('palacer', 'images/palace_r.png')
 	game.load.image('wallr', 'images/wall_r.png')
-	game.load.image('logo', 'images/logo.png')
-	game.load.image('floor', 'images/floor.png')
+	game.load.image('logor', 'images/logo_r.png')
 	//ฉากฝั่งทศ 
-	this.game.load.image('skyt', 'images/sky_t.png')
-	this.game.load.image('cloudt', 'images/cloud_t.png')
-	this.game.load.image('busht', 'images/bush_t.png')
-	this.game.load.image('palacet', 'images/palace_t.png')
-	this.game.load.image('wallt', 'images/wall_t.png')
+	game.load.image('skyt', 'images/sky_t.png')
+	game.load.image('cloudt', 'images/cloud_t.png')
+	game.load.image('busht', 'images/bush_t.png')
+	game.load.image('palacet', 'images/palace_t.png')
+	game.load.image('wallt', 'images/wall_t.png')
+	game.load.image('logot', 'images/logo_t.png')
+
+	game.load.image('floor', 'images/floor.png')
 	game.load.audio('menu', 'audio/soundmenu.mp3');
 	game.load.image('options', 'images/options.png')
 	game.load.image('frame', 'images/frame.png')
@@ -199,6 +205,12 @@ function createMenu() {
 			game.cache.getImage('wallr').height,
 			'wallr'
 		);
+		floor = game.add.tileSprite(0,
+			536,
+			game.width,
+			game.cache.getImage('floor').height,
+			'floor'
+		);
 	} else if (selectmenu == 2) {
 		console.log("that")
 		sky = game.add.tileSprite(0,
@@ -231,18 +243,28 @@ function createMenu() {
 			game.cache.getImage('wallt').height,
 			'wallt'
 		);
+		floor = game.add.tileSprite(0,
+			536,
+			game.width,
+			game.cache.getImage('floor').height,
+			'floor'
+		);
 	}
 
+	if(selectmenu==1){
+		var logo = game.add.sprite(800, 60, "logor");
+		var tween = game.add.tween(logo);
+		tween.to({ x: 150 }, 3000, 'Linear', true, 0)
+	} else if (selectmenu == 2) {
+		var logo = game.add.sprite(800, 60, "logot");
+		var tween = game.add.tween(logo);
+		tween.to({ x: 150 }, 3000, 'Linear', true, 0)
+	}
 
-	var logo = game.add.sprite(800, 80, "logo");
-	logo.scale.setTo(0.35, 0.35)
-	var tween = game.add.tween(logo);
-	tween.to({ x: 150 }, 3000, 'Linear', true, 0);
-
-	press = game.add.sprite(150, 420, "press");
+	press = game.add.sprite(150, 450, "press");
 	press.alpha = 0;
 	press.scale.setTo(0.175, 0.175)
-	game.add.tween(press).to({ alpha: 1 }, 1000, Phaser.Easing.Linear.None, true, 0, 1000, false);
+	game.add.tween(press).to({ alpha: 1 }, 500, Phaser.Easing.Linear.None, true, 0, 1000, false);
 
 	option = game.add.button(720, 25, 'options', tosetting, this);
 	option.scale.setTo(0.025, 0.025)
@@ -281,7 +303,6 @@ function tothanks(){
 }
 
 function todestroy() {
-	console.log("in to destroy");
 	frames.kill();
 	backd.kill();
 	credits.kill();
@@ -336,6 +357,7 @@ function updateMenu() {
 	bush.tilePosition.x -= 4 + speed
 	palace.tilePosition.x -= 5 + speed
 	wall.tilePosition.x -= 7 + speed
+	floor.tilePosition.x -= 4+speed;
 
 	if (jumpButton.isDown) {
 		if (selectmenu == 1) {
@@ -366,7 +388,6 @@ function preload() {
 	game.load.image('itemrun', 'images/itemrun.png')
 	game.load.image('wallblock', 'images/wallblock.png')
 	game.load.image('invisible', 'images/invisible.png')
-	game.load.image('play', 'images/play.png')
 	game.load.image('effectShelid', 'images/effectShelid.png')
 	game.load.image('โยชน์', 'images/โยชน์สีดำ.png')
 
@@ -393,6 +414,7 @@ function preload() {
 	game.load.spritesheet('home', 'images/home.png', 553, 188);
 	game.load.spritesheet('resume', 'images/ปุ่มเล่นต่อ.png', 455, 185);
 	game.load.image('ยุติ', 'images/ยุติ.png')
+	game.load.spritesheet('เตรียมพร้อม','images/เตรียมพร้อม.png')
 
 
 	//audio
@@ -402,8 +424,7 @@ function preload() {
 	game.load.audio('itemx2', 'audio/speeditem.mp3')
 	game.load.audio('hit', 'audio/Hit.mp3')
 
-	game.load.script('BlurX', 'https://cdn.rawgit.com/photonstorm/phaser/master/v2/filters/BlurX.js');
-    game.load.script('BlurY', 'https://cdn.rawgit.com/photonstorm/phaser/master/v2/filters/BlurY.js');
+
 
 }
 function create() {
@@ -483,7 +504,8 @@ function create() {
 	text2 = game.add.text(25, 70, 'ระวังธนูกำลังจะมาใน  : ', { font: "60px Myfont1", fill: "#DC143C", align: "center" });
 	text2.visible = false;
 
-	text3 = game.add.text(300, 400, 'เตรียมพร้อมม...!! ', { font: "60px Myfont1", fill: "#DC143C", align: "center" });
+	text3 = game.add.sprite(350,450,'เตรียมพร้อม')
+	text3.scale.setTo(0.25, 0.25)
 	text3.visible = true;
 
 	hitSound = this.add.audio('hit');
@@ -643,13 +665,15 @@ function create() {
 
 
 	Wall3 = game.add.group();
+	
 	Wall3.enableBody = true;
 	for (var i = 0; i < 24; i++) {
-		walll3 = Wall3.create(0, 1200, 'floor');
+		walll3 = Wall3.create(0, 750, 'floor');
 		walll3.scale.setTo(1000, 0.25)
 		walll3.body.setSize(50, 1, 0, -15);
 		walll3.body.immovable = true;
 		walll3.body.velocity.x = 0
+		walll3.visible =true;
 
 
 	}
@@ -794,7 +818,7 @@ function arrowDeploy() {
 	var position = getRandomArbitrary4()
 	arrow = ArrowGroup.getFirstExists(false);
 	arrow.reset(750, position);
-	arrow.body.velocity.x = -speed * 150;
+	arrow.body.velocity.x = -speeda * 150;
 }
 function warningarrow() {
 	countwarningarrow = 200;
@@ -901,7 +925,7 @@ function updateScore() {
 	if (countStart >= 60) {
 		score += 1;
 		text.setText('' + score);
-		game.add.tween(text3).to({ alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
+		game.add.tween(text3).to({ alpha: 0 }, 2000, Phaser.Easing.Linear.None, true);
 
 	} else if (countStart < 60) {
 		text3.visible = true;
@@ -1198,7 +1222,6 @@ function preload2() {
 	game.load.image('itemrun', 'images/itemrun.png')
 	game.load.image('wallblock', 'images/wallblock.png')
 	game.load.image('invisible', 'images/invisible.png')
-	game.load.image('play', 'images/play.png')
 	game.load.image('effectShelid', 'images/effectShelid.png')
 	game.load.image('โยชน์', 'images/โยชน์สีดำ.png')
 
@@ -1226,6 +1249,7 @@ function preload2() {
 	game.load.spritesheet('home', 'images/home.png', 553, 188);
 	game.load.image('ยุติ', 'images/ยุติ.png')
 	game.load.spritesheet('resume', 'images/ปุ่มเล่นต่อ.png', 455, 185);
+	game.load.spritesheet('เตรียมพร้อม','images/เตรียมพร้อม.png')
 
 
 	//audio
@@ -1310,7 +1334,8 @@ function create2() {
 	text2 = game.add.text(25, 70, 'ระวังธนูกำลังจะมาใน  : ', { font: "60px Myfont1", fill: "#DC143C", align: "center" });
 	text2.visible = false;
 
-	text3 = game.add.text(300, 400, 'เตรียมพร้อมม...!! ', { font: "60px Myfont1", fill: "#DC143C", align: "center" });
+	text3 = game.add.sprite(350,450,'เตรียมพร้อม')
+	text3.scale.setTo(0.25, 0.25)
 	text3.visible = true;
 
 	hitSound = this.add.audio('hit');
@@ -1472,7 +1497,7 @@ function create2() {
 	Wall3 = game.add.group();
 	Wall3.enableBody = true;
 	for (var i = 0; i < 24; i++) {
-		walll3 = Wall3.create(0, 1200, 'floor');
+		walll3 = Wall3.create(0, 750, 'floor');
 		walll3.scale.setTo(1000, 0.25)
 		walll3.body.setSize(50, 1, 0, -15);
 		walll3.body.immovable = true;
@@ -1518,6 +1543,7 @@ function topause() {
 
 }
 function gotomenu() {
+	game.paused = false;
 	game.state.start("Menu");
 	gamebgm.stop();
 	console.log("asdasdasdsad")
@@ -1726,12 +1752,12 @@ function flashs() {
 
 function updateScore() {
 
-	if (countStart >= 60) {
+	if (countStart >=50) {
 		score += 1;
 		text.setText('' + score);
 		game.add.tween(text3).to({ alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
 
-	} else if (countStart < 60) {
+	} else if (countStart < 50) {
 		text3.visible = true;
 		countStart++
 	}

@@ -1,18 +1,20 @@
 var game = new Phaser.Game(800, 600, Phaser.AUTO, "game")
 var Menu = { preload: preloadMenu, create: createMenu, update: updateMenu }
 // var CutScene = {preload : preloadCutScene,create:createCutScence,update:updateCutScene}
+var Howtoplay = { preload: preloadHowtoplay, create: createHowtoplay, update: updateHowtoplay }
 var Intro = { preload: preloadIntro, create: createIntro, update: updateIntro }
 var GamePlayRam = { preload: preload, create: create, update: update, render: render }
 var GamePlayGiant = { preload: preload2, create: create2, update: update2, render: render2 }
 var GameOver = { preload: preloadGameOver, create: createGameOver, update: updateGameOver }
 
 
+
 game.state.add('Menu', Menu)
 game.state.add('Intro', Intro)
+game.state.add('Howtoplay', Howtoplay)
 game.state.add('GameOver', GameOver)
 game.state.add('GamePlay1', GamePlayRam)
 game.state.add('GamePlay2', GamePlayGiant)
-
 game.state.start('Intro')
 
 var player;
@@ -87,16 +89,19 @@ function preloadIntro() {
 	game.load.spritesheet('monkey', 'images/monkey.png', 540, 791, 10);
 	game.load.image('pressgiant', 'images/itemsheild.png')
 	game.load.image('pressmonkey', 'images/itemrun.png')
+	game.load.image('framecredit', 'images/framecredit.png')
 
 }
 
 
 
 
+
 function createIntro() {
-	pressgiant = game.add.button(490, 400, 'pressgiant', checkselect2, this);
+
+	pressgiant = game.add.button(490, 400, 'pressgiant', tocheckselect, this);
 	pressgiant.scale.setTo(0.25, 0.25)
-	pressmonkey = game.add.button(120, 400, 'pressmonkey', checkselect, this);
+	pressmonkey = game.add.button(120, 400, 'pressmonkey', tocheckselect2, this);
 	pressmonkey.scale.setTo(0.25, 0.25)
 
 	giant = game.add.sprite(680, 150, 'giant');
@@ -109,9 +114,40 @@ function createIntro() {
 	monkey.animations.add('walk');
 	monkey.animations.play('walk', 12, true);
 
+}
+function tocheckselect() {
+	check1 = game.add.sprite(80, -200, 'framecredit')
+	check1.scale.setTo(0.44, 0.47);
+	pressno = game.add.button(490, 400, 'pressgiant', checkselect2, this);
+	pressno.scale.setTo(0.25, 0.25)
+	pressback = game.add.button(175, 400, 'pressmonkey', tobackselect, this);
+	pressback.scale.setTo(0.25, 0.25)
+	pressgiant.kill();
+	giant.kill();
+	monkey.kill();
+	pressmonkey.kill();
+}
+function tocheckselect2() {
+	check1 = game.add.sprite(80, -200, 'framecredit')
+	check1.scale.setTo(0.44, 0.47);
+	pressno = game.add.button(490, 400, 'pressgiant', checkselect, this);
+	pressno.scale.setTo(0.25, 0.25)
+	pressback = game.add.button(175, 400, 'pressmonkey', tobackselect, this);
+	pressback.scale.setTo(0.25, 0.25)
+	pressgiant.kill();
+	giant.kill();
+	monkey.kill();
+	pressmonkey.kill();
+}
 
+function tobackselect() {
+	check1.kill();
+	pressno.kill();
+	pressback.kill();
+	createIntro();
 
 }
+
 
 function checkselect() {
 	selectmenu = 1;
@@ -382,13 +418,45 @@ function updateMenu() {
 
 	if (jumpButton.isDown) {
 		if (selectmenu == 1) {
+			game.state.start('Howtoplay');
+		} else if (selectmenu == 2) {
+			game.state.start('Howtoplay');
+
+		}
+	}
+}
+///////////////////////////////////////////////////////////////How to play////////////////////////////////////////////////////////////////////////
+function preloadHowtoplay() {
+	game.load.image('press', 'images/กดปุ่มเว้นวรรค.png')
+	
+}
+
+
+function createHowtoplay() {
+	press = game.add.sprite(150, 420, "press");
+	press.alpha = 0;
+	press.scale.setTo(0.175, 0.175)
+	game.add.tween(press).to({ alpha: 1 }, 1000, Phaser.Easing.Linear.None, true, 0, 1000, false);
+	this.text = game.add.text(25, 70, 'เล่นยังไงน้ะ ?  : ', { font: "60px Myfont1", fill: "#DC143C", align: "center" });
+	jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+
+}
+
+
+function updateHowtoplay() {
+
+	if (jumpButton.isDown) {
+		if (selectmenu == 1) {
 			game.state.start('GamePlay1');
 		} else if (selectmenu == 2) {
 			game.state.start('GamePlay2');
 
 		}
 	}
+
 }
+
+
 
 
 ///////////////////////////////////////////////////Game Play////////////////////////////////////////////////////////
@@ -441,8 +509,7 @@ function preload() {
 	game.load.audio('itemx2', 'audio/speeditem.mp3')
 	game.load.audio('hit', 'audio/Hit.mp3')
 
-	game.load.script('BlurX', 'https://cdn.rawgit.com/photonstorm/phaser/master/v2/filters/BlurX.js');
-	game.load.script('BlurY', 'https://cdn.rawgit.com/photonstorm/phaser/master/v2/filters/BlurY.js');
+
 
 }
 function create() {
@@ -729,6 +796,7 @@ function topause() {
 }
 
 function gotomenu() {
+	game.paused = false;
 	game.state.start("Menu");
 	gamebgm.stop();
 	console.log("asdasdasdsad")
@@ -1556,6 +1624,7 @@ function topause() {
 
 }
 function gotomenu() {
+	game.paused = false;
 	game.state.start("Menu");
 	gamebgm.stop();
 	console.log("asdasdasdsad")

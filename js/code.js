@@ -87,7 +87,7 @@ function preloadIntro() {
 	game.load.spritesheet('monkey', 'images/monkey.png', 540, 791, 10);
 	game.load.image('pressgiant', 'images/itemsheild.png')
 	game.load.image('pressmonkey', 'images/itemrun.png')
-	
+
 }
 
 
@@ -103,13 +103,13 @@ function createIntro() {
 	giant.scale.setTo(-0.25, 0.25)
 	giant.animations.add('walk');
 	giant.animations.play('walk', 5, true);
-	
+
 	monkey = game.add.sprite(110, 150, 'monkey');
 	monkey.scale.setTo(0.25, 0.25)
 	monkey.animations.add('walk');
-	monkey.animations.play('walk', 12 , true);
+	monkey.animations.play('walk', 12, true);
 
-  
+
 
 }
 
@@ -131,35 +131,69 @@ function updateIntro() {
 
 
 //////////////////////////////////////////////////////Menu/////////////////////////////////////////////////////////////////////////////////
+
 function preloadMenu() {
 	//game.load.script('webfont', '\assets\fonts\Test.TTF');
 
+	//ฉากฝั่งราม
 	game.load.image('skyr', 'images/sky_r.png')
 	game.load.image('cloudr', 'images/cloud_r.png')
 	game.load.image('bushr', 'images/bush_r.png')
 	game.load.image('palacer', 'images/palace_r.png')
 	game.load.image('wallr', 'images/wall_r.png')
-	game.load.image('logo', 'images/logo.png')
-	game.load.image('floor', 'images/floor.png')
+	game.load.image('logor', 'images/logo_r.png')
 	//ฉากฝั่งทศ 
 	this.game.load.image('skyt', 'images/sky_t.png')
 	this.game.load.image('cloudt', 'images/cloud_t.png')
 	this.game.load.image('busht', 'images/bush_t.png')
 	this.game.load.image('palacet', 'images/palace_t.png')
 	this.game.load.image('wallt', 'images/wall_t.png')
+	game.load.image('logot', 'images/logo_t.png')
+
+	game.load.image('floor', 'images/floor.png')
 	game.load.audio('menu', 'audio/soundmenu.mp3');
 	game.load.image('options', 'images/options.png')
 	game.load.image('frame', 'images/frame.png')
 	game.load.image('framecredit', 'images/framecredit.png')
 	game.load.image('back', 'images/back.png')
-	game.load.spritesheet('mute', 'images/mute.png', 130, 94)
-	game.load.spritesheet('credit', 'images/ปุ่มทีมงาน.png',471,165)
+	game.load.spritesheet('mute', 'images/mute.png', 125, 94)
+	game.load.spritesheet('credit', 'images/ปุ่มทีมงาน.png', 471, 165)
 	game.load.image('press', 'images/กดปุ่มเว้นวรรค.png')
 	game.load.image('worker', 'images/worker.png')
 
 
+
+
 }
 function createMenu() {
+	framecredit = game.add.sprite(230, 10, 'framecredit')
+	framecredit.scale.setTo(0.27, 0.27);
+	worker = game.add.sprite(370, 120, 'worker')
+}
+function createMenu() {
+	framecredit = game.add.sprite(230, 10, 'framecredit')
+	framecredit.scale.setTo(0.27, 0.27);
+	worker = game.add.sprite(370, 120, 'worker')
+	worker.scale.setTo(0.29, 0.29);
+	name1 = game.add.text(340, 200, '1:xxxx xxx:xxxx', { font: "25px Myfont1", fill: "#FFFFFF", align: "center" });
+	name2 = game.add.text(340, 240, '2:xxxx xxx:xxxx', { font: "25px Myfont1", fill: "#FFFFFF", align: "center" });
+	name3 = game.add.text(340, 280, '3:xxxx xxx:xxxx', { font: "25px Myfont1", fill: "#FFFFFF", align: "center" });
+	name4 = game.add.text(340, 320, '4:xxxx xxx:xxxx', { font: "25px Myfont1", fill: "#FFFFFF", align: "center" });
+	name5 = game.add.text(340, 360, '5:xxxx xxx:xxxx', { font: "25px Myfont1", fill: "#FFFFFF", align: "center" });
+	name6 = game.add.text(340, 400, '6:xxxx xxx:xxxx', { font: "25px Myfont1", fill: "#FFFFFF", align: "center" });
+	name7 = game.add.text(340, 440, '7:xxxx xxx:xxxx', { font: "25px Myfont1", fill: "#FFFFFF", align: "center" });
+	backs = game.add.button(300, 130, 'back', tosetting, this)
+	backs.scale.setTo(0.25, 0.25);
+	name1.kill();
+	name2.kill();
+	name3.kill();
+	name4.kill();
+	name5.kill();
+	name6.kill();
+	name7.kill();
+	backs.kill();
+	framecredit.kill();
+	worker.kill();
 
 
 	menu = this.add.audio('menu');
@@ -168,6 +202,9 @@ function createMenu() {
 
 
 	if (selectmenu == 1) {
+		var logo = game.add.sprite(800, 60, "logor");
+		var tween = game.add.tween(logo);
+		tween.to({ x: 150 }, 3000, 'Linear', true, 0)
 		console.log("this")
 		sky = game.add.tileSprite(0,
 			0,
@@ -201,6 +238,9 @@ function createMenu() {
 		);
 	} else if (selectmenu == 2) {
 		console.log("that")
+		var logo = game.add.sprite(800, 60, "logot");
+		var tween = game.add.tween(logo);
+		tween.to({ x: 150 }, 3000, 'Linear', true, 0)
 		sky = game.add.tileSprite(0,
 			0,
 			game.width,
@@ -232,12 +272,17 @@ function createMenu() {
 			'wallt'
 		);
 	}
+	if (selectmenu == 1) {
+		var logo = game.add.sprite(800, 60, "logor");
+		var tween = game.add.tween(logo);
+		tween.to({ x: 150 }, 3000, 'Linear', true, 0)
+	} else if (selectmenu == 2) {
+		var logo = game.add.sprite(800, 60, "logot");
+		var tween = game.add.tween(logo);
+		tween.to({ x: 150 }, 3000, 'Linear', true, 0)
+	}
 
 
-	var logo = game.add.sprite(800, 80, "logo");
-	logo.scale.setTo(0.35, 0.35)
-	var tween = game.add.tween(logo);
-	tween.to({ x: 150 }, 3000, 'Linear', true, 0);
 
 	press = game.add.sprite(150, 420, "press");
 	press.alpha = 0;
@@ -247,7 +292,6 @@ function createMenu() {
 	option = game.add.button(720, 25, 'options', tosetting, this);
 	option.scale.setTo(0.025, 0.025)
 	jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-
 
 
 }
@@ -261,7 +305,7 @@ function tosetting() {
 	mute.scale.setTo(0.5);
 	backd = game.add.button(370, 340, 'back', todestroy, this)
 	backd.scale.setTo(0.5, 0.5);
-	thanks = game.add.button(450,250, 'credit', tothanks, this, 1, 0, 1);
+	thanks = game.add.button(450, 250, 'credit', tothanks, this, 1, 0, 1);
 	thanks.scale.setTo(0.285);
 	name1.kill();
 	name2.kill();
@@ -273,10 +317,10 @@ function tosetting() {
 	backs.kill();
 	framecredit.kill();
 	worker.kill();
-	
+
 
 }
-function tothanks(){
+function tothanks() {
 
 }
 
@@ -301,7 +345,6 @@ function tosetmute() {
 	else if (game.sound.mute) {
 		game.sound.mute = false;
 	}
-
 }
 
 function tocredit() {
@@ -348,9 +391,6 @@ function updateMenu() {
 }
 
 
-
-
-
 ///////////////////////////////////////////////////Game Play////////////////////////////////////////////////////////
 function preload() {
 	game.load.spritesheet('player', 'images/ตัวละครลิง.png', 786, 951, 2);
@@ -366,7 +406,6 @@ function preload() {
 	game.load.image('itemrun', 'images/itemrun.png')
 	game.load.image('wallblock', 'images/wallblock.png')
 	game.load.image('invisible', 'images/invisible.png')
-	game.load.image('play', 'images/play.png')
 	game.load.image('effectShelid', 'images/effectShelid.png')
 	game.load.image('โยชน์', 'images/โยชน์สีดำ.png')
 
@@ -403,7 +442,7 @@ function preload() {
 	game.load.audio('hit', 'audio/Hit.mp3')
 
 	game.load.script('BlurX', 'https://cdn.rawgit.com/photonstorm/phaser/master/v2/filters/BlurX.js');
-    game.load.script('BlurY', 'https://cdn.rawgit.com/photonstorm/phaser/master/v2/filters/BlurY.js');
+	game.load.script('BlurY', 'https://cdn.rawgit.com/photonstorm/phaser/master/v2/filters/BlurY.js');
 
 }
 function create() {
@@ -681,10 +720,10 @@ function topause() {
 	frames.scale.setTo(0.5, 0.5);
 	ยุติ = game.add.sprite(250, 190, 'ยุติ')
 	ยุติ.scale.setTo(0.25, 0.25);
-	
 
-    
-	
+
+
+
 
 
 }
@@ -952,7 +991,7 @@ function getItemrun(player, item) {
 	itemtimeinvisible = -1
 }
 function ActiveRunspped() {
-	
+
 	speedb = boxspeed;
 	boxspeed = speed;
 	speedobjdb = boxspeedobj;
@@ -1121,12 +1160,12 @@ function update() {
 		}
 	}
 
-	
+
 	if (itemsheildtime <= 0) {  ////โล่
 
 		Hp = 1;
 		effectShelid.visible = false;
-		
+
 
 	} else if (itemsheildtime > 0) {
 
@@ -1198,7 +1237,6 @@ function preload2() {
 	game.load.image('itemrun', 'images/itemrun.png')
 	game.load.image('wallblock', 'images/wallblock.png')
 	game.load.image('invisible', 'images/invisible.png')
-	game.load.image('play', 'images/play.png')
 	game.load.image('effectShelid', 'images/effectShelid.png')
 	game.load.image('โยชน์', 'images/โยชน์สีดำ.png')
 
@@ -1772,13 +1810,13 @@ function getIteminvisible(player, item) {
 	itemtimerun = -1
 }
 function getItemrun(player, item) {
-	
+
 	itemx2.play();
 	item.kill();
 	itemtimerun = 200
 	ActiveRunspped()
 	player.animations.add('walk');
-	player.animations.play('walk',50, true);
+	player.animations.play('walk', 50, true);
 	SystemOverlab = 2;
 	itemtimeinvisible = -1
 }
@@ -1957,7 +1995,7 @@ function update2() {
 
 		Hp = 1;
 		effectShelid.visible = false;
-		
+
 
 	} else if (itemsheildtime > 0) {
 
@@ -2040,28 +2078,26 @@ var yy = [];
 var zz = [];
 function createGameOver() {
 
-	if (game.renderType === Phaser.WEBGL)
-    {
-        max = 2000;
-    }
+	if (game.renderType === Phaser.WEBGL) {
+		max = 2000;
+	}
 
-    var sprites = game.add.spriteBatch();
+	var sprites = game.add.spriteBatch();
 
-    stars = [];
+	stars = [];
 
-    for (var i = 0; i < max; i++)
-    {
-        xx[i] = Math.floor(Math.random() * 800) - 400;
-        yy[i] = Math.floor(Math.random() * 600) - 300;
-        zz[i] = Math.floor(Math.random() * 1700) - 100;
+	for (var i = 0; i < max; i++) {
+		xx[i] = Math.floor(Math.random() * 800) - 400;
+		yy[i] = Math.floor(Math.random() * 600) - 300;
+		zz[i] = Math.floor(Math.random() * 1700) - 100;
 
-        var star = game.make.sprite(0, 0, 'star');
-        star.anchor.set(0.5);
+		var star = game.make.sprite(0, 0, 'star');
+		star.anchor.set(0.5);
 
-        sprites.addChild(star);
+		sprites.addChild(star);
 
-        stars.push(star);
-    }
+		stars.push(star);
+	}
 
 
 	gameoversound = this.add.audio('gameoversound');
@@ -2100,24 +2136,22 @@ function createGameOver() {
 
 }
 function updateGameOver() {
-	for (var i = 0; i < max; i++)
-    {
-        stars[i].perspective = distance / (distance - zz[i]);
-        stars[i].x = game.world.centerX + xx[i] * stars[i].perspective;
-        stars[i].y = game.world.centerY + yy[i] * stars[i].perspective;
+	for (var i = 0; i < max; i++) {
+		stars[i].perspective = distance / (distance - zz[i]);
+		stars[i].x = game.world.centerX + xx[i] * stars[i].perspective;
+		stars[i].y = game.world.centerY + yy[i] * stars[i].perspective;
 
-        zz[i] += speed;
+		zz[i] += speed;
 
-        if (zz[i] > 290)
-        {
-            zz[i] -= 600;
-        }
+		if (zz[i] > 290) {
+			zz[i] -= 600;
+		}
 
-        stars[i].alpha = Math.min(stars[i].perspective / 2, 1);
-        stars[i].scale.set(stars[i].perspective / 2);
-        stars[i].rotation += 0.1;
+		stars[i].alpha = Math.min(stars[i].perspective / 2, 1);
+		stars[i].scale.set(stars[i].perspective / 2);
+		stars[i].rotation += 0.1;
 
-    }
+	}
 
 }
 

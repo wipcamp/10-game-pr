@@ -6,6 +6,7 @@ var GamePlayRam = { preload: preload, create: create, update: update, render: re
 var GamePlayGiant = { preload: preload2, create: create2, update: update2, render: render2 }
 var GameOver = { preload: preloadGameOver, create: createGameOver, update: updateGameOver }
 
+
 game.state.add('Menu', Menu)
 game.state.add('Intro', Intro)
 game.state.add('GameOver', GameOver)
@@ -151,7 +152,7 @@ function preloadMenu() {
 	game.load.image('frame', 'images/frame.png')
 	game.load.image('framecredit', 'images/framecredit.png')
 	game.load.image('back', 'images/back.png')
-	game.load.spritesheet('mute', 'images/mute.png', 125, 94)
+	game.load.spritesheet('mute', 'images/mute.png', 130, 94)
 	game.load.spritesheet('credit', 'images/ปุ่มทีมงาน.png',471,165)
 	game.load.image('press', 'images/กดปุ่มเว้นวรรค.png')
 	game.load.image('worker', 'images/worker.png')
@@ -680,8 +681,7 @@ function topause() {
 	frames.scale.setTo(0.5, 0.5);
 	ยุติ = game.add.sprite(250, 190, 'ยุติ')
 	ยุติ.scale.setTo(0.25, 0.25);
-	blurX = game.add.filter('BlurX');
-	blurY = game.add.filter('BlurY');
+	
 
     
 	
@@ -1772,12 +1772,13 @@ function getIteminvisible(player, item) {
 	itemtimerun = -1
 }
 function getItemrun(player, item) {
-	player.animations.add('walk');
-	player.animations.play('walk',50, true);
+	
 	itemx2.play();
 	item.kill();
 	itemtimerun = 200
-	ActiveRunspped()
+	if(ActiveRunspped()){
+	player.animations.add('walk');
+	player.animations.play('walk',50, true);}
 	SystemOverlab = 2;
 	itemtimeinvisible = -1
 }

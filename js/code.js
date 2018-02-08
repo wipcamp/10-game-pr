@@ -205,7 +205,7 @@ function preloadMenu() {
 }
 
 function createMenu() {
-	
+
 	framecredit = game.add.sprite(230, 10, 'framecredit')
 	framecredit.scale.setTo(0.27, 0.27);
 	worker = game.add.sprite(370, 120, 'worker')
@@ -384,6 +384,7 @@ function tosetmute() {
 
 function tocredit() {
 	game.state.start('Endcredit')
+	menu.stop();
 	backd.kill();
 	credits.kill();
 	frames.kill();
@@ -402,6 +403,8 @@ function updateMenu() {
 	bush.tilePosition.x -= 4 + speed
 	palace.tilePosition.x -= 5 + speed
 	wall.tilePosition.x -= 7 + speed
+
+	
 
 	if (jumpButton.isDown) {
 		if (selectmenu == 1) {
@@ -766,21 +769,7 @@ function create() {
 
 
 }
-function topause() {
-	pause.kill();
-	game.paused = true;
 
-	frames = game.add.sprite(150, 60, 'frame')
-	frames.scale.setTo(0.5, 0.5);
-	ยุติ = game.add.sprite(250, 190, 'ยุติ')
-	ยุติ.scale.setTo(0.25, 0.25);
-
-
-
-
-
-
-}
 
 function gotomenu() {
 	game.paused = false;
@@ -2250,14 +2239,14 @@ function preloadEndcredit() {
 	game.load.spritesheet('play', 'images/เริ่มใหม่.png', 475, 206);
 }
 function createEndcredit() {
-	tosetmute()
 	pressgiant = game.add.button(490, 400, 'play', gotomenubycredit, this);
 	pressgiant.scale.setTo(0.25, 0.25)
 }
 function updateEndcredit() {
 
 }
-function gotomenubycredit(){
-	tosetmute();
+
+function gotomenubycredit() {
 	game.state.start('Menu')
+	
 }

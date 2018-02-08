@@ -741,7 +741,7 @@ function create() {
 	Wall3 = game.add.group();
 	Wall3.enableBody = true;
 	for (var i = 0; i < 24; i++) {
-		walll3 = Wall3.create(0, 1200, 'floor');
+		walll3 = Wall3.create(0, 900, 'floor');
 		walll3.scale.setTo(1000, 0.25)
 		walll3.body.setSize(50, 1, 0, -15);
 		walll3.body.immovable = true;
@@ -1218,7 +1218,7 @@ function update() {
 
 	}
 
-	effectShelid.body.y = player.body.y - 20;
+	effectShelid.body.y = player.body.y - 10;
 	effectShelid.body.x = player.body.x - 65;
 
 
@@ -1554,7 +1554,7 @@ function create2() {
 	Wall3 = game.add.group();
 	Wall3.enableBody = true;
 	for (var i = 0; i < 24; i++) {
-		walll3 = Wall3.create(0, 1200, 'floor');
+		walll3 = Wall3.create(0, 900, 'floor');
 		walll3.scale.setTo(1000, 0.25)
 		walll3.body.setSize(50, 1, 0, -15);
 		walll3.body.immovable = true;
@@ -2049,8 +2049,8 @@ function update2() {
 
 	}
 
-	effectShelid.body.y = player.body.y - 20;
-	effectShelid.body.x = player.body.x - 65;
+	effectShelid.body.y = player.body.y - 0;
+	effectShelid.body.x = player.body.x - 55;
 
 
 	if (obstacleCooldown <= 0)

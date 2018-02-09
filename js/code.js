@@ -84,7 +84,7 @@ var selectmenu;
 
 function preloadIntro() {
 	game.load.spritesheet('giant', 'images/ตัวละครยักษ์.png', 765, 957, 2);
-	game.load.spritesheet('monkey', 'images/monkey.png', 540, 791, 10);
+	game.load.spritesheet('monkey', 'images/monkey.png',799,800, 12);
 	game.load.image('pressgiant', 'images/itemsheild.png')
 	game.load.image('pressmonkey', 'images/itemrun.png')
 	
@@ -107,7 +107,7 @@ function createIntro() {
 	monkey = game.add.sprite(110, 150, 'monkey');
 	monkey.scale.setTo(0.25, 0.25)
 	monkey.animations.add('walk');
-	monkey.animations.play('walk', 12 , true);
+	monkey.animations.play('walk', 30 , true);
 
   
 

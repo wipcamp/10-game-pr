@@ -117,48 +117,8 @@ function createIntro() {
 	monkey.animations.play('walk', 12, true);
 
 }
-function tocheckselect() {
-	check1 = game.add.sprite(80, -200, 'framecredit')
-	check1.scale.setTo(0.44, 0.47);
-	pressno = game.add.button(490, 400, 'pressgiant', checkselect2, this);
-	pressno.scale.setTo(0.25, 0.25)
-	pressback = game.add.button(175, 400, 'pressmonkey', tobackselect, this);
-	pressback.scale.setTo(0.25, 0.25)
-	pressgiant.kill();
-	giant.kill();
-	monkey.kill();
-	pressmonkey.kill();
-}
-function tocheckselect2() {
-	check1 = game.add.sprite(80, -200, 'framecredit')
-	check1.scale.setTo(0.44, 0.47);
-	pressno = game.add.button(490, 400, 'pressgiant', checkselect, this);
-	pressno.scale.setTo(0.25, 0.25)
-	pressback = game.add.button(175, 400, 'pressmonkey', tobackselect, this);
-	pressback.scale.setTo(0.25, 0.25)
-	pressgiant.kill();
-	giant.kill();
-	monkey.kill();
-	pressmonkey.kill();
-}
-
-function tobackselect() {
-	check1.kill();
-	pressno.kill();
-	pressback.kill();
-	createIntro();
-
-}
 
 
-function checkselect() {
-	selectmenu = 1;
-	tomenu()
-}
-function checkselect2() {
-	selectmenu = 2;
-	tomenu()
-}
 
 function updateIntro() {
 
@@ -330,67 +290,7 @@ function createMenu() {
 
 
 }
-function tosetting() {
-	option.kill();
-	frames = game.add.sprite(150, 60, 'frame')
-	frames.scale.setTo(0.5, 0.5);
-	credits = game.add.button(240, 250, 'credit', tocredit, this, 1, 0, 1);
-	credits.scale.setTo(0.285);
-	mute = game.add.button(550, 170, 'mute', tosetmute, this)
-	mute.scale.setTo(0.5);
-	backd = game.add.button(370, 340, 'back', todestroy, this)
-	backd.scale.setTo(0.5, 0.5);
-	thanks = game.add.button(450, 250, 'credit', tothanks, this, 1, 0, 1);
-	thanks.scale.setTo(0.285);
-	name1.kill();
-	name2.kill();
-	name3.kill();
-	name4.kill();
-	name5.kill();
-	name6.kill();
-	name7.kill();
-	backs.kill();
-	framecredit.kill();
-	worker.kill();
 
-
-}
-function tothanks() {
-
-}
-
-function todestroy() {
-	console.log("in to destroy");
-	frames.kill();
-	backd.kill();
-	credits.kill();
-	mute.kill();
-	thanks.kill();
-
-	option = game.add.button(720, 25, 'options', tosetting, this);
-	option.scale.setTo(0.025, 0.025)
-
-
-
-}
-function tosetmute() {
-	if (!game.sound.mute) {
-		game.sound.mute = true;
-	}
-	else if (game.sound.mute) {
-		game.sound.mute = false;
-	}
-}
-
-function tocredit() {
-	game.state.start('Endcredit')
-	menu.stop();
-	backd.kill();
-	credits.kill();
-	frames.kill();
-	mute.kill();
-	thanks.kill();
-}
 
 function updateMenu() {
 	speedobj += 0.0010
@@ -509,7 +409,7 @@ function create() {
 	countjump = 2;
 	countdeploy1 = 500
 	countdeploy = 400
-	score = 1090;
+	score = 1;
 	Hp = 1
 	itemCooldown = 10;
 	itemtimerun = -5;
@@ -603,6 +503,7 @@ function create() {
 	player.scale.setTo(0.125, 0.125)
 	player.animations.add('walk');
 	player.animations.play('walk', 10, true);
+	
 
 	effectShelid = game.add.sprite(100, 310, 'effectShelid')
 	effectShelid.scale.setTo(0.25, 0.25)
@@ -741,11 +642,12 @@ function create() {
 	Wall3 = game.add.group();
 	Wall3.enableBody = true;
 	for (var i = 0; i < 24; i++) {
-		walll3 = Wall3.create(0, 900, 'floor');
+		walll3 = Wall3.create(0, 670, 'floor');
 		walll3.scale.setTo(1000, 0.25)
 		walll3.body.setSize(50, 1, 0, -15);
 		walll3.body.immovable = true;
 		walll3.body.velocity.x = 0
+		
 
 
 	}
@@ -771,300 +673,6 @@ function create() {
 }
 
 
-function gotomenu() {
-	game.paused = false;
-	game.state.start("Menu");
-	gamebgm.stop();
-	console.log("asdasdasdsad")
-}
-function gotoplay() {
-	game.paused = false;
-	frames.kill();
-	home.kill();
-	resume.kill();
-	ยุติ.kill();
-	pause = game.add.button(720, 25, 'pause', topause, this);
-	pause.scale.setTo(0.25, 0.25)
-}
-function tosetmute() {
-	if (!game.sound.mute) {
-		game.sound.mute = true;
-	}
-	else if (game.sound.mute) {
-		game.sound.mute = false;
-	}
-
-}
-
-function obstacleSpawner() {
-	var output = game.rnd.integerInRange(0, 3);
-	if (output == 0) {
-		spirteDeploy();
-	} else if (output == 1) {
-		logDeploy();
-	} else if (output == 2) {
-		treecutDeploy();
-	} else if (output == 3) {
-		rockDeploy();
-	}
-}
-function obstacleSpawner2() {
-	var output = game.rnd.integerInRange(0, 3);
-	if (output == 0) {
-		spirteDeploy();
-	} else if (output == 1) {
-		logDeploy();
-	} else if (output == 2) {
-		treecutDeploy();
-	} else if (output == 3) {
-		rockDeploy();
-	}
-}
-function obstacleSpawner3() {
-	var output = game.rnd.integerInRange(0, 3);
-	if (output == 0) {
-		arrowDeploy()
-	} else if (output == 1) {
-		arrowDeploy()
-	} else if (output == 2) {
-		arrowDeploy()
-	} else if (output == 3) {
-		arrowDeploy()
-	}
-}
-function logDeploy() {
-	obstacleCooldown = game.rnd.integerInRange(countdeploy, countdeploy1);
-	obstacleCooldown2 = game.rnd.integerInRange(countdeploy, countdeploy1);
-	var position = game.rnd.integerInRange(750, 750);
-	log = LogGroup.getFirstExists(false);
-	log.reset(position, 475);
-	log.body.velocity.x = -speedobj * 48;
-	countdeploy1 -= 20
-	countdeploy -= 10
-}
-function spirteDeploy() {
-	obstacleCooldown = game.rnd.integerInRange(countdeploy, countdeploy1);
-	obstacleCooldown2 = game.rnd.integerInRange(countdeploy, countdeploy1);
-	var position = game.rnd.integerInRange(750, 750);
-	spirte = SpirteGroup.getFirstExists(false);
-	spirte.reset(position, 475);
-	spirte.body.velocity.x = -speedobj * 49;
-	countdeploy1 -= 15
-	countdeploy -= 10
-}
-function treecutDeploy() {
-	obstacleCooldown = game.rnd.integerInRange(countdeploy, countdeploy1);
-	obstacleCooldown2 = game.rnd.integerInRange(countdeploy, countdeploy1);
-	var position = game.rnd.integerInRange(750, 750);
-	treecut = TreecutGroup.getFirstExists(false);
-	treecut.reset(position, 475);
-	treecut.body.velocity.x = -speedobj * 49;
-	countdeploy1 -= 13
-	countdeploy -= 10
-}
-function rockDeploy() {
-	obstacleCooldown = game.rnd.integerInRange(countdeploy, countdeploy1);
-	obstacleCooldown2 = game.rnd.integerInRange(countdeploy, countdeploy1);
-	var position = game.rnd.integerInRange(750, 750);
-	rock = RockGroup.getFirstExists(false);
-	rock.reset(position, 475);
-	rock.body.velocity.x = -speedobj * 48.5;
-	countdeploy1 -= 17
-	countdeploy -= 10
-}
-function arrowDeploy() {
-	obstacleCooldown3 = game.rnd.integerInRange(600, 900);
-	var position = getRandomArbitrary4()
-	arrow = ArrowGroup.getFirstExists(false);
-	arrow.reset(750, position);
-	arrow.body.velocity.x = -speed * 150;
-}
-function warningarrow() {
-	countwarningarrow = 200;
-	if (obstacleCooldown3 <= countwarningarrow) {
-		text2.visible = true
-		text2.setText('ระวัง...ธนูกำลังมา :' + obstacleCooldown3);
-	} else
-		text2.visible = false
-}
-function GenerateTerrain() {
-	var i, delta = 0, block;
-	for (i = 0; i < FloorGroup.length; i++) {
-		if (FloorGroup.getAt(i).body.x <= -tileSize) {
-
-			if (i < probCliff && !lastCliff && !lastVertical) {
-				delta = Math.random() * ((3 - 1.5) + 1) + 1.5;
-				lastCliff = true;
-				lastVertical = false;
-
-
-			}
-			else {
-				lastCliff = false;
-				lastVertical = false;
-			}
-
-			FloorGroup.getAt(i).body.x = lastFloor.body.x + tileSize + delta * tileSize * 1.5;
-			lastFloor = FloorGroup.getAt(i);
-			break;
-		}
-	}
-}
-
-function itemSpawner() {
-	var output = game.rnd.integerInRange(0, 4);
-	if (output == 0) {
-		itemsheildUp();
-
-	} else if (output == 1) {
-		itemrunUp();
-	} else if (output = 2) {
-		iteminvisibleUp();
-	}
-}
-
-function iteminvisibleUp() {
-	itemCooldown = game.rnd.integerInRange(400, 600);
-	var position = game.rnd.integerInRange(750, 750);
-	ItemInvisible = InvisibleGroup.getFirstExists(false);
-	ItemInvisible.reset(position, getRandomArbitrary4());
-	ItemInvisible.body.velocity.x = -speed * 20;
-}
-function itemrunUp() {
-	itemCooldown = game.rnd.integerInRange(400, 600);
-	var position = game.rnd.integerInRange(750, 750);
-	Itemsheild = ItemsheildGroup.getFirstExists(false);
-	Itemsheild.reset(position, getRandomArbitrary4());
-	Itemsheild.body.velocity.x = -speed * 20;
-}
-function itemsheildUp() {
-	itemCooldown = game.rnd.integerInRange(400, 600);
-	var position = game.rnd.integerInRange(750, 750);
-	Itemrun = ItemrunGroup.getFirstExists(false);
-	Itemrun.reset(position, getRandomArbitrary4());
-	Itemrun.body.velocity.x = -speed * 20;
-}
-
-function resetPostion(obj) {
-	obj.kill();
-}
-function getRandomArbitrary() { //สุ่มๆ
-	var r = 0
-	r++
-	if (r == 1) {
-		return getRandomArbitrary1();
-	} else if (r == 2) {
-		return getRandomArbitrary2();
-	} else if (r == 3) {
-		return getRandomArbitrary3();
-	} else if (r == 4) {
-		r = 0;
-	}
-
-}
-function getRandomArbitrary3() {
-	return Math.random() * (6000 - 4000 + 1) + 4000;//สุ่มแกน x 
-}
-function getRandomArbitrary1() {
-	return Math.random() * (9000 - 7000 + 1) + 7000;//สุ่มแกน x 
-}
-function getRandomArbitrary2() {
-	return Math.random() * (13000 - 10000 + 1) + 10000;//สุ่มแกน x 
-}
-function getRandomArbitrary4() {
-	return Math.random() * (450 - 222 + 1) + 222;//สุ่มแกน  y
-}
-
-function flashs() {
-	game.camera.flash(00000000, 500);
-}
-
-function updateScore() {
-
-	if (countStart >= 60) {
-		score += 1;
-		text.setText('' + score);
-		game.add.tween(text3).to({ alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
-
-	} else if (countStart < 60) {
-		text3.visible = true;
-		countStart++
-	}
-}
-function HitsPlayer(player, obj) {
-	hitSound.play();
-	if (Hp == 1) {
-		Hp = Hp - 1;
-		Checkhp()
-	} else if (Hp == 2) {
-		obj.kill();
-		effectShelid.visible = false;
-
-		Hp = 1;
-	}
-}
-function HitObj(player, obj) {
-	obj.kill();
-}
-function Checkhp() {
-	if (Hp < 1) {
-		game.state.start('GameOver')
-
-	}
-}
-function getItemsheild(player, item) {
-	sheilditem.play();
-	item.kill();
-
-	ActiveHpplus()
-
-}
-function getIteminvisible(player, item) {
-	invisibleitem.play();
-	item.kill();
-	SystemOverlab = 3;
-	itemtimeinvisible = 500
-	itemtimerun = -1
-}
-function getItemrun(player, item) {
-	itemx2.play();
-	item.kill();
-	itemtimerun = 200
-	ActiveRunspped()
-	SystemOverlab = 2;
-	itemtimeinvisible = -1
-}
-function ActiveRunspped() {
-
-	speedb = boxspeed;
-	boxspeed = speed;
-	speedobjdb = boxspeedobj;
-	boxspeedobj = speedobj
-
-}
-function ActiveHpplus() {
-	effectShelid.visible = true;
-	Hp = 2;
-
-}
-
-function collisionHandler() {
-
-	countjump = 2;
-
-}
-function invisiblesystem() {
-	game.add.tween(player).to({ alpha: 1 }, 1000, Phaser.Easing.Linear.None, true, 0, 1000, false);
-}
-
-function sped(aa) {
-	aa.body.velocity.x = -speedobj
-}
-
-function checkobj(aa) {
-	if (chek = false)
-		aa.kill;
-}
 
 
 function update() {
@@ -1554,7 +1162,7 @@ function create2() {
 	Wall3 = game.add.group();
 	Wall3.enableBody = true;
 	for (var i = 0; i < 24; i++) {
-		walll3 = Wall3.create(0, 900, 'floor');
+		walll3 = Wall3.create(0, 670, 'floor');
 		walll3.scale.setTo(1000, 0.25)
 		walll3.body.setSize(50, 1, 0, -15);
 		walll3.body.immovable = true;
@@ -1583,317 +1191,6 @@ function create2() {
 
 
 
-}
-function topause() {
-	pause.kill();
-	game.paused = true;
-
-	frames = game.add.sprite(150, 60, 'frame')
-	frames.scale.setTo(0.5, 0.5);
-	ยุติ = game.add.sprite(250, 190, 'ยุติ')
-	ยุติ.scale.setTo(0.25, 0.25);
-	home = game.add.button(270, 300, 'home', gotomenu, this, 1, 0, 1);
-	home.scale.setTo(0.25, 0.25)
-	resume = game.add.button(460, 300, 'resume', gotoplay, this, 1, 0, 1);
-	resume.scale.setTo(0.25, 0.25)
-
-
-}
-function gotomenu() {
-	game.paused = false;
-	game.state.start("Menu");
-	gamebgm.stop();
-	console.log("asdasdasdsad")
-}
-function gotoplay() {
-	game.paused = false;
-	frames.kill();
-	home.kill();
-	resume.kill();
-	ยุติ.kill();
-	pause = game.add.button(720, 25, 'pause', topause, this);
-	pause.scale.setTo(0.25, 0.25)
-}
-function tosetmute() {
-	if (!game.sound.mute) {
-		game.sound.mute = true;
-	}
-	else if (game.sound.mute) {
-		game.sound.mute = false;
-	}
-
-}
-
-function obstacleSpawner() {
-	var output = game.rnd.integerInRange(0, 3);
-	if (output == 0) {
-		spirteDeploy();
-	} else if (output == 1) {
-		logDeploy();
-	} else if (output == 2) {
-		treecutDeploy();
-	} else if (output == 3) {
-		rockDeploy();
-	}
-}
-function obstacleSpawner2() {
-	var output = game.rnd.integerInRange(0, 3);
-	if (output == 0) {
-		spirteDeploy();
-	} else if (output == 1) {
-		logDeploy();
-	} else if (output == 2) {
-		treecutDeploy();
-	} else if (output == 3) {
-		rockDeploy();
-	}
-}
-function obstacleSpawner3() {
-	var output = game.rnd.integerInRange(0, 3);
-	if (output == 0) {
-		arrowDeploy()
-	} else if (output == 1) {
-		arrowDeploy()
-	} else if (output == 2) {
-		arrowDeploy()
-	} else if (output == 3) {
-		arrowDeploy()
-	}
-}
-function logDeploy() {
-	obstacleCooldown = game.rnd.integerInRange(countdeploy, countdeploy1);
-	obstacleCooldown2 = game.rnd.integerInRange(countdeploy, countdeploy1);
-	var position = game.rnd.integerInRange(750, 750);
-	log = LogGroup.getFirstExists(false);
-	log.reset(position, 475);
-	log.body.velocity.x = -speedobj * 48;
-	countdeploy1 -= 20
-	countdeploy -= 10
-}
-function spirteDeploy() {
-	obstacleCooldown = game.rnd.integerInRange(countdeploy, countdeploy1);
-	obstacleCooldown2 = game.rnd.integerInRange(countdeploy, countdeploy1);
-	var position = game.rnd.integerInRange(750, 750);
-	spirte = SpirteGroup.getFirstExists(false);
-	spirte.reset(position, 475);
-	spirte.body.velocity.x = -speedobj * 49;
-	countdeploy1 -= 15
-	countdeploy -= 10
-}
-function treecutDeploy() {
-	obstacleCooldown = game.rnd.integerInRange(countdeploy, countdeploy1);
-	obstacleCooldown2 = game.rnd.integerInRange(countdeploy, countdeploy1);
-	var position = game.rnd.integerInRange(750, 750);
-	treecut = TreecutGroup.getFirstExists(false);
-	treecut.reset(position, 475);
-	treecut.body.velocity.x = -speedobj * 49;
-	countdeploy1 -= 13
-	countdeploy -= 10
-}
-function rockDeploy() {
-	obstacleCooldown = game.rnd.integerInRange(countdeploy, countdeploy1);
-	obstacleCooldown2 = game.rnd.integerInRange(countdeploy, countdeploy1);
-	var position = game.rnd.integerInRange(750, 750);
-	rock = RockGroup.getFirstExists(false);
-	rock.reset(position, 475);
-	rock.body.velocity.x = -speedobj * 48.5;
-	countdeploy1 -= 17
-	countdeploy -= 10
-}
-function arrowDeploy() {
-	obstacleCooldown3 = game.rnd.integerInRange(600, 900);
-	var position = getRandomArbitrary4()
-	arrow = ArrowGroup.getFirstExists(false);
-	arrow.reset(750, position);
-	arrow.body.velocity.x = -speed * 150;
-}
-function warningarrow() {
-	countwarningarrow = 200;
-	if (obstacleCooldown3 <= countwarningarrow) {
-		text2.visible = true
-		text2.setText('ระวัง...ธนูกำลังมา :' + obstacleCooldown3);
-	} else
-		text2.visible = false
-}
-function GenerateTerrain() {
-	var i, delta = 0, block;
-	for (i = 0; i < FloorGroup.length; i++) {
-		if (FloorGroup.getAt(i).body.x <= -tileSize) {
-
-			if (i < probCliff && !lastCliff && !lastVertical) {
-				delta = Math.random() * ((3 - 1.5) + 1) + 1.5;
-				lastCliff = true;
-				lastVertical = false;
-
-
-			}
-			else {
-				lastCliff = false;
-				lastVertical = false;
-			}
-
-			FloorGroup.getAt(i).body.x = lastFloor.body.x + tileSize + delta * tileSize * 1.5;
-			lastFloor = FloorGroup.getAt(i);
-			break;
-		}
-	}
-}
-
-function itemSpawner() {
-	var output = game.rnd.integerInRange(0, 4);
-	if (output == 0) {
-		itemsheildUp();
-
-	} else if (output == 1) {
-		itemrunUp();
-	} else if (output = 2) {
-		iteminvisibleUp();
-	}
-}
-
-function iteminvisibleUp() {
-	itemCooldown = game.rnd.integerInRange(400, 600);
-	var position = game.rnd.integerInRange(750, 750);
-	ItemInvisible = InvisibleGroup.getFirstExists(false);
-	ItemInvisible.reset(position, getRandomArbitrary4());
-	ItemInvisible.body.velocity.x = -speed * 20;
-}
-function itemrunUp() {
-	itemCooldown = game.rnd.integerInRange(400, 600);
-	var position = game.rnd.integerInRange(750, 750);
-	Itemsheild = ItemsheildGroup.getFirstExists(false);
-	Itemsheild.reset(position, getRandomArbitrary4());
-	Itemsheild.body.velocity.x = -speed * 20;
-}
-function itemsheildUp() {
-	itemCooldown = game.rnd.integerInRange(400, 600);
-	var position = game.rnd.integerInRange(750, 750);
-	Itemrun = ItemrunGroup.getFirstExists(false);
-	Itemrun.reset(position, getRandomArbitrary4());
-	Itemrun.body.velocity.x = -speed * 20;
-}
-
-function resetPostion(obj) {
-	obj.kill();
-}
-function getRandomArbitrary() { //สุ่มๆ
-	var r = 0
-	r++
-	if (r == 1) {
-		return getRandomArbitrary1();
-	} else if (r == 2) {
-		return getRandomArbitrary2();
-	} else if (r == 3) {
-		return getRandomArbitrary3();
-	} else if (r == 4) {
-		r = 0;
-	}
-
-}
-function getRandomArbitrary3() {
-	return Math.random() * (6000 - 4000 + 1) + 4000;//สุ่มแกน x 
-}
-function getRandomArbitrary1() {
-	return Math.random() * (9000 - 7000 + 1) + 7000;//สุ่มแกน x 
-}
-function getRandomArbitrary2() {
-	return Math.random() * (13000 - 10000 + 1) + 10000;//สุ่มแกน x 
-}
-function getRandomArbitrary4() {
-	return Math.random() * (450 - 222 + 1) + 222;//สุ่มแกน  y
-}
-
-function flashs() {
-	game.camera.flash(00000000, 500);
-}
-
-function updateScore() {
-
-	if (countStart >= 60) {
-		score += 1;
-		text.setText('' + score);
-		game.add.tween(text3).to({ alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
-
-	} else if (countStart < 60) {
-		text3.visible = true;
-		countStart++
-	}
-}
-function HitsPlayer(player, obj) {
-	hitSound.play();
-	if (Hp == 1) {
-		Hp = Hp - 1;
-		Checkhp()
-	} else if (Hp == 2) {
-		obj.kill();
-		effectShelid.visible = false;
-
-		Hp = 1;
-	}
-}
-function HitObj(player, obj) {
-	obj.kill();
-}
-function Checkhp() {
-	if (Hp < 1) {
-		game.state.start('GameOver')
-
-	}
-}
-function getItemsheild(player, item) {
-	sheilditem.play();
-	item.kill();
-	itemsheildtime = 500;
-	ActiveHpplus()
-
-}
-function getIteminvisible(player, item) {
-	invisibleitem.play();
-	item.kill();
-	SystemOverlab = 3;
-	itemtimeinvisible = 200
-	itemtimerun = -1
-}
-function getItemrun(player, item) {
-
-	itemx2.play();
-	item.kill();
-	itemtimerun = 200
-	ActiveRunspped()
-	player.animations.add('walk');
-	player.animations.play('walk', 50, true);
-	SystemOverlab = 2;
-	itemtimeinvisible = -1
-}
-function ActiveRunspped() {
-	speedb = boxspeed;
-	boxspeed = speed;
-	speedobjdb = boxspeedobj;
-	boxspeedobj = speedobj
-
-}
-function ActiveHpplus() {
-	effectShelid.visible = true;
-	Hp = 2;
-
-}
-
-function collisionHandler() {
-
-	countjump = 2;
-
-}
-function invisiblesystem() {
-	game.add.tween(player).to({ alpha: 1 }, 1000, Phaser.Easing.Linear.None, true, 0, 1000, false);
-}
-
-function sped(aa) {
-	aa.body.velocity.x = -speedobj
-}
-
-function checkobj(aa) {
-	if (chek = false)
-		aa.kill;
 }
 
 
@@ -2000,8 +1297,9 @@ function update2() {
 		if (jumpButton.isUp) {
 			holdjump = false
 		}
-		player.body.collideWorldBounds = true;
+	
 	}
+
 
 
 	if (itemtimeinvisible == 0) {  ////ส่วนของ ล่องหน
@@ -2201,39 +1499,7 @@ function updateGameOver() {
 }
 
 
-function toGame() {
-	if (selectmenu == 1) {
-		game.state.start('GamePlay1');
-		gameoversound.stop();
-	} else if (selectmenu == 2) {
-		game.state.start('GamePlay2');
-		gameoversound.stop();
-	}
-}
-function toGame2() {
-	game.state.start('GamePlay2');
-	gameoversound.stop();
-}
-function tomenu() {
-	game.state.start('Menu');
 
-
-}
-function wentmenu() {
-	game.state.start('Menu');
-	gameoversound.stop();
-
-
-}
-function tofacebook() {
-
-
-}
-
-function toranking() {
-
-
-}
 ///////////////////////////////////////////////////////////////End Credit//////////////////////////////////////////////////////////////////////////
 function preloadEndcredit() {
 	game.load.spritesheet('play', 'images/เริ่มใหม่.png', 475, 206);
@@ -2246,7 +1512,465 @@ function updateEndcredit() {
 
 }
 
+
+
+
+////FunctionSystem/////
+
+
+//////////////////////////////////////FunctionMenu/////////////////////////////////////////////////////
+function gotomenu() {
+    game.paused = false;
+    game.state.start("Menu");
+    gamebgm.stop();
+    console.log("asdasdasdsad")
+}
 function gotomenubycredit() {
 	game.state.start('Menu')
 	
 }
+function gotoplay() {
+    game.paused = false;
+    frames.kill();
+    home.kill();
+    resume.kill();
+    ยุติ.kill();
+    pause = game.add.button(720, 25, 'pause', topause, this);
+    pause.scale.setTo(0.25, 0.25)
+}
+function topause() {
+    pause.kill();
+    game.paused = true;
+
+    frames = game.add.sprite(150, 60, 'frame')
+    frames.scale.setTo(0.5, 0.5);
+    ยุติ = game.add.sprite(250, 190, 'ยุติ')
+    ยุติ.scale.setTo(0.25, 0.25);
+    home = game.add.button(270, 300, 'home', gotomenu, this, 1, 0, 1);
+    home.scale.setTo(0.25, 0.25)
+    resume = game.add.button(460, 300, 'resume', gotoplay, this, 1, 0, 1);
+    resume.scale.setTo(0.25, 0.25)
+
+
+}
+
+function toGame() {
+    if (selectmenu == 1) {
+        game.state.start('GamePlay1');
+        gameoversound.stop();
+    } else if (selectmenu == 2) {
+        game.state.start('GamePlay2');
+        gameoversound.stop();
+    }
+}
+function tocredit() {
+	game.state.start('Endcredit')
+	menu.stop();
+	backd.kill();
+	credits.kill();
+	frames.kill();
+	mute.kill();
+	thanks.kill();
+}
+
+function wentmenu() {
+    game.state.start('Menu');
+    gameoversound.stop();
+
+}
+function tomenu() {
+	game.state.start('Menu');
+
+}
+function tofacebook() {
+
+}
+
+function toranking() {
+
+}
+function tothanks() {
+
+}
+function tosetmute() {
+	if (!game.sound.mute) {
+		game.sound.mute = true;
+	}
+	else if (game.sound.mute) {
+		game.sound.mute = false;
+	}
+}
+////////////////////////////////////////////////Functionsetting System////////////////////////////////////////////////////////////////////
+function tosetting() {
+	option.kill();
+	frames = game.add.sprite(150, 60, 'frame')
+	frames.scale.setTo(0.5, 0.5);
+	credits = game.add.button(240, 250, 'credit', tocredit, this, 1, 0, 1);
+	credits.scale.setTo(0.285);
+	mute = game.add.button(550, 170, 'mute', tosetmute, this)
+	mute.scale.setTo(0.5);
+	backd = game.add.button(370, 340, 'back', todestroy, this)
+	backd.scale.setTo(0.5, 0.5);
+	thanks = game.add.button(450, 250, 'credit', tothanks, this, 1, 0, 1);
+	thanks.scale.setTo(0.285);
+	name1.kill();
+	name2.kill();
+	name3.kill();
+	name4.kill();
+	name5.kill();
+	name6.kill();
+	name7.kill();
+	backs.kill();
+	framecredit.kill();
+	worker.kill();
+
+
+}
+function todestroy() {
+	console.log("in to destroy");
+	frames.kill();
+	backd.kill();
+	credits.kill();
+	mute.kill();
+	thanks.kill();
+
+	option = game.add.button(720, 25, 'options', tosetting, this);
+	option.scale.setTo(0.025, 0.025)
+
+
+
+}
+function topause() {
+	pause.kill();
+	game.paused = true;
+
+	frames = game.add.sprite(150, 60, 'frame')
+	frames.scale.setTo(0.5, 0.5);
+	ยุติ = game.add.sprite(250, 190, 'ยุติ')
+	ยุติ.scale.setTo(0.25, 0.25);
+	home = game.add.button(270, 300, 'home', gotomenu, this, 1, 0, 1);
+	home.scale.setTo(0.25, 0.25)
+	resume = game.add.button(460, 300, 'resume', gotoplay, this, 1, 0, 1);
+	resume.scale.setTo(0.25, 0.25)
+
+
+}
+
+function tocheckselect() {
+	check1 = game.add.sprite(80, -200, 'framecredit')
+	check1.scale.setTo(0.44, 0.47);
+	pressno = game.add.button(490, 400, 'pressgiant', checkselect2, this);
+	pressno.scale.setTo(0.25, 0.25)
+	pressback = game.add.button(175, 400, 'pressmonkey', tobackselect, this);
+	pressback.scale.setTo(0.25, 0.25)
+	pressgiant.kill();
+	giant.kill();
+	monkey.kill();
+	pressmonkey.kill();
+}
+function tocheckselect2() {
+	check1 = game.add.sprite(80, -200, 'framecredit')
+	check1.scale.setTo(0.44, 0.47);
+	pressno = game.add.button(490, 400, 'pressgiant', checkselect, this);
+	pressno.scale.setTo(0.25, 0.25)
+	pressback = game.add.button(175, 400, 'pressmonkey', tobackselect, this);
+	pressback.scale.setTo(0.25, 0.25)
+	pressgiant.kill();
+	giant.kill();
+	monkey.kill();
+	pressmonkey.kill();
+}
+
+function tobackselect() {
+	check1.kill();
+	pressno.kill();
+	pressback.kill();
+	createIntro();
+
+}
+
+
+function checkselect() {
+	selectmenu = 1;
+	tomenu()
+}
+function checkselect2() {
+	selectmenu = 2;
+	tomenu()
+}
+
+
+
+////////////////////////////////////////////Functiongame////////////////////////////////////////////////
+
+
+function obstacleSpawner() {
+	var output = game.rnd.integerInRange(0, 3);
+	if (output == 0) {
+		spirteDeploy();
+	} else if (output == 1) {
+		logDeploy();
+	} else if (output == 2) {
+		treecutDeploy();
+	} else if (output == 3) {
+		rockDeploy();
+	}
+}
+function obstacleSpawner2() {
+	var output = game.rnd.integerInRange(0, 3);
+	if (output == 0) {
+		spirteDeploy();
+	} else if (output == 1) {
+		logDeploy();
+	} else if (output == 2) {
+		treecutDeploy();
+	} else if (output == 3) {
+		rockDeploy();
+	}
+}
+function obstacleSpawner3() {
+	var output = game.rnd.integerInRange(0, 3);
+	if (output == 0) {
+		arrowDeploy()
+	} else if (output == 1) {
+		arrowDeploy()
+	} else if (output == 2) {
+		arrowDeploy()
+	} else if (output == 3) {
+		arrowDeploy()
+	}
+}
+function logDeploy() {
+	obstacleCooldown = game.rnd.integerInRange(countdeploy, countdeploy1);
+	obstacleCooldown2 = game.rnd.integerInRange(countdeploy, countdeploy1);
+	var position = game.rnd.integerInRange(750, 750);
+	log = LogGroup.getFirstExists(false);
+	log.reset(position, 475);
+	log.body.velocity.x = -speedobj * 48;
+	countdeploy1 -= 20
+	countdeploy -= 10
+}
+function spirteDeploy() {
+	obstacleCooldown = game.rnd.integerInRange(countdeploy, countdeploy1);
+	obstacleCooldown2 = game.rnd.integerInRange(countdeploy, countdeploy1);
+	var position = game.rnd.integerInRange(750, 750);
+	spirte = SpirteGroup.getFirstExists(false);
+	spirte.reset(position, 475);
+	spirte.body.velocity.x = -speedobj * 49;
+	countdeploy1 -= 15
+	countdeploy -= 10
+}
+function treecutDeploy() {
+	obstacleCooldown = game.rnd.integerInRange(countdeploy, countdeploy1);
+	obstacleCooldown2 = game.rnd.integerInRange(countdeploy, countdeploy1);
+	var position = game.rnd.integerInRange(750, 750);
+	treecut = TreecutGroup.getFirstExists(false);
+	treecut.reset(position, 475);
+	treecut.body.velocity.x = -speedobj * 49;
+	countdeploy1 -= 13
+	countdeploy -= 10
+}
+function rockDeploy() {
+	obstacleCooldown = game.rnd.integerInRange(countdeploy, countdeploy1);
+	obstacleCooldown2 = game.rnd.integerInRange(countdeploy, countdeploy1);
+	var position = game.rnd.integerInRange(750, 750);
+	rock = RockGroup.getFirstExists(false);
+	rock.reset(position, 475);
+	rock.body.velocity.x = -speedobj * 48.5;
+	countdeploy1 -= 17
+	countdeploy -= 10
+}
+function arrowDeploy() {
+	obstacleCooldown3 = game.rnd.integerInRange(600, 900);
+	var position = getRandomArbitrary4()
+	arrow = ArrowGroup.getFirstExists(false);
+	arrow.reset(750, position);
+	arrow.body.velocity.x = -speedobj + 200;
+}
+function warningarrow() {
+	countwarningarrow = 200;
+	if (obstacleCooldown3 <= countwarningarrow) {
+		text2.visible = true
+		text2.setText('ระวัง...ธนูกำลังมา :' + obstacleCooldown3);
+	} else
+		text2.visible = false
+}
+function GenerateTerrain() {
+	var i, delta = 0, block;
+	for (i = 0; i < FloorGroup.length; i++) {
+		if (FloorGroup.getAt(i).body.x <= -tileSize) {
+
+			if (i < probCliff && !lastCliff && !lastVertical) {
+				delta = Math.random() * ((3 - 1.5) + 1) + 1.5;
+				lastCliff = true;
+				lastVertical = false;
+
+
+			}
+			else {
+				lastCliff = false;
+				lastVertical = false;
+			}
+
+			FloorGroup.getAt(i).body.x = lastFloor.body.x + tileSize + delta * tileSize * 1.5;
+			lastFloor = FloorGroup.getAt(i);
+			break;
+		}
+	}
+}
+
+function itemSpawner() {
+	var output = game.rnd.integerInRange(0, 4);
+	if (output == 0) {
+		itemsheildUp();
+
+	} else if (output == 1) {
+		itemrunUp();
+	} else if (output = 2) {
+		iteminvisibleUp();
+	}
+}
+
+function iteminvisibleUp() {
+	itemCooldown = game.rnd.integerInRange(400, 600);
+	var position = game.rnd.integerInRange(750, 750);
+	ItemInvisible = InvisibleGroup.getFirstExists(false);
+	ItemInvisible.reset(position, getRandomArbitrary4());
+	ItemInvisible.body.velocity.x = -speed * 20;
+}
+function itemrunUp() {
+	itemCooldown = game.rnd.integerInRange(400, 600);
+	var position = game.rnd.integerInRange(750, 750);
+	Itemsheild = ItemsheildGroup.getFirstExists(false);
+	Itemsheild.reset(position, getRandomArbitrary4());
+	Itemsheild.body.velocity.x = -speed * 20;
+}
+function itemsheildUp() {
+	itemCooldown = game.rnd.integerInRange(400, 600);
+	var position = game.rnd.integerInRange(750, 750);
+	Itemrun = ItemrunGroup.getFirstExists(false);
+	Itemrun.reset(position, getRandomArbitrary4());
+	Itemrun.body.velocity.x = -speed * 20;
+}
+
+function resetPostion(obj) {
+	obj.kill();
+}
+function getRandomArbitrary() { //สุ่มๆ
+	var r = 0
+	r++
+	if (r == 1) {
+		return getRandomArbitrary1();
+	} else if (r == 2) {
+		return getRandomArbitrary2();
+	} else if (r == 3) {
+		return getRandomArbitrary3();
+	} else if (r == 4) {
+		r = 0;
+	}
+
+}
+function getRandomArbitrary3() {
+	return Math.random() * (6000 - 4000 + 1) + 4000;//สุ่มแกน x 
+}
+function getRandomArbitrary1() {
+	return Math.random() * (9000 - 7000 + 1) + 7000;//สุ่มแกน x 
+}
+function getRandomArbitrary2() {
+	return Math.random() * (13000 - 10000 + 1) + 10000;//สุ่มแกน x 
+}
+function getRandomArbitrary4() {
+	return Math.random() * (450 - 222 + 1) + 222;//สุ่มแกน  y
+}
+
+function flashs() {
+	game.camera.flash(00000000, 500);
+}
+
+function updateScore() {
+
+	if (countStart >= 60) {
+		score += 1;
+		text.setText('' + score);
+		game.add.tween(text3).to({ alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
+
+	} else if (countStart < 60) {
+		text3.visible = true;
+		countStart++
+	}
+}
+function HitsPlayer(player, obj) {
+	hitSound.play();
+	if (Hp == 1) {
+		Hp = Hp - 1;
+		Checkhp()
+	} else if (Hp == 2) {
+		obj.kill();
+		effectShelid.visible = false;
+
+		Hp = 1;
+	}
+}
+function HitObj(player, obj) {
+	obj.kill();
+}
+function Checkhp() {
+	if (Hp < 1) {
+		game.state.start('GameOver')
+
+	}
+}
+function getItemsheild(player, item) {
+	sheilditem.play();
+	item.kill();
+
+	ActiveHpplus()
+
+}
+function getIteminvisible(player, item) {
+	invisibleitem.play();
+	item.kill();
+	SystemOverlab = 3;
+	itemtimeinvisible = 500
+	itemtimerun = -1
+}
+function getItemrun(player, item) {
+	itemx2.play();
+	item.kill();
+	itemtimerun = 200
+	ActiveRunspped()
+	SystemOverlab = 2;
+	itemtimeinvisible = -1
+}
+function ActiveRunspped() {
+
+	speedb = boxspeed;
+	boxspeed = speed;
+	speedobjdb = boxspeedobj;
+	boxspeedobj = speedobj
+
+}
+function ActiveHpplus() {
+	effectShelid.visible = true;
+	Hp = 2;
+
+}
+
+function collisionHandler() {
+
+	countjump = 2;
+
+}
+function invisiblesystem() {
+	game.add.tween(player).to({ alpha: 1 }, 1000, Phaser.Easing.Linear.None, true, 0, 1000, false);
+}
+
+function sped(aa) {
+	aa.body.velocity.x = -speedobj
+}
+
+function checkobj(aa) {
+	if (chek = false)
+		aa.kill;
+}
+

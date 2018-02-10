@@ -1954,8 +1954,9 @@ function render2() {
 /////////////////////////////////////////////////////////////////GameOver/////////////////////////////////////////////////////////////////
 
 function preloadGameOver() {
-
-	game.load.image('grey', 'images/ตัวอย่าง(ใหม่).jpg')
+	game.load.image('gameoverscreen1', 'images/gameoverscreen1.png')
+	game.load.image('gameoverscreen2', 'images/gameoverscreen2.png')
+	game.load.image('gameoverscreen3', 'images/gameoverscreen3.png')
 	game.load.image('gameoverframe', 'images/gameoverframe.png')
 	game.load.audio('gameoversound', 'audio/Sound Game Over.mp3')
 	game.load.spritesheet('play', 'images/เริ่มใหม่.png', 475, 206);
@@ -1981,8 +1982,14 @@ function createGameOver() {
 		max = 2000;
 	}
 
-	grey = game.add.sprite(0, 0, 'grey')
-	grey.scale.setTo(1.45, 1.45);
+	if(score <= 1100){
+		screen1 = game.add.sprite(0, 0, 'gameoverscreen1')
+	} else if(score <=3100){
+		screen2 = game.add.sprite(0, 0, 'gameoverscreen2')
+	} else {
+		screen3 = game.add.sprite(0, 0, 'gameoverscreen3')
+	}
+
 	gameoversound = this.add.audio('gameoversound');
 	gameoversound.play();
 	gameoversound.loopFull();
@@ -1995,9 +2002,7 @@ function createGameOver() {
 	สิ้นชีพ = game.add.sprite(350, 130, 'สิ้นชีพ')
 	สิ้นชีพ.scale.setTo(0.30, 0.30)
 
-
 	scoretext = game.add.text(510, 220, '' + score, { font: "50px Number", fill: "#FFFFFF", align: "center" });
-
 
 	play = game.add.button(270, 340, 'play', toGame, this, 1, 0, 1);
 	play.scale.setTo(0.25, 0.25)
@@ -2014,8 +2019,6 @@ function createGameOver() {
 	}
 
 	gamebgm.stop();
-
-
 
 }
 function updateGameOver() {

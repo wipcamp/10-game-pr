@@ -247,14 +247,17 @@ function tocheckselect() { //ยักษ์
 	giant.kill();
 	monkey.kill();
 
-	confirm1 = game.add.sprite(170, 175, 'confirm1');
+	confirm1 = game.add.sprite(170, 60, 'confirm1');
 	confirm1.scale.setTo(0.25, 0.25)
 
-	pressno = game.add.button(225, 315, 'yesconfirm', checkselect2, this, 1, 0, 1);
+	pressno = game.add.button(225, 360, 'yesconfirm', checkselect2, this, 1, 0, 1);
 	pressno.scale.setTo(0.25, 0.25)
 
-	pressback = game.add.button(425, 315, 'noconfirm', tobackselect, this, 1, 0, 1);
+	pressback = game.add.button(425, 360, 'noconfirm', tobackselect, this, 1, 0, 1);
 	pressback.scale.setTo(0.25, 0.25)
+
+	monkeysaid = game.add.image(-20, 430, 'monkeysaid');
+	monkeysaid.scale.setTo(0.220,0.220);
 
 }
 function tocheckselect2() { //ลิง
@@ -265,14 +268,17 @@ function tocheckselect2() { //ลิง
 	choose2 = game.add.audio('choose2');
 	choose2.play();
 
-	confirm2 = game.add.sprite(170, 175, 'confirm2');
+	confirm2 = game.add.sprite(170, 30, 'confirm2');
 	confirm2.scale.setTo(0.25, 0.25)
 
-	pressno = game.add.button(225, 315, 'yesconfirm', checkselect, this, 1, 0, 1);
+	pressno = game.add.button(225, 380, 'yesconfirm', checkselect, this, 1, 0, 1);
 	pressno.scale.setTo(0.25, 0.25)
 
-	pressback = game.add.button(425, 315, 'noconfirm', tobackselect, this, 1, 0, 1);
+	pressback = game.add.button(425, 380, 'noconfirm', tobackselect, this, 1, 0, 1);
 	pressback.scale.setTo(0.25, 0.25)
+
+	giantsaid = game.add.image(10, 440, 'giantsaid');
+	giantsaid.scale.setTo(0.220,0.220);
 
 
 
@@ -591,10 +597,12 @@ function preloadIntro() {
 	game.load.image('framecredit', 'images/framecredit.png')
 	game.load.image('choose', 'images/หน้าเลือกตัวละคร.png')
 	game.load.image('black', 'images/black.png')
-	game.load.image('confirm2', 'images/confirm ver2.png');
-	game.load.image('confirm1', 'images/Confirm ver1.png');
+	game.load.image('confirm2', 'images/monkeyblue.png');
+	game.load.image('confirm1', 'images/ยักษ์ว้อยว้อยยย.png');
 	game.load.spritesheet('yesconfirm', 'images/yesconfirm.png', 709, 259, 2);
 	game.load.spritesheet('noconfirm', 'images/noconfirm.png', 702, 259, 2);
+	game.load.image('monkeysaid', 'images/ลิงฟ้า.png');
+	game.load.image('giantsaid', 'images/ยักษ์แดงแดง.png');
 
 	game.load.audio('choose1', 'images/choose1.mp3');
 	game.load.audio('choose2', 'images/choose2.mp3');

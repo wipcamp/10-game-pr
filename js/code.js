@@ -146,7 +146,7 @@ function tocredit() {
 	credits.kill();
 	frames.kill();
 	mute.kill();
-	
+
 }
 
 function wentmenu() {
@@ -170,12 +170,14 @@ function tosetmute() {
 	if (!game.sound.mute) {
 		game.sound.mute = true;
 		unmute = game.add.button(310, 190, 'unmute', tosetmute, this)
-		 unmute.scale.setTo(0.25);
-		 mute.kill();
-		}
+		unmute.scale.setTo(0.25);
+		mute.kill();
+	}
 	else if (game.sound.mute) {
 		game.sound.mute = false;
-	
+		mute = game.add.button(310, 190, 'mute', tosetmute, this)
+		mute.scale.setTo(0.25);
+
 	}
 }
 ////////////////////////////////////////////////Functionsetting System////////////////////////////////////////////////////////////////////
@@ -185,21 +187,16 @@ function tosetting() {
 	frames.scale.setTo(0.5, 0.5);
 	credits = game.add.button(330, 260, 'credit', tocredit, this, 1, 0, 1);
 	credits.scale.setTo(0.295);
+
 	mute = game.add.button(310, 190, 'mute', tosetmute, this)
 	mute.scale.setTo(0.25);
+	unmute = game.add.button(310, 190, 'unmute', tosetmute, this)
+	unmute.scale.setTo(0.25);
+	unmute.kill();
 	backd = game.add.button(370, 345, 'back', todestroy, this)
 	backd.scale.setTo(0.5, 0.5);
-	if(game.sound.mute){
-		unmute = game.add.button(310, 190, 'unmute', tosetmute, this)
-		unmute.scale.setTo(0.25);
-		mute.kill();
-	}
-	if(!game.sound.mute){
-		mute = game.add.button(310, 190, 'mute', tosetmute, this)
-		mute.scale.setTo(0.25);
-		unmute.kill();
-	}
-	
+
+
 
 }
 function todestroy() {
@@ -209,8 +206,8 @@ function todestroy() {
 	credits.kill();
 	mute.kill();
 	unmute.kill();
-	
-	
+
+
 
 	option = game.add.button(720, 25, 'options', tosetting, this);
 	option.scale.setTo(0.025, 0.025)
@@ -235,42 +232,42 @@ function topause() {
 }
 
 function tocheckselect() { //ยักษ์
-	black= game.add.sprite(0, 0, 'black')
-	
+	black = game.add.sprite(0, 0, 'black')
+
 	choose1 = game.add.audio('choose1');
 	choose1.play();
 	giant.kill();
-	monkey.kill();    
+	monkey.kill();
 
-	confirm1 = game.add.sprite(170,175,'confirm1'); 
+	confirm1 = game.add.sprite(170, 175, 'confirm1');
 	confirm1.scale.setTo(0.25, 0.25)
 
-	pressno = game.add.button(225, 315, 'yesconfirm', checkselect2, this,1,0,1);
+	pressno = game.add.button(225, 315, 'yesconfirm', checkselect2, this, 1, 0, 1);
 	pressno.scale.setTo(0.25, 0.25)
 
-	pressback = game.add.button(425, 315, 'noconfirm', tobackselect, this,1,0,1);
+	pressback = game.add.button(425, 315, 'noconfirm', tobackselect, this, 1, 0, 1);
 	pressback.scale.setTo(0.25, 0.25)
 
 }
 function tocheckselect2() { //ลิง
-	black= game.add.sprite(0, 0, 'black')
+	black = game.add.sprite(0, 0, 'black')
 
 	giant.kill();
 	monkey.kill();
 	choose2 = game.add.audio('choose2');
 	choose2.play();
 
-	confirm2 = game.add.sprite(170,175,'confirm2'); 
+	confirm2 = game.add.sprite(170, 175, 'confirm2');
 	confirm2.scale.setTo(0.25, 0.25)
 
-	pressno = game.add.button(225, 315, 'yesconfirm', checkselect, this,1,0,1);
+	pressno = game.add.button(225, 315, 'yesconfirm', checkselect, this, 1, 0, 1);
 	pressno.scale.setTo(0.25, 0.25)
 
-	pressback = game.add.button(425, 315, 'noconfirm', tobackselect, this,1,0,1);
+	pressback = game.add.button(425, 315, 'noconfirm', tobackselect, this, 1, 0, 1);
 	pressback.scale.setTo(0.25, 0.25)
-	
 
-	
+
+
 }
 
 function tobackselect() {
@@ -586,14 +583,14 @@ function preloadIntro() {
 	game.load.image('framecredit', 'images/framecredit.png')
 	game.load.image('choose', 'images/หน้าเลือกตัวละคร.png')
 	game.load.image('black', 'images/black.png')
-	game.load.image('confirm2','images/confirm ver2.png');
-	game.load.image('confirm1','images/Confirm ver1.png');
-	game.load.spritesheet('yesconfirm','images/yesconfirm.png', 709, 259,2);
-	game.load.spritesheet('noconfirm','images/noconfirm.png', 702, 259,2);
-	
+	game.load.image('confirm2', 'images/confirm ver2.png');
+	game.load.image('confirm1', 'images/Confirm ver1.png');
+	game.load.spritesheet('yesconfirm', 'images/yesconfirm.png', 709, 259, 2);
+	game.load.spritesheet('noconfirm', 'images/noconfirm.png', 702, 259, 2);
+
 	game.load.audio('choose1', 'images/choose1.mp3');
 	game.load.audio('choose2', 'images/choose2.mp3');
-	
+
 	game.load.image('full-size', 'images/full-size.png')
 
 	game.load.spritesheet('giantbutton', 'images/เลือกฉันดีกว่า.png', 1093, 403, 2);
@@ -607,8 +604,8 @@ function preloadIntro() {
 function createIntro() {
 
 	choose = game.add.sprite(-20, -20, 'choose');
-	choose.scale.setTo(0.25,0.25)
-	giantbutton = game.add.button(400, 290, 'giantbutton', tocheckselect, this,1, 0, 1);
+	choose.scale.setTo(0.25, 0.25)
+	giantbutton = game.add.button(400, 290, 'giantbutton', tocheckselect, this, 1, 0, 1);
 	giantbutton.scale.setTo(0.175, 0.175)
 
 	giant = game.add.button(680, 180, 'giant', tocheckselect, this);
@@ -616,14 +613,14 @@ function createIntro() {
 	giant.animations.add('walk');
 	giant.animations.play('walk', 5, true);
 
-	
-	
+
+
 
 	// monkey = game.add.button(110, 150, 'monkey', tocheckselect2, this);
 	// monkey.scale.setTo(0.25, 0.25)
 	// monkey.animations.add('walk');
 	// monkey.animations.play('walk', 30 , true);
-	monkeybutton = game.add.button(215, 480, 'monkeybutton', tocheckselect2, this,1, 0, 1);
+	monkeybutton = game.add.button(215, 480, 'monkeybutton', tocheckselect2, this, 1, 0, 1);
 	monkeybutton.scale.setTo(0.175, 0.175)
 	monkey = game.add.button(100, 380, 'monkey', tocheckselect2, this);
 	monkey.scale.setTo(0.195, 0.195)
@@ -673,7 +670,7 @@ function preloadMenu() {
 	game.load.image('press', 'images/กดปุ่มเว้นวรรค.png')
 	game.load.image('worker', 'images/worker.png')
 
-	
+
 
 
 
@@ -681,6 +678,12 @@ function preloadMenu() {
 }
 
 function createMenu() {
+	mute = game.add.button(310, 190, 'mute', tosetmute, this)
+	mute.scale.setTo(0.25);
+	mute.kill();
+	unmute = game.add.button(310, 190, 'unmute', tosetmute, this)
+	unmute.scale.setTo(0.25);
+	unmute.kill();
 
 	framecredit = game.add.sprite(230, 10, 'framecredit')
 	framecredit.scale.setTo(0.27, 0.27);
@@ -747,12 +750,12 @@ function createMenu() {
 			game.cache.getImage('wallr').height,
 			'wallr'
 		);
-		floor = game.add.tileSprite(0, 
-			536, 
-			game.width, 
-			game.cache.getImage('floor').height, 
-			'floor' 
-		); 
+		floor = game.add.tileSprite(0,
+			536,
+			game.width,
+			game.cache.getImage('floor').height,
+			'floor'
+		);
 	} else if (selectmenu == 2) {
 		console.log("that")
 		var logo = game.add.sprite(800, 60, "logot");
@@ -788,12 +791,12 @@ function createMenu() {
 			game.cache.getImage('wallt').height,
 			'wallt'
 		);
-		floor = game.add.tileSprite(0, 
-			536, 
-			game.width, 
-			game.cache.getImage('floor').height, 
-			'floor' 
-		); 
+		floor = game.add.tileSprite(0,
+			536,
+			game.width,
+			game.cache.getImage('floor').height,
+			'floor'
+		);
 	}
 	if (selectmenu == 1) {
 		var logo = game.add.sprite(800, 60, "logor");
@@ -826,7 +829,7 @@ function updateMenu() {
 	bush.tilePosition.x -= 4 + speed
 	palace.tilePosition.x -= 4.5 + speed
 	wall.tilePosition.x -= 5 + speed
-	floor.tilePosition.x -= 3 + speed; 
+	floor.tilePosition.x -= 3 + speed;
 
 	if (jumpButton.isDown) {
 		if (selectmenu == 1) {
@@ -1470,7 +1473,7 @@ function create2() {
 	itemCooldown = 10;
 	itemtimerun = -5;
 	obstacleCooldown = 10;
-	timespeed ;
+	timespeed;
 	SystemOverlab = 1;
 	tileSize = 70;
 	floor;
@@ -1969,7 +1972,7 @@ function createGameOver() {
 	}
 
 	grey = game.add.sprite(0, 0, 'grey')
-	grey.scale.setTo(1.45,1.45);
+	grey.scale.setTo(1.45, 1.45);
 	gameoversound = this.add.audio('gameoversound');
 	gameoversound.play();
 	gameoversound.loopFull();
@@ -2006,7 +2009,7 @@ function createGameOver() {
 
 }
 function updateGameOver() {
-	
+
 }
 
 
@@ -2018,28 +2021,16 @@ function preloadEndcredit() {
 function createEndcredit() {
 	video = game.add.video('EndCredit');
 
-		if (jumpButton.isDown) {
-			toGame();
-		}
-
+	if (jumpButton.isDown) {
+		toGame();
 	}
+
+
 	video.play(true);
-	video.addToWorld(810,530, 1, 1, 0.65, 0.65);
+	video.addToWorld(810, 530, 1, 1, 0.65, 0.65);
 	video.onPlay.addOnce(start, this);
 
 	skip = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-}
-
-function start() {
-
-///////////////////////////////////////////////////////////////End Credit//////////////////////////////////////////////////////////////////////////
-function preloadEndcredit() {
-	game.load.spritesheet('play', 'images/เริ่มใหม่.png', 475, 206);
-}
-function changeSource() {
-
-    game.state.start('Menu');
-			video.stop();
 
 }
 function updateEndcredit() {
@@ -2053,8 +2044,8 @@ function updateEndcredit() {
 
 		}
 	}
-}
 
+}
 
 
 

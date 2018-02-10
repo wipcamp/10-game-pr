@@ -177,6 +177,7 @@ function tosetmute() {
 		game.sound.mute = false;
 		mute = game.add.button(310, 190, 'mute', tosetmute, this)
 		mute.scale.setTo(0.25);
+		unmute.kill();
 
 	}
 }
@@ -190,12 +191,19 @@ function tosetting() {
 
 	mute = game.add.button(310, 190, 'mute', tosetmute, this)
 	mute.scale.setTo(0.25);
+	mute.kill();
 	unmute = game.add.button(310, 190, 'unmute', tosetmute, this)
 	unmute.scale.setTo(0.25);
 	unmute.kill();
 	backd = game.add.button(370, 345, 'back', todestroy, this)
 	backd.scale.setTo(0.5, 0.5);
-
+	if (!game.sound.mute) {
+		mute = game.add.button(310, 190, 'mute', tosetmute, this)
+		mute.scale.setTo(0.25);
+	} else if (game.sound.mute) {
+		unmute = game.add.button(310, 190, 'unmute', tosetmute, this)
+		unmute.scale.setTo(0.25);
+	}
 
 
 }

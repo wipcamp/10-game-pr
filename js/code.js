@@ -747,6 +747,12 @@ function createMenu() {
 			game.cache.getImage('wallr').height,
 			'wallr'
 		);
+		floor = game.add.tileSprite(0, 
+			536, 
+			game.width, 
+			game.cache.getImage('floor').height, 
+			'floor' 
+		); 
 	} else if (selectmenu == 2) {
 		console.log("that")
 		var logo = game.add.sprite(800, 60, "logot");
@@ -782,6 +788,12 @@ function createMenu() {
 			game.cache.getImage('wallt').height,
 			'wallt'
 		);
+		floor = game.add.tileSprite(0, 
+			536, 
+			game.width, 
+			game.cache.getImage('floor').height, 
+			'floor' 
+		); 
 	}
 	if (selectmenu == 1) {
 		var logo = game.add.sprite(800, 60, "logor");
@@ -810,15 +822,11 @@ function createMenu() {
 
 function updateMenu() {
 	sky.tilePosition.x -= 1 + speed
-	cloud.tilePosition.x -= 2 + speed
+	cloud.tilePosition.x -= 2.5 + speed
 	bush.tilePosition.x -= 4 + speed
-	palace.tilePosition.x -= 5 + speed
-	wall.tilePosition.x -= 7 + speed
-
-
-
-
-
+	palace.tilePosition.x -= 4.5 + speed
+	wall.tilePosition.x -= 5 + speed
+	floor.tilePosition.x -= 3 + speed; 
 
 	if (jumpButton.isDown) {
 		if (selectmenu == 1) {
@@ -1200,12 +1208,12 @@ function update() {
 
 	//พื้นหลังเลื่อน
 	this.skyr.tilePosition.x -= 1 + speed
-	this.cloudr.tilePosition.x -= 2 + speed
-	this.mountain.tilePosition.x -= 3 + speed
+	this.cloudr.tilePosition.x -= 1.5 + speed
+	this.mountain.tilePosition.x -= 2 + speed
 	this.bushr.tilePosition.x -= 3 + speed
-	this.palacer.tilePosition.x -= 2.5 + speed
-	this.wallr.tilePosition.x -= 2.5 + speed
-	this.floorback.tilePosition.x -= 2.5 + speed
+	this.palacer.tilePosition.x -= 3.5 + speed
+	this.wallr.tilePosition.x -= 4 + speed
+	this.floorback.tilePosition.x -= 2 + speed
 
 	speedobj += 0.0010
 	speed += 0.0010;//ความเร็วฉาก
@@ -1728,12 +1736,12 @@ function update2() {
 
 	//พื้นหลังเลื่อน
 	this.skyt.tilePosition.x -= 1 + speed
-	this.cloudt.tilePosition.x -= 2 + speed
-	this.mountain.tilePosition.x -= 3 + speed
-	this.busht.tilePosition.x -= 2 + speed
-	this.palacet.tilePosition.x -= 2.5 + speed
-	this.wallt.tilePosition.x -= 2.5 + speed
-	this.floorback.tilePosition.x -= 2.5 + speed
+	this.cloudt.tilePosition.x -= 1.5 + speed
+	this.mountain.tilePosition.x -= 2 + speed
+	this.busht.tilePosition.x -= 3 + speed
+	this.palacet.tilePosition.x -= 3.5 + speed
+	this.wallt.tilePosition.x -= 4 + speed
+	this.floorback.tilePosition.x -= 2 + speed
 
 	speedobj += 0.0010
 	speed += 0.0010;//ความเร็วฉาก

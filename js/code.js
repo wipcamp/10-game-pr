@@ -247,6 +247,9 @@ function tocheckselect() { //ยักษ์
 	giant.kill();
 	monkey.kill();
 
+	BG = game.add.image(0, 0, 'BG');
+	BG.scale.setTo(0.25, 0.25);
+
 	confirm1 = game.add.sprite(170, 60, 'confirm1');
 	confirm1.scale.setTo(0.25, 0.25)
 
@@ -268,14 +271,18 @@ function tocheckselect2() { //ลิง
 	choose2 = game.add.audio('choose2');
 	choose2.play();
 
+	BG = game.add.image(0, 0, 'BG');
+	BG.scale.setTo(0.25, 0.25);
+	
+
 	confirm2 = game.add.sprite(170, 30, 'confirm2');
-	confirm2.scale.setTo(0.25, 0.25)
+	confirm2.scale.setTo(0.25, 0.25);
 
 	pressno = game.add.button(225, 380, 'yesconfirm', checkselect, this, 1, 0, 1);
-	pressno.scale.setTo(0.25, 0.25)
+	pressno.scale.setTo(0.25, 0.25);
 
 	pressback = game.add.button(425, 380, 'noconfirm', tobackselect, this, 1, 0, 1);
-	pressback.scale.setTo(0.25, 0.25)
+	pressback.scale.setTo(0.25, 0.25);
 
 	giantsaid = game.add.image(10, 440, 'giantsaid');
 	giantsaid.scale.setTo(0.220,0.220);
@@ -603,6 +610,7 @@ function preloadIntro() {
 	game.load.spritesheet('noconfirm', 'images/noconfirm.png', 702, 259, 2);
 	game.load.image('monkeysaid', 'images/ลิงฟ้า.png');
 	game.load.image('giantsaid', 'images/ยักษ์แดงแดง.png');
+	game.load.image('BG','images/BG2.png');
 
 	game.load.audio('choose1', 'images/choose1.mp3');
 	game.load.audio('choose2', 'images/choose2.mp3');

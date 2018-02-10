@@ -621,7 +621,9 @@ function createIntro() {
 	giant.animations.add('walk');
 	giant.animations.play('walk', 5, true);
 
-
+	game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT; 
+	fullsize = game.add.button(0, 0, 'full-size', gofull, this, 1, 0, 1);
+	fullsize.scale.setTo(0.175, 0.175)
 
 
 	// monkey = game.add.button(110, 150, 'monkey', tocheckselect2, this);
@@ -2039,7 +2041,6 @@ function createEndcredit() {
 
 	video.play(true);
 	video.addToWorld(810, 530, 1, 1, 0.65, 0.65);
-	video.onPlay.addOnce(start, this);
 
 	skip = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 

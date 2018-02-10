@@ -24,7 +24,7 @@ var Hp = 1;
 var score = 1;
 var text = 0;
 var pause;
-var speed = 7;
+var speed = 5;
 var speedobj
 var speedb;
 var itemCooldown = 10;
@@ -93,48 +93,48 @@ var selectmenu;
 
 //////////////////////////////////////FunctionMenu/////////////////////////////////////////////////////
 function gotomenu() {
-    game.paused = false;
-    game.state.start("Menu");
-    gamebgm.stop();
-    console.log("asdasdasdsad")
+	game.paused = false;
+	game.state.start("Menu");
+	gamebgm.stop();
+	console.log("asdasdasdsad")
 }
 function gotomenubycredit() {
 	game.state.start('Menu')
-	
+
 }
 function gotoplay() {
-    game.paused = false;
-    frames.kill();
-    home.kill();
-    resume.kill();
-    ยุติ.kill();
-    pause = game.add.button(720, 25, 'pause', topause, this);
-    pause.scale.setTo(0.25, 0.25)
+	game.paused = false;
+	frames.kill();
+	home.kill();
+	resume.kill();
+	ยุติ.kill();
+	pause = game.add.button(720, 25, 'pause', topause, this);
+	pause.scale.setTo(0.25, 0.25)
 }
 function topause() {
-    pause.kill();
-    game.paused = true;
+	pause.kill();
+	game.paused = true;
 
-    frames = game.add.sprite(150, 60, 'frame')
-    frames.scale.setTo(0.5, 0.5);
-    ยุติ = game.add.sprite(250, 190, 'ยุติ')
-    ยุติ.scale.setTo(0.25, 0.25);
-    home = game.add.button(270, 300, 'home', gotomenu, this, 1, 0, 1);
-    home.scale.setTo(0.25, 0.25)
-    resume = game.add.button(460, 300, 'resume', gotoplay, this, 1, 0, 1);
-    resume.scale.setTo(0.25, 0.25)
+	frames = game.add.sprite(150, 60, 'frame')
+	frames.scale.setTo(0.5, 0.5);
+	ยุติ = game.add.sprite(250, 190, 'ยุติ')
+	ยุติ.scale.setTo(0.25, 0.25);
+	home = game.add.button(270, 300, 'home', gotomenu, this, 1, 0, 1);
+	home.scale.setTo(0.25, 0.25)
+	resume = game.add.button(460, 300, 'resume', gotoplay, this, 1, 0, 1);
+	resume.scale.setTo(0.25, 0.25)
 
 
 }
 
 function toGame() {
-    if (selectmenu == 1) {
-        game.state.start('GamePlay1');
-        gameoversound.stop();
-    } else if (selectmenu == 2) {
-        game.state.start('GamePlay2');
-        gameoversound.stop();
-    }
+	if (selectmenu == 1) {
+		game.state.start('GamePlay1');
+		gameoversound.stop();
+	} else if (selectmenu == 2) {
+		game.state.start('GamePlay2');
+		gameoversound.stop();
+	}
 }
 function tocredit() {
 	game.state.start('Endcredit')
@@ -147,8 +147,8 @@ function tocredit() {
 }
 
 function wentmenu() {
-    game.state.start('Menu');
-    gameoversound.stop();
+	game.state.start('Menu');
+	gameoversound.stop();
 
 }
 function tomenu() {
@@ -358,7 +358,7 @@ function arrowDeploy() {
 	var position = getRandomArbitrary4()
 	arrow = ArrowGroup.getFirstExists(false);
 	arrow.reset(750, position);
-	arrow.body.velocity.x = -speedobj + 200;
+	arrow.body.velocity.x = -speedobj - 250;
 }
 function warningarrow() {
 	countwarningarrow = 200;
@@ -462,12 +462,12 @@ function flashs() {
 
 function updateScore() {
 
-	if (countStart >= 60) {
+	if (countStart >= 30) {
 		score += 1;
 		text.setText('' + score);
 		game.add.tween(text3).to({ alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
 
-	} else if (countStart < 60) {
+	} else if (countStart < 30) {
 		text3.visible = true;
 		countStart++
 	}
@@ -546,16 +546,25 @@ function checkobj(aa) {
 	if (chek = false)
 		aa.kill;
 }
+function gofull() {
 
+	if (game.scale.isFullScreen) {
+		game.scale.stopFullScreen();
+	}
+	else {
+		game.scale.startFullScreen(false);
+	}
 
+}
 ////////////////////////////////////////////////////Intro menu/////////////////////////////////////////////////////////
 
 function preloadIntro() {
 	game.load.spritesheet('giant', 'images/ตัวละครยักษ์.png', 765, 957, 2);
-	game.load.spritesheet('monkey', 'images/monkey.png',799,800, 12);
+	game.load.spritesheet('monkey', 'images/monkey.png', 540, 791, 10);
 	game.load.image('pressgiant', 'images/itemsheild.png')
 	game.load.image('pressmonkey', 'images/itemrun.png')
 	game.load.image('framecredit', 'images/framecredit.png')
+	game.load.image('full-size', 'images/full-size.png')
 
 }
 
@@ -564,6 +573,10 @@ function preloadIntro() {
 
 
 function createIntro() {
+
+	game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
+	pressgiant1 = game.add.button(0, 0, 'full-size', gofull, this);
+	pressgiant1.scale.setTo(0.15, 0.15)
 
 	pressgiant = game.add.button(490, 400, 'pressgiant', tocheckselect, this);
 	pressgiant.scale.setTo(0.25, 0.25)
@@ -578,7 +591,7 @@ function createIntro() {
 	monkey = game.add.sprite(110, 150, 'monkey');
 	monkey.scale.setTo(0.25, 0.25)
 	monkey.animations.add('walk');
-	monkey.animations.play('walk', 30 , true);
+	monkey.animations.play('walk', 12, true);
 
 }
 
@@ -595,7 +608,6 @@ function updateIntro() {
 //////////////////////////////////////////////////////Menu/////////////////////////////////////////////////////////////////////////////////
 
 function preloadMenu() {
-	//game.load.script('webfont', '\assets\fonts\Test.TTF');
 
 	//ฉากฝั่งราม
 	game.load.image('skyr', 'images/sky_r.png')
@@ -764,9 +776,9 @@ function updateMenu() {
 	wall.tilePosition.x -= 7 + speed
 
 
-	
 
-	
+
+
 
 	if (jumpButton.isDown) {
 		if (selectmenu == 1) {
@@ -821,7 +833,7 @@ function preload() {
 	game.load.image('arrow', 'images/arrow.png')
 	game.load.image('treecut', 'images/treecut.png')
 	game.load.image('log', 'images/log.png')
-	game.load.image('spirte', 'images/spirte.png')
+	game.load.image('spirte', 'images/หนามล่าสุดด.png')
 	game.load.image('itemsheild', 'images/itemsheild.png')
 	game.load.image('itemrun', 'images/itemrun.png')
 	game.load.image('wallblock', 'images/wallblock.png')
@@ -885,7 +897,7 @@ function create() {
 	game.time.events.loop(timespeed, updateScore, this)
 
 
-	background = game.add.tileSprite(0, 0, 2268, 1701, 'background')
+	background = game.add.tileSprite(0, 0, 2268, 1701, 'blank')
 	background.scale.setTo(0.355, 0.3999)
 	background.fixedToCamera = true;
 
@@ -936,7 +948,7 @@ function create() {
 	โยชน์ = game.add.sprite(25, 25, 'โยชน์')
 	โยชน์.scale.setTo(0.25, 0.25)
 
-	text = game.add.text(150, 5, '', { font: "70px Number", fill: "#1b1a1a", align: "center" });
+	text = game.add.text(175, 5, '', { font: "70px Number", fill: "#1b1a1a", align: "center" });
 
 	text2 = game.add.text(25, 70, 'ระวังธนูกำลังจะมาใน  : ', { font: "60px Number", fill: "#DC143C", align: "center" });
 	text2.visible = false;
@@ -964,8 +976,8 @@ function create() {
 	player = game.add.sprite(200, 350, 'player')
 	player.scale.setTo(0.125, 0.125)
 	player.animations.add('walk');
-	player.animations.play('walk', 10, true);
-	
+	player.animations.play('walk', speed + 5, true);
+
 
 	effectShelid = game.add.sprite(100, 310, 'effectShelid')
 	effectShelid.scale.setTo(0.25, 0.25)
@@ -1109,7 +1121,7 @@ function create() {
 		walll3.body.setSize(50, 1, 0, -15);
 		walll3.body.immovable = true;
 		walll3.body.velocity.x = 0
-		
+
 
 
 	}
@@ -1138,6 +1150,8 @@ function create() {
 
 
 function update() {
+
+
 	game.physics.arcade.collide(player, FloorGroup, collisionHandler, null, this);
 	game.physics.arcade.collide(RockGroup, FloorGroup, chek = true)
 	game.physics.arcade.collide(LogGroup, FloorGroup, chek = true)
@@ -1159,15 +1173,17 @@ function update() {
 	player.body.velocity.x = 0
 
 	//เปลี่ยนฉาก
-	if (score >= 500 & score <= 501) {
+	if (score >= 1100 & score <= 1101) {
 		flashs()
-		speed = 2.5;
+		speed = 8;
+		speedobj = 700;
 		this.palacer.loadTexture('treer')
 		this.wallr.loadTexture('houser')
 	}
-	if (score >= 1100 & score <= 1101) {
+	if (score >= 3100 & score <= 3101) {
 		flashs()
-		speed = 4.5
+		speed = 8;
+		speedobj = 700;
 		this.mountain.loadTexture('mountain')
 		this.bushr.loadTexture('bstone')
 		this.palacer.loadTexture('treedead')
@@ -1190,6 +1206,7 @@ function update() {
 		game.physics.arcade.overlap(player, SpirteGroup, HitsPlayer, null, this);
 		game.physics.arcade.overlap(player, Wall3, HitsPlayer, null, this);
 	} else if (SystemOverlab == 2) {
+		game.physics.arcade.overlap(player, Wall3, HitsPlayer, null, this);
 		game.physics.arcade.overlap(player, LogGroup, HitObj, null, this);
 		game.physics.arcade.overlap(player, TreecutGroup, HitObj, null, this);
 		game.physics.arcade.overlap(player, RockGroup, HitObj, null, this);
@@ -1228,6 +1245,7 @@ function update() {
 		speed = 50
 		speedobj = 900
 		itemtimerun--;
+		score = score + 1;
 
 		if (holdjump == false) {
 			if (jumpButton.isDown && countjump > 0) {
@@ -1288,7 +1306,7 @@ function update() {
 
 	}
 
-	effectShelid.body.y = player.body.y - 10;
+	effectShelid.body.y = player.body.y - 40;
 	effectShelid.body.x = player.body.x - 65;
 
 
@@ -1305,6 +1323,11 @@ function update() {
 	if (obstacleCooldown3 <= 0)
 		obstacleSpawner3();
 	obstacleCooldown3--;
+
+	if (countdeploy <= 0 || countdeploy1 <= 0) {
+		countdeploy = 100;
+		countdeploy1 = 200;
+	}
 
 	warningarrow();
 
@@ -1346,7 +1369,7 @@ function preload2() {
 	game.load.image('arrow', 'images/arrow.png')
 	game.load.image('treecut', 'images/treecut.png')
 	game.load.image('log', 'images/log.png')
-	game.load.image('spirte', 'images/spirte.png')
+	game.load.image('spirte', 'images/หนามล่าสุดด.png')
 	game.load.image('itemsheild', 'images/itemsheild.png')
 	game.load.image('itemrun', 'images/itemrun.png')
 	game.load.image('wallblock', 'images/wallblock.png')
@@ -1394,21 +1417,21 @@ function create2() {
 	countjump = 2;
 	countdeploy1 = 500
 	countdeploy = 400
-	score = 0;
+	score = 1;
 	Hp = 1
 	itemCooldown = 10;
 	itemtimerun = -5;
 	obstacleCooldown = 10;
-	timespeed = 150
+	timespeed ;
 	SystemOverlab = 1;
 	tileSize = 70;
 	floor;
 	probCliff = 0.4;
 
-	game.time.events.loop(timespeed, updateScore, this)
+	timespeed = game.time.events.loop(150, updateScore, this)
 
 
-	background = game.add.tileSprite(0, 0, 2268, 1701, 'background')
+	background = game.add.tileSprite(0, 0, 2268, 1701, 'blank')
 	background.scale.setTo(0.355, 0.3999)
 	background.fixedToCamera = true;
 
@@ -1457,7 +1480,7 @@ function create2() {
 	);
 
 
-	text = game.add.text(150, 5, '', { font: "70px Number", fill: "#1b1a1a", align: "center" });
+	text = game.add.text(175, 5, '', { font: "70px Number", fill: "#1b1a1a", align: "center" });
 
 	text2 = game.add.text(25, 70, 'ระวังธนูกำลังจะมาใน  : ', { font: "60px Number", fill: "#DC143C", align: "center" });
 	text2.visible = false;
@@ -1485,7 +1508,7 @@ function create2() {
 	player = game.add.sprite(200, 350, 'player')
 	player.scale.setTo(0.125, 0.125)
 	player.animations.add('walk');
-	player.animations.play('walk', 10, true);
+	player.animations.play('walk', speed + 5, true);
 
 	effectShelid = game.add.sprite(100, 310, 'effectShelid')
 	effectShelid.scale.setTo(0.25, 0.25)
@@ -1675,24 +1698,28 @@ function update2() {
 	speedobj += 0.0010
 	speed += 0.0010;//ความเร็วฉาก
 	timespeed -= 0.000010;
-	
+
 
 	//เปลี่ยนฉาก
-	if (score >= 500 & score <= 501) {
+	if (score >= 1100 & score < 1101) {
 		flashs()
-		speed = 2.5;
+		speed = 8;
+		speedobj = 700;
 		this.palacet.loadTexture('treet')
 		this.wallt.loadTexture('houset')
 	}
-	if (score >= 1100 & score <= 1101) {
+
+	if (score >= 3100 & score <= 3101) {
 		flashs()
-		speed = 4.5
+		speed = 8;
+		speedobj = 700;
 		this.skyt.loadTexture('skyp')
 		this.mountain.loadTexture('mountain')
 		this.busht.loadTexture('bstone')
 		this.palacet.loadTexture('treedead')
 		this.wallt.loadTexture('blank')
 	}
+
 
 	GenerateTerrain();
 
@@ -1710,6 +1737,7 @@ function update2() {
 		game.physics.arcade.overlap(player, SpirteGroup, HitsPlayer, null, this);
 		game.physics.arcade.overlap(player, Wall3, HitsPlayer, null, this);
 	} else if (SystemOverlab == 2) {
+		game.physics.arcade.overlap(player, Wall3, HitsPlayer, null, this);
 		game.physics.arcade.overlap(player, LogGroup, HitObj, null, this);
 		game.physics.arcade.overlap(player, TreecutGroup, HitObj, null, this);
 		game.physics.arcade.overlap(player, RockGroup, HitObj, null, this);
@@ -1748,6 +1776,7 @@ function update2() {
 		speed = 50
 		speedobj = 900
 		itemtimerun--;
+		score = score + 1;
 
 		if (holdjump == false) {
 			if (jumpButton.isDown && countjump > 0) {
@@ -1759,7 +1788,7 @@ function update2() {
 		if (jumpButton.isUp) {
 			holdjump = false
 		}
-	
+
 	}
 
 
@@ -1809,8 +1838,8 @@ function update2() {
 
 	}
 
-	effectShelid.body.y = player.body.y - 0;
-	effectShelid.body.x = player.body.x - 55;
+	effectShelid.body.y = player.body.y - 40;
+	effectShelid.body.x = player.body.x - 75;
 
 
 	if (obstacleCooldown <= 0)
@@ -1847,6 +1876,10 @@ function update2() {
 	LogGroup.forEachExists(checkobj, this, null)
 	TreecutGroup.forEachExists(checkobj, this, null)
 
+	if (countdeploy <= 0 || countdeploy1 <= 0) {
+		countdeploy = 100;
+		countdeploy1 = 200;
+	}
 }
 
 
@@ -1882,7 +1915,7 @@ var xx = [];
 var yy = [];
 var zz = [];
 function createGameOver() {
-
+	jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 	if (game.renderType === Phaser.WEBGL) {
 		max = 2000;
 	}
@@ -1918,7 +1951,7 @@ function createGameOver() {
 	สิ้นชีพ.scale.setTo(0.30, 0.30)
 
 
-	scoretext = game.add.text(500, 210, '' + score, { font: "50px Number", fill: "#FFFFFF", align: "center" });
+	scoretext = game.add.text(510, 220, '' + score, { font: "50px Number", fill: "#FFFFFF", align: "center" });
 
 
 	play = game.add.button(270, 340, 'play', toGame, this, 1, 0, 1);
@@ -1956,10 +1989,12 @@ function updateGameOver() {
 		stars[i].scale.set(stars[i].perspective / 2);
 		stars[i].rotation += 0.1;
 
+		if (jumpButton.isDown) {
+			toGame();
+		}
+
 	}
-
 }
-
 
 
 ///////////////////////////////////////////////////////////////End Credit//////////////////////////////////////////////////////////////////////////

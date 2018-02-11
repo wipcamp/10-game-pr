@@ -868,17 +868,30 @@ function updateMenu() {
 }
 ///////////////////////////////////////////////////////////////How to play////////////////////////////////////////////////////////////////////////
 function preloadHowtoplay() {
+	game.load.image('howtoplayMonkey', 'images/วิธีเล่นลิง.png')
+	game.load.image('howtoplayGiant', 'images/วิธีเล่นยักษ์.png')
 	game.load.image('press', 'images/กดปุ่มเว้นวรรค.png')
 
 }
 
 
 function createHowtoplay() {
-	press = game.add.sprite(150, 420, "press");
+	game.stage.backgroundColor = "#FFFFFF";
+	press = game.add.sprite(150, 540, "press");
 	press.alpha = 0;
 	press.scale.setTo(0.175, 0.175)
 	game.add.tween(press).to({ alpha: 1 }, 1000, Phaser.Easing.Linear.None, true, 0, 1000, false);
-	this.text = game.add.text(25, 70, 'เล่นยังไงน้ะ ?  : ', { font: "60px Myfont1", fill: "#DC143C", align: "center" });
+
+	if (selectmenu == 1) {
+		howtoplayMonkey = game.add.sprite(15, 0, 'howtoplayMonkey');
+		howtoplayMonkey.scale.setTo(0.24,0.24)
+	} else if (selectmenu == 2) {
+		howtoplayGiant = game.add.sprite(15, 0, 'howtoplayGiant');
+		howtoplayGiant.scale.setTo(0.24,0.24)
+	}
+	
+
+	// this.text = game.add.text(25, 70, 'เล่นยังไงน้ะ ?  : ', { font: "60px Myfont1", fill: "#DC143C", align: "center" });
 	jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
 }

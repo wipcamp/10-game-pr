@@ -1463,6 +1463,7 @@ function preload2() {
 	this.game.load.image('houset', 'images/house_t.png')
 	//ฉากลานกว้าง
 	this.game.load.image('skyp', 'images/sky_p.png')
+	this.game.load.image('cloudp', 'images/cloud_p.png')
 	this.game.load.image('mountain', 'images/mountain.png')
 	this.game.load.image('bstone', 'images/bstone.png')
 	this.game.load.image('treedead', 'images/treedead.png')
@@ -1802,6 +1803,7 @@ function update2() {
 		speedobj = 700;
 		this.flag.loadTexture('flag')
 		this.skyt.loadTexture('skyp')
+		this.cloudt.loadTexture('cloudp')
 		this.mountain.loadTexture('mountain')
 		this.busht.loadTexture('bstone')
 		this.palacet.loadTexture('treedead')

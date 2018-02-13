@@ -1944,7 +1944,7 @@ function update2() {
 	if (jumpButton.isUp) {
 		holdjump = false
 	}
-
+}
 
 
 function render2() {

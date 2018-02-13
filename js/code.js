@@ -313,7 +313,6 @@ function checkselect2() {
 
 ////////////////////////////////////////////Functiongame////////////////////////////////////////////////
 
-
 function obstacleSpawner() {
 	var output = game.rnd.integerInRange(0, 3);
 	if (output == 0) {
@@ -350,6 +349,7 @@ function obstacleSpawner3() {
 		arrowDeploy()
 	}
 }
+
 function logDeploy() {
 	obstacleCooldown = game.rnd.integerInRange(countdeploy, countdeploy1);
 	obstacleCooldown2 = game.rnd.integerInRange(countdeploy, countdeploy1);
@@ -931,6 +931,9 @@ function preload() {
 	game.load.image('effectShelid', 'images/effectShelid.png')
 	game.load.image('โยชน์', 'images/โยชน์สีดำ.png')
 
+	//ป้าย
+	this.game.load.image('sign', 'images/sign.png')
+	this.game.load.image('flag', 'images/birdflag.png')	
 	//ฉากฝั่งราม
 	this.game.load.image('skyr', 'images/sky_r.png')
 	this.game.load.image('cloudr', 'images/cloud_r.png')
@@ -947,6 +950,7 @@ function preload() {
 	this.game.load.image('sstone', 'images/sstone.png')
 	//blank
 	this.game.load.image('blank', 'images/blank.png')
+	this.game.load.image('blankflag', 'images/blankflag.png')
 
 	//menupause
 	game.load.image('pause', 'images/pausebutton.png')
@@ -1010,6 +1014,12 @@ function create() {
 		this.game.cache.getImage('blank').height,
 		'blank'
 	);
+	this.flag = this.game.add.tileSprite(0,
+		100,
+		this.game.width,
+		this.game.cache.getImage('blankflag').height,
+		'blankflag'
+	);
 	this.bushr = this.game.add.tileSprite(0,
 		450,
 		this.game.width,
@@ -1027,6 +1037,12 @@ function create() {
 		this.game.width,
 		this.game.cache.getImage('wallr').height,
 		'wallr'
+	);
+	this.sign = this.game.add.tileSprite(0,
+		415,
+		this.game.width,
+		this.game.cache.getImage('sign').height,
+		'sign'
 	);
 	this.floorback = this.game.add.tileSprite(0,
 		536,
@@ -1059,7 +1075,6 @@ function create() {
 
 	pause = game.add.button(720, 25, 'pause', topause, this);
 	pause.scale.setTo(0.25, 0.25)
-
 
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -1198,8 +1213,6 @@ function create() {
 	Wall1.body.immovable = true;
 	Wall1.visible = false;
 
-
-
 	Wall3 = game.add.group();
 	Wall3.enableBody = true;
 	for (var i = 0; i < 24; i++) {
@@ -1212,7 +1225,6 @@ function create() {
 
 
 	}
-
 
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 	game.physics.enable([player, FloorGroup, background], Phaser.Physics.ARCADE);
@@ -1249,9 +1261,11 @@ function update() {
 	this.skyr.tilePosition.x -= 1 + speed
 	this.cloudr.tilePosition.x -= 1.5 + speed
 	this.mountain.tilePosition.x -= 2 + speed
+	this.flag.tilePosition.x -= 2.25 + speed
 	this.bushr.tilePosition.x -= 3 + speed
 	this.palacer.tilePosition.x -= 3.5 + speed
 	this.wallr.tilePosition.x -= 4 + speed
+	this.sign.tilePosition.x -= 4.25 + speed
 	this.floorback.tilePosition.x -= 2 + speed
 
 	speedobj += 0.0010
@@ -1271,10 +1285,12 @@ function update() {
 		flashs()
 		speed = 8;
 		speedobj = 700;
+		this.flag.loadTexture('flag')
 		this.mountain.loadTexture('mountain')
 		this.bushr.loadTexture('bstone')
 		this.palacer.loadTexture('treedead')
-		this.wallr.loadTexture('blank')
+		this.wallr.kill()
+		this.sign.kill()
 	}
 
 	GenerateTerrain();
@@ -1464,6 +1480,9 @@ function preload2() {
 	game.load.image('effectShelid', 'images/effectShelid.png')
 	game.load.image('โยชน์', 'images/โยชน์สีดำ.png')
 
+	//ป้าย
+	this.game.load.image('sign', 'images/sign.png')
+	this.game.load.image('flag', 'images/birdflag.png')
 	//ฉากฝั่งทศ 
 	this.game.load.image('skyt', 'images/sky_t.png')
 	this.game.load.image('cloudt', 'images/cloud_t.png')
@@ -1481,6 +1500,7 @@ function preload2() {
 	this.game.load.image('sstone', 'images/sstone.png')
 	//blank 
 	this.game.load.image('blank', 'images/blank.png')
+	this.game.load.image('blankflag', 'images/blankflag.png')	
 
 	//menupause
 	game.load.image('pause', 'images/pausebutton.png')
@@ -1541,6 +1561,12 @@ function create2() {
 		this.game.cache.getImage('blank').height,
 		'blank'
 	);
+	this.flag = this.game.add.tileSprite(0,
+		100,
+		this.game.width,
+		this.game.cache.getImage('blankflag').height,
+		'blankflag'
+	);
 	this.busht = this.game.add.tileSprite(0,
 		450,
 		this.game.width,
@@ -1558,6 +1584,12 @@ function create2() {
 		this.game.width,
 		this.game.cache.getImage('wallt').height,
 		'wallt'
+	);
+	this.sign = this.game.add.tileSprite(0,
+		415,
+		this.game.width,
+		this.game.cache.getImage('sign').height,
+		'sign'
 	);
 	this.floorback = this.game.add.tileSprite(0,
 		536,
@@ -1774,9 +1806,11 @@ function update2() {
 	this.skyt.tilePosition.x -= 1 + speed
 	this.cloudt.tilePosition.x -= 1.5 + speed
 	this.mountain.tilePosition.x -= 2 + speed
+	this.flag.tilePosition.x -= 2.25 + speed
 	this.busht.tilePosition.x -= 3 + speed
 	this.palacet.tilePosition.x -= 3.5 + speed
 	this.wallt.tilePosition.x -= 4 + speed
+	this.sign.tilePosition.x -= 4.25 + speed
 	this.floorback.tilePosition.x -= 2 + speed
 
 	speedobj += 0.0010
@@ -1797,11 +1831,13 @@ function update2() {
 		flashs()
 		speed = 8;
 		speedobj = 700;
+		this.flag.loadTexture('flag')
 		this.skyt.loadTexture('skyp')
 		this.mountain.loadTexture('mountain')
 		this.busht.loadTexture('bstone')
 		this.palacet.loadTexture('treedead')
-		this.wallt.loadTexture('blank')
+		this.wallt.kill()
+		this.sign.kill()
 	}
 
 

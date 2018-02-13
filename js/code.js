@@ -75,7 +75,6 @@ var coutinues;
 var boxspeedobj;
 var speedobjdb;
 var itemsheildtime;
-var htplay = true
 
 //ฉาก
 var countzonemain = 1;
@@ -228,6 +227,9 @@ function topause() {
 	pause.kill();
 	game.paused = true;
 
+	buttonsound = game.add.audio('buttonsound');
+	buttonsound.play();
+
 	frames = game.add.sprite(150, 60, 'frame')
 	frames.scale.setTo(0.5, 0.5);
 	ยุติ = game.add.sprite(250, 190, 'ยุติ')
@@ -293,26 +295,31 @@ function tocheckselect2() { //ลิง
 }
 
 function tobackselect() {
+	buttonsound = game.add.audio('buttonsound');
+	buttonsound.play();
 	black.kill();
 	pressno.kill();
 	pressback.kill();
 	createIntro();
-
 }
 
 
 function checkselect() {
+	buttonsound = game.add.audio('buttonsound');
+	buttonsound.play();
 	selectmenu = 1;
 	tomenu()
 }
 function checkselect2() {
+	buttonsound = game.add.audio('buttonsound');
+	buttonsound.play();
 	selectmenu = 2;
 	tomenu()
 }
 
 
-
 ////////////////////////////////////////////Functiongame////////////////////////////////////////////////
+
 
 function obstacleSpawner() {
 	var output = game.rnd.integerInRange(0, 3);
@@ -350,7 +357,6 @@ function obstacleSpawner3() {
 		arrowDeploy()
 	}
 }
-
 function logDeploy() {
 	obstacleCooldown = game.rnd.integerInRange(countdeploy, countdeploy1);
 	obstacleCooldown2 = game.rnd.integerInRange(countdeploy, countdeploy1);
@@ -415,14 +421,8 @@ function GenerateTerrain() {
 				delta = Math.random() * ((2 - 1.5) + 1) + 1.5;
 				lastCliff = true;
 				lastVertical = false;
-				if(obstacleCooldown<=10){
-					obstacleCooldown = obstacleCooldown+10;
-					obstacleCooldown2 = obstacleCooldown2+10;
-				}
-				if(obstacleCooldown2<=10){
-					obstacleCooldown = obstacleCooldown+10;
-					obstacleCooldown2 = obstacleCooldown2+10;
-				}
+
+
 			}
 			else {
 				lastCliff = false;
@@ -655,8 +655,9 @@ function preloadIntro() {
 	game.load.image('giantsaid', 'images/ยักษ์แดงแดง.png');
 	game.load.image('BG','images/BG2.png');
 
-	game.load.audio('choose1', 'images/choose1.mp3');
-	game.load.audio('choose2', 'images/choose2.mp3');
+	game.load.audio('choose1', 'audio/จะไม่เลือกเรา.mp3');
+	game.load.audio('choose2', 'audio/เลือกฝั่งนั้น.mp3');
+	game.load.audio('buttonsound' , 'audio/กรับ.mp3');
 
 	game.load.image('full-size', 'images/full-size.png')
 
@@ -669,7 +670,6 @@ function preloadIntro() {
 
 
 function createIntro() {
-
 	choose = game.add.sprite(-20, -20, 'choose');
 	choose.scale.setTo(0.25, 0.25)
 
@@ -690,7 +690,7 @@ function createIntro() {
 	// monkey.scale.setTo(0.25, 0.25)
 	// monkey.animations.add('walk');
 	// monkey.animations.play('walk', 30 , true);
-	monkey = game.add.button(120, 275, 'monkey', tocheckselect2, this);
+	monkey = game.add.button(120, 270, 'monkey', tocheckselect2, this);
 	monkey.scale.setTo(0.36, 0.36)
 	monkeybutton = game.add.button(140, 480, 'monkeybutton', tocheckselect2, this, 1, 0, 1);
 	monkeybutton.scale.setTo(0.175, 0.175)
@@ -739,6 +739,13 @@ function preloadMenu() {
 	game.load.spritesheet('credit', 'images/ปุ่มทีมงาน.png', 471, 165)
 	game.load.image('press', 'images/กดปุ่มเว้นวรรค.png')
 	game.load.image('worker', 'images/worker.png')
+	game.load.audio('buttonsound' , 'audio/กรับ.mp3');
+	
+
+
+
+
+
 
 }
 
@@ -774,9 +781,11 @@ function createMenu() {
 	framecredit.kill();
 	worker.kill();
 
+
 	menu = this.add.audio('menu');
 	menu.play();
 	menu.loopFull();
+
 
 	if (selectmenu == 1) {
 		var logo = game.add.sprite(800, 60, "logor");
@@ -871,6 +880,8 @@ function createMenu() {
 		tween.to({ x: 150 }, 3000, 'Linear', true, 0)
 	}
 
+
+
 	press = game.add.sprite(150, 420, "press");
 	press.alpha = 0;
 	press.scale.setTo(0.175, 0.175)
@@ -880,7 +891,9 @@ function createMenu() {
 	option.scale.setTo(0.025, 0.025)
 	jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
+
 }
+
 
 function updateMenu() {
 	sky.tilePosition.x -= 1 + speed
@@ -892,28 +905,21 @@ function updateMenu() {
 
 	if (jumpButton.isDown) {
 		if (selectmenu == 1) {
-			if(htplay==true){
-				game.state.start('Howtoplay')
-			} else if(htplay==false) {
-				game.state.start('GamePlay1');
-			}
+			game.state.start('Howtoplay');
 		} else if (selectmenu == 2) {
-			if(htplay==true){
-				game.state.start('Howtoplay')
-			} else if(htplay==false) {
-				game.state.start('GamePlay2');
-			}
+			game.state.start('Howtoplay');
+
 		}
 	}
 }
-
 ///////////////////////////////////////////////////////////////How to play////////////////////////////////////////////////////////////////////////
-
 function preloadHowtoplay() {
 	game.load.image('howtoplayMonkey', 'images/วิธีเล่นลิง.png')
 	game.load.image('howtoplayGiant', 'images/วิธีเล่นยักษ์.png')
 	game.load.image('press', 'images/กดปุ่มเว้นวรรค.png')
+
 }
+
 
 function createHowtoplay() {
 	game.stage.backgroundColor = "#FFFFFF";
@@ -921,6 +927,7 @@ function createHowtoplay() {
 	press.alpha = 0;
 	press.scale.setTo(0.175, 0.175)
 	game.add.tween(press).to({ alpha: 1 }, 1000, Phaser.Easing.Linear.None, true, 0, 1000, false);
+
 	if (selectmenu == 1) {
 		howtoplayMonkey = game.add.sprite(15, 0, 'howtoplayMonkey');
 		howtoplayMonkey.scale.setTo(0.24,0.24)
@@ -928,20 +935,29 @@ function createHowtoplay() {
 		howtoplayGiant = game.add.sprite(15, 0, 'howtoplayGiant');
 		howtoplayGiant.scale.setTo(0.24,0.24)
 	}
+	
+
+	// this.text = game.add.text(25, 70, 'เล่นยังไงน้ะ ?  : ', { font: "60px Myfont1", fill: "#DC143C", align: "center" });
 	jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+
 }
 
+
 function updateHowtoplay() {
+
 	if (jumpButton.isDown) {
 		if (selectmenu == 1) {
 			game.state.start('GamePlay1');
-			htplay = false
 		} else if (selectmenu == 2) {
 			game.state.start('GamePlay2');
-			htplay = false
+
 		}
 	}
+
 }
+
+
+
 
 ///////////////////////////////////////////////////Game Play////////////////////////////////////////////////////////
 function preload() {
@@ -961,9 +977,6 @@ function preload() {
 	game.load.image('effectShelid', 'images/effectShelid.png')
 	game.load.image('โยชน์', 'images/โยชน์สีดำ.png')
 
-	//ป้าย
-	this.game.load.image('sign', 'images/sign.png')
-	this.game.load.image('flag', 'images/birdflag.png')	
 	//ฉากฝั่งราม
 	this.game.load.image('skyr', 'images/sky_r.png')
 	this.game.load.image('cloudr', 'images/cloud_r.png')
@@ -980,7 +993,6 @@ function preload() {
 	this.game.load.image('sstone', 'images/sstone.png')
 	//blank
 	this.game.load.image('blank', 'images/blank.png')
-	this.game.load.image('blankflag', 'images/blankflag.png')
 
 	//menupause
 	game.load.image('pause', 'images/pausebutton.png')
@@ -996,6 +1008,7 @@ function preload() {
 	game.load.audio('sheilditem', 'audio/shielditem.mp3')
 	game.load.audio('itemx2', 'audio/speeditem.mp3')
 	game.load.audio('hit', 'audio/Hit.mp3')
+	game.load.audio('buttonsound' , 'audio/กรับ.mp3');
 
 
 
@@ -1044,12 +1057,6 @@ function create() {
 		this.game.cache.getImage('blank').height,
 		'blank'
 	);
-	this.flag = this.game.add.tileSprite(0,
-		100,
-		this.game.width,
-		this.game.cache.getImage('blankflag').height,
-		'blankflag'
-	);
 	this.bushr = this.game.add.tileSprite(0,
 		450,
 		this.game.width,
@@ -1067,12 +1074,6 @@ function create() {
 		this.game.width,
 		this.game.cache.getImage('wallr').height,
 		'wallr'
-	);
-	this.sign = this.game.add.tileSprite(0,
-		415,
-		this.game.width,
-		this.game.cache.getImage('sign').height,
-		'sign'
 	);
 	this.floorback = this.game.add.tileSprite(0,
 		536,
@@ -1105,6 +1106,7 @@ function create() {
 
 	pause = game.add.button(720, 25, 'pause', topause, this);
 	pause.scale.setTo(0.25, 0.25)
+
 
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -1143,7 +1145,8 @@ function create() {
 		itemrunObj.visible = false;
 		itemrunObj.checkWorldBounds = true;
 		itemrunObj.events.onOutOfBounds.add(resetPostion, this);
-		itemrunObj.body.setSize(50, 50, 25, 25);
+		itemrunObj.scale.setTo(0.15, 0.15)
+		itemrunObj.body.setSize(50, 70, 0, -15);
 	}
 	ItemsheildGroup = game.add.group();
 	ItemsheildGroup.enableBody = true;
@@ -1154,7 +1157,8 @@ function create() {
 		itemsheildObj.visible = false;
 		itemsheildObj.checkWorldBounds = true;
 		itemsheildObj.events.onOutOfBounds.add(resetPostion, this);
-		itemsheildObj.body.setSize(50, 50, 25, 25);
+		itemsheildObj.scale.setTo(0.15, 0.15)
+		itemsheildObj.body.setSize(50, 70, 0, -15);
 	}
 	InvisibleGroup = game.add.group();
 	InvisibleGroup.enableBody = true;
@@ -1165,7 +1169,8 @@ function create() {
 		invisibleObj.visible = false;
 		invisibleObj.checkWorldBounds = true;
 		invisibleObj.events.onOutOfBounds.add(resetPostion, this);
-		invisibleObj.body.setSize(50, 50, 25, 25);
+		invisibleObj.scale.setTo(0.15, 0.15)
+		invisibleObj.body.setSize(50, 70, 0, -15);
 	}
 
 	obstacleCooldown = game.rnd.integerInRange(countdeploy, countdeploy1);
@@ -1243,6 +1248,8 @@ function create() {
 	Wall1.body.immovable = true;
 	Wall1.visible = false;
 
+
+
 	Wall3 = game.add.group();
 	Wall3.enableBody = true;
 	for (var i = 0; i < 24; i++) {
@@ -1255,6 +1262,7 @@ function create() {
 
 
 	}
+
 
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 	game.physics.enable([player, FloorGroup, background], Phaser.Physics.ARCADE);
@@ -1291,11 +1299,9 @@ function update() {
 	this.skyr.tilePosition.x -= 1 + speed
 	this.cloudr.tilePosition.x -= 1.5 + speed
 	this.mountain.tilePosition.x -= 2 + speed
-	this.flag.tilePosition.x -= 2.25 + speed
 	this.bushr.tilePosition.x -= 3 + speed
 	this.palacer.tilePosition.x -= 3.5 + speed
 	this.wallr.tilePosition.x -= 4 + speed
-	this.sign.tilePosition.x -= 4.25 + speed
 	this.floorback.tilePosition.x -= 2 + speed
 
 	speedobj += 0.0010
@@ -1315,12 +1321,10 @@ function update() {
 		flashs()
 		speed = 8;
 		speedobj = 700;
-		this.flag.loadTexture('flag')
 		this.mountain.loadTexture('mountain')
 		this.bushr.loadTexture('bstone')
 		this.palacer.loadTexture('treedead')
-		this.wallr.kill()
-		this.sign.kill()
+		this.wallr.loadTexture('blank')
 	}
 
 	GenerateTerrain();
@@ -1362,7 +1366,16 @@ function update() {
 	if (itemtimerun == 0) { ////วิ่งเร็ว
 		speed = boxspeed
 		speedobj = boxspeedobj
-		
+		if (holdjump == false) {
+			if (jumpButton.isDown && countjump > 0) {
+				player.body.velocity.y = -900;
+				countjump--
+				holdjump = true
+			}
+		}
+		if (jumpButton.isUp) {
+			holdjump = false
+		}
 		SystemOverlab = 1;
 		player.body.collideWorldBounds = false;
 	} else if (itemtimerun > 0) {
@@ -1371,23 +1384,49 @@ function update() {
 		itemtimerun--;
 		score = score + 1;
 
-		
+		if (holdjump == false) {
+			if (jumpButton.isDown && countjump > 0) {
+				player.body.velocity.y = -900;
+				countjump--
+				holdjump = true
+			}
+		}
+		if (jumpButton.isUp) {
+			holdjump = false
+		}
 		player.body.collideWorldBounds = true;
 	}
 
 
 	if (itemtimeinvisible == 0) {  ////ส่วนของ ล่องหน
 
-		
+		if (holdjump == false) {
+			if (jumpButton.isDown && countjump > 0) {
+				player.body.velocity.y = -900;
+				countjump--
+				holdjump = true
+			}
+		}
+		if (jumpButton.isUp) {
+			holdjump = false
+		}
 		SystemOverlab = 1;
 		player.body.collideWorldBounds = false;
 	} else if (itemtimeinvisible > 0) {
 		player.alpha =
 			itemtimeinvisible--;
 		player.body.velocity.x = speed
-		
+		if (holdjump == false) {
+			if (jumpButton.isDown && countjump > 0) {
+				player.body.velocity.y = -900;
+				countjump--
+				holdjump = true
+			}
+		}
 		invisiblesystem();
-		
+		if (jumpButton.isUp) {
+			holdjump = false
+		}
 	}
 
 
@@ -1404,7 +1443,7 @@ function update() {
 
 	}
 
-	effectShelid.body.y = player.body.y - 55;
+	effectShelid.body.y = player.body.y - 40;
 	effectShelid.body.x = player.body.x - 65;
 
 
@@ -1447,17 +1486,6 @@ function update() {
 	LogGroup.forEachExists(checkobj, this, null)
 	TreecutGroup.forEachExists(checkobj, this, null)
 
-
-	if (holdjump == false) {
-		if (jumpButton.isDown && countjump > 0) {
-			player.body.velocity.y = -900;
-			countjump--
-			holdjump = true
-		}
-	}
-	if (jumpButton.isUp) {
-		holdjump = false
-	}
 }
 
 
@@ -1486,9 +1514,6 @@ function preload2() {
 	game.load.image('effectShelid', 'images/effectShelid.png')
 	game.load.image('โยชน์', 'images/โยชน์สีดำ.png')
 
-	//ป้าย
-	this.game.load.image('sign', 'images/sign.png')
-	this.game.load.image('flag', 'images/birdflag.png')
 	//ฉากฝั่งทศ 
 	this.game.load.image('skyt', 'images/sky_t.png')
 	this.game.load.image('cloudt', 'images/cloud_t.png')
@@ -1506,7 +1531,6 @@ function preload2() {
 	this.game.load.image('sstone', 'images/sstone.png')
 	//blank 
 	this.game.load.image('blank', 'images/blank.png')
-	this.game.load.image('blankflag', 'images/blankflag.png')	
 
 	//menupause
 	game.load.image('pause', 'images/pausebutton.png')
@@ -1567,12 +1591,6 @@ function create2() {
 		this.game.cache.getImage('blank').height,
 		'blank'
 	);
-	this.flag = this.game.add.tileSprite(0,
-		100,
-		this.game.width,
-		this.game.cache.getImage('blankflag').height,
-		'blankflag'
-	);
 	this.busht = this.game.add.tileSprite(0,
 		450,
 		this.game.width,
@@ -1590,12 +1608,6 @@ function create2() {
 		this.game.width,
 		this.game.cache.getImage('wallt').height,
 		'wallt'
-	);
-	this.sign = this.game.add.tileSprite(0,
-		415,
-		this.game.width,
-		this.game.cache.getImage('sign').height,
-		'sign'
 	);
 	this.floorback = this.game.add.tileSprite(0,
 		536,
@@ -1664,7 +1676,8 @@ function create2() {
 		itemrunObj.visible = false;
 		itemrunObj.checkWorldBounds = true;
 		itemrunObj.events.onOutOfBounds.add(resetPostion, this);
-		itemrunObj.body.setSize(50, 50, 25, 25);
+		itemrunObj.scale.setTo(0.15, 0.15)
+		itemrunObj.body.setSize(50, 70, 0, -15);
 	}
 	ItemsheildGroup = game.add.group();
 	ItemsheildGroup.enableBody = true;
@@ -1675,7 +1688,8 @@ function create2() {
 		itemsheildObj.visible = false;
 		itemsheildObj.checkWorldBounds = true;
 		itemsheildObj.events.onOutOfBounds.add(resetPostion, this);
-		itemsheildObj.body.setSize(50, 50, 25, 25);
+		itemsheildObj.scale.setTo(0.15, 0.15)
+		itemsheildObj.body.setSize(50, 70, 0, -15);
 	}
 	InvisibleGroup = game.add.group();
 	InvisibleGroup.enableBody = true;
@@ -1686,7 +1700,8 @@ function create2() {
 		invisibleObj.visible = false;
 		invisibleObj.checkWorldBounds = true;
 		invisibleObj.events.onOutOfBounds.add(resetPostion, this);
-		invisibleObj.body.setSize(50, 50, 25, 25);
+		invisibleObj.scale.setTo(0.15, 0.15)
+		invisibleObj.body.setSize(50, 70, 0, -15);
 	}
 
 	obstacleCooldown = game.rnd.integerInRange(countdeploy, countdeploy1);
@@ -1812,11 +1827,9 @@ function update2() {
 	this.skyt.tilePosition.x -= 1 + speed
 	this.cloudt.tilePosition.x -= 1.5 + speed
 	this.mountain.tilePosition.x -= 2 + speed
-	this.flag.tilePosition.x -= 2.25 + speed
 	this.busht.tilePosition.x -= 3 + speed
 	this.palacet.tilePosition.x -= 3.5 + speed
 	this.wallt.tilePosition.x -= 4 + speed
-	this.sign.tilePosition.x -= 4.25 + speed
 	this.floorback.tilePosition.x -= 2 + speed
 
 	speedobj += 0.0010
@@ -1837,13 +1850,11 @@ function update2() {
 		flashs()
 		speed = 8;
 		speedobj = 700;
-		this.flag.loadTexture('flag')
 		this.skyt.loadTexture('skyp')
 		this.mountain.loadTexture('mountain')
 		this.busht.loadTexture('bstone')
 		this.palacet.loadTexture('treedead')
-		this.wallt.kill()
-		this.sign.kill()
+		this.wallt.loadTexture('blank')
 	}
 
 
@@ -1886,7 +1897,16 @@ function update2() {
 	if (itemtimerun == 0) { ////วิ่งเร็ว
 		speed = boxspeed
 		speedobj = boxspeedobj
-		
+		if (holdjump == false) {
+			if (jumpButton.isDown && countjump > 0) {
+				player.body.velocity.y = -900;
+				countjump--
+				holdjump = true
+			}
+		}
+		if (jumpButton.isUp) {
+			holdjump = false
+		}
 		SystemOverlab = 1;
 		player.body.collideWorldBounds = false;
 	} else if (itemtimerun > 0) {
@@ -1895,7 +1915,16 @@ function update2() {
 		itemtimerun--;
 		score = score + 1;
 
-	
+		if (holdjump == false) {
+			if (jumpButton.isDown && countjump > 0) {
+				player.body.velocity.y = -900;
+				countjump--
+				holdjump = true
+			}
+		}
+		if (jumpButton.isUp) {
+			holdjump = false
+		}
 
 	}
 
@@ -1903,16 +1932,33 @@ function update2() {
 
 	if (itemtimeinvisible == 0) {  ////ส่วนของ ล่องหน
 
-		
+		if (holdjump == false) {
+			if (jumpButton.isDown && countjump > 0) {
+				player.body.velocity.y = -900;
+				countjump--
+				holdjump = true
+			}
+		}
+		if (jumpButton.isUp) {
+			holdjump = false
+		}
 		SystemOverlab = 1;
 		player.body.collideWorldBounds = false;
 	} else if (itemtimeinvisible > 0) {
 		player.alpha =
 			itemtimeinvisible--;
 		player.body.velocity.x = speed
-	
+		if (holdjump == false) {
+			if (jumpButton.isDown && countjump > 0) {
+				player.body.velocity.y = -900;
+				countjump--
+				holdjump = true
+			}
+		}
 		invisiblesystem();
-	
+		if (jumpButton.isUp) {
+			holdjump = false
+		}
 	}
 
 
@@ -1929,8 +1975,8 @@ function update2() {
 
 	}
 
-	effectShelid.body.y = player.body.y - 55;
-	effectShelid.body.x = player.body.x - 65;
+	effectShelid.body.y = player.body.y - 40;
+	effectShelid.body.x = player.body.x - 75;
 
 
 	if (obstacleCooldown <= 0)
@@ -1971,16 +2017,7 @@ function update2() {
 		countdeploy = 100;
 		countdeploy1 = 200;
 	}
-	if (holdjump == false) {
-		if (jumpButton.isDown && countjump > 0) {
-			player.body.velocity.y = -900;
-			countjump--
-			holdjump = true
-		}
-	}
-	if (jumpButton.isUp) {
-		holdjump = false
-	}
+}
 
 
 

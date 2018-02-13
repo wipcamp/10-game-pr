@@ -1,6 +1,6 @@
 var game = new Phaser.Game(800, 600, Phaser.AUTO, "game")
 var Menu = { preload: preloadMenu, create: createMenu, update: updateMenu }
-// var CutScene = {preload : preloadCutScene,create:createCutScence,update:updateCutScene}
+var CutScene = {preload:preloadCutScene,create:createCutScence,update:updateCutScene}
 var Endcredit = { preload: preloadEndcredit, create: createEndcredit, update: updateEndcredit }
 var Howtoplay = { preload: preloadHowtoplay, create: createHowtoplay, update: updateHowtoplay }
 var Intro = { preload: preloadIntro, create: createIntro, update: updateIntro }
@@ -17,8 +17,9 @@ game.state.add('Endcredit', Endcredit)
 game.state.add('GameOver', GameOver)
 game.state.add('GamePlay1', GamePlayRam)
 game.state.add('GamePlay2', GamePlayGiant)
+game.state.add('CutScene',CutScene)
 
-game.state.start('Intro')
+game.state.start('CutScene')
 
 var player;
 var Hp = 1;
@@ -117,10 +118,9 @@ function gotoplay() {
 function topause() {
 	pause.kill();
 	game.paused = true;
-
 	frames = game.add.sprite(150, 60, 'frame')
 	frames.scale.setTo(0.5, 0.5);
-	ยุติ = game.add.sprite(250, 190, 'ยุติ')
+	ยุติ = game.add.sprite(250, 190,'ยุติ')
 	ยุติ.scale.setTo(0.25, 0.25);
 	home = game.add.button(270, 300, 'home', gotomenu, this, 1, 0, 1);
 	home.scale.setTo(0.25, 0.25)
@@ -593,12 +593,48 @@ function gofull() {
 	}
 
 }
+///////////////////////////////////////////////////////////////CutScene//////////////////////////////////////////////////////////////////////////
+function preloadCutScene() {
+	game.load.video('Cutscene', 'images/Cutscene.mp4');
+	game.load.image('pressskip', 'images/spaceskip.png')
+
+}
+function createCutScence() {
+	video = game.add.video('Cutscene');
+   
+	video.play(false);
+	video.addToWorld(850,530, 1, 1, 0.70, 0.70);
+	pressskip = game.add.sprite(230, 550, "pressskip");
+	pressskip.alpha = 0;
+	pressskip.scale.setTo(0.125, 0.125)
+	game.add.tween(pressskip).to({ alpha: 1 }, 1000, Phaser.Easing.Linear.None, true, 0, 1000, false);
+	
+	jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+	
+}
+
+function updateCutScene() {
+	if (jumpButton.isDown) {
+		
+		  game.state.start('Intro');
+		  video.stop();
+	}
+	
+	game.time.events.loop(43000,gotogame,this)
+
+}
+
+function gotogame(){
+	game.state.start('Intro')
+	video.stop();
+}
+
 ////////////////////////////////////////////////////Intro menu/////////////////////////////////////////////////////////
 
 function preloadIntro() {
-	game.load.spritesheet('giant', 'images/ตัวละครยักษ์.png', 765, 957, 2);
+	game.load.image('giant', 'images/gianthead.png');
 	// game.load.spritesheet('monkey', 'images/เจ้าลิง.png',567,740,22);
-	game.load.spritesheet('monkey', 'images/ตัวละครลิง.png', 789, 951, 2);
+	game.load.image('monkey', 'images/monkeyhead.png');
 	game.load.image('pressgiant', 'images/itemsheild.png')
 	game.load.image('pressmonkey', 'images/itemrun.png')
 	game.load.image('framecredit', 'images/framecredit.png')
@@ -629,13 +665,14 @@ function createIntro() {
 
 	choose = game.add.sprite(-20, -20, 'choose');
 	choose.scale.setTo(0.25, 0.25)
-	giantbutton = game.add.button(400, 290, 'giantbutton', tocheckselect, this, 1, 0, 1);
+
+	giant = game.add.button(520, 140, 'giant', tocheckselect, this);
+	giant.scale.setTo(0.125, 0.125)
+	giantbutton = game.add.button(510, 330, 'giantbutton', tocheckselect, this, 1, 0, 1);
 	giantbutton.scale.setTo(0.175, 0.175)
 
-	giant = game.add.button(680, 180, 'giant', tocheckselect, this);
-	giant.scale.setTo(-0.195, 0.195)
-	giant.animations.add('walk');
-	giant.animations.play('walk', 5, true);
+	
+	
 
 	game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT; 
 	fullsize = game.add.button(0, 0, 'full-size', gofull, this, 1, 0, 1);
@@ -646,12 +683,12 @@ function createIntro() {
 	// monkey.scale.setTo(0.25, 0.25)
 	// monkey.animations.add('walk');
 	// monkey.animations.play('walk', 30 , true);
-	monkeybutton = game.add.button(215, 480, 'monkeybutton', tocheckselect2, this, 1, 0, 1);
+	monkey = game.add.button(120, 275, 'monkey', tocheckselect2, this);
+	monkey.scale.setTo(0.36, 0.36)
+	monkeybutton = game.add.button(140, 480, 'monkeybutton', tocheckselect2, this, 1, 0, 1);
 	monkeybutton.scale.setTo(0.175, 0.175)
-	monkey = game.add.button(100, 380, 'monkey', tocheckselect2, this);
-	monkey.scale.setTo(0.195, 0.195)
-	monkey.animations.add('walk');
-	monkey.animations.play('walk', 5, true);
+	
+	
 
 }
 
@@ -2035,11 +2072,11 @@ function createGameOver() {
 
 	play = game.add.button(270, 340, 'play', toGame, this, 1, 0, 1);
 	play.scale.setTo(0.25, 0.25)
-	หน้าหลัก = game.add.button(450, 350, 'หน้าหลัก', wentmenu, this, 1, 0, 1);
+	หน้าหลัก = game.add.button(450, 350, 'หน้าหลัก',wentmenu, this, 1, 0, 1);
 	หน้าหลัก.scale.setTo(0.25, 0.25)
-	แบ่งปัน = game.add.button(270, 430, 'แบ่งปัน', tofacebook, this, 1, 0, 1);
+	แบ่งปัน = game.add.button(270, 430, 'แบ่งปัน',tofacebook, this, 1, 0, 1);
 	แบ่งปัน.scale.setTo(0.25, 0.25)
-	ลำดับ = game.add.button(450, 430, 'ลำดับ', toranking, this, 1, 0, 1);
+	ลำดับ = game.add.button(450, 430, 'ลำดับ',toranking, this, 1, 0, 1);
 	ลำดับ.scale.setTo(0.25, 0.25)
 	if (score <= 1000) {
 		funnytext = game.add.text(350, 270, "กากว่ะ", { font: "40px Myfont1", fill: "#FFFFFF", align: "center" });
@@ -2059,32 +2096,40 @@ function updateGameOver() {
 ///////////////////////////////////////////////////////////////End Credit//////////////////////////////////////////////////////////////////////////
 function preloadEndcredit() {
 	game.load.video('EndCredit', 'images/EndCredit.mp4');
-}
-function createEndcredit() {
+	game.load.image('pressskip', 'images/spaceskip.png')
+  }
+  function createEndcredit() {
 	video = game.add.video('EndCredit');
-
-	if (jumpButton.isDown) {
-		toGame();
-	}
-
-
+   
 	video.play(true);
-	video.addToWorld(810, 530, 1, 1, 0.65, 0.65);
-
-	skip = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-
-}
+	video.addToWorld(810,530, 1, 1, 0.65, 0.65);
+	
+	
+	pressskip = game.add.sprite(230, 550, "pressskip");
+	pressskip.alpha = 0;
+	pressskip.scale.setTo(0.125, 0.125)
+	game.add.tween(pressskip).to({ alpha: 1 }, 1000, Phaser.Easing.Linear.None, true, 0, 1000, false);
+	game.time.events.loop(19500,gotoplay,this)
+  }
 function updateEndcredit() {
 	if (jumpButton.isDown) {
-		if (selectmenu == 1) {
-			game.state.start('Menu');
-			video.stop();
-		} else if (selectmenu == 2) {
-			game.state.start('Menu');
-			video.stop();
-
-		}
+	  if (selectmenu == 1) {
+		game.state.start('Menu');
+		video.stop();
+	  } else if (selectmenu == 2) {
+		game.state.start('Menu');
+		video.stop();
+   
+	  }
 	}
+  }
+function gotoplay(){
+	
+		game.state.start('Menu');
+		video.stop();
+
+		
+
 
 }
 

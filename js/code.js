@@ -896,12 +896,12 @@ function createMenu() {
 
 
 function updateMenu() {
-	sky.tilePosition.x -= 1 + speed
-	cloud.tilePosition.x -= 2.5 + speed
-	bush.tilePosition.x -= 4 + speed
-	palace.tilePosition.x -= 4.5 + speed
-	wall.tilePosition.x -= 5 + speed
-	floor.tilePosition.x -= 3 + speed;
+	sky.tilePosition.x -= 0.5 + speed
+	cloud.tilePosition.x -= 0.75 + speed
+	bush.tilePosition.x -= 1.25 + speed
+	palace.tilePosition.x -= 1.5 + speed
+	wall.tilePosition.x -= 2 + speed
+	floor.tilePosition.x -= 1.5 + speed;
 
 	if (jumpButton.isDown) {
 		if (selectmenu == 1) {
@@ -1296,13 +1296,15 @@ function update() {
 	game.physics.arcade.collide(RockGroup, FloorGroup, chek = true)
 
 	//พื้นหลังเลื่อน
-	this.skyr.tilePosition.x -= 1 + speed
-	this.cloudr.tilePosition.x -= 1.5 + speed
-	this.mountain.tilePosition.x -= 2 + speed
-	this.bushr.tilePosition.x -= 3 + speed
-	this.palacer.tilePosition.x -= 3.5 + speed
-	this.wallr.tilePosition.x -= 4 + speed
-	this.floorback.tilePosition.x -= 2 + speed
+	this.skyr.tilePosition.x -= 0.0625 + speed
+	this.cloudr.tilePosition.x -= 0.0625 + speed
+	this.mountain.tilePosition.x -= 0.125 + speed
+	this.flag.tilePosition.x -= 0.33 + speed
+	this.bushr.tilePosition.x -= 0.25 + speed
+	this.palacer.tilePosition.x -= 0.5 + speed
+	this.wallr.tilePosition.x -= 1 + speed
+	this.sign.tilePosition.x -= 1.25 + speed
+	this.floorback.tilePosition.x -= 1 + speed
 
 	speedobj += 0.0010
 	speed += 0.0010;//ความเร็วฉาก
@@ -1525,6 +1527,7 @@ function preload2() {
 	this.game.load.image('houset', 'images/house_t.png')
 	//ฉากลานกว้าง
 	this.game.load.image('skyp', 'images/sky_p.png')
+	this.game.load.image('cloudp', 'images/cloud_p.png')
 	this.game.load.image('mountain', 'images/mountain.png')
 	this.game.load.image('bstone', 'images/bstone.png')
 	this.game.load.image('treedead', 'images/treedead.png')
@@ -1824,13 +1827,15 @@ function update2() {
 	game.physics.arcade.collide(RockGroup, FloorGroup, chek = true)
 
 	//พื้นหลังเลื่อน
-	this.skyt.tilePosition.x -= 1 + speed
-	this.cloudt.tilePosition.x -= 1.5 + speed
-	this.mountain.tilePosition.x -= 2 + speed
-	this.busht.tilePosition.x -= 3 + speed
-	this.palacet.tilePosition.x -= 3.5 + speed
-	this.wallt.tilePosition.x -= 4 + speed
-	this.floorback.tilePosition.x -= 2 + speed
+	this.skyt.tilePosition.x -= 0.0625 + speed
+	this.cloudt.tilePosition.x -= 0.0625 + speed
+	this.mountain.tilePosition.x -= 0.125 + speed
+	this.flag.tilePosition.x -= 0.33 + speed
+	this.busht.tilePosition.x -= 0.25 + speed
+	this.palacet.tilePosition.x -= 0.5 + speed
+	this.wallt.tilePosition.x -= 1 + speed
+	this.sign.tilePosition.x -= 1.25 + speed
+	this.floorback.tilePosition.x -= 1 + speed
 
 	speedobj += 0.0010
 	speed += 0.0010;//ความเร็วฉาก
@@ -1851,6 +1856,7 @@ function update2() {
 		speed = 8;
 		speedobj = 700;
 		this.skyt.loadTexture('skyp')
+		this.cloudt.loadTexture('cloudp')
 		this.mountain.loadTexture('mountain')
 		this.busht.loadTexture('bstone')
 		this.palacet.loadTexture('treedead')
@@ -2017,8 +2023,17 @@ function update2() {
 		countdeploy = 100;
 		countdeploy1 = 200;
 	}
+	if (holdjump == false) {
+		if (jumpButton.isDown && countjump > 0) {
+			player.body.velocity.y = -900;
+			countjump--
+			holdjump = true
+		}
+	}
+	if (jumpButton.isUp) {
+		holdjump = false
+	}
 }
-
 
 
 function render2() {

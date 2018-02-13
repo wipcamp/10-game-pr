@@ -74,6 +74,7 @@ var coutinues;
 var boxspeedobj;
 var speedobjdb;
 var itemsheildtime;
+var htplay = true
 
 //ฉาก
 var countzonemain = 1;
@@ -696,11 +697,6 @@ function preloadMenu() {
 	game.load.image('press', 'images/กดปุ่มเว้นวรรค.png')
 	game.load.image('worker', 'images/worker.png')
 
-
-
-
-
-
 }
 
 function createMenu() {
@@ -735,11 +731,9 @@ function createMenu() {
 	framecredit.kill();
 	worker.kill();
 
-
 	menu = this.add.audio('menu');
 	menu.play();
 	menu.loopFull();
-
 
 	if (selectmenu == 1) {
 		var logo = game.add.sprite(800, 60, "logor");
@@ -834,8 +828,6 @@ function createMenu() {
 		tween.to({ x: 150 }, 3000, 'Linear', true, 0)
 	}
 
-
-
 	press = game.add.sprite(150, 420, "press");
 	press.alpha = 0;
 	press.scale.setTo(0.175, 0.175)
@@ -845,9 +837,7 @@ function createMenu() {
 	option.scale.setTo(0.025, 0.025)
 	jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
-
 }
-
 
 function updateMenu() {
 	sky.tilePosition.x -= 1 + speed
@@ -859,21 +849,28 @@ function updateMenu() {
 
 	if (jumpButton.isDown) {
 		if (selectmenu == 1) {
-			game.state.start('Howtoplay');
+			if(htplay==true){
+				game.state.start('Howtoplay')
+			} else if(htplay==false) {
+				game.state.start('GamePlay1');
+			}
 		} else if (selectmenu == 2) {
-			game.state.start('Howtoplay');
-
+			if(htplay==true){
+				game.state.start('Howtoplay')
+			} else if(htplay==false) {
+				game.state.start('GamePlay2');
+			}
 		}
 	}
 }
+
 ///////////////////////////////////////////////////////////////How to play////////////////////////////////////////////////////////////////////////
+
 function preloadHowtoplay() {
 	game.load.image('howtoplayMonkey', 'images/วิธีเล่นลิง.png')
 	game.load.image('howtoplayGiant', 'images/วิธีเล่นยักษ์.png')
 	game.load.image('press', 'images/กดปุ่มเว้นวรรค.png')
-
 }
-
 
 function createHowtoplay() {
 	game.stage.backgroundColor = "#FFFFFF";
@@ -881,7 +878,6 @@ function createHowtoplay() {
 	press.alpha = 0;
 	press.scale.setTo(0.175, 0.175)
 	game.add.tween(press).to({ alpha: 1 }, 1000, Phaser.Easing.Linear.None, true, 0, 1000, false);
-
 	if (selectmenu == 1) {
 		howtoplayMonkey = game.add.sprite(15, 0, 'howtoplayMonkey');
 		howtoplayMonkey.scale.setTo(0.24,0.24)
@@ -889,29 +885,20 @@ function createHowtoplay() {
 		howtoplayGiant = game.add.sprite(15, 0, 'howtoplayGiant');
 		howtoplayGiant.scale.setTo(0.24,0.24)
 	}
-	
-
-	// this.text = game.add.text(25, 70, 'เล่นยังไงน้ะ ?  : ', { font: "60px Myfont1", fill: "#DC143C", align: "center" });
 	jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-
 }
 
-
 function updateHowtoplay() {
-
 	if (jumpButton.isDown) {
 		if (selectmenu == 1) {
 			game.state.start('GamePlay1');
+			htplay = false
 		} else if (selectmenu == 2) {
 			game.state.start('GamePlay2');
-
+			htplay = false
 		}
 	}
-
 }
-
-
-
 
 ///////////////////////////////////////////////////Game Play////////////////////////////////////////////////////////
 function preload() {

@@ -2113,6 +2113,8 @@ function preloadEndcredit() {
 	game.load.image('pressskip', 'images/spaceskip.png')
 }
 function createEndcredit() {
+	game.stage.backgroundColor = "#00000";
+
 	video = game.add.video('EndCredit');
 
 	video.play(true);

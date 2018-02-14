@@ -422,8 +422,14 @@ function GenerateTerrain() {
 				delta = Math.random() * ((2 - 1.5) + 1) + 1.5;
 				lastCliff = true;
 				lastVertical = false;
-
-
+				if(obstacleCooldown<=10){ 
+					obstacleCooldown = obstacleCooldown+10; 
+					obstacleCooldown2 = obstacleCooldown2+10; 
+				  } 
+				  if(obstacleCooldown2<=10){ 
+					obstacleCooldown = obstacleCooldown+10; 
+					obstacleCooldown2 = obstacleCooldown2+10; 
+				  }
 			}
 			else {
 				lastCliff = false;
@@ -1392,16 +1398,6 @@ function update() {
 	if (itemtimerun == 0) { ////วิ่งเร็ว
 		speed = boxspeed
 		speedobj = boxspeedobj
-		if (holdjump == false) {
-			if (jumpButton.isDown && countjump > 0) {
-				player.body.velocity.y = -900;
-				countjump--
-				holdjump = true
-			}
-		}
-		if (jumpButton.isUp) {
-			holdjump = false
-		}
 		SystemOverlab = 1;
 		player.body.collideWorldBounds = false;
 	} else if (itemtimerun > 0) {
@@ -1409,46 +1405,16 @@ function update() {
 		speedobj = 900
 		itemtimerun--;
 		score = score + 1;
-
-		if (holdjump == false) {
-			if (jumpButton.isDown && countjump > 0) {
-				player.body.velocity.y = -900;
-				countjump--
-				holdjump = true
-			}
-		}
-		if (jumpButton.isUp) {
-			holdjump = false
-		}
 		player.body.collideWorldBounds = true;
 	}
 
 
 	if (itemtimeinvisible == 0) {  ////ส่วนของ ล่องหน
-
-		if (holdjump == false) {
-			if (jumpButton.isDown && countjump > 0) {
-				player.body.velocity.y = -900;
-				countjump--
-				holdjump = true
-			}
-		}
-		if (jumpButton.isUp) {
-			holdjump = false
-		}
 		SystemOverlab = 1;
 		player.body.collideWorldBounds = false;
 	} else if (itemtimeinvisible > 0) {
-		player.alpha =
-			itemtimeinvisible--;
+		player.alpha = itemtimeinvisible--;
 		player.body.velocity.x = speed
-		if (holdjump == false) {
-			if (jumpButton.isDown && countjump > 0) {
-				player.body.velocity.y = -900;
-				countjump--
-				holdjump = true
-			}
-		}
 		invisiblesystem();
 		if (jumpButton.isUp) {
 			holdjump = false
@@ -1503,15 +1469,26 @@ function update() {
 	ItemsheildGroup.forEachExists(sped, this, null)
 	InvisibleGroup.forEachExists(sped, this, null)
 
-
-
-
 	RockGroup.forEachExists(checkobj, this, null)
 	FloorGroup.forEachExists(checkobj, this, null)
 	SpirteGroup.forEachExists(checkobj, this, null)
 	LogGroup.forEachExists(checkobj, this, null)
 	TreecutGroup.forEachExists(checkobj, this, null)
 
+	if (countdeploy <= 0 || countdeploy1 <= 0) {
+		countdeploy = 100;
+		countdeploy1 = 200;
+	}
+	if (holdjump == false) { 
+		if (jumpButton.isDown && countjump > 0) { 
+		  player.body.velocity.y = -900; 
+		  countjump-- 
+		  holdjump = true 
+		} 
+	} 
+	if (jumpButton.isUp) { 
+		holdjump = false 
+	}
 }
 
 
@@ -1942,16 +1919,6 @@ function update2() {
 	if (itemtimerun == 0) { ////วิ่งเร็ว
 		speed = boxspeed
 		speedobj = boxspeedobj
-		if (holdjump == false) {
-			if (jumpButton.isDown && countjump > 0) {
-				player.body.velocity.y = -900;
-				countjump--
-				holdjump = true
-			}
-		}
-		if (jumpButton.isUp) {
-			holdjump = false
-		}
 		SystemOverlab = 1;
 		player.body.collideWorldBounds = false;
 	} else if (itemtimerun > 0) {
@@ -1959,47 +1926,16 @@ function update2() {
 		speedobj = 900
 		itemtimerun--;
 		score = score + 1;
-
-		if (holdjump == false) {
-			if (jumpButton.isDown && countjump > 0) {
-				player.body.velocity.y = -900;
-				countjump--
-				holdjump = true
-			}
-		}
-		if (jumpButton.isUp) {
-			holdjump = false
-		}
-
+		player.body.collideWorldBounds = true;
 	}
 
 
-
 	if (itemtimeinvisible == 0) {  ////ส่วนของ ล่องหน
-
-		if (holdjump == false) {
-			if (jumpButton.isDown && countjump > 0) {
-				player.body.velocity.y = -900;
-				countjump--
-				holdjump = true
-			}
-		}
-		if (jumpButton.isUp) {
-			holdjump = false
-		}
 		SystemOverlab = 1;
 		player.body.collideWorldBounds = false;
 	} else if (itemtimeinvisible > 0) {
-		player.alpha =
-			itemtimeinvisible--;
+		player.alpha = itemtimeinvisible--;
 		player.body.velocity.x = speed
-		if (holdjump == false) {
-			if (jumpButton.isDown && countjump > 0) {
-				player.body.velocity.y = -900;
-				countjump--
-				holdjump = true
-			}
-		}
 		invisiblesystem();
 		if (jumpButton.isUp) {
 			holdjump = false
@@ -2048,9 +1984,6 @@ function update2() {
 	ItemrunGroup.forEachExists(sped, this, null)
 	ItemsheildGroup.forEachExists(sped, this, null)
 	InvisibleGroup.forEachExists(sped, this, null)
-
-
-
 
 	RockGroup.forEachExists(checkobj, this, null)
 	FloorGroup.forEachExists(checkobj, this, null)

@@ -75,6 +75,7 @@ var coutinues;
 var boxspeedobj;
 var speedobjdb;
 var itemsheildtime;
+var htplay = true 
 
 //ฉาก
 var countzonemain = 1;
@@ -905,10 +906,17 @@ function updateMenu() {
 
 	if (jumpButton.isDown) {
 		if (selectmenu == 1) {
-			game.state.start('Howtoplay');
+			if(htplay==true){ 
+				game.state.start('Howtoplay') 
+			  } else if(htplay==false) { 
+				game.state.start('GamePlay1'); 
+			  } 
 		} else if (selectmenu == 2) {
-			game.state.start('Howtoplay');
-
+			if(htplay==true){ 
+				game.state.start('Howtoplay') 
+			  } else if(htplay==false) { 
+				game.state.start('GamePlay2'); 
+			  } 
 		}
 	}
 }
@@ -948,9 +956,10 @@ function updateHowtoplay() {
 	if (jumpButton.isDown) {
 		if (selectmenu == 1) {
 			game.state.start('GamePlay1');
+			htplay = false
 		} else if (selectmenu == 2) {
 			game.state.start('GamePlay2');
-
+			htplay = false
 		}
 	}
 

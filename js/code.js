@@ -107,7 +107,10 @@ function gotomenubycredit() {
 	game.state.start('Menu')
 
 }
+
+
 function gotoplay() {
+	console.log("aaa")
 	game.paused = false;
 	frames.kill();
 	home.kill();
@@ -116,21 +119,6 @@ function gotoplay() {
 	pause = game.add.button(720, 25, 'pause', topause, this);
 	pause.scale.setTo(0.25, 0.25)
 }
-function topause() {
-	pause.kill();
-	game.paused = true;
-	frames = game.add.sprite(150, 60, 'frame')
-	frames.scale.setTo(0.5, 0.5);
-	ยุติ = game.add.sprite(250, 190, 'ยุติ')
-	ยุติ.scale.setTo(0.25, 0.25);
-	home = game.add.button(270, 300, 'home', gotomenu, this, 1, 0, 1);
-	home.scale.setTo(0.25, 0.25)
-	resume = game.add.button(460, 300, 'resume', gotoplay, this, 1, 0, 1);
-	resume.scale.setTo(0.25, 0.25)
-
-
-}
-
 function toGame() {
 	if (selectmenu == 1) {
 		game.state.start('GamePlay1');
@@ -185,6 +173,8 @@ function tosetmute() {
 ////////////////////////////////////////////////Functionsetting System////////////////////////////////////////////////////////////////////
 function tosetting() {
 	option.kill();
+	fullsize = game.add.button(0, 0, 'full-size', gofull, this, 1, 0, 1);
+	fullsize.scale.setTo(0.175, 0.175)
 	frames = game.add.sprite(135, 60, 'frame')
 	frames.scale.setTo(0.5, 0.5);
 	credits = game.add.button(330, 260, 'credit', tocredit, this, 1, 0, 1);
@@ -214,6 +204,7 @@ function todestroy() {
 	backd.kill();
 	credits.kill();
 	mute.kill();
+	fullsize.kill();
 	unmute.kill();
 
 
@@ -780,6 +771,7 @@ function preloadMenu() {
 }
 
 function createMenu() {
+	game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
 	mute = game.add.button(310, 190, 'mute', tosetmute, this)
 	mute.scale.setTo(0.25);
 	mute.kill();
@@ -1056,6 +1048,7 @@ function preload() {
 
 }
 function create() {
+	game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
 	text = 0;
 	speed = 5;
 	speedobj = 450;
@@ -1579,6 +1572,7 @@ function preload2() {
 	game.load.audio('hit', 'sound/hit.mp3')
 }
 function create2() {
+	game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
 	text = 0;
 	speed = 5;
 	speedobj = 450;
@@ -2129,7 +2123,7 @@ function createEndcredit() {
 	pressskip.alpha = 0;
 	pressskip.scale.setTo(0.125, 0.125)
 	game.add.tween(pressskip).to({ alpha: 1 }, 1000, Phaser.Easing.Linear.None, true, 0, 1000, false);
-	game.time.events.loop(19500, gotoplay, this)
+	game.time.events.loop(19500, gotoplays, this)
 }
 function updateEndcredit() {
 	if (jumpButton.isDown) {
@@ -2143,7 +2137,7 @@ function updateEndcredit() {
 		}
 	}
 }
-function gotoplay() {
+function gotoplays() {
 
 	game.state.start('Menu');
 	video.stop();

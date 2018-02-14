@@ -1367,7 +1367,6 @@ function update() {
 		flashs()
 		speed = 8;
 		speedobj = 700;
-		this.flag.loadTexture('flag')
 		this.palacer.loadTexture('treer')
 		this.wallr.loadTexture('houser')
 	}
@@ -1375,6 +1374,7 @@ function update() {
 		flashs()
 		speed = 8;
 		speedobj = 700;
+		this.flag.loadTexture('flag')
 		this.mountain.loadTexture('mountain')
 		this.bushr.loadTexture('bstone')
 		this.palacer.loadTexture('treedead')
@@ -1884,7 +1884,6 @@ function update2() {
 		flashs()
 		speed = 8;
 		speedobj = 700;
-		this.flag.loadTexture('flag')
 		this.palacet.loadTexture('treet')
 		this.wallt.loadTexture('houset')
 	}
@@ -1893,6 +1892,7 @@ function update2() {
 		flashs()
 		speed = 8;
 		speedobj = 700;
+		this.flag.loadTexture('flag')
 		this.skyt.loadTexture('skyp')
 		this.cloudt.loadTexture('cloudp')
 		this.mountain.loadTexture('mountain')

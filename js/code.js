@@ -1161,8 +1161,7 @@ function create() {
 		itemrunObj.visible = false;
 		itemrunObj.checkWorldBounds = true;
 		itemrunObj.events.onOutOfBounds.add(resetPostion, this);
-		itemrunObj.scale.setTo(0.15, 0.15)
-		itemrunObj.body.setSize(50, 70, 0, -15);
+		itemrunObj.body.setSize(50, 50, 25, 25); 
 	}
 	ItemsheildGroup = game.add.group();
 	ItemsheildGroup.enableBody = true;
@@ -1173,8 +1172,7 @@ function create() {
 		itemsheildObj.visible = false;
 		itemsheildObj.checkWorldBounds = true;
 		itemsheildObj.events.onOutOfBounds.add(resetPostion, this);
-		itemsheildObj.scale.setTo(0.15, 0.15)
-		itemsheildObj.body.setSize(50, 70, 0, -15);
+		itemsheildObj.body.setSize(50, 50, 25, 25); 
 	}
 	InvisibleGroup = game.add.group();
 	InvisibleGroup.enableBody = true;
@@ -1185,8 +1183,7 @@ function create() {
 		invisibleObj.visible = false;
 		invisibleObj.checkWorldBounds = true;
 		invisibleObj.events.onOutOfBounds.add(resetPostion, this);
-		invisibleObj.scale.setTo(0.15, 0.15)
-		invisibleObj.body.setSize(50, 70, 0, -15);
+		invisibleObj.body.setSize(50, 50, 25, 25); 
 	}
 
 	obstacleCooldown = game.rnd.integerInRange(countdeploy, countdeploy1);
@@ -1463,7 +1460,7 @@ function update() {
 
 	}
 
-	effectShelid.body.y = player.body.y - 40;
+	effectShelid.body.y = player.body.y - 55;
 	effectShelid.body.x = player.body.x - 65;
 
 
@@ -1713,8 +1710,7 @@ function create2() {
 		itemrunObj.visible = false;
 		itemrunObj.checkWorldBounds = true;
 		itemrunObj.events.onOutOfBounds.add(resetPostion, this);
-		itemrunObj.scale.setTo(0.15, 0.15)
-		itemrunObj.body.setSize(50, 70, 0, -15);
+		itemrunObj.body.setSize(50, 50, 25, 25);
 	}
 	ItemsheildGroup = game.add.group();
 	ItemsheildGroup.enableBody = true;
@@ -1725,8 +1721,7 @@ function create2() {
 		itemsheildObj.visible = false;
 		itemsheildObj.checkWorldBounds = true;
 		itemsheildObj.events.onOutOfBounds.add(resetPostion, this);
-		itemsheildObj.scale.setTo(0.15, 0.15)
-		itemsheildObj.body.setSize(50, 70, 0, -15);
+		itemsheildObj.body.setSize(50, 50, 25, 25); 
 	}
 	InvisibleGroup = game.add.group();
 	InvisibleGroup.enableBody = true;
@@ -1737,8 +1732,7 @@ function create2() {
 		invisibleObj.visible = false;
 		invisibleObj.checkWorldBounds = true;
 		invisibleObj.events.onOutOfBounds.add(resetPostion, this);
-		invisibleObj.scale.setTo(0.15, 0.15)
-		invisibleObj.body.setSize(50, 70, 0, -15);
+		invisibleObj.body.setSize(50, 50, 25, 25); 
 	}
 
 	obstacleCooldown = game.rnd.integerInRange(countdeploy, countdeploy1);
@@ -2017,8 +2011,8 @@ function update2() {
 
 	}
 
-	effectShelid.body.y = player.body.y - 40;
-	effectShelid.body.x = player.body.x - 75;
+	effectShelid.body.y = player.body.y - 55;
+	effectShelid.body.x = player.body.x - 65;
 
 
 	if (obstacleCooldown <= 0)

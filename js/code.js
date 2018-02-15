@@ -1194,8 +1194,7 @@ function create() {
 		treecutObj.visible = false;
 		treecutObj.checkWorldBounds = true;
 		treecutObj.events.onOutOfBounds.add(resetPostion, this);
-		treecutObj.scale.setTo(0.25, 0.25)
-		treecutObj.body.setSize(50, 70, 0, -15);
+		treecutObj.body.setSize(120, 70, 100, 50);
 	}
 	RockGroup = game.add.group();
 	RockGroup.enableBody = true;
@@ -1206,8 +1205,7 @@ function create() {
 		rockcutObj.visible = false;
 		rockcutObj.checkWorldBounds = true;
 		rockcutObj.events.onOutOfBounds.add(resetPostion, this);
-		rockcutObj.scale.setTo(0.25, 0.25)
-		rockcutObj.body.setSize(50, 70, 0, -15);
+		rockcutObj.body.setSize(150, 90, 130, 70);
 	}
 	ArrowGroup = game.add.group();
 	ArrowGroup.enableBody = true;

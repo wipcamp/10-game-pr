@@ -603,22 +603,18 @@ function createCutScence() {
 	video.addToWorld(850,530, 1, 1, 0.70, 0.70);
 	pressskip = game.add.sprite(230, 550, "pressskip");
 	pressskip.alpha = 0;
-	pressskip.scale.setTo(0.125, 0.125)
+	pressskip.scale.setTo(0.5, 0.5)
 	game.add.tween(pressskip).to({ alpha: 1 }, 1000, Phaser.Easing.Linear.None, true, 0, 1000, false);
 	
 	jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-	
 }
 
 function updateCutScene() {
 	if (jumpButton.isDown) {
-		
 		  game.state.start('Intro');
 		  video.stop();
 	}
-	
 	game.time.events.loop(43000,gotogame,this)
-
 }
 
 function gotogame(){

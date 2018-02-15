@@ -2010,11 +2010,11 @@ function createGameOver() {
 
 
 	gameoverframe = game.add.sprite(120, 7, 'gameoverframe')
-	gameoverframe.scale.setTo(0.30, 0.30)
+	gameoverframe.scale.setTo(0.5, 0.5)
 	คะแนน = game.add.sprite(310, 220, 'คะแนน')
-	คะแนน.scale.setTo(0.30, 0.30)
+	คะแนน.scale.setTo(0.5, 0.5)
 	สิ้นชีพ = game.add.sprite(350, 130, 'สิ้นชีพ')
-	สิ้นชีพ.scale.setTo(0.30, 0.30)
+	สิ้นชีพ.scale.setTo(0.5, 0.5)
 
 	scoretext = game.add.text(510, 220, '' + score, { font: "50px Number", fill: "#FFFFFF", align: "center" });
 

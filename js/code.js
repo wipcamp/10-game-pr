@@ -209,8 +209,7 @@ function todestroy() {
 
 
 
-	option = game.add.button(720, 25, 'options', tosetting, this);
-	option.scale.setTo(0.025, 0.025)
+	option = game.add.button(715, 25, 'options', tosetting, this);
 
 
 
@@ -246,7 +245,6 @@ function tocheckselect() { //ยักษ์
 	monkey.kill();
 
 	BG = game.add.image(0, 0, 'BG');
-	BG.scale.setTo(0.25, 0.25);
 
 	confirm1 = game.add.sprite(170, 60, 'confirm1');
 	confirm1.scale.setTo(0.25, 0.25)
@@ -257,8 +255,8 @@ function tocheckselect() { //ยักษ์
 	pressback = game.add.button(425, 360, 'noconfirm', tobackselect, this, 1, 0, 1);
 	pressback.scale.setTo(0.25, 0.25)
 
-	monkeysaid = game.add.image(-20, 430, 'monkeysaid');
-	monkeysaid.scale.setTo(0.220, 0.220);
+	monkeysaid = game.add.image(20, 450, 'monkeysaid');
+	monkeysaid.scale.setTo(0.5, 0.5);
 	selectmenu = 1;
 
 
@@ -275,7 +273,6 @@ function tocheckselect2() { //ลิง
 	choose2.play();
 
 	BG = game.add.image(0, 0, 'BG');
-	BG.scale.setTo(0.25, 0.25);
 
 
 	confirm2 = game.add.sprite(170, 30, 'confirm2');
@@ -287,8 +284,8 @@ function tocheckselect2() { //ลิง
 	pressback = game.add.button(425, 380, 'noconfirm', tobackselect, this, 1, 0, 1);
 	pressback.scale.setTo(0.25, 0.25);
 
-	giantsaid = game.add.image(10, 440, 'giantsaid');
-	giantsaid.scale.setTo(0.220, 0.220);
+	giantsaid = game.add.image(20, 450, 'giantsaid');
+	giantsaid.scale.setTo(0.5, 0.5)
 	selectmenu = 2;
 
 
@@ -634,7 +631,7 @@ function createCutScence() {
 	video.addToWorld(850, 530, 1, 1, 0.70, 0.70);
 	pressskip = game.add.sprite(230, 550, "pressskip");
 	pressskip.alpha = 0;
-	pressskip.scale.setTo(0.125, 0.125)
+	pressskip.scale.setTo(0.5, 0.5)
 	game.add.tween(pressskip).to({ alpha: 1 }, 1000, Phaser.Easing.Linear.None, true, 0, 1000, false);
 
 	jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
@@ -672,9 +669,9 @@ function preloadIntro() {
 	game.load.image('confirm1', 'images/ยักษ์ว้อยว้อยยย.png');
 	game.load.spritesheet('yesconfirm', 'images/yesconfirm.png', 709, 259, 2);
 	game.load.spritesheet('noconfirm', 'images/noconfirm.png', 702, 259, 2);
-	game.load.image('monkeysaid', 'images/ลิงฟ้า.png');
-	game.load.image('giantsaid', 'images/ยักษ์แดงแดง.png');
-	game.load.image('BG', 'images/BG2.png');
+	game.load.image('monkeysaid', 'images/monkeysaid.png');
+	game.load.image('giantsaid', 'images/giantsaid.png');
+	game.load.image('BG', 'images/choosebg.png');
 
 	game.load.audio('choose1', 'audio/จะไม่เลือกเรา.mp3');
 	game.load.audio('choose2', 'audio/เลือกฝั่งนั้น.mp3');
@@ -691,11 +688,10 @@ function preloadIntro() {
 
 
 function createIntro() {
-	choose = game.add.sprite(-20, -20, 'choose');
-	choose.scale.setTo(0.25, 0.25)
+	choose = game.add.sprite(0, 0, 'choose');
 
-	giant = game.add.button(520, 140, 'giant', tocheckselect, this);
-	giant.scale.setTo(0.125, 0.125)
+
+	giant = game.add.button(535, 135, 'giant', tocheckselect, this);
 	giantbutton = game.add.button(510, 330, 'giantbutton', tocheckselect, this, 1, 0, 1);
 	giantbutton.scale.setTo(0.175, 0.175)
 
@@ -711,8 +707,7 @@ function createIntro() {
 	// monkey.scale.setTo(0.25, 0.25)
 	// monkey.animations.add('walk');
 	// monkey.animations.play('walk', 30 , true);
-	monkey = game.add.button(120, 270, 'monkey', tocheckselect2, this);
-	monkey.scale.setTo(0.36, 0.36)
+	monkey = game.add.button(157, 320, 'monkey', tocheckselect2, this);
 	monkeybutton = game.add.button(140, 480, 'monkeybutton', tocheckselect2, this, 1, 0, 1);
 	monkeybutton.scale.setTo(0.175, 0.175)
 
@@ -779,29 +774,6 @@ function createMenu() {
 	unmute.scale.setTo(0.25);
 	unmute.kill();
 
-	framecredit = game.add.sprite(230, 10, 'framecredit')
-	framecredit.scale.setTo(0.27, 0.27);
-	worker = game.add.sprite(370, 120, 'worker')
-	worker.scale.setTo(0.29, 0.29);
-	name1 = game.add.text(340, 200, '1:xxxx xxx:xxxx', { font: "25px Myfont1", fill: "#FFFFFF", align: "center" });
-	name2 = game.add.text(340, 240, '2:xxxx xxx:xxxx', { font: "25px Myfont1", fill: "#FFFFFF", align: "center" });
-	name3 = game.add.text(340, 280, '3:xxxx xxx:xxxx', { font: "25px Myfont1", fill: "#FFFFFF", align: "center" });
-	name4 = game.add.text(340, 320, '4:xxxx xxx:xxxx', { font: "25px Myfont1", fill: "#FFFFFF", align: "center" });
-	name5 = game.add.text(340, 360, '5:xxxx xxx:xxxx', { font: "25px Myfont1", fill: "#FFFFFF", align: "center" });
-	name6 = game.add.text(340, 400, '6:xxxx xxx:xxxx', { font: "25px Myfont1", fill: "#FFFFFF", align: "center" });
-	name7 = game.add.text(340, 440, '7:xxxx xxx:xxxx', { font: "25px Myfont1", fill: "#FFFFFF", align: "center" });
-	backs = game.add.button(300, 130, 'back', tosetting, this)
-	backs.scale.setTo(0.25, 0.25);
-	name1.kill();
-	name2.kill();
-	name3.kill();
-	name4.kill();
-	name5.kill();
-	name6.kill();
-	name7.kill();
-	backs.kill();
-	framecredit.kill();
-	worker.kill();
 
 
 	menu = this.add.audio('menu');
@@ -909,8 +881,8 @@ function createMenu() {
 	press.scale.setTo(0.175, 0.175)
 	game.add.tween(press).to({ alpha: 1 }, 1000, Phaser.Easing.Linear.None, true, 0, 1000, false);
 
-	option = game.add.button(720, 25, 'options', tosetting, this);
-	option.scale.setTo(0.025, 0.025)
+	option = game.add.button(715, 25, 'options', tosetting, this);
+
 	jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
 
@@ -959,14 +931,13 @@ function createHowtoplay() {
 
 	if (selectmenu == 1) {
 		howtoplayMonkey = game.add.sprite(15, 0, 'howtoplayMonkey');
-		howtoplayMonkey.scale.setTo(0.24, 0.24)
+		howtoplayMonkey.scale.setTo(0.5, 0.5)
 	} else if (selectmenu == 2) {
 		howtoplayGiant = game.add.sprite(15, 0, 'howtoplayGiant');
-		howtoplayGiant.scale.setTo(0.24, 0.24)
+		howtoplayGiant.scale.setTo(0.5, 0.5)
 	}
 
 
-	// this.text = game.add.text(25, 70, 'เล่นยังไงน้ะ ?  : ', { font: "60px Myfont1", fill: "#DC143C", align: "center" });
 	jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
 }
@@ -1258,7 +1229,7 @@ function create() {
 		treecutObj.checkWorldBounds = true;
 		treecutObj.events.onOutOfBounds.add(resetPostion, this);
 		treecutObj.scale.setTo(0.25, 0.25)
-		treecutObj.body.setSize(50, 70, 0, -15);
+		treecutObj.body.setSize(120, 70, 100, 50);
 	}
 	RockGroup = game.add.group();
 	RockGroup.enableBody = true;
@@ -1270,7 +1241,7 @@ function create() {
 		rockcutObj.checkWorldBounds = true;
 		rockcutObj.events.onOutOfBounds.add(resetPostion, this);
 		rockcutObj.scale.setTo(0.25, 0.25)
-		rockcutObj.body.setSize(50, 70, 0, -15);
+		rockcutObj.body.setSize(150, 90, 130, 70);
 	}
 	ArrowGroup = game.add.group();
 	ArrowGroup.enableBody = true;
@@ -2074,11 +2045,11 @@ function createGameOver() {
 
 
 	gameoverframe = game.add.sprite(120, 7, 'gameoverframe')
-	gameoverframe.scale.setTo(0.30, 0.30)
+	gameoverframe.scale.setTo(0.5, 0.5)
 	คะแนน = game.add.sprite(310, 220, 'คะแนน')
-	คะแนน.scale.setTo(0.30, 0.30)
+	คะแนน.scale.setTo(0.5, 0.5)
 	สิ้นชีพ = game.add.sprite(350, 130, 'สิ้นชีพ')
-	สิ้นชีพ.scale.setTo(0.30, 0.30)
+	สิ้นชีพ.scale.setTo(0.5, 0.5)
 
 	scoretext = game.add.text(510, 220, '' + score, { font: "50px Number", fill: "#FFFFFF", align: "center" });
 
@@ -2121,7 +2092,7 @@ function createEndcredit() {
 
 	pressskip = game.add.sprite(230, 550, "pressskip");
 	pressskip.alpha = 0;
-	pressskip.scale.setTo(0.125, 0.125)
+	pressskip.scale.setTo(0.5, 0.5)
 	game.add.tween(pressskip).to({ alpha: 1 }, 1000, Phaser.Easing.Linear.None, true, 0, 1000, false);
 	game.time.events.loop(19500, gotoplays, this)
 }

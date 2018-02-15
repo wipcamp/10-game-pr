@@ -1937,13 +1937,11 @@ function update2() {
 		speed = boxspeed
 		speedobj = boxspeedobj
 		SystemOverlab = 1;
-		player.body.collideWorldBounds = false;
 	} else if (itemtimerun > 0) {
 		speed = 50
 		speedobj = 900
 		itemtimerun--;
 		score = score + 1;
-		player.body.collideWorldBounds = true;
 	}
 
 

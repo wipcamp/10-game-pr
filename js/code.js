@@ -213,14 +213,7 @@ function todestroy() {
 	credits.kill();
 	mute.kill();
 	unmute.kill();
-
-
-
-	option = game.add.button(720, 25, 'options', tosetting, this);
-	option.scale.setTo(0.025, 0.025)
-
-
-
+	option = game.add.button(715, 25, 'options', tosetting, this);
 }
 function topause() {
 	pause.kill();
@@ -879,18 +872,15 @@ function createMenu() {
 		var tween = game.add.tween(logo);
 		tween.to({ x: 150 }, 3000, 'Linear', true, 0)
 	}
-
-
-
+	
 	press = game.add.sprite(150, 420, "press");
 	press.alpha = 0;
 	press.scale.setTo(0.175, 0.175)
 	game.add.tween(press).to({ alpha: 1 }, 1000, Phaser.Easing.Linear.None, true, 0, 1000, false);
 
-	option = game.add.button(720, 25, 'options', tosetting, this);
-	option.scale.setTo(0.025, 0.025)
-	jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+	option = game.add.button(715, 25, 'options', tosetting, this);
 
+	jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
 }
 

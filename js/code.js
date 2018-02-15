@@ -238,7 +238,6 @@ function tocheckselect() { //ยักษ์
 	monkey.kill();
 
 	BG = game.add.image(0, 0, 'BG');
-	BG.scale.setTo(0.25, 0.25);
 
 	confirm1 = game.add.sprite(170, 60, 'confirm1');
 	confirm1.scale.setTo(0.25, 0.25)
@@ -249,8 +248,8 @@ function tocheckselect() { //ยักษ์
 	pressback = game.add.button(425, 360, 'noconfirm', tobackselect, this, 1, 0, 1);
 	pressback.scale.setTo(0.25, 0.25)
 
-	monkeysaid = game.add.image(-20, 430, 'monkeysaid');
-	monkeysaid.scale.setTo(0.220,0.220);
+	monkeysaid = game.add.image(20, 450, 'monkeysaid');
+	monkeysaid.scale.setTo(0.5,0.5);
 
 }
 function tocheckselect2() { //ลิง
@@ -262,8 +261,6 @@ function tocheckselect2() { //ลิง
 	choose2.play();
 
 	BG = game.add.image(0, 0, 'BG');
-	BG.scale.setTo(0.25, 0.25);
-	
 
 	confirm2 = game.add.sprite(170, 30, 'confirm2');
 	confirm2.scale.setTo(0.25, 0.25);
@@ -274,8 +271,8 @@ function tocheckselect2() { //ลิง
 	pressback = game.add.button(425, 380, 'noconfirm', tobackselect, this, 1, 0, 1);
 	pressback.scale.setTo(0.25, 0.25);
 
-	giantsaid = game.add.image(10, 440, 'giantsaid');
-	giantsaid.scale.setTo(0.220,0.220);
+	giantsaid = game.add.image(20, 450, 'giantsaid');
+	giantsaid.scale.setTo(0.5,0.5);
 
 
 
@@ -633,7 +630,6 @@ function gotogame(){
 
 function preloadIntro() {
 	game.load.image('giant', 'images/gianthead.png');
-	// game.load.spritesheet('monkey', 'images/เจ้าลิง.png',567,740,22);
 	game.load.image('monkey', 'images/monkeyhead.png');
 	game.load.image('pressgiant', 'images/itemsheild.png')
 	game.load.image('pressmonkey', 'images/itemrun.png')
@@ -644,9 +640,9 @@ function preloadIntro() {
 	game.load.image('confirm1', 'images/ยักษ์ว้อยว้อยยย.png');
 	game.load.spritesheet('yesconfirm', 'images/yesconfirm.png', 709, 259, 2);
 	game.load.spritesheet('noconfirm', 'images/noconfirm.png', 702, 259, 2);
-	game.load.image('monkeysaid', 'images/ลิงฟ้า.png');
-	game.load.image('giantsaid', 'images/ยักษ์แดงแดง.png');
-	game.load.image('BG','images/BG2.png');
+	game.load.image('monkeysaid', 'images/monkeysaid.png');
+	game.load.image('giantsaid', 'images/giantsaid.png');
+	game.load.image('BG','images/choosebg.png');
 
 	game.load.audio('choose1', 'audio/จะไม่เลือกเรา.mp3');
 	game.load.audio('choose2', 'audio/เลือกฝั่งนั้น.mp3');
@@ -663,33 +659,18 @@ function preloadIntro() {
 
 
 function createIntro() {
-	choose = game.add.sprite(-20, -20, 'choose');
-	choose.scale.setTo(0.25, 0.25)
-
-	giant = game.add.button(520, 140, 'giant', tocheckselect, this);
-	giant.scale.setTo(0.125, 0.125)
-	giantbutton = game.add.button(510, 330, 'giantbutton', tocheckselect, this, 1, 0, 1);
-	giantbutton.scale.setTo(0.175, 0.175)
-
-	
-	
-
+	choose = game.add.sprite(0, 0, 'choose');
 	game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT; 
 	fullsize = game.add.button(0, 0, 'full-size', gofull, this, 1, 0, 1);
 	fullsize.scale.setTo(0.175, 0.175)
 
+	giant = game.add.button(535, 135, 'giant', tocheckselect, this);
+	giantbutton = game.add.button(510, 330, 'giantbutton', tocheckselect, this, 1, 0, 1);
+	giantbutton.scale.setTo(0.175, 0.175)
 
-	// monkey = game.add.button(110, 150, 'monkey', tocheckselect2, this);
-	// monkey.scale.setTo(0.25, 0.25)
-	// monkey.animations.add('walk');
-	// monkey.animations.play('walk', 30 , true);
-	monkey = game.add.button(120, 270, 'monkey', tocheckselect2, this);
-	monkey.scale.setTo(0.36, 0.36)
+	monkey = game.add.button(157, 320, 'monkey', tocheckselect2, this);
 	monkeybutton = game.add.button(140, 480, 'monkeybutton', tocheckselect2, this, 1, 0, 1);
 	monkeybutton.scale.setTo(0.175, 0.175)
-	
-	
-
 }
 
 

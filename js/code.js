@@ -117,7 +117,6 @@ function gotoplay() {
 	resume.kill();
 	ยุติ.kill();
 	pause = game.add.button(720, 25, 'pause', topause, this);
-	pause.scale.setTo(0.25, 0.25)
 }
 function toGame() {
 	if (selectmenu == 1) {
@@ -224,7 +223,6 @@ function topause() {
 	frames = game.add.sprite(150, 60, 'frame')
 	frames.scale.setTo(0.5, 0.5);
 	ยุติ = game.add.sprite(250, 190, 'ยุติ')
-	ยุติ.scale.setTo(0.25, 0.25);
 	home = game.add.button(270, 300, 'home', gotomenu, this, 1, 0, 1);
 	home.scale.setTo(0.25, 0.25)
 	resume = game.add.button(460, 300, 'resume', gotoplay, this, 1, 0, 1);
@@ -1123,7 +1121,6 @@ function create() {
 	gamebgm.loopFull();
 
 	pause = game.add.button(720, 25, 'pause', topause, this);
-	pause.scale.setTo(0.25, 0.25)
 
 
 	game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -1645,7 +1642,6 @@ function create2() {
 	gamebgm.loopFull();
 
 	pause = game.add.button(720, 25, 'pause', topause, this);
-	pause.scale.setTo(0.25, 0.25)
 
 
 	game.physics.startSystem(Phaser.Physics.ARCADE);

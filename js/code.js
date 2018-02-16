@@ -1,3 +1,11 @@
+var config = {
+    apiKey: "AIzaSyBi1_S5ogGhTEyywKHyPmrEmfuAq1E4qu4",
+    authDomain: "wip-camp-game.firebaseapp.com",
+    databaseURL: "https://wip-camp-game.firebaseio.com",
+    storageBucket: "wip-camp-game.appspot.com",
+    messagingSenderId: "444400029"
+  };
+
 var game = new Phaser.Game(800, 600, Phaser.AUTO, "game")
 var Menu = { preload: preloadMenu, create: createMenu, update: updateMenu }
 var CutScene = { preload: preloadCutScene, create: createCutScence, update: updateCutScene }
@@ -618,12 +626,12 @@ function gofull() {
 }
 ///////////////////////////////////////////////////////////////CutScene//////////////////////////////////////////////////////////////////////////
 function preloadCutScene() {
-	game.load.video('Cutscene', 'images/Cutscene.mp4');
+	game.load.video('CutScene', 'images/CutScene.mp4');
 	game.load.image('pressskip', 'images/spaceskip.png')
 
 }
 function createCutScence() {
-	video = game.add.video('Cutscene');
+	video = game.add.video('CutScene');
 
 	video.play(false);
 	video.addToWorld(850, 530, 1, 1, 0.70, 0.70);

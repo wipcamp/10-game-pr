@@ -9,6 +9,7 @@ var config = {
 var game = new Phaser.Game(800, 600, Phaser.AUTO, "game")
 var Menu = { preload: preloadMenu, create: createMenu, update: updateMenu }
 var CutScene = { preload: preloadCutScene, create: createCutScence, update: updateCutScene }
+var LeaderBoard = { preload: preloadleaderBoard, create: createleaderBoard, update: updateleaderBoard }
 var Endcredit = { preload: preloadEndcredit, create: createEndcredit, update: updateEndcredit }
 var Howtoplay = { preload: preloadHowtoplay, create: createHowtoplay, update: updateHowtoplay }
 var Intro = { preload: preloadIntro, create: createIntro, update: updateIntro }
@@ -18,6 +19,7 @@ var GameOver = { preload: preloadGameOver, create: createGameOver, update: updat
 
 game.state.add('Menu', Menu)
 game.state.add('Intro', Intro)
+game.state.add('LeaderBoard', LeaderBoard)
 game.state.add('Howtoplay', Howtoplay)
 game.state.add('Endcredit', Endcredit)
 game.state.add('GameOver', GameOver)
@@ -128,6 +130,8 @@ function tofacebook() {
 
 }
 function toranking() {
+	gameoversound.stop();
+	game.state.start('LeaderBoard');
 
 }
 function tosetmute() {
@@ -1743,12 +1747,15 @@ function preloadGameOver() {
 	game.load.image('gameoverscreen3', 'images/gameoverscreen3.png')
 	game.load.image('gameoverframe', 'images/gameoverframe.png')
 	game.load.audio('gameoversound', 'audio/Sound Game Over.mp3')
-	game.load.spritesheet('play', 'images/เริ่มใหม่.png', 475, 206);
 	game.load.image('สิ้นชีพ', 'images/สิ้นชีพ.png')
 	game.load.image('คะแนน', 'images/คะแนน.png')
+	game.load.spritesheet('play', 'images/เริ่มใหม่.png', 475, 206);
 	game.load.spritesheet('หน้าหลัก', 'images/หน้าหลัก.png', 638, 180);
 	game.load.spritesheet('แบ่งปัน', 'images/แบ่งปัน.png', 463, 187);
 	game.load.spritesheet('ลำดับ', 'images/ลำดับ.png', 463, 187);
+	game.load.image('รายชื่อ','images/รายชื่อ.png')
+	game.load.image('กระดานลำดับ','images/กระดานลำดับ.png')
+
 }
 
 var distance = 300;
@@ -1847,4 +1854,44 @@ function updateEndcredit() {
 function gotoplays() {
 	game.state.start('Menu');
 	video.stop();
+}
+
+///////////////////////////////////////////////////Leader Board/////////////////////////////////////////////
+function preloadleaderBoard(){
+	game.load.image('รายชื่อ','images/รายชื่อ.png')
+	game.load.image('กระดานลำดับ','images/กระดานลำดับ.png')
+	game.load.image('คะแนน','images/คะแนน.png')
+	game.load.spritesheet('play', 'images/เริ่มใหม่.png', 475, 206);
+	game.load.spritesheet('หน้าหลัก', 'images/หน้าหลัก.png', 638, 180);
+
+
+
+}
+function createleaderBoard(){
+	game.stage.backgroundColor = "#00000";
+
+	กระดานลำดับ = game.add.sprite(100, -60, 'กระดานลำดับ')
+	กระดานลำดับ.scale.setTo(0.3, 0.325)
+	คะแนน = game.add.sprite(500, 60, 'คะแนน')
+	คะแนน.scale.setTo(0.4, 0.4)
+	สิ้นชีพ = game.add.sprite(200, 50, 'รายชื่อ')
+	สิ้นชีพ.scale.setTo(0.4, 0.4)
+	play = game.add.button(550, 500, 'play', totogame, this, 1, 0, 1);
+	play.scale.setTo(0.25, 0.25)
+	หน้าหลัก = game.add.button(380, 505, 'หน้าหลัก', tomenu, this, 1, 0, 1);
+	หน้าหลัก.scale.setTo(0.25, 0.25)
+
+
+}
+function updateleaderBoard(){
+
+}
+
+function totogame(){
+	if (selectmenu == 1) {
+		game.state.start('GamePlay1');
+	} else if (selectmenu == 2) {
+		game.state.start('GamePlay2');
+	}
+
 }

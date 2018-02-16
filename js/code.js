@@ -37,7 +37,6 @@ var ItemsheildGroup;
 var ItemrunGroup;
 var InvisibleGroup;
 var LogGroup;
-var SpirteGroup;
 var FloorGroup;
 var RockGroup;
 var boxspeed;
@@ -332,10 +331,8 @@ function checkselect2() {
 
 
 function obstacleSpawner() {
-	var output = game.rnd.integerInRange(0, 3);
-	if (output == 0) {
-		spirteDeploy();
-	} else if (output == 1) {
+	var output = game.rnd.integerInRange(1, 3);
+	if (output == 1) {
 		logDeploy();
 	} else if (output == 2) {
 		treecutDeploy();
@@ -344,10 +341,8 @@ function obstacleSpawner() {
 	}
 }
 function obstacleSpawner2() {
-	var output = game.rnd.integerInRange(0, 3);
-	if (output == 0) {
-		spirteDeploy();
-	} else if (output == 1) {
+	var output = game.rnd.integerInRange(1, 3);
+	if (output == 1) {
 		logDeploy();
 	} else if (output == 2) {
 		treecutDeploy();
@@ -356,10 +351,8 @@ function obstacleSpawner2() {
 	}
 }
 function obstacleSpawner3() {
-	var output = game.rnd.integerInRange(0, 3);
-	if (output == 0) {
-		arrowDeploy()
-	} else if (output == 1) {
+	var output = game.rnd.integerInRange(1, 3);
+	if (output == 1) {
 		arrowDeploy()
 	} else if (output == 2) {
 		arrowDeploy()
@@ -375,16 +368,6 @@ function logDeploy() {
 	log.reset(position, 475);
 	log.body.velocity.x = -speedobj * 48;
 	countdeploy1 -= 20
-	countdeploy -= 10
-}
-function spirteDeploy() {
-	obstacleCooldown = game.rnd.integerInRange(countdeploy, countdeploy1);
-	obstacleCooldown2 = game.rnd.integerInRange(countdeploy, countdeploy1);
-	var position = game.rnd.integerInRange(750, 750);
-	spirte = SpirteGroup.getFirstExists(false);
-	spirte.reset(position, 475);
-	spirte.body.velocity.x = -speedobj * 49;
-	countdeploy1 -= 15
 	countdeploy -= 10
 }
 function treecutDeploy() {
@@ -968,7 +951,6 @@ function preload() {
 	game.load.image('arrow', 'images/arrow.png')
 	game.load.image('treecut', 'images/treecut.png')
 	game.load.image('log', 'images/log.png')
-	game.load.image('spirte', 'images/หนามล่าสุดด.png')
 	game.load.image('itemsheild', 'images/itemsheild.png')
 	game.load.image('itemrun', 'images/itemrun.png')
 	game.load.image('wallblock', 'images/wallblock.png')
@@ -1202,20 +1184,6 @@ function create() {
 		logObj.scale.setTo(0.25, 0.25)
 		logObj.body.setSize(50, 70, 0, -15);
 	}
-	SpirteGroup = game.add.group();
-	SpirteGroup.enableBody = true;
-	SpirteGroup.angle = 17;
-	SpirteGroup.anchor = 0.5;
-	SpirteGroup.physicsBodyType = Phaser.Physics.ARCADE;
-	for (var i = 0; i < 16; i++) {
-		spirteObj = SpirteGroup.create(700, 300, 'spirte');
-		spirteObj.exists = false;
-		spirteObj.visible = false;
-		spirteObj.checkWorldBounds = true;
-		spirteObj.events.onOutOfBounds.add(resetPostion, this);
-		spirteObj.scale.setTo(0.25, 0.25)
-		spirteObj.body.setSize(50, 70, 0, -15);
-	}
 	TreecutGroup = game.add.group();
 	TreecutGroup.enableBody = true;
 	TreecutGroup.physicsBodyType = Phaser.Physics.ARCADE;
@@ -1304,7 +1272,6 @@ function update() {
 	game.physics.arcade.collide(player, FloorGroup, collisionHandler, null, this);
 	game.physics.arcade.collide(RockGroup, FloorGroup, chek = true)
 	game.physics.arcade.collide(LogGroup, FloorGroup, chek = true)
-	game.physics.arcade.collide(SpirteGroup, FloorGroup, chek = true)
 	game.physics.arcade.collide(RockGroup, FloorGroup, chek = true)
 
 	//พื้นหลังเลื่อน
@@ -1356,7 +1323,6 @@ function update() {
 		game.physics.arcade.overlap(player, TreecutGroup, HitsPlayer, null, this);
 		game.physics.arcade.overlap(player, RockGroup, HitsPlayer, null, this);
 		game.physics.arcade.overlap(player, ArrowGroup, HitsPlayer, null, this);
-		game.physics.arcade.overlap(player, SpirteGroup, HitsPlayer, null, this);
 		game.physics.arcade.overlap(player, Wall3, HitsPlayer, null, this);
 	} else if (SystemOverlab == 2) {
 		game.physics.arcade.overlap(player, Wall3, HitsPlayer, null, this);
@@ -1364,7 +1330,6 @@ function update() {
 		game.physics.arcade.overlap(player, TreecutGroup, HitObj, null, this);
 		game.physics.arcade.overlap(player, RockGroup, HitObj, null, this);
 		game.physics.arcade.overlap(player, ArrowGroup, HitObj, null, this);
-		game.physics.arcade.overlap(player, SpirteGroup, HitObj, null, this);
 		game.physics.arcade.overlap(player, ItemsheildGroup, getItemsheild, null, this);
 		game.physics.arcade.overlap(player, ItemrunGroup, HitObj, null, this);
 		game.physics.arcade.overlap(player, InvisibleGroup, HitObj, null, this);
@@ -1446,16 +1411,15 @@ function update() {
 
 	RockGroup.forEachExists(sped, this, null)
 	FloorGroup.forEachExists(sped, this, null)
-	SpirteGroup.forEachExists(sped, this, null)
 	LogGroup.forEachExists(sped, this, null)
 	TreecutGroup.forEachExists(sped, this, null)
+
 	ItemrunGroup.forEachExists(sped, this, null)
 	ItemsheildGroup.forEachExists(sped, this, null)
 	InvisibleGroup.forEachExists(sped, this, null)
 
 	RockGroup.forEachExists(checkobj, this, null)
 	FloorGroup.forEachExists(checkobj, this, null)
-	SpirteGroup.forEachExists(checkobj, this, null)
 	LogGroup.forEachExists(checkobj, this, null)
 	TreecutGroup.forEachExists(checkobj, this, null)
 
@@ -1493,7 +1457,6 @@ function preload2() {
 	game.load.image('arrow', 'images/arrow.png')
 	game.load.image('treecut', 'images/treecut.png')
 	game.load.image('log', 'images/log.png')
-	game.load.image('spirte', 'images/หนามล่าสุดด.png')
 	game.load.image('itemsheild', 'images/itemsheild.png')
 	game.load.image('itemrun', 'images/itemrun.png')
 	game.load.image('wallblock', 'images/wallblock.png')
@@ -1722,20 +1685,6 @@ function create2() {
 		logObj.scale.setTo(0.25, 0.25)
 		logObj.body.setSize(50, 70, 0, -15);
 	}
-	SpirteGroup = game.add.group();
-	SpirteGroup.enableBody = true;
-	SpirteGroup.angle = 17;
-	SpirteGroup.anchor = 0.5;
-	SpirteGroup.physicsBodyType = Phaser.Physics.ARCADE;
-	for (var i = 0; i < 16; i++) {
-		spirteObj = SpirteGroup.create(700, 300, 'spirte');
-		spirteObj.exists = false;
-		spirteObj.visible = false;
-		spirteObj.checkWorldBounds = true;
-		spirteObj.events.onOutOfBounds.add(resetPostion, this);
-		spirteObj.scale.setTo(0.25, 0.25)
-		spirteObj.body.setSize(50, 70, 0, -15);
-	}
 	TreecutGroup = game.add.group();
 	TreecutGroup.enableBody = true;
 	TreecutGroup.physicsBodyType = Phaser.Physics.ARCADE;
@@ -1821,7 +1770,6 @@ function update2() {
 	game.physics.arcade.collide(player, FloorGroup, collisionHandler, null, this);
 	game.physics.arcade.collide(RockGroup, FloorGroup, chek = true)
 	game.physics.arcade.collide(LogGroup, FloorGroup, chek = true)
-	game.physics.arcade.collide(SpirteGroup, FloorGroup, chek = true)
 	game.physics.arcade.collide(RockGroup, FloorGroup, chek = true)
 
 	//พื้นหลังเลื่อน
@@ -1877,7 +1825,6 @@ function update2() {
 		game.physics.arcade.overlap(player, TreecutGroup, HitsPlayer, null, this);
 		game.physics.arcade.overlap(player, RockGroup, HitsPlayer, null, this);
 		game.physics.arcade.overlap(player, ArrowGroup, HitsPlayer, null, this);
-		game.physics.arcade.overlap(player, SpirteGroup, HitsPlayer, null, this);
 		game.physics.arcade.overlap(player, Wall3, HitsPlayer, null, this);
 	} else if (SystemOverlab == 2) {
 		game.physics.arcade.overlap(player, Wall3, HitsPlayer, null, this);
@@ -1885,7 +1832,6 @@ function update2() {
 		game.physics.arcade.overlap(player, TreecutGroup, HitObj, null, this);
 		game.physics.arcade.overlap(player, RockGroup, HitObj, null, this);
 		game.physics.arcade.overlap(player, ArrowGroup, HitObj, null, this);
-		game.physics.arcade.overlap(player, SpirteGroup, HitObj, null, this);
 		game.physics.arcade.overlap(player, ItemsheildGroup, getItemsheild, null, this);
 		game.physics.arcade.overlap(player, ItemrunGroup, HitObj, null, this);
 		game.physics.arcade.overlap(player, InvisibleGroup, HitObj, null, this);
@@ -1960,16 +1906,15 @@ function update2() {
 
 	RockGroup.forEachExists(sped, this, null)
 	FloorGroup.forEachExists(sped, this, null)
-	SpirteGroup.forEachExists(sped, this, null)
 	LogGroup.forEachExists(sped, this, null)
 	TreecutGroup.forEachExists(sped, this, null)
+	
 	ItemrunGroup.forEachExists(sped, this, null)
 	ItemsheildGroup.forEachExists(sped, this, null)
 	InvisibleGroup.forEachExists(sped, this, null)
 
 	RockGroup.forEachExists(checkobj, this, null)
 	FloorGroup.forEachExists(checkobj, this, null)
-	SpirteGroup.forEachExists(checkobj, this, null)
 	LogGroup.forEachExists(checkobj, this, null)
 	TreecutGroup.forEachExists(checkobj, this, null)
 

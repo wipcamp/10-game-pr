@@ -560,7 +560,6 @@ function preloadIntro() {
 	game.load.image('monkey', 'images/monkeyhead.png');
 	game.load.image('pressgiant', 'images/itemsheild.png')
 	game.load.image('pressmonkey', 'images/itemrun.png')
-	game.load.image('framecredit', 'images/framecredit.png')
 	game.load.image('choose', 'images/หน้าเลือกตัวละคร.png')
 	game.load.image('black', 'images/black.png')
 	game.load.image('confirm2', 'images/monkeyblue.png');
@@ -621,7 +620,6 @@ function preloadMenu() {
 	game.load.audio('menu', 'audio/soundmenu.mp3');
 	game.load.image('options', 'images/options.png')
 	game.load.image('frame', 'images/frame.png')
-	game.load.image('framecredit', 'images/framecredit.png')
 	game.load.image('back', 'images/back.png')
 	game.load.spritesheet('mute', 'images/mute.png')
 	game.load.spritesheet('unmute', 'images/unmute.png')
@@ -839,7 +837,6 @@ function preload() {
 	this.game.load.image('mountain', 'images/mountain.png')
 	this.game.load.image('bstone', 'images/bstone.png')
 	this.game.load.image('treedead', 'images/treedead.png')
-	this.game.load.image('sstone', 'images/sstone.png')
 	//blank
 	this.game.load.image('blank', 'images/blank.png')
 	this.game.load.image('blankflag', 'images/blankflag.png')
@@ -1308,7 +1305,6 @@ function preload2() {
 	this.game.load.image('mountain', 'images/mountain.png')
 	this.game.load.image('bstone', 'images/bstone.png')
 	this.game.load.image('treedead', 'images/treedead.png')
-	this.game.load.image('sstone', 'images/sstone.png')
 	//blank 
 	this.game.load.image('blank', 'images/blank.png')
 	this.game.load.image('blankflag', 'images/blankflag.png')

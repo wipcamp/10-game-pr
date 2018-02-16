@@ -8,8 +8,6 @@ var GamePlayRam = { preload: preload, create: create, update: update, render: re
 var GamePlayGiant = { preload: preload2, create: create2, update: update2, render: render2 }
 var GameOver = { preload: preloadGameOver, create: createGameOver, update: updateGameOver }
 
-
-
 game.state.add('Menu', Menu)
 game.state.add('Intro', Intro)
 game.state.add('Howtoplay', Howtoplay)
@@ -59,43 +57,23 @@ var itemtimeinvisible = 0;
 var countdeploy;
 var countdeploy1;
 var chek = true;
-var name1;
-var name2;
-var name3;
-var name4;
-var name5;
-var name6;
-var name7;
 var gamebgm;
 var menu;
 var option;
 var pause;
-var coutinues;
 var boxspeedobj;
 var speedobjdb;
 var itemsheildtime;
 var htplay = true
-
-//ฉาก
-var countzonemain = 1;
-var countzone = 1;
-var skyt;
-var cloudt;
-var busht
-var palacet
-var wallt
 var gameoversound
 var selectmenu;
-
 var video;
-
-
-
 
 ////FunctionSystem/////
 
 
 //////////////////////////////////////FunctionMenu/////////////////////////////////////////////////////
+
 function gotomenu() {
 	game.paused = false;
 	game.state.start("Menu");
@@ -104,10 +82,7 @@ function gotomenu() {
 }
 function gotomenubycredit() {
 	game.state.start('Menu')
-
 }
-
-
 function gotoplay() {
 	console.log("aaa")
 	game.paused = false;
@@ -133,26 +108,20 @@ function tocredit() {
 	credits.kill();
 	frames.kill();
 	mute.kill();
-
 }
-
 function wentmenu() {
 	game.state.start('Menu');
 	gameoversound.stop();
-
 }
 function tomenu() {
 	game.state.start('Menu');
-
 }
 function tofacebook() {
 
 }
-
 function toranking() {
 
 }
-
 function tosetmute() {
 	if (!game.sound.mute) {
 		game.sound.mute = true;
@@ -165,10 +134,11 @@ function tosetmute() {
 		mute = game.add.button(310, 190, 'mute', tosetmute, this)
 		mute.scale.setTo(0.25);
 		unmute.kill();
-
 	}
 }
+
 ////////////////////////////////////////////////Functionsetting System////////////////////////////////////////////////////////////////////
+
 function tosetting() {
 	option.kill();
 	fullsize = game.add.button(0, 0, 'full-size', gofull, this, 1, 0, 1);
@@ -186,6 +156,7 @@ function tosetting() {
 	unmute.kill();
 	backd = game.add.button(370, 345, 'back', todestroy, this)
 	backd.scale.setTo(0.5, 0.5);
+
 	if (!game.sound.mute) {
 		mute = game.add.button(310, 190, 'mute', tosetmute, this)
 		mute.scale.setTo(0.25);
@@ -193,8 +164,6 @@ function tosetting() {
 		unmute = game.add.button(310, 190, 'unmute', tosetmute, this)
 		unmute.scale.setTo(0.25);
 	}
-
-
 }
 function todestroy() {
 	console.log("in to destroy");
@@ -205,12 +174,7 @@ function todestroy() {
 	fullsize.kill();
 	unmute.kill();
 
-
-
 	option = game.add.button(715, 25, 'options', tosetting, this);
-
-
-
 }
 function topause() {
 	pause.kill();
@@ -226,8 +190,6 @@ function topause() {
 	home.scale.setTo(0.25, 0.25)
 	resume = game.add.button(460, 300, 'resume', gotoplay, this, 1, 0, 1);
 	resume.scale.setTo(0.25, 0.25)
-
-
 }
 
 function tocheckselect() { //ยักษ์
@@ -255,8 +217,6 @@ function tocheckselect() { //ยักษ์
 	monkeysaid = game.add.image(20, 450, 'monkeysaid');
 	monkeysaid.scale.setTo(0.5, 0.5);
 	selectmenu = 1;
-
-
 }
 function tocheckselect2() { //ลิง
 	black = game.add.sprite(0, 0, 'black')
@@ -271,7 +231,6 @@ function tocheckselect2() { //ลิง
 
 	BG = game.add.image(0, 0, 'BG');
 
-
 	confirm2 = game.add.sprite(170, 30, 'confirm2');
 	confirm2.scale.setTo(0.25, 0.25);
 
@@ -284,14 +243,8 @@ function tocheckselect2() { //ลิง
 	giantsaid = game.add.image(20, 450, 'giantsaid');
 	giantsaid.scale.setTo(0.5, 0.5)
 	selectmenu = 2;
-
-
-
-
 }
-
 function tobackselect() {
-
 	buttonsound = game.add.audio('buttonsound');
 	buttonsound.play();
 	if (selectmenu == 1) {
@@ -311,8 +264,6 @@ function tobackselect() {
 	}
 	createIntro();
 }
-
-
 function checkselect() {
 	buttonsound = game.add.audio('buttonsound');
 	buttonsound.play();
@@ -326,9 +277,7 @@ function checkselect2() {
 	tomenu()
 }
 
-
 ////////////////////////////////////////////Functiongame////////////////////////////////////////////////
-
 
 function obstacleSpawner() {
 	var output = game.rnd.integerInRange(1, 3);
@@ -427,26 +376,22 @@ function GenerateTerrain() {
 				lastCliff = false;
 				lastVertical = false;
 			}
-
 			FloorGroup.getAt(i).body.x = lastFloor.body.x + tileSize + delta * tileSize * 1.5;
 			lastFloor = FloorGroup.getAt(i);
 			break;
 		}
 	}
 }
-
 function itemSpawner() {
 	var output = game.rnd.integerInRange(0, 4);
 	if (output == 0) {
 		itemsheildUp();
-
 	} else if (output == 1) {
 		itemrunUp();
 	} else if (output = 2) {
 		iteminvisibleUp();
 	}
 }
-
 function iteminvisibleUp() {
 	itemCooldown = game.rnd.integerInRange(400, 600);
 	var position = game.rnd.integerInRange(750, 750);
@@ -468,7 +413,6 @@ function itemsheildUp() {
 	Itemrun.reset(position, getRandomArbitrary4());
 	Itemrun.body.velocity.x = -speed * 20;
 }
-
 function resetPostion(obj) {
 	obj.kill();
 }
@@ -484,7 +428,6 @@ function getRandomArbitrary() { //สุ่มๆ
 	} else if (r == 4) {
 		r = 0;
 	}
-
 }
 function getRandomArbitrary3() {
 	return Math.random() * (6000 - 4000 + 1) + 4000;//สุ่มแกน x 
@@ -498,18 +441,14 @@ function getRandomArbitrary2() {
 function getRandomArbitrary4() {
 	return Math.random() * (450 - 222 + 1) + 222;//สุ่มแกน  y
 }
-
 function flashs() {
 	game.camera.flash(00000000, 500);
 }
-
 function updateScore() {
-
 	if (countStart >= 30) {
 		score += 1;
 		text.setText('' + score);
 		game.add.tween(text3).to({ alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
-
 	} else if (countStart < 30) {
 		text3.visible = true;
 		countStart++
@@ -523,7 +462,6 @@ function HitsPlayer(player, obj) {
 	} else if (Hp == 2) {
 		obj.kill();
 		effectShelid.visible = false;
-
 		Hp = 1;
 	}
 }
@@ -533,15 +471,12 @@ function HitObj(player, obj) {
 function Checkhp() {
 	if (Hp < 1) {
 		game.state.start('GameOver')
-
 	}
 }
 function getItemsheild(player, item) {
 	sheilditem.play();
 	item.kill();
-
 	ActiveHpplus()
-
 }
 function getIteminvisible(player, item) {
 	invisibleitem.play();
@@ -559,77 +494,60 @@ function getItemrun(player, item) {
 	itemtimeinvisible = -1
 }
 function ActiveRunspped() {
-
 	speedb = boxspeed;
 	boxspeed = speed;
 	speedobjdb = boxspeedobj;
 	boxspeedobj = speedobj
-
 }
 function ActiveHpplus() {
 	effectShelid.visible = true;
 	Hp = 2;
-
 }
-
 function collisionHandler() {
-
 	countjump = 2;
-
 }
 function invisiblesystem() {
 	game.add.tween(player).to({ alpha: 1 }, 1000, Phaser.Easing.Linear.None, true, 0, 1000, false);
 }
-
 function sped(aa) {
 	aa.body.velocity.x = -speedobj
 }
-
 function checkobj(aa) {
 	if (chek = false)
 		aa.kill;
 }
 function gofull() {
-
 	if (game.scale.isFullScreen) {
 		game.scale.stopFullScreen();
 	}
 	else {
 		game.scale.startFullScreen(false);
 	}
-
 }
+
 ///////////////////////////////////////////////////////////////CutScene//////////////////////////////////////////////////////////////////////////
+
 function preloadCutScene() {
 	game.load.video('Cutscene', 'images/Cutscene.mp4');
 	game.load.image('pressskip', 'images/spaceskip.png')
-
 }
 function createCutScence() {
 	video = game.add.video('Cutscene');
-
 	video.play(false);
 	video.addToWorld(850, 530, 1, 1, 0.70, 0.70);
 	pressskip = game.add.sprite(230, 550, "pressskip");
 	pressskip.alpha = 0;
 	pressskip.scale.setTo(0.5, 0.5)
 	game.add.tween(pressskip).to({ alpha: 1 }, 1000, Phaser.Easing.Linear.None, true, 0, 1000, false);
-
 	jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-
 }
-
 function updateCutScene() {
 	if (jumpButton.isDown) {
-
 		game.state.start('Intro');
 		video.stop();
 	}
-
 	game.time.events.loop(43000, gotogame, this)
-
 }
-
 function gotogame() {
 	game.state.start('Intro')
 	video.stop();
@@ -639,7 +557,6 @@ function gotogame() {
 
 function preloadIntro() {
 	game.load.image('giant', 'images/gianthead.png');
-	// game.load.spritesheet('monkey', 'images/เจ้าลิง.png',567,740,22);
 	game.load.image('monkey', 'images/monkeyhead.png');
 	game.load.image('pressgiant', 'images/itemsheild.png')
 	game.load.image('pressmonkey', 'images/itemrun.png')
@@ -663,53 +580,28 @@ function preloadIntro() {
 	game.load.spritesheet('giantbutton', 'images/เลือกฉันดีกว่า.png', 1093, 403, 2);
 	game.load.spritesheet('monkeybutton', 'images/เลือกฉันสิ.png', 1057, 394, 2);
 }
-
-
-
-
-
 function createIntro() {
 	choose = game.add.sprite(0, 0, 'choose');
-
 
 	giant = game.add.button(535, 135, 'giant', tocheckselect, this);
 	giantbutton = game.add.button(510, 330, 'giantbutton', tocheckselect, this, 1, 0, 1);
 	giantbutton.scale.setTo(0.175, 0.175)
 
-
-
-
 	game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
 	fullsize = game.add.button(0, 0, 'full-size', gofull, this, 1, 0, 1);
 	fullsize.scale.setTo(0.175, 0.175)
 
-
-	// monkey = game.add.button(110, 150, 'monkey', tocheckselect2, this);
-	// monkey.scale.setTo(0.25, 0.25)
-	// monkey.animations.add('walk');
-	// monkey.animations.play('walk', 30 , true);
 	monkey = game.add.button(157, 320, 'monkey', tocheckselect2, this);
 	monkeybutton = game.add.button(140, 480, 'monkeybutton', tocheckselect2, this, 1, 0, 1);
 	monkeybutton.scale.setTo(0.175, 0.175)
-
-
-
 }
-
-
-
 function updateIntro() {
 
 }
 
-
-
-
-
 //////////////////////////////////////////////////////Menu/////////////////////////////////////////////////////////////////////////////////
 
 function preloadMenu() {
-
 	//ฉากฝั่งราม
 	game.load.image('skyr', 'images/sky_r.png')
 	game.load.image('cloudr', 'images/cloud_r.png')
@@ -737,13 +629,6 @@ function preloadMenu() {
 	game.load.image('press', 'images/กดปุ่มเว้นวรรค.png')
 	game.load.image('worker', 'images/worker.png')
 	game.load.audio('buttonsound', 'audio/กรับ.mp3');
-
-
-
-
-
-
-
 }
 
 function createMenu() {
@@ -755,12 +640,9 @@ function createMenu() {
 	unmute.scale.setTo(0.25);
 	unmute.kill();
 
-
-
 	menu = this.add.audio('menu');
 	menu.play();
 	menu.loopFull();
-
 
 	if (selectmenu == 1) {
 		var logo = game.add.sprite(800, 60, "logor");
@@ -855,8 +737,6 @@ function createMenu() {
 		tween.to({ x: 150 }, 3000, 'Linear', true, 0)
 	}
 
-
-
 	press = game.add.sprite(150, 420, "press");
 	press.alpha = 0;
 	press.scale.setTo(0.175, 0.175)
@@ -866,10 +746,7 @@ function createMenu() {
 
 	jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
-
 }
-
-
 function updateMenu() {
 	sky.tilePosition.x -= 0.5 + speed
 	cloud.tilePosition.x -= 0.75 + speed
@@ -877,7 +754,6 @@ function updateMenu() {
 	palace.tilePosition.x -= 1.5 + speed
 	wall.tilePosition.x -= 2 + speed
 	floor.tilePosition.x -= 1.5 + speed;
-
 	if (jumpButton.isDown) {
 		if (selectmenu == 1) {
 			if (htplay == true) {
@@ -894,22 +770,20 @@ function updateMenu() {
 		}
 	}
 }
+
 ///////////////////////////////////////////////////////////////How to play////////////////////////////////////////////////////////////////////////
+
 function preloadHowtoplay() {
 	game.load.image('howtoplayMonkey', 'images/วิธีเล่นลิง.png')
 	game.load.image('howtoplayGiant', 'images/วิธีเล่นยักษ์.png')
 	game.load.image('press', 'images/กดปุ่มเว้นวรรค.png')
-
 }
-
-
 function createHowtoplay() {
 	game.stage.backgroundColor = "#FFFFFF";
 	press = game.add.sprite(150, 540, "press");
 	press.alpha = 0;
 	press.scale.setTo(0.175, 0.175)
 	game.add.tween(press).to({ alpha: 1 }, 1000, Phaser.Easing.Linear.None, true, 0, 1000, false);
-
 	if (selectmenu == 1) {
 		howtoplayMonkey = game.add.sprite(15, 0, 'howtoplayMonkey');
 		howtoplayMonkey.scale.setTo(0.5, 0.5)
@@ -917,15 +791,9 @@ function createHowtoplay() {
 		howtoplayGiant = game.add.sprite(15, 0, 'howtoplayGiant');
 		howtoplayGiant.scale.setTo(0.5, 0.5)
 	}
-
-
 	jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-
 }
-
-
 function updateHowtoplay() {
-
 	if (jumpButton.isDown) {
 		if (selectmenu == 1) {
 			game.state.start('GamePlay1');
@@ -935,13 +803,10 @@ function updateHowtoplay() {
 			htplay = false
 		}
 	}
-
 }
 
-
-
-
 ///////////////////////////////////////////////////Game Play////////////////////////////////////////////////////////
+
 function preload() {
 	game.load.spritesheet('player', 'images/ตัวละครลิง.png', 786, 951, 2);
 	game.load.image('floor', 'images/floor.png')
@@ -986,7 +851,6 @@ function preload() {
 	game.load.spritesheet('resume', 'images/ปุ่มเล่นต่อ.png', 455, 185);
 	game.load.image('ยุติ', 'images/ยุติ.png')
 
-
 	//audio
 	game.load.audio('gamebgm', 'audio/gamebgm.mp3')
 	game.load.audio('invisibleitem', 'audio/invisibleitem.mp3')
@@ -994,9 +858,6 @@ function preload() {
 	game.load.audio('itemx2', 'audio/speeditem.mp3')
 	game.load.audio('hit', 'audio/Hit.mp3')
 	game.load.audio('buttonsound', 'audio/กรับ.mp3');
-
-
-
 }
 function create() {
 	game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
@@ -1019,11 +880,9 @@ function create() {
 
 	game.time.events.loop(timespeed, updateScore, this)
 
-
 	background = game.add.tileSprite(0, 0, 2268, 1701, 'blank')
 	background.scale.setTo(0.355, 0.3999)
 	background.fixedToCamera = true;
-
 
 	this.skyr = this.game.add.tileSprite(0,
 		0,
@@ -1104,14 +963,12 @@ function create() {
 
 	pause = game.add.button(720, 25, 'pause', topause, this);
 
-
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 
 	player = game.add.sprite(200, 350, 'player')
 	player.scale.setTo(0.125, 0.125)
 	player.animations.add('walk');
 	player.animations.play('walk', speed + 5, true);
-
 
 	effectShelid = game.add.sprite(100, 310, 'effectShelid')
 	effectShelid.scale.setTo(0.25, 0.25)
@@ -1122,7 +979,6 @@ function create() {
 
 	FloorGroup = game.add.group();
 	FloorGroup.enableBody = true;
-
 
 	for (var i = 0; i < 24; i++) {
 		floor = FloorGroup.create(i * tileSize, 536, 'floor');
@@ -1170,7 +1026,6 @@ function create() {
 	obstacleCooldown = game.rnd.integerInRange(countdeploy, countdeploy1);
 	obstacleCooldown2 = game.rnd.integerInRange(countdeploy, countdeploy1);
 	obstacleCooldown3 = game.rnd.integerInRange(2000, 3000);
-
 
 	LogGroup = game.add.group();
 	LogGroup.enableBody = true;
@@ -1226,8 +1081,6 @@ function create() {
 	Wall1.body.immovable = true;
 	Wall1.visible = false;
 
-
-
 	Wall3 = game.add.group();
 	Wall3.enableBody = true;
 	for (var i = 0; i < 24; i++) {
@@ -1236,16 +1089,11 @@ function create() {
 		walll3.body.setSize(50, 1, 0, -15);
 		walll3.body.immovable = true;
 		walll3.body.velocity.x = 0
-
-
-
 	}
-
 
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 	game.physics.enable([player, FloorGroup, background], Phaser.Physics.ARCADE);
 	game.physics.enable([effectShelid, background], Phaser.Physics.ARCADE);
-
 
 	player.body.gravity.y = 2800;
 	player.enableBody = true;
@@ -1253,20 +1101,10 @@ function create() {
 
 	game.camera.follow(player);
 
-
 	cursors = game.input.keyboard.createCursorKeys();
 	jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-
-
-
 }
-
-
-
-
 function update() {
-
-
 	game.physics.arcade.collide(player, FloorGroup, collisionHandler, null, this);
 	game.physics.arcade.collide(RockGroup, FloorGroup, chek = true)
 	game.physics.arcade.collide(LogGroup, FloorGroup, chek = true)
@@ -1355,7 +1193,6 @@ function update() {
 		player.body.collideWorldBounds = true;
 	}
 
-
 	if (itemtimeinvisible == 0) {  ////ส่วนของ ล่องหน
 		SystemOverlab = 1;
 		player.body.collideWorldBounds = false;
@@ -1368,23 +1205,15 @@ function update() {
 		}
 	}
 
-
 	if (itemsheildtime <= 0) {  ////โล่
-
 		Hp = 1;
 		effectShelid.visible = false;
-
-
 	} else if (itemsheildtime > 0) {
-
 		itemsheildtime--;
-
-
 	}
 
 	effectShelid.body.y = player.body.y - 55;
 	effectShelid.body.x = player.body.x - 65;
-
 
 	if (obstacleCooldown <= 0)
 		obstacleSpawner();
@@ -1444,9 +1273,8 @@ function render() {
 }
 
 ///////////////////////////////////////////////////////////GiantGamePlay/////////////////////////////////////////////////////////////////
+
 function preload2() {
-
-
 	game.load.spritesheet('player', 'images/ตัวละครยักษ์.png', 765, 957, 2);
 	game.load.image('floor', 'images/floor.png')
 	game.load.image('floorback', 'images/floorback.png')
@@ -1492,7 +1320,6 @@ function preload2() {
 	game.load.image('ยุติ', 'images/ยุติ.png')
 	game.load.spritesheet('resume', 'images/ปุ่มเล่นต่อ.png', 455, 185);
 
-
 	//audio
 	game.load.audio('gamebgm', 'audio/gamebgm.mp3')
 	game.load.audio('invisibleitem', 'audio/invisibleitem.mp3')
@@ -1521,11 +1348,9 @@ function create2() {
 
 	timespeed = game.time.events.loop(150, updateScore, this)
 
-
 	background = game.add.tileSprite(0, 0, 2268, 1701, 'blank')
 	background.scale.setTo(0.355, 0.3999)
 	background.fixedToCamera = true;
-
 
 	this.skyt = this.game.add.tileSprite(0,
 		0,
@@ -1582,7 +1407,6 @@ function create2() {
 		'floorback'
 	);
 
-
 	text = game.add.text(175, 5, '', { font: "70px Number", fill: "#1b1a1a", align: "center" });
 
 	text2 = game.add.text(25, 70, 'ระวังธนูกำลังจะมาใน  : ', { font: "60px Number", fill: "#DC143C", align: "center" });
@@ -1604,7 +1428,6 @@ function create2() {
 
 	pause = game.add.button(720, 25, 'pause', topause, this);
 
-
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 
 	player = game.add.sprite(200, 350, 'player')
@@ -1621,7 +1444,6 @@ function create2() {
 
 	FloorGroup = game.add.group();
 	FloorGroup.enableBody = true;
-
 
 	for (var i = 0; i < 24; i++) {
 		floor = FloorGroup.create(i * tileSize, 536, 'floor');
@@ -1669,7 +1491,6 @@ function create2() {
 	obstacleCooldown = game.rnd.integerInRange(countdeploy, countdeploy1);
 	obstacleCooldown2 = game.rnd.integerInRange(countdeploy, countdeploy1);
 	obstacleCooldown3 = game.rnd.integerInRange(2000, 3000);
-
 
 	LogGroup = game.add.group();
 	LogGroup.enableBody = true;
@@ -1725,8 +1546,6 @@ function create2() {
 	Wall1.body.immovable = true;
 	Wall1.visible = false;
 
-
-
 	Wall3 = game.add.group();
 	Wall3.enableBody = true;
 	for (var i = 0; i < 24; i++) {
@@ -1735,15 +1554,11 @@ function create2() {
 		walll3.body.setSize(50, 1, 0, -15);
 		walll3.body.immovable = true;
 		walll3.body.velocity.x = 0
-
-
 	}
-
 
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 	game.physics.enable([player, FloorGroup, background], Phaser.Physics.ARCADE);
 	game.physics.enable([effectShelid, background], Phaser.Physics.ARCADE);
-
 
 	player.body.gravity.y = 2800;
 	player.enableBody = true;
@@ -1751,17 +1566,11 @@ function create2() {
 
 	game.camera.follow(player);
 
-
 	cursors = game.input.keyboard.createCursorKeys();
 	jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 	โยชน์ = game.add.sprite(25, 25, 'โยชน์')
 	โยชน์.scale.setTo(0.25, 0.25)
-
-
-
 }
-
-
 function update2() {
 	game.physics.arcade.collide(player, FloorGroup, collisionHandler, null, this);
 	game.physics.arcade.collide(RockGroup, FloorGroup, chek = true)
@@ -1783,7 +1592,6 @@ function update2() {
 	speed += 0.0010;//ความเร็วฉาก
 	timespeed -= 0.000010;
 
-
 	//เปลี่ยนฉาก
 	if (score >= 1100 & score < 1101) {
 		flashs()
@@ -1792,7 +1600,6 @@ function update2() {
 		this.palacet.loadTexture('treet')
 		this.wallt.loadTexture('houset')
 	}
-
 	if (score >= 3100 & score <= 3101) {
 		flashs()
 		speed = 8;
@@ -1806,7 +1613,6 @@ function update2() {
 		this.wallt.kill()
 		this.sign.kill()
 	}
-
 
 	GenerateTerrain();
 
@@ -1853,7 +1659,6 @@ function update2() {
 		score = score + 1;
 	}
 
-
 	if (itemtimeinvisible == 0) {  ////ส่วนของ ล่องหน
 		SystemOverlab = 1;
 		player.body.collideWorldBounds = false;
@@ -1866,23 +1671,15 @@ function update2() {
 		}
 	}
 
-
 	if (itemsheildtime <= 0) {  ////โล่
-
 		Hp = 1;
 		effectShelid.visible = false;
-
-
 	} else if (itemsheildtime > 0) {
-
 		itemsheildtime--;
-
-
 	}
 
 	effectShelid.body.y = player.body.y - 55;
 	effectShelid.body.x = player.body.x - 65;
-
 
 	if (obstacleCooldown <= 0)
 		obstacleSpawner();
@@ -1904,7 +1701,7 @@ function update2() {
 	FloorGroup.forEachExists(sped, this, null)
 	LogGroup.forEachExists(sped, this, null)
 	TreecutGroup.forEachExists(sped, this, null)
-
+	
 	ItemrunGroup.forEachExists(sped, this, null)
 	ItemsheildGroup.forEachExists(sped, this, null)
 	InvisibleGroup.forEachExists(sped, this, null)
@@ -1929,13 +1726,9 @@ function update2() {
 		holdjump = false
 	}
 }
-
-
 function render2() {
 
 }
-
-
 
 /////////////////////////////////////////////////////////////////GameOver/////////////////////////////////////////////////////////////////
 
@@ -1951,9 +1744,8 @@ function preloadGameOver() {
 	game.load.spritesheet('หน้าหลัก', 'images/หน้าหลัก.png', 638, 180);
 	game.load.spritesheet('แบ่งปัน', 'images/แบ่งปัน.png', 463, 187);
 	game.load.spritesheet('ลำดับ', 'images/ลำดับ.png', 463, 187);
-
-
 }
+
 var distance = 300;
 var speed = 4;
 var stars;
@@ -1962,12 +1754,12 @@ var max = 200;
 var xx = [];
 var yy = [];
 var zz = [];
+
 function createGameOver() {
 	jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 	if (game.renderType === Phaser.WEBGL) {
 		max = 2000;
 	}
-
 	if (score <= 1100) {
 		screen1 = game.add.sprite(0, 0, 'gameoverscreen1')
 	} else if (score <= 3100) {
@@ -1979,7 +1771,6 @@ function createGameOver() {
 	gameoversound = this.add.audio('gameoversound');
 	gameoversound.play();
 	gameoversound.loopFull();
-
 
 	gameoverframe = game.add.sprite(120, 7, 'gameoverframe')
 	gameoverframe.scale.setTo(0.5, 0.5)
@@ -2003,15 +1794,11 @@ function createGameOver() {
 	} else {
 		funnytext = game.add.text(350, 270, "ยังอ่อนอยู่", { font: "40px Myfont1", fill: "#FFFFFF", align: "center" });
 	}
-
 	gamebgm.stop();
-
 }
 function updateGameOver() {
 
 }
-
-
 
 ///////////////////////////////////////////////////////////////End Credit//////////////////////////////////////////////////////////////////////////
 function preloadEndcredit() {
@@ -2025,7 +1812,6 @@ function createEndcredit() {
 
 	video.play(true);
 	video.addToWorld(810, 530, 1, 1, 0.65, 0.65);
-
 
 	pressskip = game.add.sprite(230, 550, "pressskip");
 	pressskip.alpha = 0;
@@ -2041,20 +1827,10 @@ function updateEndcredit() {
 		} else if (selectmenu == 2) {
 			game.state.start('Menu');
 			video.stop();
-
 		}
 	}
 }
 function gotoplays() {
-
 	game.state.start('Menu');
 	video.stop();
-
-
-
-
 }
-
-
-
-

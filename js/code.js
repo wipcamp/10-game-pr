@@ -1881,6 +1881,13 @@ function createleaderBoard(){
 	หน้าหลัก = game.add.button(380, 505, 'หน้าหลัก', tomenu, this, 1, 0, 1);
 	หน้าหลัก.scale.setTo(0.25, 0.25)
 
+	firebase.database()
+		.ref('score').child('/' + "")
+		.get({
+			name: name,
+			score: score
+		})
+
 
 }
 function updateleaderBoard(){

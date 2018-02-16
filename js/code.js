@@ -1,10 +1,11 @@
 var config = {
-    apiKey: "AIzaSyBi1_S5ogGhTEyywKHyPmrEmfuAq1E4qu4",
-    authDomain: "wip-camp-game.firebaseapp.com",
-    databaseURL: "https://wip-camp-game.firebaseio.com",
-    storageBucket: "wip-camp-game.appspot.com",
-    messagingSenderId: "444400029"
-  };
+	apiKey: "AIzaSyBi1_S5ogGhTEyywKHyPmrEmfuAq1E4qu4",
+	authDomain: "wip-camp-game.firebaseapp.com",
+	databaseURL: "https://wip-camp-game.firebaseio.com",
+	storageBucket: "wip-camp-game.appspot.com",
+	messagingSenderId: "444400029"
+};
+
 
 var game = new Phaser.Game(800, 600, Phaser.AUTO, "game")
 var Menu = { preload: preloadMenu, create: createMenu, update: updateMenu }
@@ -59,6 +60,7 @@ var jumpButton;
 var Wall1
 var Wall2
 var wall3
+var nameplayer
 var buttonStart
 var countjump
 var holdjump = false
@@ -78,7 +80,18 @@ var htplay = true
 var gameoversound
 var selectmenu;
 var video;
-
+var scoreshow = {
+	name: '',
+	score: 0
+}
+var scoreshow2 = {
+	name: '',
+	score: 0
+}
+var scoreshow3 = {
+	name: '',
+	score: 0
+}
 ////FunctionSystem/////
 
 
@@ -220,7 +233,7 @@ function tocheckselect() { //ยักษ์
 	confirm1 = game.add.sprite(170, 60, 'confirm1');
 	confirm1.scale.setTo(0.25, 0.25)
 
-	pressno = game.add.button(225, 360, 'yesconfirm', checkselect2, this, 1, 0, 1);
+	pressno = game.add.button(225, 360, 'yesconfirm', Entername1, this, 1, 0, 1);
 	pressno.scale.setTo(0.25, 0.25)
 
 	pressback = game.add.button(425, 360, 'noconfirm', tobackselect, this, 1, 0, 1);
@@ -232,6 +245,7 @@ function tocheckselect() { //ยักษ์
 }
 function tocheckselect2() { //ลิง
 	black = game.add.sprite(0, 0, 'black')
+
 
 	giant.kill();
 	giantbutton.kill();
@@ -246,7 +260,7 @@ function tocheckselect2() { //ลิง
 	confirm2 = game.add.sprite(170, 30, 'confirm2');
 	confirm2.scale.setTo(0.25, 0.25);
 
-	pressno = game.add.button(225, 380, 'yesconfirm', checkselect, this, 1, 0, 1);
+	pressno = game.add.button(225, 380, 'yesconfirm', Entername2, this, 1, 0, 1);
 	pressno.scale.setTo(0.25, 0.25);
 
 	pressback = game.add.button(425, 380, 'noconfirm', tobackselect, this, 1, 0, 1);
@@ -288,7 +302,57 @@ function checkselect2() {
 	selectmenu = 2;
 	tomenu()
 }
+function Entername1() {
+	pressno.kill();
+	pressback.kill();
+	monkeysaid.kill();
 
+	game.add.plugin(PhaserInput.Plugin, PhaserInput.KeyboardOpen);
+	var input = game.add.inputField(230, 300);
+	nameplayer = game.add.inputField(230, 300, {
+		font: '40px Arial',
+		fill: '#212121',
+		fontWeight: 'bold',
+		width: 350,
+		padding: 8,
+		borderWidth: 1,
+		borderColor: '#000',
+		backgroundColor: '#ce1010',
+		borderRadius: 6,
+		placeHolder: '  ใส่ชื่อ สูงสุด 8 ตัว',
+		type: PhaserInput.InputType.name
+	});
+	pressenter = game.add.button(335, 380, 'yesconfirm', checkselect, this, 1, 0, 1);
+	pressenter.scale.setTo(0.25, 0.25);
+
+
+
+}
+function Entername2() {
+	pressno.kill();
+	pressback.kill();
+	giantsaid.kill();
+	game.add.plugin(PhaserInput.Plugin, PhaserInput.KeyboardOpen);
+	var input = game.add.inputField(230, 300);
+	nameplayer = game.add.inputField(230, 300, {
+		font: '40px Arial',
+		fill: '#212121',
+		fontWeight: 'bold',
+		backgroundColor: '#1d10ce',
+		width: 350,
+		padding: 8,
+		borderWidth: 1,
+		borderColor: '#000',
+		borderRadius: 6,
+		placeHolder: '  ใส่ชื่อ สูงสุด 8 ตัว',
+		type: PhaserInput.InputType.name
+	});
+	pressenter = game.add.button(335, 380, 'yesconfirm', checkselect2, this, 1, 0, 1);
+	pressenter.scale.setTo(0.25, 0.25);
+
+
+
+}
 ////////////////////////////////////////////Functiongame////////////////////////////////////////////////
 
 function obstacleSpawner() {
@@ -593,6 +657,8 @@ function preloadIntro() {
 	game.load.spritesheet('monkeybutton', 'images/เลือกฉันสิ.png', 1057, 394, 2);
 }
 function createIntro() {
+
+
 	choose = game.add.sprite(0, 0, 'choose');
 
 	giant = game.add.button(535, 135, 'giant', tocheckselect, this);
@@ -608,7 +674,6 @@ function createIntro() {
 	monkeybutton.scale.setTo(0.175, 0.175)
 }
 function updateIntro() {
-
 }
 
 //////////////////////////////////////////////////////Menu/////////////////////////////////////////////////////////////////////////////////
@@ -756,6 +821,14 @@ function createMenu() {
 	option = game.add.button(715, 25, 'options', tosetting, this);
 
 	jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+	name = nameplayer.value;
+	firebase.database()
+		.ref('prescore').child('/' + "")
+		.set({
+			name: name,
+			score: score
+		})
+
 
 }
 function updateMenu() {
@@ -822,6 +895,7 @@ function preload() {
 	game.load.spritesheet('player', 'images/ตัวละครลิง.png', 786, 951, 2);
 	game.load.image('floor', 'images/floor.png')
 	game.load.image('floorback', 'images/floorback.png')
+	game.load.image('เตรียมพร้อม', 'images/เตรียมพร้อม.png')
 
 	game.load.image('rock', 'images/rock.png')
 	game.load.image('arrow', 'images/arrow.png')
@@ -886,6 +960,7 @@ function create() {
 	SystemOverlab = 1;
 	tileSize = 70;
 	floor;
+	countStart =20;
 	probCliff = 0.4;
 
 	game.time.events.loop(timespeed, updateScore, this)
@@ -957,8 +1032,9 @@ function create() {
 	text2 = game.add.text(25, 70, 'ระวังธนูกำลังจะมาใน  : ', { font: "60px Number", fill: "#DC143C", align: "center" });
 	text2.visible = false;
 
-	text3 = game.add.text(300, 400, 'เตรียมพร้อมม...!! ', { font: "60px Myfont1", fill: "#DC143C", align: "center" });
+	text3 = game.add.sprite(300, 450, 'เตรียมพร้อม')
 	text3.visible = true;
+	text3.scale.setTo(0.25,0.25)
 
 	hitSound = this.add.audio('hit');
 
@@ -1288,6 +1364,8 @@ function preload2() {
 	game.load.spritesheet('player', 'images/ตัวละครยักษ์.png', 765, 957, 2);
 	game.load.image('floor', 'images/floor.png')
 	game.load.image('floorback', 'images/floorback.png')
+	game.load.image('เตรียมพร้อม', 'images/เตรียมพร้อม.png')
+
 
 	game.load.image('rock', 'images/rock.png')
 	game.load.image('arrow', 'images/arrow.png')
@@ -1354,6 +1432,7 @@ function create2() {
 	tileSize = 70;
 	floor;
 	probCliff = 0.4;
+	countStart =20;
 
 	timespeed = game.time.events.loop(150, updateScore, this)
 
@@ -1421,8 +1500,9 @@ function create2() {
 	text2 = game.add.text(25, 70, 'ระวังธนูกำลังจะมาใน  : ', { font: "60px Number", fill: "#DC143C", align: "center" });
 	text2.visible = false;
 
-	text3 = game.add.text(300, 400, 'เตรียมพร้อมม...!! ', { font: "60px Myfont1", fill: "#DC143C", align: "center" });
+	text3 = game.add.sprite(300, 450, 'เตรียมพร้อม')
 	text3.visible = true;
+	text3.scale.setTo(0.25,0.25)
 
 	hitSound = this.add.audio('hit');
 
@@ -1710,7 +1790,7 @@ function update2() {
 	FloorGroup.forEachExists(sped, this, null)
 	LogGroup.forEachExists(sped, this, null)
 	TreecutGroup.forEachExists(sped, this, null)
-	
+
 	ItemrunGroup.forEachExists(sped, this, null)
 	ItemsheildGroup.forEachExists(sped, this, null)
 	InvisibleGroup.forEachExists(sped, this, null)
@@ -1753,8 +1833,8 @@ function preloadGameOver() {
 	game.load.spritesheet('หน้าหลัก', 'images/หน้าหลัก.png', 638, 180);
 	game.load.spritesheet('แบ่งปัน', 'images/แบ่งปัน.png', 463, 187);
 	game.load.spritesheet('ลำดับ', 'images/ลำดับ.png', 463, 187);
-	game.load.image('รายชื่อ','images/รายชื่อ.png')
-	game.load.image('กระดานลำดับ','images/กระดานลำดับ.png')
+	game.load.image('รายชื่อ', 'images/รายชื่อ.png')
+	game.load.image('กระดานลำดับ', 'images/กระดานลำดับ.png')
 
 }
 
@@ -1808,17 +1888,34 @@ function createGameOver() {
 	}
 	gamebgm.stop();
 
-	
-	var name = "aaKS"
+
+
 	firebase.database()
-		.ref('score').child('/' + "")
+		.ref('prescore').child('/' + "")
 		.set({
 			name: name,
 			score: score
 		})
+
+	firebase.database()
+		.ref('score').child('/' + "").once('value').then(function (data) {
+			scoreshow.name = data.val().name
+			scoreshow.score = data.val().score
+		})
+	firebase.database()
+		.ref('score2').child('/' + "").once('value').then(function (data) {
+			scoreshow2.name = data.val().name
+			scoreshow2.score = data.val().score
+		})
+	firebase.database()
+		.ref('score2').child('/' + "").once('value').then(function (data) {
+			scoreshow3.name = data.val().name
+			scoreshow3.score = data.val().score
+		})
+
 }
 function updateGameOver() {
-
+	checkScoremoreless();
 }
 
 ///////////////////////////////////////////////////////////////End Credit//////////////////////////////////////////////////////////////////////////
@@ -1857,18 +1954,19 @@ function gotoplays() {
 }
 
 ///////////////////////////////////////////////////Leader Board/////////////////////////////////////////////
-function preloadleaderBoard(){
-	game.load.image('รายชื่อ','images/รายชื่อ.png')
-	game.load.image('กระดานลำดับ','images/กระดานลำดับ.png')
-	game.load.image('คะแนน','images/คะแนน.png')
+function preloadleaderBoard() {
+	game.load.image('รายชื่อ', 'images/รายชื่อ.png')
+	game.load.image('กระดานลำดับ', 'images/กระดานลำดับ.png')
+	game.load.image('คะแนน', 'images/คะแนน.png')
 	game.load.spritesheet('play', 'images/เริ่มใหม่.png', 475, 206);
 	game.load.spritesheet('หน้าหลัก', 'images/หน้าหลัก.png', 638, 180);
 
 
 
 }
-function createleaderBoard(){
+function createleaderBoard() {
 	game.stage.backgroundColor = "#00000";
+
 
 	กระดานลำดับ = game.add.sprite(100, -60, 'กระดานลำดับ')
 	กระดานลำดับ.scale.setTo(0.3, 0.325)
@@ -1881,20 +1979,17 @@ function createleaderBoard(){
 	หน้าหลัก = game.add.button(380, 505, 'หน้าหลัก', tomenu, this, 1, 0, 1);
 	หน้าหลัก.scale.setTo(0.25, 0.25)
 
-	firebase.database()
-		.ref('score').child('/' + "")
-		.get({
-			name: name,
-			score: score
-		})
 
 
 }
-function updateleaderBoard(){
+
+function updateleaderBoard() {
 
 }
+function checkScoremoreless() {
 
-function totogame(){
+}
+function totogame() {
 	if (selectmenu == 1) {
 		game.state.start('GamePlay1');
 	} else if (selectmenu == 2) {

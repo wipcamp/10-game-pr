@@ -4,5 +4,8 @@
   "main": "index.js",
   "repository": "https://github.com/wipcamp/10-game-pr.git",
   "author": "pea <pepea.23@live.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@orange-games/phaser-input": "^2.0.5"
+  }
 }

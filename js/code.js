@@ -1800,6 +1800,15 @@ function createGameOver() {
 		funnytext = game.add.text(350, 270, "ยังอ่อนอยู่", { font: "40px Myfont1", fill: "#FFFFFF", align: "center" });
 	}
 	gamebgm.stop();
+
+	
+	var name = "aaKS"
+	firebase.database()
+		.ref('score').child('/' + "")
+		.set({
+			name: name,
+			score: score
+		})
 }
 function updateGameOver() {
 

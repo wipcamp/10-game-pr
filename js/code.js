@@ -1904,7 +1904,7 @@ function update2() {
 	FloorGroup.forEachExists(sped, this, null)
 	LogGroup.forEachExists(sped, this, null)
 	TreecutGroup.forEachExists(sped, this, null)
-	
+
 	ItemrunGroup.forEachExists(sped, this, null)
 	ItemsheildGroup.forEachExists(sped, this, null)
 	InvisibleGroup.forEachExists(sped, this, null)

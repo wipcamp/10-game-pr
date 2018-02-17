@@ -92,6 +92,15 @@ var scoreshow3 = {
 	name: '',
 	score: 0
 }
+var scoreshow4 = {
+	name: '',
+	score: 0
+}
+var scoreshow5 = {
+	name: '',
+	score: 0
+}
+
 ////FunctionSystem/////
 
 
@@ -101,7 +110,6 @@ function gotomenu() {
 	game.paused = false;
 	game.state.start("Menu");
 	gamebgm.stop();
-	console.log("asdasdasdsad")
 }
 function gotomenubycredit() {
 	game.state.start('Menu')
@@ -322,7 +330,7 @@ function Entername1() {
 		placeHolder: '  ใส่ชื่อ สูงสุด 8 ตัว',
 		type: PhaserInput.InputType.name
 	});
-	pressenter = game.add.button(335, 380, 'yesconfirm', checkselect, this, 1, 0, 1);
+	pressenter = game.add.button(335, 380, 'yesconfirm', checkselect2, this, 1, 0, 1);
 	pressenter.scale.setTo(0.25, 0.25);
 
 
@@ -347,7 +355,7 @@ function Entername2() {
 		placeHolder: '  ใส่ชื่อ สูงสุด 8 ตัว',
 		type: PhaserInput.InputType.name
 	});
-	pressenter = game.add.button(335, 380, 'yesconfirm', checkselect2, this, 1, 0, 1);
+	pressenter = game.add.button(335, 380, 'yesconfirm', checkselect, this, 1, 0, 1);
 	pressenter.scale.setTo(0.25, 0.25);
 
 
@@ -672,6 +680,46 @@ function createIntro() {
 	monkey = game.add.button(157, 320, 'monkey', tocheckselect2, this);
 	monkeybutton = game.add.button(140, 480, 'monkeybutton', tocheckselect2, this, 1, 0, 1);
 	monkeybutton.scale.setTo(0.175, 0.175)
+
+
+
+
+
+
+	fetchScore();
+
+
+}
+
+function fetchScore() {
+	firebase.database()
+		.ref('score').child('/' + "").once('value').then(function (data) {
+			scoreshow.name = data.val().name
+			scoreshow.score = data.val().score
+		})
+	firebase.database()
+		.ref('score2').child('/' + "").once('value').then(function (data) {
+			scoreshow2.name = data.val().name
+			scoreshow2.score = data.val().score
+		})
+	firebase.database()
+		.ref('score3').child('/' + "").once('value').then(function (data) {
+			scoreshow3.name = data.val().name
+			scoreshow3.score = data.val().score
+		})
+	firebase.database()
+		.ref('score4').child('/' + "").once('value').then(function (data) {
+
+			scoreshow4.name = data.val().name
+			scoreshow4.score = data.val().score
+			console.log("fetch");
+			console.log(scoreshow4);
+		})
+	firebase.database()
+		.ref('score5').child('/' + "").once('value').then(function (data) {
+			scoreshow5.name = data.val().name
+			scoreshow5.score = data.val().score
+		})
 }
 function updateIntro() {
 }
@@ -830,6 +878,8 @@ function createMenu() {
 		})
 
 
+
+
 }
 function updateMenu() {
 	sky.tilePosition.x -= 0.5 + speed
@@ -863,6 +913,7 @@ function preloadHowtoplay() {
 	game.load.image('press', 'images/กดปุ่มเว้นวรรค.png')
 }
 function createHowtoplay() {
+
 	game.stage.backgroundColor = "#FFFFFF";
 	press = game.add.sprite(150, 540, "press");
 	press.alpha = 0;
@@ -960,7 +1011,7 @@ function create() {
 	SystemOverlab = 1;
 	tileSize = 70;
 	floor;
-	countStart =20;
+	countStart = 20;
 	probCliff = 0.4;
 
 	game.time.events.loop(timespeed, updateScore, this)
@@ -1034,7 +1085,7 @@ function create() {
 
 	text3 = game.add.sprite(300, 450, 'เตรียมพร้อม')
 	text3.visible = true;
-	text3.scale.setTo(0.25,0.25)
+	text3.scale.setTo(0.25, 0.25)
 
 	hitSound = this.add.audio('hit');
 
@@ -1432,7 +1483,7 @@ function create2() {
 	tileSize = 70;
 	floor;
 	probCliff = 0.4;
-	countStart =20;
+	countStart = 20;
 
 	timespeed = game.time.events.loop(150, updateScore, this)
 
@@ -1502,7 +1553,7 @@ function create2() {
 
 	text3 = game.add.sprite(300, 450, 'เตรียมพร้อม')
 	text3.visible = true;
-	text3.scale.setTo(0.25,0.25)
+	text3.scale.setTo(0.25, 0.25)
 
 	hitSound = this.add.audio('hit');
 
@@ -1897,25 +1948,12 @@ function createGameOver() {
 			score: score
 		})
 
-	firebase.database()
-		.ref('score').child('/' + "").once('value').then(function (data) {
-			scoreshow.name = data.val().name
-			scoreshow.score = data.val().score
-		})
-	firebase.database()
-		.ref('score2').child('/' + "").once('value').then(function (data) {
-			scoreshow2.name = data.val().name
-			scoreshow2.score = data.val().score
-		})
-	firebase.database()
-		.ref('score2').child('/' + "").once('value').then(function (data) {
-			scoreshow3.name = data.val().name
-			scoreshow3.score = data.val().score
-		})
+	checkScoremoreless();
+
+
 
 }
 function updateGameOver() {
-	checkScoremoreless();
 }
 
 ///////////////////////////////////////////////////////////////End Credit//////////////////////////////////////////////////////////////////////////
@@ -1979,14 +2017,75 @@ function createleaderBoard() {
 	หน้าหลัก = game.add.button(380, 505, 'หน้าหลัก', tomenu, this, 1, 0, 1);
 	หน้าหลัก.scale.setTo(0.25, 0.25)
 
-
+	scoresboard()
 
 }
 
 function updateleaderBoard() {
 
 }
+function scoresboard(){
+	fetchScore();
+	ชื่อ1 = game.add.text(200, 140, scoreshow.name, { font: "40px Myfont1", fill: "#1b1a1a", align: "center" });
+	ชื่อ2 = game.add.text(200, 210, scoreshow2.name, { font: "40px Myfont1", fill: "#1b1a1a", align: "center" });
+	ชื่อ3 = game.add.text(200, 280, scoreshow3.name, { font: "40px Myfont1", fill: "#1b1a1a", align: "center" });
+	ชื่อ4 = game.add.text(200, 350, scoreshow4.name, { font: "40px Myfont1", fill: "#1b1a1a", align: "center" });
+	ชื่อ5 = game.add.text(200, 420, scoreshow5.name, { font: "40px  Myfont1", fill: "#1b1a1a", align: "center" });
+	คะแนนที่1 = game.add.text(470, 110, scoreshow.score, { font: "70px Number", fill: "#1b1a1a", align: "center" });
+	คะแนนที่2 = game.add.text(470, 180, scoreshow2.score, { font: "70px Number", fill: "#1b1a1a", align: "center" });
+	คะแนนที่3 = game.add.text(470, 250, scoreshow3.score, { font: "70px Number", fill: "#1b1a1a", align: "center" });
+	คะแนนที่4 = game.add.text(470, 320, scoreshow4.score, { font: "70px Number", fill: "#1b1a1a", align: "center" });
+	คะแนนที่5 = game.add.text(470, 390, scoreshow5.score, { font: "70px Number", fill: "#1b1a1a", align: "center" });
+
+}
 function checkScoremoreless() {
+	var temp;
+
+	if (score >= scoreshow.score) {
+		firebase.database()
+			.ref('score').child('/' + "")
+			.set({
+				name: name,
+				score: score
+			})
+	}
+	else if (score >= scoreshow2.score) {
+		firebase.database()
+			.ref('score2').child('/' + "")
+			.set({
+				name: name,
+				score: score
+			})
+	}
+	else if (score >= scoreshow3.score) {
+		firebase.database()
+			.ref('score3').child('/' + "")
+			.set({
+				name: name,
+				score: score
+			})
+	}
+	else if (score >= scoreshow4.score) {
+
+		firebase.database()
+			.ref('score4').child('/' + "")
+			.set({
+				name: name,
+				score: score
+			})
+	}
+	else if (score >= scoreshow5.score) {
+		firebase.database()
+			.ref('score5').child('/' + "")
+			.set({
+				name: name,
+				score: score
+			})
+	}
+	fetchScore();
+
+
+
 
 }
 function totogame() {

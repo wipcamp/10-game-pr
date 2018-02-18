@@ -316,20 +316,22 @@ function Entername1() {
 	monkeysaid.kill();
 
 	game.add.plugin(PhaserInput.Plugin, PhaserInput.KeyboardOpen);
-	var input = game.add.inputField(230, 300);
-	nameplayer = game.add.inputField(230, 300, {
+	var input = game.add.inputField(270, 300);
+	ป้ายชื่อ = game.add.image(230, 220, 'ป้ายชื่อ');
+	nameplayer = game.add.inputField(270, 300, {
 		font: '40px Arial',
 		fill: '#212121',
 		fontWeight: 'bold',
-		width: 350,
+		width: 280,
 		padding: 8,
-		borderWidth: 1,
-		borderColor: '#000',
-		backgroundColor: '#ce1010',
-		borderRadius: 6,
-		placeHolder: '  ใส่ชื่อ สูงสุด 8 ตัว',
+		// borderWidth: 1,
+		// borderColor: '#000',
+		    backgroundColor: '#aaee0b25', 
+		// borderRadius: 6,
+		placeHolder: '  ใส่ชื่อผู้เล่น',
 		type: PhaserInput.InputType.name
 	});
+	// game.add.tween(nameplayer).to({ alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
 	pressenter = game.add.button(335, 380, 'yesconfirm', checkselect2, this, 1, 0, 1);
 	pressenter.scale.setTo(0.25, 0.25);
 
@@ -341,18 +343,19 @@ function Entername2() {
 	pressback.kill();
 	giantsaid.kill();
 	game.add.plugin(PhaserInput.Plugin, PhaserInput.KeyboardOpen);
-	var input = game.add.inputField(230, 300);
-	nameplayer = game.add.inputField(230, 300, {
+	var input = game.add.inputField(270, 300);
+	ป้ายชื่อ = game.add.image(230, 220, 'ป้ายชื่อ');
+	nameplayer = game.add.inputField(270, 300, {
 		font: '40px Arial',
 		fill: '#212121',
 		fontWeight: 'bold',
-		backgroundColor: '#1d10ce',
-		width: 350,
+		width: 280,
 		padding: 8,
-		borderWidth: 1,
-		borderColor: '#000',
-		borderRadius: 6,
-		placeHolder: '  ใส่ชื่อ สูงสุด 8 ตัว',
+		// borderWidth: 1,
+		// borderColor: '#000',
+		    backgroundColor: '#aaee0b25', 
+		// borderRadius: 6,
+		placeHolder: '  ใส่ชื่อผู้เล่น',
 		type: PhaserInput.InputType.name
 	});
 	pressenter = game.add.button(335, 380, 'yesconfirm', checkselect, this, 1, 0, 1);
@@ -641,6 +644,7 @@ function gotogame() {
 ////////////////////////////////////////////////////Intro menu/////////////////////////////////////////////////////////
 
 function preloadIntro() {
+
 	game.load.image('giant', 'images/gianthead.png');
 	game.load.image('monkey', 'images/monkeyhead.png');
 	game.load.image('pressgiant', 'images/itemsheild.png')
@@ -654,6 +658,7 @@ function preloadIntro() {
 	game.load.image('monkeysaid', 'images/monkeysaid.png');
 	game.load.image('giantsaid', 'images/giantsaid.png');
 	game.load.image('BG', 'images/choosebg.png');
+	game.load.image('ป้ายชื่อ', 'images/ป้ายชื่อ.png');
 
 	game.load.audio('choose1', 'audio/จะไม่เลือกเรา.mp3');
 	game.load.audio('choose2', 'audio/เลือกฝั่งนั้น.mp3');
@@ -871,7 +876,7 @@ function createMenu() {
 	jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 	name = nameplayer.value;
 	firebase.database()
-		.ref('prescore').child('/' + "")
+		.ref('prescore').child('/' + name)
 		.set({
 			name: name,
 			score: score
@@ -1942,7 +1947,7 @@ function createGameOver() {
 
 
 	firebase.database()
-		.ref('prescore').child('/' + "")
+		.ref('prescore').child('/' + name)
 		.set({
 			name: name,
 			score: score
@@ -2024,7 +2029,7 @@ function createleaderBoard() {
 function updateleaderBoard() {
 
 }
-function scoresboard(){
+function scoresboard() {
 	fetchScore();
 	ชื่อ1 = game.add.text(200, 140, scoreshow.name, { font: "40px Myfont1", fill: "#1b1a1a", align: "center" });
 	ชื่อ2 = game.add.text(200, 210, scoreshow2.name, { font: "40px Myfont1", fill: "#1b1a1a", align: "center" });

@@ -349,23 +349,16 @@ function Entername1() {
 	ป้ายชื่อ = game.add.image(230, 220, 'ป้ายชื่อ');
 	nameplayer = game.add.inputField(270, 300, {
 		font: '40px Arial',
-		fill: '#212121',
+		fill: '#ffffff',
 		fontWeight: 'bold',
 		width: 280,
 		padding: 8,
-		// borderWidth: 1,
-		// borderColor: '#000',
-		    backgroundColor: '#aaee0b25', 
-		// borderRadius: 6,
+		backgroundColor: '#425A40', 
 		placeHolder: '  ใส่ชื่อผู้เล่น',
 		type: PhaserInput.InputType.name
 	});
-	// game.add.tween(nameplayer).to({ alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
 	pressenter = game.add.button(335, 380, 'yesconfirm', checkselect2, this, 1, 0, 1);
 	pressenter.scale.setTo(0.25, 0.25);
-
-
-
 }
 function Entername2() {
 	buttonsound = game.add.audio('buttonsound');
@@ -379,14 +372,11 @@ function Entername2() {
 	ป้ายชื่อ = game.add.image(230, 220, 'ป้ายชื่อ');
 	nameplayer = game.add.inputField(270, 300, {
 		font: '40px Arial',
-		fill: '#212121',
+		fill: '#ffffff',
 		fontWeight: 'bold',
 		width: 280,
 		padding: 8,
-		// borderWidth: 1,
-		// borderColor: '#000',
-		    backgroundColor: '#aaee0b25', 
-		// borderRadius: 6,
+		backgroundColor: '#425A40', 
 		placeHolder: '  ใส่ชื่อผู้เล่น',
 		type: PhaserInput.InputType.name
 	});

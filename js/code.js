@@ -107,6 +107,10 @@ var scoreshow5 = {
 //////////////////////////////////////FunctionMenu/////////////////////////////////////////////////////
 
 function gotomenu() {
+	buttonsound = game.add.audio('buttonsound');
+	buttonsound.play();
+	console.log("tomenu")
+
 	game.paused = false;
 	game.state.start("Menu");
 	gamebgm.stop();
@@ -115,7 +119,10 @@ function gotomenubycredit() {
 	game.state.start('Menu')
 }
 function gotoplay() {
-	console.log("aaa")
+	buttonsound = game.add.audio('buttonsound');
+	buttonsound.play();
+	console.log("outpause")
+
 	game.paused = false;
 	frames.kill();
 	home.kill();
@@ -125,9 +132,13 @@ function gotoplay() {
 }
 function toGame() {
 	if (selectmenu == 1) {
+		buttonsound = game.add.audio('buttonsound');
+		buttonsound.play();
 		game.state.start('GamePlay1');
 		gameoversound.stop();
 	} else if (selectmenu == 2) {
+		buttonsound = game.add.audio('buttonsound');
+		buttonsound.play();
 		game.state.start('GamePlay2');
 		gameoversound.stop();
 	}
@@ -141,16 +152,22 @@ function tocredit() {
 	mute.kill();
 }
 function wentmenu() {
+	buttonsound = game.add.audio('buttonsound');
+	buttonsound.play();
 	game.state.start('Menu');
 	gameoversound.stop();
 }
 function tomenu() {
+	buttonsound = game.add.audio('buttonsound');
+	buttonsound.play();
 	game.state.start('Menu');
 }
 function tofacebook() {
 
 }
 function toranking() {
+	buttonsound = game.add.audio('buttonsound');
+	buttonsound.play();
 	gameoversound.stop();
 	game.state.start('LeaderBoard');
 
@@ -173,6 +190,9 @@ function tosetmute() {
 ////////////////////////////////////////////////Functionsetting System////////////////////////////////////////////////////////////////////
 
 function tosetting() {
+	buttonsound = game.add.audio('buttonsound');
+	buttonsound.play();
+
 	option.kill();
 	fullsize = game.add.button(0, 0, 'full-size', gofull, this, 1, 0, 1);
 	fullsize.scale.setTo(0.175, 0.175)
@@ -199,6 +219,9 @@ function tosetting() {
 	}
 }
 function todestroy() {
+	buttonsound = game.add.audio('buttonsound');
+	buttonsound.play();
+
 	console.log("in to destroy");
 	frames.kill();
 	backd.kill();
@@ -210,11 +233,12 @@ function todestroy() {
 	option = game.add.button(715, 25, 'options', tosetting, this);
 }
 function topause() {
-	pause.kill();
-	game.paused = true;
-
 	buttonsound = game.add.audio('buttonsound');
 	buttonsound.play();
+	console.log("pause")
+
+	pause.kill();
+	game.paused = true;
 
 	frames = game.add.sprite(150, 60, 'frame')
 	frames.scale.setTo(0.5, 0.5);
@@ -279,9 +303,9 @@ function tocheckselect2() { //ลิง
 	selectmenu = 2;
 }
 function tobackselect() {
-	buttonsound = game.add.audio('buttonsound');
-	buttonsound.play();
 	if (selectmenu == 1) {
+		buttonsound = game.add.audio('buttonsound');
+		buttonsound.play();
 		black.kill();
 		pressno.kill();
 		BG.kill();
@@ -289,6 +313,8 @@ function tobackselect() {
 		pressback.kill();
 		monkeysaid.kill();
 	} else if (selectmenu == 2) {
+		buttonsound = game.add.audio('buttonsound');
+		buttonsound.play();
 		black.kill();
 		pressno.kill();
 		BG.kill();
@@ -311,6 +337,9 @@ function checkselect2() {
 	tomenu()
 }
 function Entername1() {
+	buttonsound = game.add.audio('buttonsound');
+	buttonsound.play();
+	
 	pressno.kill();
 	pressback.kill();
 	monkeysaid.kill();
@@ -339,6 +368,9 @@ function Entername1() {
 
 }
 function Entername2() {
+	buttonsound = game.add.audio('buttonsound');
+	buttonsound.play();
+
 	pressno.kill();
 	pressback.kill();
 	giantsaid.kill();
@@ -360,9 +392,6 @@ function Entername2() {
 	});
 	pressenter = game.add.button(335, 380, 'yesconfirm', checkselect, this, 1, 0, 1);
 	pressenter.scale.setTo(0.25, 0.25);
-
-
-
 }
 ////////////////////////////////////////////Functiongame////////////////////////////////////////////////
 
@@ -896,14 +925,22 @@ function updateMenu() {
 	if (jumpButton.isDown) {
 		if (selectmenu == 1) {
 			if (htplay == true) {
+				buttonsound = game.add.audio('buttonsound');
+				buttonsound.play();
 				game.state.start('Howtoplay')
 			} else if (htplay == false) {
+				buttonsound = game.add.audio('buttonsound');
+				buttonsound.play();
 				game.state.start('GamePlay1');
 			}
 		} else if (selectmenu == 2) {
 			if (htplay == true) {
+				buttonsound = game.add.audio('buttonsound');
+				buttonsound.play();
 				game.state.start('Howtoplay')
 			} else if (htplay == false) {
+				buttonsound = game.add.audio('buttonsound');
+				buttonsound.play();
 				game.state.start('GamePlay2');
 			}
 		}
@@ -936,9 +973,13 @@ function createHowtoplay() {
 function updateHowtoplay() {
 	if (jumpButton.isDown) {
 		if (selectmenu == 1) {
+			buttonsound = game.add.audio('buttonsound');
+			buttonsound.play();
 			game.state.start('GamePlay1');
 			htplay = false
 		} else if (selectmenu == 2) {
+			buttonsound = game.add.audio('buttonsound');
+			buttonsound.play();
 			game.state.start('GamePlay2');
 			htplay = false
 		}
@@ -2094,8 +2135,12 @@ function checkScoremoreless() {
 }
 function totogame() {
 	if (selectmenu == 1) {
+		buttonsound = game.add.audio('buttonsound');
+		buttonsound.play();
 		game.state.start('GamePlay1');
 	} else if (selectmenu == 2) {
+		buttonsound = game.add.audio('buttonsound');
+		buttonsound.play();
 		game.state.start('GamePlay2');
 	}
 }

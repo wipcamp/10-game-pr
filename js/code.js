@@ -100,7 +100,7 @@ var scoreshow5 = {
 	name: '',
 	score: 0
 }
-var monkeyscore ={
+var monkeyscore = {
 	score
 }
 var giantscore = {
@@ -115,7 +115,6 @@ var giantscore = {
 function gotomenu() {
 	buttonsound = game.add.audio('buttonsound');
 	buttonsound.play();
-	console.log("tomenu")
 
 	game.paused = false;
 	game.state.start("Menu");
@@ -127,7 +126,6 @@ function gotomenubycredit() {
 function gotoplay() {
 	buttonsound = game.add.audio('buttonsound');
 	buttonsound.play();
-	console.log("outpause")
 
 	game.paused = false;
 	frames.kill();
@@ -204,9 +202,10 @@ function tosetting() {
 	fullsize.scale.setTo(0.175, 0.175)
 	frames = game.add.sprite(135, 60, 'frame')
 	frames.scale.setTo(0.5, 0.5);
-	credits = game.add.button(330, 260, 'credit', tocredit, this, 1, 0, 1);
+	credits = game.add.button(230, 260, 'credit', tocredit, this, 1, 0, 1);
 	credits.scale.setTo(0.295);
-
+	ลำดับ = game.add.button(450, 270, 'ลำดับ', toranking, this, 1, 0, 1);
+	ลำดับ.scale.setTo(0.25, 0.25)
 	mute = game.add.button(310, 190, 'mute', tosetmute, this)
 	mute.scale.setTo(0.25);
 	mute.kill();
@@ -228,7 +227,6 @@ function todestroy() {
 	buttonsound = game.add.audio('buttonsound');
 	buttonsound.play();
 
-	console.log("in to destroy");
 	frames.kill();
 	backd.kill();
 	credits.kill();
@@ -241,10 +239,11 @@ function todestroy() {
 function topause() {
 	buttonsound = game.add.audio('buttonsound');
 	buttonsound.play();
-	console.log("pause")
 
 	pause.kill();
 	game.paused = true;
+	fullsize = game.add.button(0, 0, 'full-size', gofull, this, 1, 0, 1);
+	fullsize.scale.setTo(0.175, 0.175)
 
 	frames = game.add.sprite(150, 60, 'frame')
 	frames.scale.setTo(0.5, 0.5);
@@ -345,7 +344,7 @@ function checkselect2() {
 function Entername1() {
 	buttonsound = game.add.audio('buttonsound');
 	buttonsound.play();
-	
+
 	pressno.kill();
 	pressback.kill();
 	monkeysaid.kill();
@@ -361,7 +360,7 @@ function Entername1() {
 		padding: 8,
 		// borderWidth: 1,
 		// borderColor: '#000',
-		    backgroundColor: '#425A40', 
+		backgroundColor: '#425A40',
 		// borderRadius: 6,
 		placeHolder: '  ใส่ชื่อผู้เล่น',
 		type: PhaserInput.InputType.name
@@ -391,7 +390,7 @@ function Entername2() {
 		padding: 8,
 		// borderWidth: 1,
 		// borderColor: '#000',
-		    backgroundColor: '#425A40', 
+		backgroundColor: '#425A40',
 		// borderRadius: 6,
 		placeHolder: '  ใส่ชื่อผู้เล่น',
 		type: PhaserInput.InputType.name
@@ -485,16 +484,24 @@ function GenerateTerrain() {
 				delta = Math.random() * ((2 - 1.5) + 1) + 1.5;
 				lastCliff = true;
 				lastVertical = false;
-				if (obstacleCooldown <= 10) {
-					obstacleCooldown = obstacleCooldown + 10;
-					obstacleCooldown2 = obstacleCooldown2 + 10;
+				if (obstacleCooldown <= 20) {
+					obstacleCooldown = obstacleCooldown + 20;
+					obstacleCooldown2 = obstacleCooldown2 + 20;
 				}
-				if (obstacleCooldown2 <= 10) {
-					obstacleCooldown = obstacleCooldown + 10;
-					obstacleCooldown2 = obstacleCooldown2 + 10;
+				if (obstacleCooldown2 <= 20) {
+					obstacleCooldown = obstacleCooldown + 20;
+					obstacleCooldown2 = obstacleCooldown2 + 20;
 				}
 			}
 			else {
+				// if (obstacleCooldown <= 20) {
+				// 	obstacleCooldown = obstacleCooldown + 20;
+				// 	obstacleCooldown2 = obstacleCooldown2 + 20;
+				// }
+				// if (obstacleCooldown2 <= 20) {
+				// 	obstacleCooldown = obstacleCooldown + 20;
+				// 	obstacleCooldown2 = obstacleCooldown2 + 20;
+				// }
 				lastCliff = false;
 				lastVertical = false;
 			}
@@ -759,17 +766,16 @@ function fetchScore() {
 			scoreshow5.name = data.val().name
 			scoreshow5.score = data.val().score
 		})
-		firebase.database()
-			.ref('MonkeySumScore').child('/' + "").once('value').then(function (data) {
-				monkeyscore.score = data.val().ScoreSum
-				console.log("a")
-			})
-		firebase.database()
-			.ref('GiantSumScore').child('/' + "").once('value').then(function (data) {
-				giantscore.score = data.val().ScoreSum
+	firebase.database()
+		.ref('MonkeySumScore').child('/' + "").once('value').then(function (data) {
+			monkeyscore.score = data.val().ScoreSum
+		})
+	firebase.database()
+		.ref('GiantSumScore').child('/' + "").once('value').then(function (data) {
+			giantscore.score = data.val().ScoreSum
 
-			})
-	
+		})
+
 }
 function updateIntro() {
 }
@@ -803,6 +809,7 @@ function preloadMenu() {
 	game.load.image('press', 'images/กดปุ่มเว้นวรรค.png')
 	game.load.image('worker', 'images/worker.png')
 	game.load.audio('buttonsound', 'audio/กรับ.mp3');
+	game.load.spritesheet('ลำดับ', 'images/ลำดับ.png', 463, 187);
 }
 
 function createMenu() {
@@ -1996,11 +2003,14 @@ function createGameOver() {
 		funnytext = game.add.text(265, 280, "เจ้านี่มันอ่อนหัดจริงๆ!", { font: "40px Myfont1", fill: "#FFFFFF", align: "center" });
 	} else if (score <= 1100) {
 		funnytext = game.add.text(270, 280, "ไปฝึกวิชามาใหม่ไป๊!", { font: "40px Myfont1", fill: "#FFFFFF", align: "center" });
-	} else if (score <= 2100){
+	} else if (score <= 2100) {
 		funnytext = game.add.text(300, 280, "ฝีมือมิเลวเลยนี่!", { font: "40px Myfont1", fill: "#FFFFFF", align: "center" });
-	} else if (score <= 3100){
+	} else if (score <= 3100) {
 		funnytext = game.add.text(320, 280, "น่าประทับใจ!", { font: "40px Myfont1", fill: "#FFFFFF", align: "center" });
-	} else {
+	} else if (score <= 4000) {
+		funnytext = game.add.text(320, 280, "เจ้าหน่ะได้ตายไปแล้ว!", { font: "40px Myfont1", fill: "#FFFFFF", align: "center" });
+	}
+	else {
 		funnytext = game.add.text(250, 280, "ช.. ช่างแข็งแกร่งยิ่งนัก!", { font: "40px Myfont1", fill: "#FFFFFF", align: "center" });
 	}
 	gamebgm.stop();
@@ -2025,15 +2035,14 @@ function updateGameOver() {
 }
 function SumScore() {
 	if (selectmenu == 1) {
-		console.log("a")
-		monkeyscore.score +=score;
+		monkeyscore.score += score;
 		firebase.database()
 			.ref('MonkeySumScore').child('/' + "")
 			.set({
 				ScoreSum: monkeyscore.score
 			})
 	} else if (selectmenu == 2) {
-		giantscore.score +=score;
+		giantscore.score += score;
 		firebase.database()
 			.ref('GiantSumScore').child('/' + "")
 			.set({

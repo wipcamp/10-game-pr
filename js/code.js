@@ -100,6 +100,12 @@ var scoreshow5 = {
 	name: '',
 	score: 0
 }
+var monkeyscore ={
+	score
+}
+var giantscore = {
+
+}
 
 ////FunctionSystem/////
 
@@ -115,7 +121,6 @@ function gotomenubycredit() {
 	game.state.start('Menu')
 }
 function gotoplay() {
-	console.log("aaa")
 	game.paused = false;
 	frames.kill();
 	home.kill();
@@ -199,7 +204,6 @@ function tosetting() {
 	}
 }
 function todestroy() {
-	console.log("in to destroy");
 	frames.kill();
 	backd.kill();
 	credits.kill();
@@ -326,8 +330,8 @@ function Entername1() {
 		padding: 8,
 		// borderWidth: 1,
 		// borderColor: '#000',
-		    backgroundColor: '#aaee0b25', 
-		// borderRadius: 6,
+		backgroundColor: '#aaee0b25',
+		// borderRadius: 6,	
 		placeHolder: '  ใส่ชื่อผู้เล่น',
 		type: PhaserInput.InputType.name
 	});
@@ -353,7 +357,7 @@ function Entername2() {
 		padding: 8,
 		// borderWidth: 1,
 		// borderColor: '#000',
-		    backgroundColor: '#aaee0b25', 
+		backgroundColor: '#aaee0b25',
 		// borderRadius: 6,
 		placeHolder: '  ใส่ชื่อผู้เล่น',
 		type: PhaserInput.InputType.name
@@ -717,14 +721,24 @@ function fetchScore() {
 
 			scoreshow4.name = data.val().name
 			scoreshow4.score = data.val().score
-			console.log("fetch");
-			console.log(scoreshow4);
+
 		})
 	firebase.database()
 		.ref('score5').child('/' + "").once('value').then(function (data) {
 			scoreshow5.name = data.val().name
 			scoreshow5.score = data.val().score
 		})
+		firebase.database()
+			.ref('MonkeySumScore').child('/' + "").once('value').then(function (data) {
+				monkeyscore.score = data.val().ScoreSum
+				console.log("a")
+			})
+		firebase.database()
+			.ref('GiantSumScore').child('/' + "").once('value').then(function (data) {
+				giantscore.score = data.val().ScoreSum
+
+			})
+	
 }
 function updateIntro() {
 }
@@ -777,7 +791,6 @@ function createMenu() {
 		var logo = game.add.sprite(800, 60, "logor");
 		var tween = game.add.tween(logo);
 		tween.to({ x: 150 }, 3000, 'Linear', true, 0)
-		console.log("this")
 		sky = game.add.tileSprite(0,
 			0,
 			game.width,
@@ -815,7 +828,6 @@ function createMenu() {
 			'floor'
 		);
 	} else if (selectmenu == 2) {
-		console.log("that")
 		var logo = game.add.sprite(800, 60, "logot");
 		var tween = game.add.tween(logo);
 		tween.to({ x: 150 }, 3000, 'Linear', true, 0)
@@ -1955,12 +1967,32 @@ function createGameOver() {
 
 	checkScoremoreless();
 
+	SumScore();
 
 
 }
 function updateGameOver() {
-}
 
+}
+function SumScore() {
+	if (selectmenu == 1) {
+		console.log("a")
+		monkeyscore.score +=score;
+		firebase.database()
+			.ref('MonkeySumScore').child('/' + "")
+			.set({
+				ScoreSum: monkeyscore.score
+			})
+	} else if (selectmenu == 2) {
+		giantscore.score +=score;
+		firebase.database()
+			.ref('GiantSumScore').child('/' + "")
+			.set({
+				ScoreSum: giantscore.score
+			})
+	}
+	fetchScore();
+}
 ///////////////////////////////////////////////////////////////End Credit//////////////////////////////////////////////////////////////////////////
 function preloadEndcredit() {
 	game.load.video('EndCredit', 'images/EndCredit.mp4');
@@ -2087,6 +2119,10 @@ function checkScoremoreless() {
 				score: score
 			})
 	}
+
+
+
+
 	fetchScore();
 
 

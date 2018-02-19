@@ -353,12 +353,19 @@ function Entername1() {
 		fontWeight: 'bold',
 		width: 280,
 		padding: 8,
-		backgroundColor: '#425A40', 
+		// borderWidth: 1,
+		// borderColor: '#000',
+		    backgroundColor: '#425A40', 
+		// borderRadius: 6,
 		placeHolder: '  ใส่ชื่อผู้เล่น',
 		type: PhaserInput.InputType.name
 	});
+	// game.add.tween(nameplayer).to({ alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
 	pressenter = game.add.button(335, 380, 'yesconfirm', checkselect2, this, 1, 0, 1);
 	pressenter.scale.setTo(0.25, 0.25);
+
+
+
 }
 function Entername2() {
 	buttonsound = game.add.audio('buttonsound');
@@ -376,7 +383,10 @@ function Entername2() {
 		fontWeight: 'bold',
 		width: 280,
 		padding: 8,
-		backgroundColor: '#425A40', 
+		// borderWidth: 1,
+		// borderColor: '#000',
+		    backgroundColor: '#425A40', 
+		// borderRadius: 6,
 		placeHolder: '  ใส่ชื่อผู้เล่น',
 		type: PhaserInput.InputType.name
 	});
@@ -1953,12 +1963,12 @@ function createGameOver() {
 
 	gameoverframe = game.add.sprite(120, 7, 'gameoverframe')
 	gameoverframe.scale.setTo(0.5, 0.5)
-	คะแนน = game.add.sprite(310, 220, 'คะแนน')
+	คะแนน = game.add.sprite(290, 220, 'คะแนน')
 	คะแนน.scale.setTo(0.5, 0.5)
 	สิ้นชีพ = game.add.sprite(350, 130, 'สิ้นชีพ')
 	สิ้นชีพ.scale.setTo(0.5, 0.5)
 
-	scoretext = game.add.text(510, 220, '' + score, { font: "50px Number", fill: "#FFFFFF", align: "center" });
+	scoretext = game.add.text(490, 220, '' + score, { font: "50px Number", fill: "#FFFFFF", align: "center" });
 
 	play = game.add.button(270, 340, 'play', toGame, this, 1, 0, 1);
 	play.scale.setTo(0.25, 0.25)
@@ -1968,10 +1978,16 @@ function createGameOver() {
 	แบ่งปัน.scale.setTo(0.25, 0.25)
 	ลำดับ = game.add.button(450, 430, 'ลำดับ', toranking, this, 1, 0, 1);
 	ลำดับ.scale.setTo(0.25, 0.25)
-	if (score <= 1000) {
-		funnytext = game.add.text(350, 270, "กากว่ะ", { font: "40px Myfont1", fill: "#FFFFFF", align: "center" });
+	if (score <= 500) {
+		funnytext = game.add.text(265, 280, "เจ้านี่มันอ่อนหัดจริงๆ!", { font: "40px Myfont1", fill: "#FFFFFF", align: "center" });
+	} else if (score <= 1100) {
+		funnytext = game.add.text(270, 280, "ไปฝึกวิชามาใหม่ไป๊!", { font: "40px Myfont1", fill: "#FFFFFF", align: "center" });
+	} else if (score <= 2100){
+		funnytext = game.add.text(300, 280, "ฝีมือมิเลวเลยนี่!", { font: "40px Myfont1", fill: "#FFFFFF", align: "center" });
+	} else if (score <= 3100){
+		funnytext = game.add.text(320, 280, "น่าประทับใจ!", { font: "40px Myfont1", fill: "#FFFFFF", align: "center" });
 	} else {
-		funnytext = game.add.text(350, 270, "ยังอ่อนอยู่", { font: "40px Myfont1", fill: "#FFFFFF", align: "center" });
+		funnytext = game.add.text(250, 280, "ช.. ช่างแข็งแกร่งยิ่งนัก!", { font: "40px Myfont1", fill: "#FFFFFF", align: "center" });
 	}
 	gamebgm.stop();
 

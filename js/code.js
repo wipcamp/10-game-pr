@@ -113,6 +113,10 @@ var giantscore = {
 //////////////////////////////////////FunctionMenu/////////////////////////////////////////////////////
 
 function gotomenu() {
+	buttonsound = game.add.audio('buttonsound');
+	buttonsound.play();
+	console.log("tomenu")
+
 	game.paused = false;
 	game.state.start("Menu");
 	gamebgm.stop();
@@ -121,6 +125,10 @@ function gotomenubycredit() {
 	game.state.start('Menu')
 }
 function gotoplay() {
+	buttonsound = game.add.audio('buttonsound');
+	buttonsound.play();
+	console.log("outpause")
+
 	game.paused = false;
 	frames.kill();
 	home.kill();
@@ -130,9 +138,13 @@ function gotoplay() {
 }
 function toGame() {
 	if (selectmenu == 1) {
+		buttonsound = game.add.audio('buttonsound');
+		buttonsound.play();
 		game.state.start('GamePlay1');
 		gameoversound.stop();
 	} else if (selectmenu == 2) {
+		buttonsound = game.add.audio('buttonsound');
+		buttonsound.play();
 		game.state.start('GamePlay2');
 		gameoversound.stop();
 	}
@@ -146,16 +158,22 @@ function tocredit() {
 	mute.kill();
 }
 function wentmenu() {
+	buttonsound = game.add.audio('buttonsound');
+	buttonsound.play();
 	game.state.start('Menu');
 	gameoversound.stop();
 }
 function tomenu() {
+	buttonsound = game.add.audio('buttonsound');
+	buttonsound.play();
 	game.state.start('Menu');
 }
 function tofacebook() {
 
 }
 function toranking() {
+	buttonsound = game.add.audio('buttonsound');
+	buttonsound.play();
 	gameoversound.stop();
 	game.state.start('LeaderBoard');
 
@@ -178,6 +196,9 @@ function tosetmute() {
 ////////////////////////////////////////////////Functionsetting System////////////////////////////////////////////////////////////////////
 
 function tosetting() {
+	buttonsound = game.add.audio('buttonsound');
+	buttonsound.play();
+
 	option.kill();
 	fullsize = game.add.button(0, 0, 'full-size', gofull, this, 1, 0, 1);
 	fullsize.scale.setTo(0.175, 0.175)
@@ -204,6 +225,10 @@ function tosetting() {
 	}
 }
 function todestroy() {
+	buttonsound = game.add.audio('buttonsound');
+	buttonsound.play();
+
+	console.log("in to destroy");
 	frames.kill();
 	backd.kill();
 	credits.kill();
@@ -214,11 +239,12 @@ function todestroy() {
 	option = game.add.button(715, 25, 'options', tosetting, this);
 }
 function topause() {
-	pause.kill();
-	game.paused = true;
-
 	buttonsound = game.add.audio('buttonsound');
 	buttonsound.play();
+	console.log("pause")
+
+	pause.kill();
+	game.paused = true;
 
 	frames = game.add.sprite(150, 60, 'frame')
 	frames.scale.setTo(0.5, 0.5);
@@ -283,9 +309,9 @@ function tocheckselect2() { //ลิง
 	selectmenu = 2;
 }
 function tobackselect() {
-	buttonsound = game.add.audio('buttonsound');
-	buttonsound.play();
 	if (selectmenu == 1) {
+		buttonsound = game.add.audio('buttonsound');
+		buttonsound.play();
 		black.kill();
 		pressno.kill();
 		BG.kill();
@@ -293,6 +319,8 @@ function tobackselect() {
 		pressback.kill();
 		monkeysaid.kill();
 	} else if (selectmenu == 2) {
+		buttonsound = game.add.audio('buttonsound');
+		buttonsound.play();
 		black.kill();
 		pressno.kill();
 		BG.kill();
@@ -315,6 +343,9 @@ function checkselect2() {
 	tomenu()
 }
 function Entername1() {
+	buttonsound = game.add.audio('buttonsound');
+	buttonsound.play();
+	
 	pressno.kill();
 	pressback.kill();
 	monkeysaid.kill();
@@ -324,25 +355,21 @@ function Entername1() {
 	ป้ายชื่อ = game.add.image(230, 220, 'ป้ายชื่อ');
 	nameplayer = game.add.inputField(270, 300, {
 		font: '40px Arial',
-		fill: '#212121',
+		fill: '#ffffff',
 		fontWeight: 'bold',
 		width: 280,
 		padding: 8,
-		// borderWidth: 1,
-		// borderColor: '#000',
-		backgroundColor: '#aaee0b25',
-		// borderRadius: 6,	
+		backgroundColor: '#425A40', 
 		placeHolder: '  ใส่ชื่อผู้เล่น',
 		type: PhaserInput.InputType.name
 	});
-	// game.add.tween(nameplayer).to({ alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
 	pressenter = game.add.button(335, 380, 'yesconfirm', checkselect2, this, 1, 0, 1);
 	pressenter.scale.setTo(0.25, 0.25);
-
-
-
 }
 function Entername2() {
+	buttonsound = game.add.audio('buttonsound');
+	buttonsound.play();
+
 	pressno.kill();
 	pressback.kill();
 	giantsaid.kill();
@@ -351,22 +378,16 @@ function Entername2() {
 	ป้ายชื่อ = game.add.image(230, 220, 'ป้ายชื่อ');
 	nameplayer = game.add.inputField(270, 300, {
 		font: '40px Arial',
-		fill: '#212121',
+		fill: '#ffffff',
 		fontWeight: 'bold',
 		width: 280,
 		padding: 8,
-		// borderWidth: 1,
-		// borderColor: '#000',
-		backgroundColor: '#aaee0b25',
-		// borderRadius: 6,
+		backgroundColor: '#425A40', 
 		placeHolder: '  ใส่ชื่อผู้เล่น',
 		type: PhaserInput.InputType.name
 	});
 	pressenter = game.add.button(335, 380, 'yesconfirm', checkselect, this, 1, 0, 1);
 	pressenter.scale.setTo(0.25, 0.25);
-
-
-
 }
 ////////////////////////////////////////////Functiongame////////////////////////////////////////////////
 
@@ -908,14 +929,22 @@ function updateMenu() {
 	if (jumpButton.isDown) {
 		if (selectmenu == 1) {
 			if (htplay == true) {
+				buttonsound = game.add.audio('buttonsound');
+				buttonsound.play();
 				game.state.start('Howtoplay')
 			} else if (htplay == false) {
+				buttonsound = game.add.audio('buttonsound');
+				buttonsound.play();
 				game.state.start('GamePlay1');
 			}
 		} else if (selectmenu == 2) {
 			if (htplay == true) {
+				buttonsound = game.add.audio('buttonsound');
+				buttonsound.play();
 				game.state.start('Howtoplay')
 			} else if (htplay == false) {
+				buttonsound = game.add.audio('buttonsound');
+				buttonsound.play();
 				game.state.start('GamePlay2');
 			}
 		}
@@ -948,9 +977,13 @@ function createHowtoplay() {
 function updateHowtoplay() {
 	if (jumpButton.isDown) {
 		if (selectmenu == 1) {
+			buttonsound = game.add.audio('buttonsound');
+			buttonsound.play();
 			game.state.start('GamePlay1');
 			htplay = false
 		} else if (selectmenu == 2) {
+			buttonsound = game.add.audio('buttonsound');
+			buttonsound.play();
 			game.state.start('GamePlay2');
 			htplay = false
 		}
@@ -2030,28 +2063,33 @@ function gotoplays() {
 
 ///////////////////////////////////////////////////Leader Board/////////////////////////////////////////////
 function preloadleaderBoard() {
+	game.load.image('gameoverscreen1', 'images/gameoverscreen1.png')
+	game.load.image('gameoverscreen2', 'images/gameoverscreen2.png')
+	game.load.image('gameoverscreen3', 'images/gameoverscreen3.png')
 	game.load.image('รายชื่อ', 'images/รายชื่อ.png')
 	game.load.image('กระดานลำดับ', 'images/กระดานลำดับ.png')
 	game.load.image('คะแนน', 'images/คะแนน.png')
 	game.load.spritesheet('play', 'images/เริ่มใหม่.png', 475, 206);
 	game.load.spritesheet('หน้าหลัก', 'images/หน้าหลัก.png', 638, 180);
-
-
-
 }
 function createleaderBoard() {
-	game.stage.backgroundColor = "#00000";
-
+	if (score <= 1100) {
+		screen1 = game.add.sprite(0, 0, 'gameoverscreen1')
+	} else if (score <= 3100) {
+		screen2 = game.add.sprite(0, 0, 'gameoverscreen2')
+	} else {
+		screen3 = game.add.sprite(0, 0, 'gameoverscreen3')
+	}
 
 	กระดานลำดับ = game.add.sprite(100, -60, 'กระดานลำดับ')
 	กระดานลำดับ.scale.setTo(0.3, 0.325)
-	คะแนน = game.add.sprite(500, 60, 'คะแนน')
+	คะแนน = game.add.sprite(470, 80, 'คะแนน')
 	คะแนน.scale.setTo(0.4, 0.4)
-	สิ้นชีพ = game.add.sprite(200, 50, 'รายชื่อ')
+	สิ้นชีพ = game.add.sprite(200, 70, 'รายชื่อ')
 	สิ้นชีพ.scale.setTo(0.4, 0.4)
-	play = game.add.button(550, 500, 'play', totogame, this, 1, 0, 1);
+	play = game.add.button(530, 485, 'play', totogame, this, 1, 0, 1);
 	play.scale.setTo(0.25, 0.25)
-	หน้าหลัก = game.add.button(380, 505, 'หน้าหลัก', tomenu, this, 1, 0, 1);
+	หน้าหลัก = game.add.button(360, 490, 'หน้าหลัก', tomenu, this, 1, 0, 1);
 	หน้าหลัก.scale.setTo(0.25, 0.25)
 
 	scoresboard()
@@ -2063,21 +2101,20 @@ function updateleaderBoard() {
 }
 function scoresboard() {
 	fetchScore();
-	ชื่อ1 = game.add.text(200, 140, scoreshow.name, { font: "40px Myfont1", fill: "#1b1a1a", align: "center" });
-	ชื่อ2 = game.add.text(200, 210, scoreshow2.name, { font: "40px Myfont1", fill: "#1b1a1a", align: "center" });
-	ชื่อ3 = game.add.text(200, 280, scoreshow3.name, { font: "40px Myfont1", fill: "#1b1a1a", align: "center" });
-	ชื่อ4 = game.add.text(200, 350, scoreshow4.name, { font: "40px Myfont1", fill: "#1b1a1a", align: "center" });
-	ชื่อ5 = game.add.text(200, 420, scoreshow5.name, { font: "40px  Myfont1", fill: "#1b1a1a", align: "center" });
-	คะแนนที่1 = game.add.text(470, 110, scoreshow.score, { font: "70px Number", fill: "#1b1a1a", align: "center" });
-	คะแนนที่2 = game.add.text(470, 180, scoreshow2.score, { font: "70px Number", fill: "#1b1a1a", align: "center" });
-	คะแนนที่3 = game.add.text(470, 250, scoreshow3.score, { font: "70px Number", fill: "#1b1a1a", align: "center" });
-	คะแนนที่4 = game.add.text(470, 320, scoreshow4.score, { font: "70px Number", fill: "#1b1a1a", align: "center" });
-	คะแนนที่5 = game.add.text(470, 390, scoreshow5.score, { font: "70px Number", fill: "#1b1a1a", align: "center" });
+	ชื่อ1 = game.add.text(200, 140, scoreshow.name, { font: "40px Myfont1", fill: "#ffffff", align: "center" });
+	ชื่อ2 = game.add.text(200, 210, scoreshow2.name, { font: "40px Myfont1", fill: "#ffffff", align: "center" });
+	ชื่อ3 = game.add.text(200, 280, scoreshow3.name, { font: "40px Myfont1", fill: "#ffffff", align: "center" });
+	ชื่อ4 = game.add.text(200, 350, scoreshow4.name, { font: "40px Myfont1", fill: "#ffffff", align: "center" });
+	ชื่อ5 = game.add.text(200, 420, scoreshow5.name, { font: "40px  Myfont1", fill: "#ffffff", align: "center" });
+	คะแนนที่1 = game.add.text(470, 110, scoreshow.score, { font: "70px Number", fill: "#ffffff", align: "center" });
+	คะแนนที่2 = game.add.text(470, 180, scoreshow2.score, { font: "70px Number", fill: "#ffffff", align: "center" });
+	คะแนนที่3 = game.add.text(470, 250, scoreshow3.score, { font: "70px Number", fill: "#ffffff", align: "center" });
+	คะแนนที่4 = game.add.text(470, 320, scoreshow4.score, { font: "70px Number", fill: "#ffffff", align: "center" });
+	คะแนนที่5 = game.add.text(470, 390, scoreshow5.score, { font: "70px Number", fill: "#ffffff", align: "center" });
 
 }
 function checkScoremoreless() {
 	var temp;
-
 	if (score >= scoreshow.score) {
 		firebase.database()
 			.ref('score').child('/' + "")
@@ -2103,7 +2140,6 @@ function checkScoremoreless() {
 			})
 	}
 	else if (score >= scoreshow4.score) {
-
 		firebase.database()
 			.ref('score4').child('/' + "")
 			.set({
@@ -2124,16 +2160,15 @@ function checkScoremoreless() {
 
 
 	fetchScore();
-
-
-
-
 }
 function totogame() {
 	if (selectmenu == 1) {
+		buttonsound = game.add.audio('buttonsound');
+		buttonsound.play();
 		game.state.start('GamePlay1');
 	} else if (selectmenu == 2) {
+		buttonsound = game.add.audio('buttonsound');
+		buttonsound.play();
 		game.state.start('GamePlay2');
 	}
-
 }

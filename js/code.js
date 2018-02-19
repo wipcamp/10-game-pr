@@ -1998,28 +1998,33 @@ function gotoplays() {
 
 ///////////////////////////////////////////////////Leader Board/////////////////////////////////////////////
 function preloadleaderBoard() {
+	game.load.image('gameoverscreen1', 'images/gameoverscreen1.png')
+	game.load.image('gameoverscreen2', 'images/gameoverscreen2.png')
+	game.load.image('gameoverscreen3', 'images/gameoverscreen3.png')
 	game.load.image('รายชื่อ', 'images/รายชื่อ.png')
 	game.load.image('กระดานลำดับ', 'images/กระดานลำดับ.png')
 	game.load.image('คะแนน', 'images/คะแนน.png')
 	game.load.spritesheet('play', 'images/เริ่มใหม่.png', 475, 206);
 	game.load.spritesheet('หน้าหลัก', 'images/หน้าหลัก.png', 638, 180);
-
-
-
 }
 function createleaderBoard() {
-	game.stage.backgroundColor = "#00000";
-
+	if (score <= 1100) {
+		screen1 = game.add.sprite(0, 0, 'gameoverscreen1')
+	} else if (score <= 3100) {
+		screen2 = game.add.sprite(0, 0, 'gameoverscreen2')
+	} else {
+		screen3 = game.add.sprite(0, 0, 'gameoverscreen3')
+	}
 
 	กระดานลำดับ = game.add.sprite(100, -60, 'กระดานลำดับ')
 	กระดานลำดับ.scale.setTo(0.3, 0.325)
-	คะแนน = game.add.sprite(500, 60, 'คะแนน')
+	คะแนน = game.add.sprite(470, 80, 'คะแนน')
 	คะแนน.scale.setTo(0.4, 0.4)
-	สิ้นชีพ = game.add.sprite(200, 50, 'รายชื่อ')
+	สิ้นชีพ = game.add.sprite(200, 70, 'รายชื่อ')
 	สิ้นชีพ.scale.setTo(0.4, 0.4)
-	play = game.add.button(550, 500, 'play', totogame, this, 1, 0, 1);
+	play = game.add.button(530, 485, 'play', totogame, this, 1, 0, 1);
 	play.scale.setTo(0.25, 0.25)
-	หน้าหลัก = game.add.button(380, 505, 'หน้าหลัก', tomenu, this, 1, 0, 1);
+	หน้าหลัก = game.add.button(360, 490, 'หน้าหลัก', tomenu, this, 1, 0, 1);
 	หน้าหลัก.scale.setTo(0.25, 0.25)
 
 	scoresboard()
@@ -2031,21 +2036,20 @@ function updateleaderBoard() {
 }
 function scoresboard() {
 	fetchScore();
-	ชื่อ1 = game.add.text(200, 140, scoreshow.name, { font: "40px Myfont1", fill: "#1b1a1a", align: "center" });
-	ชื่อ2 = game.add.text(200, 210, scoreshow2.name, { font: "40px Myfont1", fill: "#1b1a1a", align: "center" });
-	ชื่อ3 = game.add.text(200, 280, scoreshow3.name, { font: "40px Myfont1", fill: "#1b1a1a", align: "center" });
-	ชื่อ4 = game.add.text(200, 350, scoreshow4.name, { font: "40px Myfont1", fill: "#1b1a1a", align: "center" });
-	ชื่อ5 = game.add.text(200, 420, scoreshow5.name, { font: "40px  Myfont1", fill: "#1b1a1a", align: "center" });
-	คะแนนที่1 = game.add.text(470, 110, scoreshow.score, { font: "70px Number", fill: "#1b1a1a", align: "center" });
-	คะแนนที่2 = game.add.text(470, 180, scoreshow2.score, { font: "70px Number", fill: "#1b1a1a", align: "center" });
-	คะแนนที่3 = game.add.text(470, 250, scoreshow3.score, { font: "70px Number", fill: "#1b1a1a", align: "center" });
-	คะแนนที่4 = game.add.text(470, 320, scoreshow4.score, { font: "70px Number", fill: "#1b1a1a", align: "center" });
-	คะแนนที่5 = game.add.text(470, 390, scoreshow5.score, { font: "70px Number", fill: "#1b1a1a", align: "center" });
+	ชื่อ1 = game.add.text(200, 140, scoreshow.name, { font: "40px Myfont1", fill: "#ffffff", align: "center" });
+	ชื่อ2 = game.add.text(200, 210, scoreshow2.name, { font: "40px Myfont1", fill: "#ffffff", align: "center" });
+	ชื่อ3 = game.add.text(200, 280, scoreshow3.name, { font: "40px Myfont1", fill: "#ffffff", align: "center" });
+	ชื่อ4 = game.add.text(200, 350, scoreshow4.name, { font: "40px Myfont1", fill: "#ffffff", align: "center" });
+	ชื่อ5 = game.add.text(200, 420, scoreshow5.name, { font: "40px  Myfont1", fill: "#ffffff", align: "center" });
+	คะแนนที่1 = game.add.text(470, 110, scoreshow.score, { font: "70px Number", fill: "#ffffff", align: "center" });
+	คะแนนที่2 = game.add.text(470, 180, scoreshow2.score, { font: "70px Number", fill: "#ffffff", align: "center" });
+	คะแนนที่3 = game.add.text(470, 250, scoreshow3.score, { font: "70px Number", fill: "#ffffff", align: "center" });
+	คะแนนที่4 = game.add.text(470, 320, scoreshow4.score, { font: "70px Number", fill: "#ffffff", align: "center" });
+	คะแนนที่5 = game.add.text(470, 390, scoreshow5.score, { font: "70px Number", fill: "#ffffff", align: "center" });
 
 }
 function checkScoremoreless() {
 	var temp;
-
 	if (score >= scoreshow.score) {
 		firebase.database()
 			.ref('score').child('/' + "")
@@ -2071,7 +2075,6 @@ function checkScoremoreless() {
 			})
 	}
 	else if (score >= scoreshow4.score) {
-
 		firebase.database()
 			.ref('score4').child('/' + "")
 			.set({
@@ -2088,10 +2091,6 @@ function checkScoremoreless() {
 			})
 	}
 	fetchScore();
-
-
-
-
 }
 function totogame() {
 	if (selectmenu == 1) {
@@ -2099,5 +2098,4 @@ function totogame() {
 	} else if (selectmenu == 2) {
 		game.state.start('GamePlay2');
 	}
-
 }

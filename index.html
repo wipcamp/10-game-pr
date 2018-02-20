@@ -108,10 +108,12 @@ function checkLoginState(event) {
           // ...
         });
       } else {
+		  console.log('loged-in')
         // User is already signed-in Firebase with the correct user.
       }
     });
   } else {
+	console.log('sign out')
     // User is signed-out of Facebook.
     firebase.auth().signOut();
   }

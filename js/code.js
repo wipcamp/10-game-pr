@@ -2070,12 +2070,13 @@ function createGameOver() {
 function updateGameOver() {
 	if (jumpButton.isDown) {
 		if (selectmenu == 1) {
+			gameoversound.stop();
 			game.state.start('Menu');
 			video.stop();
 		} else if (selectmenu == 2) {
+			gameoversound.stop();
 			game.state.start('Menu');
 			video.stop();
-
 		}
 	}
 }

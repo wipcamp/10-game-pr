@@ -94,7 +94,8 @@ function checkLoginState(event) {
       if (!isUserEqual(event.authResponse, firebaseUser)) {
         // Build Firebase credential with the Facebook auth token.
         var credential = firebase.auth.FacebookAuthProvider.credential(
-            event.authResponse.accessToken);
+			event.authResponse.accessToken);
+			console.log("llll");
         // Sign in with the credential from the Facebook user.
         firebase.auth().signInWithCredential(credential).catch(function(error) {
           // Handle Errors here.
@@ -103,7 +104,7 @@ function checkLoginState(event) {
           // The email of the user's account used.
           var email = error.email;
           // The firebase.auth.AuthCredential type that was used.
-          var credential = error.credential;
+          var credential = error.credential;console.log("");
           // ...
         });
       } else {

@@ -17,7 +17,7 @@ var Intro = { preload: preloadIntro, create: createIntro, update: updateIntro }
 var GamePlayRam = { preload: preload, create: create, update: update, render: render }
 var GamePlayGiant = { preload: preload2, create: create2, update: update2, render: render2 }
 var GameOver = { preload: preloadGameOver, create: createGameOver, update: updateGameOver }
-var login = { preload: loginpreload, create: logincreate, update: loginupdate }
+var Login = { preload: loginpreload, create: logincreate, update: loginupdate }
 
 game.state.add('Menu', Menu)
 game.state.add('Intro', Intro)

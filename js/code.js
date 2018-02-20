@@ -128,6 +128,7 @@ function gotoplay() {
 	buttonsound.play();
 
 	game.paused = false;
+	fullsize,kill();
 	frames.kill();
 	home.kill();
 	resume.kill();
@@ -167,12 +168,23 @@ function tomenu() {
 	game.state.start('Menu');
 }
 function tofacebook() {
-
+	FB.ui({
+		method: 'share',
+		display: 'popup',
+		href: 'https://game.freezer.wip.camp/',
+	}, function(response){});
 }
 function toranking() {
 	buttonsound = game.add.audio('buttonsound');
 	buttonsound.play();
 	gameoversound.stop();
+	game.state.start('LeaderBoard');
+
+}
+function toranking2() {
+	buttonsound = game.add.audio('buttonsound');
+	buttonsound.play();
+	menu.stop();
 	game.state.start('LeaderBoard');
 
 }
@@ -204,7 +216,7 @@ function tosetting() {
 	frames.scale.setTo(0.5, 0.5);
 	credits = game.add.button(230, 260, 'credit', tocredit, this, 1, 0, 1);
 	credits.scale.setTo(0.295);
-	ลำดับ = game.add.button(450, 270, 'ลำดับ', toranking, this, 1, 0, 1);
+	ลำดับ = game.add.button(450, 270, 'ลำดับ', toranking2, this, 1, 0, 1);
 	ลำดับ.scale.setTo(0.25, 0.25)
 	mute = game.add.button(310, 190, 'mute', tosetmute, this)
 	mute.scale.setTo(0.25);
@@ -226,6 +238,7 @@ function tosetting() {
 function todestroy() {
 	buttonsound = game.add.audio('buttonsound');
 	buttonsound.play();
+	ลำดับ.kill();
 
 	frames.kill();
 	backd.kill();
@@ -2031,8 +2044,19 @@ function createGameOver() {
 
 }
 function updateGameOver() {
+	if (jumpButton.isDown) {
+		if (selectmenu == 1) {
+			game.state.start('Menu');
+			video.stop();
+		} else if (selectmenu == 2) {
+			game.state.start('Menu');
+			video.stop();
 
+		}
+	}
 }
+
+
 function SumScore() {
 	if (selectmenu == 1) {
 		monkeyscore.score += score;

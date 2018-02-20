@@ -174,7 +174,11 @@ function toranking() {
 	buttonsound.play();
 	gameoversound.stop();
 	game.state.start('LeaderBoard');
-
+}
+function torankingfromsetting() {
+	buttonsound = game.add.audio('buttonsound');
+	buttonsound.play();
+	game.state.start('LeaderBoard');
 }
 function tosetmute() {
 	if (!game.sound.mute) {
@@ -204,7 +208,7 @@ function tosetting() {
 	frames.scale.setTo(0.5, 0.5);
 	credits = game.add.button(230, 260, 'credit', tocredit, this, 1, 0, 1);
 	credits.scale.setTo(0.295);
-	ลำดับ = game.add.button(450, 270, 'ลำดับ', toranking, this, 1, 0, 1);
+	ลำดับ = game.add.button(450, 270, 'ลำดับ', torankingfromsetting, this, 1, 0, 1);
 	ลำดับ.scale.setTo(0.25, 0.25)
 	mute = game.add.button(310, 190, 'mute', tosetmute, this)
 	mute.scale.setTo(0.25);

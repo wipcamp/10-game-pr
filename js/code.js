@@ -6,6 +6,7 @@ var config = {
 	messagingSenderId: "444400029"
 };
 
+
 var game = new Phaser.Game(800, 600, Phaser.AUTO, "game")
 var Menu = { preload: preloadMenu, create: createMenu, update: updateMenu }
 var CutScene = { preload: preloadCutScene, create: createCutScence, update: updateCutScene }
@@ -16,8 +17,6 @@ var Intro = { preload: preloadIntro, create: createIntro, update: updateIntro }
 var GamePlayRam = { preload: preload, create: create, update: update, render: render }
 var GamePlayGiant = { preload: preload2, create: create2, update: update2, render: render2 }
 var GameOver = { preload: preloadGameOver, create: createGameOver, update: updateGameOver }
-var Loginfacebook = { preload: preloadloginfacebook, create: createloginfacebook, update: updateloginfacebook }
-
 
 game.state.add('Menu', Menu)
 game.state.add('Intro', Intro)
@@ -28,10 +27,8 @@ game.state.add('GameOver', GameOver)
 game.state.add('GamePlay1', GamePlayRam)
 game.state.add('GamePlay2', GamePlayGiant)
 game.state.add('CutScene', CutScene)
-game.state.add('Loginfacebook', Loginfacebook)
 
-
-game.state.start('Loginfacebook')
+game.state.start('CutScene')
 
 var player;
 var scoreup = 1;
@@ -111,60 +108,8 @@ var giantscore = {
 
 }
 
-function preloadloginfacebook() {
-
-}
-function createloginfacebook() {
-	var provider = new firebase.auth.FacebookAuthProvider();
-
-	// To apply the default browser preference instead of explicitly setting it.
-	firebase.auth().useDeviceLanguage();
-
-	provider.setCustomParameters({
-		'display': 'popup'
-	});
 
 
-
-	firebase.auth().signInWithPopup(provider).then(function(result) {
-		// This gives you a Facebook Access Token. You can use it to access the Facebook API.
-		var token = result.credential.accessToken;
-		// The signed-in user info.
-		var user = result.user;
-		// ...
-	  }).catch(function(error) {
-		// Handle Errors here.
-		var errorCode = error.code;
-		var errorMessage = error.message;
-		// The email of the user's account used.
-		var email = error.email;
-		// The firebase.auth.AuthCredential type that was used.
-		var credential = error.credential;
-		// ...
-	  });
-	  firebase.auth().signInWithRedirect(provider);
-	  firebase.auth().getRedirectResult().then(function(result) {
-		if (result.credential) {
-		  // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-		  var token = result.credential.accessToken;
-		  // ...
-		}
-		// The signed-in user info.
-		var user = result.user;
-	  }).catch(function(error) {
-		// Handle Errors here.
-		var errorCode = error.code;
-		var errorMessage = error.message;
-		// The email of the user's account used.
-		var email = error.email;
-		// The firebase.auth.AuthCredential type that was used.
-		var credential = error.credential;
-		// ...
-	  });
-}
-function updateloginfacebook() {
-
-}
 ////FunctionSystem/////
 
 
@@ -229,7 +174,7 @@ function tofacebook() {
 		method: 'share',
 		display: 'popup',
 		href: 'https://game.freezer.wip.camp/',
-	}, function (response) { });
+	}, function(response){});
 }
 function toranking() {
 	buttonsound = game.add.audio('buttonsound');
@@ -266,7 +211,7 @@ function tosetting() {
 	buttonsound.play();
 
 	option.kill();
-
+	
 	frames = game.add.sprite(135, 60, 'frame')
 	frames.scale.setTo(0.5, 0.5);
 	credits = game.add.button(230, 260, 'credit', tocredit, this, 1, 0, 1);
@@ -311,7 +256,7 @@ function topause() {
 
 	pause.kill();
 	game.paused = true;
-
+	
 
 	frames = game.add.sprite(150, 60, 'frame')
 	frames.scale.setTo(0.5, 0.5);
@@ -785,7 +730,7 @@ function createIntro() {
 
 
 	choose = game.add.sprite(0, 0, 'choose');
-
+	
 
 	giant = game.add.button(515, 210, 'giant', tocheckselect, this);
 	giantbutton = game.add.button(490, 420, 'giantbutton', tocheckselect, this, 1, 0, 1);
@@ -799,7 +744,7 @@ function createIntro() {
 	monkeybutton = game.add.button(140, 420, 'monkeybutton', tocheckselect2, this, 1, 0, 1);
 	monkeybutton.scale.setTo(0.175, 0.175)
 
-
+	
 
 
 
@@ -1422,7 +1367,7 @@ function update() {
 
 	//เปลี่ยนฉาก
 	if (score >= 1100 & score <= 1101) {
-		scoreup = 2;
+		scoreup =2;
 		flashs()
 		speed = 8;
 		speedobj = 700;
@@ -2127,11 +2072,11 @@ function updateGameOver() {
 		if (selectmenu == 1) {
 			gameoversound.stop();
 			game.state.start('GamePlay1');
-
+			
 		} else if (selectmenu == 2) {
 			gameoversound.stop();
 			game.state.start('GamePlay2');
-
+			
 		}
 	}
 }

@@ -31,6 +31,7 @@ game.state.add('CutScene', CutScene)
 game.state.start('CutScene')
 
 var player;
+var scoreup = 1;
 var Hp = 1;
 var score = 1;
 var text = 0;
@@ -262,7 +263,7 @@ function topause() {
 	home.scale.setTo(0.25, 0.25)
 	resume = game.add.button(460, 300, 'resume', gotoplay, this, 1, 0, 1);
 	resume.scale.setTo(0.25, 0.25)
-	fullsize = game.add.button(570, 315, 'full-size', gofull, this, 1, 0, 1);
+	fullsize = game.add.button(570, 345, 'full-size', gofull, this, 1, 0, 1);
 	fullsize.scale.setTo(0.4, 0.4)
 }
 
@@ -587,7 +588,7 @@ function flashs() {
 }
 function updateScore() {
 	if (countStart >= 30) {
-		score += 1;
+		score += scoreup;
 		text.setText('' + score);
 		game.add.tween(text3).to({ alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
 	} else if (countStart < 30) {
@@ -827,6 +828,24 @@ function preloadMenu() {
 }
 
 function createMenu() {
+	text = 0;
+	speed = 7;
+	speedobj = 450;
+	countjump = 2;
+	countdeploy1 = 500
+	countdeploy = 400
+	score = 1;
+	Hp = 1
+	itemCooldown = 10;
+	itemtimerun = -5;
+	obstacleCooldown = 10;
+	timespeed = 150
+	SystemOverlab = 1;
+	tileSize = 70;
+	floor;
+	countStart = 20;
+	probCliff = 0.4;
+
 	game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
 	mute = game.add.button(310, 190, 'mute', tosetmute, this)
 	mute.scale.setTo(0.25);
@@ -1346,6 +1365,7 @@ function update() {
 
 	//เปลี่ยนฉาก
 	if (score >= 1100 & score <= 1101) {
+		scoreup =2;
 		flashs()
 		speed = 8;
 		speedobj = 700;
@@ -1354,6 +1374,7 @@ function update() {
 	}
 	if (score >= 3100 & score <= 3101) {
 		flashs()
+		score = 3;
 		speed = 8;
 		speedobj = 700;
 		this.flag.loadTexture('flag')

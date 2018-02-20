@@ -224,7 +224,7 @@ function tosetting() {
 	unmute.kill();
 	backd = game.add.button(370, 345, 'back', todestroy, this)
 	backd.scale.setTo(0.5, 0.5);
-	fullsize = game.add.button(570, 335, 'full-size', gofull, this, 1, 0, 1);
+	fullsize = game.add.button(560, 360, 'full-size', gofull, this, 1, 0, 1);
 	fullsize.scale.setTo(0.4, 0.4)
 	if (!game.sound.mute) {
 		mute = game.add.button(310, 190, 'mute', tosetmute, this)
@@ -263,7 +263,7 @@ function topause() {
 	home.scale.setTo(0.25, 0.25)
 	resume = game.add.button(460, 300, 'resume', gotoplay, this, 1, 0, 1);
 	resume.scale.setTo(0.25, 0.25)
-	fullsize = game.add.button(570, 345, 'full-size', gofull, this, 1, 0, 1);
+	fullsize = game.add.button(570, 360, 'full-size', gofull, this, 1, 0, 1);
 	fullsize.scale.setTo(0.4, 0.4)
 }
 
@@ -730,16 +730,16 @@ function createIntro() {
 	choose = game.add.sprite(0, 0, 'choose');
 	
 
-	giant = game.add.button(535, 135, 'giant', tocheckselect, this);
-	giantbutton = game.add.button(510, 330, 'giantbutton', tocheckselect, this, 1, 0, 1);
+	giant = game.add.button(515, 210, 'giant', tocheckselect, this);
+	giantbutton = game.add.button(490, 420, 'giantbutton', tocheckselect, this, 1, 0, 1);
 	giantbutton.scale.setTo(0.175, 0.175)
 
 	game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
 	fullsize = game.add.button(730, 535, 'full-size', gofull, this, 1, 0, 1);
 	fullsize.scale.setTo(0.4, 0.4)
 
-	monkey = game.add.button(157, 320, 'monkey', tocheckselect2, this);
-	monkeybutton = game.add.button(140, 480, 'monkeybutton', tocheckselect2, this, 1, 0, 1);
+	monkey = game.add.button(157, 245, 'monkey', tocheckselect2, this);
+	monkeybutton = game.add.button(140, 420, 'monkeybutton', tocheckselect2, this, 1, 0, 1);
 	monkeybutton.scale.setTo(0.175, 0.175)
 
 	

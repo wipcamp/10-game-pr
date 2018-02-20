@@ -230,6 +230,7 @@ function todestroy() {
 	frames.kill();
 	backd.kill();
 	credits.kill();
+	ลำดับ.kill()
 	mute.kill();
 	fullsize.kill();
 	unmute.kill();

@@ -84,6 +84,7 @@ firebase.auth().getRedirectResult().then(function(result) {
 });
 
 FB.Event.subscribe('auth.authResponseChange', checkLoginState);
+
 function checkLoginState(event) {
   if (event.authResponse) {
     // User is signed-in Facebook.
@@ -113,6 +114,20 @@ function checkLoginState(event) {
     // User is signed-out of Facebook.
     firebase.auth().signOut();
   }
+}
+
+function isUserEqual(facebookAuthResponse, firebaseUser) {
+  if (firebaseUser) {
+    var providerData = firebaseUser.providerData;
+    for (var i = 0; i < providerData.length; i++) {
+      if (providerData[i].providerId === firebase.auth.FacebookAuthProvider.PROVIDER_ID &&
+          providerData[i].uid === facebookAuthResponse.userID) {
+        // We don't need to re-auth the Firebase connection.
+        return true;
+      }
+    }
+  }
+  return false;
 }
 
 	</script>

@@ -161,6 +161,7 @@ function createloginfacebook() {
 					});
 				} else {
 					game.state.start('CutScene')
+					console.log('aa')
 				}
 			});
 		} else {

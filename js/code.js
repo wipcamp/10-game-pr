@@ -2071,12 +2071,12 @@ function updateGameOver() {
 	if (jumpButton.isDown) {
 		if (selectmenu == 1) {
 			gameoversound.stop();
-			game.state.start('Menu');
-			video.stop();
+			game.state.start('GamePlay1');
+			
 		} else if (selectmenu == 2) {
 			gameoversound.stop();
-			game.state.start('Menu');
-			video.stop();
+			game.state.start('GamePlay2');
+			
 		}
 	}
 }

@@ -18,7 +18,7 @@ var GamePlayRam = { preload: preload, create: create, update: update, render: re
 var GamePlayGiant = { preload: preload2, create: create2, update: update2, render: render2 }
 var GameOver = { preload: preloadGameOver, create: createGameOver, update: updateGameOver }
 var Login = { preload: loginpreload, create: logincreate, update: loginupdate }
-
+var token = null;
 game.state.add('Menu', Menu)
 game.state.add('Intro', Intro)
 game.state.add('LeaderBoard', LeaderBoard)
@@ -35,27 +35,23 @@ game.state.start('Login')
 function loginpreload() {
 
 }
-function logincreate() {
 
+function logincreate() {
+	text = game.add.text(0, 40, 'Login FaceBook ก่อนเล่น', { font: "55px Number", fill: "#fff", align: "center" });
+	loginfacebook();
+	
+}
+function loginfacebook() {
 	var provider = new firebase.auth.FacebookAuthProvider();
-	provider.setCustomParameters({
-		'display': 'popup'
-	});
-	FB.init({
-		/**********************************************************************
-		 * TODO(Developer): Change the value below with your Facebook app ID. *
-		 **********************************************************************/
-		appId: '119399881422143',
-		status: true,
-		xfbml: true,
-		version: 'v2.6'
-	});firebase.auth().signInWithPopup(provider).then(function(result) {
+	firebase.auth().useDeviceLanguage();
+	FB.Event.subscribe('auth.authResponseChange', checkLoginState);
+	firebase.auth().signInWithPopup(provider).then(function (result) {
 		// This gives you a Facebook Access Token. You can use it to access the Facebook API.
-		var token = result.credential.accessToken;
+		 token = result.credential.accessToken;
 		// The signed-in user info.
 		var user = result.user;
 		// ...
-	  }).catch(function(error) {
+	}).catch(function (error) {
 		// Handle Errors here.
 		var errorCode = error.code;
 		var errorMessage = error.message;
@@ -64,16 +60,16 @@ function logincreate() {
 		// The firebase.auth.AuthCredential type that was used.
 		var credential = error.credential;
 		// ...
-	  });
-	  firebase.auth().getRedirectResult().then(function(result) {
+	});
+	firebase.auth().getRedirectResult().then(function (result) {
 		if (result.credential) {
-		  // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-		  var token = result.credential.accessToken;
-		  // ...
+
+			// This gives you a Facebook Access Token. You can use it to access the Facebook API.
+			 token = result.credential.accessToken;
+		
 		}
-		// The signed-in user info.
 		var user = result.user;
-	  }).catch(function(error) {
+	}).catch(function (error) {
 		// Handle Errors here.
 		var errorCode = error.code;
 		var errorMessage = error.message;
@@ -82,41 +78,17 @@ function logincreate() {
 		// The firebase.auth.AuthCredential type that was used.
 		var credential = error.credential;
 		// ...
-	  });
-	  function checkLoginState(event) {
-		if (event.authResponse) {
-		  // User is signed-in Facebook.
-		  var unsubscribe = firebase.auth().onAuthStateChanged(function(firebaseUser) {
-			unsubscribe();
-			// Check if we are already signed-in Firebase with the correct user.
-			if (!isUserEqual(event.authResponse, firebaseUser)) {
-			  // Build Firebase credential with the Facebook auth token.
-			  var credential = firebase.auth.FacebookAuthProvider.credential(
-				  event.authResponse.accessToken);
-			  // Sign in with the credential from the Facebook user.
-			  firebase.auth().signInWithCredential(credential).catch(function(error) {
-				// Handle Errors here.
-				var errorCode = error.code;
-				var errorMessage = error.message;
-				// The email of the user's account used.
-				var email = error.email;
-				// The firebase.auth.AuthCredential type that was used.
-				var credential = error.credential;
-				// ...
-			  });
-			} else {
-			 gamebgm.state.start('CutScene')
-			}
-		  });
-		} else {
-		  // User is signed-out of Facebook.
-		  firebase.auth().signOut();
-		}
-	  }
+	});
+
 
 }
-function loginupdate() {
 
+
+function loginupdate() {
+	if(token != null){
+		game.state.start('CutScene')
+	
+	}
 }
 
 var player;
@@ -129,7 +101,7 @@ var speed = 5;
 var speedobj
 var speedb;
 var itemCooldown = 10;
-var itemtimerun = -5;
+var itemtimerun = -1;
 var obstacleCooldown = 10;
 var pickItem;
 var ItemsheildGroup;
@@ -704,6 +676,7 @@ function HitObj(player, obj) {
 function Checkhp() {
 	if (Hp < 1) {
 		game.state.start('GameOver')
+		console.log("logined")
 	}
 }
 function getItemsheild(player, item) {
@@ -715,7 +688,7 @@ function getIteminvisible(player, item) {
 	invisibleitem.play();
 	item.kill();
 	SystemOverlab = 3;
-	itemtimeinvisible = 500
+	itemtimeinvisible = 400
 	itemtimerun = -1
 }
 function getItemrun(player, item) {
@@ -1204,6 +1177,9 @@ function create() {
 	floor;
 	countStart = 20;
 	probCliff = 0.4;
+	temtimerun = 0
+	itemtimeinvisible = 0
+
 
 	game.time.events.loop(timespeed, updateScore, this)
 
@@ -1677,7 +1653,9 @@ function create2() {
 	floor;
 	probCliff = 0.4;
 	countStart = 20;
-
+	temtimerun = 0
+	itemtimeinvisible = 0
+	
 	timespeed = game.time.events.loop(150, updateScore, this)
 
 	background = game.add.tileSprite(0, 0, 2268, 1701, 'blank')

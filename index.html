@@ -41,7 +41,7 @@
 
 		
 	</script>
-<!-- <script>
+<script>
 var provider = new firebase.auth.FacebookAuthProvider();
 
 // To apply the default browser preference instead of explicitly setting it.
@@ -50,10 +50,6 @@ firebase.auth().useDeviceLanguage();
 provider.setCustomParameters({
 	'display': 'popup'
 });
-
-
-
-
 
 FB.init({
 	/**********************************************************************
@@ -87,7 +83,7 @@ function checkLoginState(event) {
 					// ...
 				});
 			} else {
-				game.state.start('CutScene')
+				console.log('Check')
 			}
 		});
 	} else {
@@ -114,7 +110,7 @@ firebase.auth().signOut().then(function () {
 	// An error happened.
 });
 
-</script> -->
+</script>
 
 	<script>
 		window.fbAsyncInit = function () {

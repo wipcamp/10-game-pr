@@ -17,6 +17,7 @@ var Intro = { preload: preloadIntro, create: createIntro, update: updateIntro }
 var GamePlayRam = { preload: preload, create: create, update: update, render: render }
 var GamePlayGiant = { preload: preload2, create: create2, update: update2, render: render2 }
 var GameOver = { preload: preloadGameOver, create: createGameOver, update: updateGameOver }
+var Login = { preload: loginpreload, create: logincreate, update: loginupdate }
 
 game.state.add('Menu', Menu)
 game.state.add('Intro', Intro)
@@ -27,8 +28,96 @@ game.state.add('GameOver', GameOver)
 game.state.add('GamePlay1', GamePlayRam)
 game.state.add('GamePlay2', GamePlayGiant)
 game.state.add('CutScene', CutScene)
+game.state.add('Login', Login)
 
-game.state.start('CutScene')
+game.state.start('Login')
+
+function loginpreload() {
+
+}
+function logincreate() {
+
+	var provider = new firebase.auth.FacebookAuthProvider();
+	provider.setCustomParameters({
+		'display': 'popup'
+	});
+	FB.init({
+		/**********************************************************************
+		 * TODO(Developer): Change the value below with your Facebook app ID. *
+		 **********************************************************************/
+		appId: '119399881422143',
+		status: true,
+		xfbml: true,
+		version: 'v2.6'
+	});firebase.auth().signInWithPopup(provider).then(function(result) {
+		// This gives you a Facebook Access Token. You can use it to access the Facebook API.
+		var token = result.credential.accessToken;
+		// The signed-in user info.
+		var user = result.user;
+		// ...
+	  }).catch(function(error) {
+		// Handle Errors here.
+		var errorCode = error.code;
+		var errorMessage = error.message;
+		// The email of the user's account used.
+		var email = error.email;
+		// The firebase.auth.AuthCredential type that was used.
+		var credential = error.credential;
+		// ...
+	  });
+	  firebase.auth().getRedirectResult().then(function(result) {
+		if (result.credential) {
+		  // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+		  var token = result.credential.accessToken;
+		  // ...
+		}
+		// The signed-in user info.
+		var user = result.user;
+	  }).catch(function(error) {
+		// Handle Errors here.
+		var errorCode = error.code;
+		var errorMessage = error.message;
+		// The email of the user's account used.
+		var email = error.email;
+		// The firebase.auth.AuthCredential type that was used.
+		var credential = error.credential;
+		// ...
+	  });
+	  function checkLoginState(event) {
+		if (event.authResponse) {
+		  // User is signed-in Facebook.
+		  var unsubscribe = firebase.auth().onAuthStateChanged(function(firebaseUser) {
+			unsubscribe();
+			// Check if we are already signed-in Firebase with the correct user.
+			if (!isUserEqual(event.authResponse, firebaseUser)) {
+			  // Build Firebase credential with the Facebook auth token.
+			  var credential = firebase.auth.FacebookAuthProvider.credential(
+				  event.authResponse.accessToken);
+			  // Sign in with the credential from the Facebook user.
+			  firebase.auth().signInWithCredential(credential).catch(function(error) {
+				// Handle Errors here.
+				var errorCode = error.code;
+				var errorMessage = error.message;
+				// The email of the user's account used.
+				var email = error.email;
+				// The firebase.auth.AuthCredential type that was used.
+				var credential = error.credential;
+				// ...
+			  });
+			} else {
+			 gamebgm.state.start('CutScene')
+			}
+		  });
+		} else {
+		  // User is signed-out of Facebook.
+		  firebase.auth().signOut();
+		}
+	  }
+
+}
+function loginupdate() {
+
+}
 
 var player;
 var scoreup = 1;
@@ -174,7 +263,7 @@ function tofacebook() {
 		method: 'share',
 		display: 'popup',
 		href: 'https://game.freezer.wip.camp/',
-	}, function(response){});
+	}, function (response) { });
 }
 function toranking() {
 	buttonsound = game.add.audio('buttonsound');
@@ -211,7 +300,7 @@ function tosetting() {
 	buttonsound.play();
 
 	option.kill();
-	
+
 	frames = game.add.sprite(135, 60, 'frame')
 	frames.scale.setTo(0.5, 0.5);
 	credits = game.add.button(230, 260, 'credit', tocredit, this, 1, 0, 1);
@@ -256,7 +345,7 @@ function topause() {
 
 	pause.kill();
 	game.paused = true;
-	
+
 
 	frames = game.add.sprite(150, 60, 'frame')
 	frames.scale.setTo(0.5, 0.5);
@@ -730,7 +819,7 @@ function createIntro() {
 
 
 	choose = game.add.sprite(0, 0, 'choose');
-	
+
 
 	giant = game.add.button(515, 210, 'giant', tocheckselect, this);
 	giantbutton = game.add.button(490, 420, 'giantbutton', tocheckselect, this, 1, 0, 1);
@@ -744,7 +833,7 @@ function createIntro() {
 	monkeybutton = game.add.button(140, 420, 'monkeybutton', tocheckselect2, this, 1, 0, 1);
 	monkeybutton.scale.setTo(0.175, 0.175)
 
-	
+
 
 
 
@@ -1367,7 +1456,7 @@ function update() {
 
 	//เปลี่ยนฉาก
 	if (score >= 1100 & score <= 1101) {
-		scoreup =2;
+		scoreup = 2;
 		flashs()
 		speed = 8;
 		speedobj = 700;
@@ -2072,11 +2161,11 @@ function updateGameOver() {
 		if (selectmenu == 1) {
 			gameoversound.stop();
 			game.state.start('GamePlay1');
-			
+
 		} else if (selectmenu == 2) {
 			gameoversound.stop();
 			game.state.start('GamePlay2');
-			
+
 		}
 	}
 }

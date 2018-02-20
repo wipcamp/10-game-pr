@@ -179,7 +179,6 @@ function toranking() {
 	buttonsound.play();
 	gameoversound.stop();
 	game.state.start('LeaderBoard');
-
 }
 function toranking2() {
 	buttonsound = game.add.audio('buttonsound');
@@ -243,6 +242,7 @@ function todestroy() {
 	frames.kill();
 	backd.kill();
 	credits.kill();
+	ลำดับ.kill()
 	mute.kill();
 	fullsize.kill();
 	unmute.kill();
@@ -2021,10 +2021,10 @@ function createGameOver() {
 	} else if (score <= 3100) {
 		funnytext = game.add.text(320, 280, "น่าประทับใจ!", { font: "40px Myfont1", fill: "#FFFFFF", align: "center" });
 	} else if (score <= 4000) {
-		funnytext = game.add.text(320, 280, "เจ้าหน่ะได้ตายไปแล้ว!", { font: "40px Myfont1", fill: "#FFFFFF", align: "center" });
+		funnytext = game.add.text(250, 280, "ช.. ช่างแข็งแกร่งยิ่งนัก!", { font: "40px Myfont1", fill: "#FFFFFF", align: "center" });
 	}
 	else {
-		funnytext = game.add.text(250, 280, "ช.. ช่างแข็งแกร่งยิ่งนัก!", { font: "40px Myfont1", fill: "#FFFFFF", align: "center" });
+		funnytext = game.add.text(250, 280, "เจ้าน่ะ.. ได้ตายไปแล้ว!", { font: "40px Myfont1", fill: "#FFFFFF", align: "center" });
 	}
 	gamebgm.stop();
 

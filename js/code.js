@@ -30,15 +30,21 @@ game.state.add('GamePlay2', GamePlayGiant)
 game.state.add('CutScene', CutScene)
 game.state.add('Login', Login)
 
-game.state.start('Login')
+game.state.start('CutScene')
 
 function loginpreload() {
+	game.load.spritesheet('เข้าสู่ระบบเฟสบุ๊ก', 'images/เข้าสู่ระบบเฟสบุ๊ก.png', 2015, 534, 2);
 
 }
 
 function logincreate() {
 	text = game.add.text(0, 40, 'Login FaceBook ก่อนเล่น', { font: "55px Number", fill: "#fff", align: "center" });
-	loginfacebook();
+	text2 = game.add.text(0, 120, '*ปิด block pop-up ด้วยนาจา*', { font: "55px Number", fill: "#fff", align: "center" });
+
+	loginfacebookl = game.add.button(200, 380, 'เข้าสู่ระบบเฟสบุ๊ก', openpopup, this, 1, 0, 1);
+	loginfacebookl.scale.setTo(0.25, 0.25);
+
+	loginfacebook()
 	
 }
 function loginfacebook() {
@@ -82,11 +88,51 @@ function loginfacebook() {
 
 
 }
+function openpopup(){
+	var provider = new firebase.auth.FacebookAuthProvider();
+	firebase.auth().useDeviceLanguage();
+	FB.Event.subscribe('auth.authResponseChange', checkLoginState);
+	firebase.auth().signInWithPopup(provider).then(function (result) {
+		// This gives you a Facebook Access Token. You can use it to access the Facebook API.
+		//  token = result.credential.accessToken;
+		// The signed-in user info.
+		var user = result.user;
+		// ...
+	}).catch(function (error) {
+		// Handle Errors here.
+		var errorCode = error.code;
+		var errorMessage = error.message;
+		// The email of the user's account used.
+		var email = error.email;
+		// The firebase.auth.AuthCredential type that was used.
+		var credential = error.credential;
+		// ...
+	});
+	firebase.auth().getRedirectResult().then(function (result) {
+		if (result.credential) {
 
+			// This gives you a Facebook Access Token. You can use it to access the Facebook API.
+			//  token = result.credential.accessToken;
+		
+		}
+		var user = result.user;
+	}).catch(function (error) {
+		// Handle Errors here.
+		var errorCode = error.code;
+		var errorMessage = error.message;
+		// The email of the user's account used.
+		var email = error.email;
+		// The firebase.auth.AuthCredential type that was used.
+		var credential = error.credential;
+		// ...
+	});
+
+
+}
 
 function loginupdate() {
 	if(token != null){
-		game.state.start('CutScene')
+		game.state.start('Intro')
 	
 	}
 }
@@ -234,7 +280,7 @@ function tofacebook() {
 	FB.ui({
 		method: 'share',
 		display: 'popup',
-		href: 'https://game.freezer.wip.camp/',
+		href: 'https://pr.game.freezer.wip.camp/',
 	}, function (response) { });
 }
 function toranking() {
@@ -268,6 +314,7 @@ function tosetmute() {
 ////////////////////////////////////////////////Functionsetting System////////////////////////////////////////////////////////////////////
 
 function tosetting() {
+	
 	buttonsound = game.add.audio('buttonsound');
 	buttonsound.play();
 
@@ -653,6 +700,7 @@ function updateScore() {
 	if (countStart >= 30) {
 		score += scoreup;
 		text.setText('' + score);
+
 		game.add.tween(text3).to({ alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
 	} else if (countStart < 30) {
 		text3.visible = true;
@@ -750,13 +798,13 @@ function createCutScence() {
 }
 function updateCutScene() {
 	if (jumpButton.isDown) {
-		game.state.start('Intro');
+		game.state.start('Login');
 		video.stop();
 	}
 	game.time.events.loop(43000, gotogame, this)
 }
 function gotogame() {
-	game.state.start('Intro')
+	game.state.start('Login')
 	video.stop();
 }
 
@@ -888,7 +936,7 @@ function preloadMenu() {
 	game.load.image('press', 'images/กดปุ่มเว้นวรรค.png')
 	game.load.image('worker', 'images/worker.png')
 	game.load.audio('buttonsound', 'audio/กรับ.mp3');
-	game.load.spritesheet('ลำดับ', 'images/ลำดับ.png', 463, 187);
+	game.load.spritesheet('ลำดับ', 'images/rankings.png', 463, 187);
 }
 
 function createMenu() {
@@ -1023,7 +1071,7 @@ function createMenu() {
 	jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 	name = nameplayer.value;
 	firebase.database()
-		.ref('prescore').child('/' + name)
+		.ref('prescore').child('/' + token)
 		.set({
 			name: name,
 			score: score
@@ -1245,7 +1293,7 @@ function create() {
 	โยชน์ = game.add.sprite(25, 25, 'โยชน์')
 	โยชน์.scale.setTo(0.25, 0.25)
 
-	text = game.add.text(175, 5, '', { font: "70px Number", fill: "#1b1a1a", align: "center" });
+	text = game.add.text(175, 20, '', { font: "70px Number", fill: "#1b1a1a", align: "center" });
 
 	text2 = game.add.text(25, 70, 'ระวังธนูกำลังจะมาใน  : ', { font: "60px Number", fill: "#DC143C", align: "center" });
 	text2.visible = false;
@@ -1717,7 +1765,7 @@ function create2() {
 		'floorback'
 	);
 
-	text = game.add.text(175, 5, '', { font: "70px Number", fill: "#1b1a1a", align: "center" });
+	text = game.add.text(175, 20, '', { font: "70px Number", fill: "#1b1a1a", align: "center" });
 
 	text2 = game.add.text(25, 70, 'ระวังธนูกำลังจะมาใน  : ', { font: "60px Number", fill: "#DC143C", align: "center" });
 	text2.visible = false;
@@ -2054,7 +2102,7 @@ function preloadGameOver() {
 	game.load.spritesheet('play', 'images/เริ่มใหม่.png', 475, 206);
 	game.load.spritesheet('หน้าหลัก', 'images/หน้าหลัก.png', 638, 180);
 	game.load.spritesheet('แบ่งปัน', 'images/แบ่งปัน.png', 463, 187);
-	game.load.spritesheet('ลำดับ', 'images/ลำดับ.png', 463, 187);
+	game.load.spritesheet('ลำดับ', 'images/rankings.png', 463, 187);
 	game.load.image('รายชื่อ', 'images/รายชื่อ.png')
 	game.load.image('กระดานลำดับ', 'images/กระดานลำดับ.png')
 
@@ -2093,7 +2141,7 @@ function createGameOver() {
 	สิ้นชีพ = game.add.sprite(350, 130, 'สิ้นชีพ')
 	สิ้นชีพ.scale.setTo(0.5, 0.5)
 
-	scoretext = game.add.text(490, 220, '' + score, { font: "50px Number", fill: "#FFFFFF", align: "center" });
+	scoretext = game.add.text(450, 220, '' + score, { font: "50px Number", fill: "#FFFFFF", align: "center" });
 
 	play = game.add.button(270, 340, 'play', toGame, this, 1, 0, 1);
 	play.scale.setTo(0.25, 0.25)
@@ -2122,7 +2170,7 @@ function createGameOver() {
 
 
 	firebase.database()
-		.ref('prescore').child('/' + name)
+		.ref('prescore').child('/' + token)
 		.set({
 			name: name,
 			score: score
@@ -2242,11 +2290,11 @@ function updateleaderBoard() {
 }
 function scoresboard() {
 	fetchScore();
-	ชื่อ1 = game.add.text(200, 140, scoreshow.name, { font: "40px Myfont1", fill: "#ffffff", align: "center" });
-	ชื่อ2 = game.add.text(200, 210, scoreshow2.name, { font: "40px Myfont1", fill: "#ffffff", align: "center" });
-	ชื่อ3 = game.add.text(200, 280, scoreshow3.name, { font: "40px Myfont1", fill: "#ffffff", align: "center" });
-	ชื่อ4 = game.add.text(200, 350, scoreshow4.name, { font: "40px Myfont1", fill: "#ffffff", align: "center" });
-	ชื่อ5 = game.add.text(200, 420, scoreshow5.name, { font: "40px  Myfont1", fill: "#ffffff", align: "center" });
+	ชื่อ1 = game.add.text(200, 120, scoreshow.name, { font: "40px Myfont1", fill: "#ffffff", align: "center" });
+	ชื่อ2 = game.add.text(200, 190, scoreshow2.name, { font: "40px Myfont1", fill: "#ffffff", align: "center" });
+	ชื่อ3 = game.add.text(200, 260, scoreshow3.name, { font: "40px Myfont1", fill: "#ffffff", align: "center" });
+	ชื่อ4 = game.add.text(200, 330, scoreshow4.name, { font: "40px Myfont1", fill: "#ffffff", align: "center" });
+	ชื่อ5 = game.add.text(200, 400, scoreshow5.name, { font: "40px  Myfont1", fill: "#ffffff", align: "center" });
 	คะแนนที่1 = game.add.text(470, 110, scoreshow.score, { font: "70px Number", fill: "#ffffff", align: "center" });
 	คะแนนที่2 = game.add.text(470, 180, scoreshow2.score, { font: "70px Number", fill: "#ffffff", align: "center" });
 	คะแนนที่3 = game.add.text(470, 250, scoreshow3.score, { font: "70px Number", fill: "#ffffff", align: "center" });

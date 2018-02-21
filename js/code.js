@@ -94,7 +94,7 @@ function openpopup() {
 	FB.Event.subscribe('auth.authResponseChange', checkLoginState);
 	firebase.auth().signInWithPopup(provider).then(function (result) {
 		// This gives you a Facebook Access Token. You can use it to access the Facebook API.
-		//  token = result.credential.accessToken;
+		 token = result.credential.accessToken;
 		// The signed-in user info.
 		var user = result.user;
 		// ...
@@ -112,7 +112,7 @@ function openpopup() {
 		if (result.credential) {
 
 			// This gives you a Facebook Access Token. You can use it to access the Facebook API.
-			//  token = result.credential.accessToken;
+			 token = result.credential.accessToken;
 
 		}
 		var user = result.user;
@@ -2324,6 +2324,7 @@ function scoresboard() {
 }
 function checkScoremoreless() {
 	var temp;
+	fetchScore();
 	if (score >= scoreshow.score) {
 		firebase.database()
 			.ref('score').child('/' + "")
@@ -2364,11 +2365,6 @@ function checkScoremoreless() {
 				score: score
 			})
 	}
-
-
-
-
-	fetchScore();
 }
 function totogame() {
 	if (selectmenu == 1) {

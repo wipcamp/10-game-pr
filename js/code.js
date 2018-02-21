@@ -1296,12 +1296,17 @@ function create() {
 		this.game.cache.getImage('wallr').height,
 		'wallr'
 	);
-	this.sign = this.game.add.tileSprite(0,
-		380,
+	this.sign = this.game.add.tileSprite(
+		0,
+		420,
 		this.game.width,
 		this.game.cache.getImage('sign').height,
 		'sign'
 	);
+	//this.sign.scale.setTo(0.25,0.25);
+
+
+
 	this.floorback = this.game.add.tileSprite(0,
 		536,
 		this.game.width,
@@ -1465,11 +1470,10 @@ function create() {
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 	game.physics.enable([player, FloorGroup, background], Phaser.Physics.ARCADE);
 	game.physics.enable([effectShelid, background], Phaser.Physics.ARCADE);
-
 	player.body.gravity.y = 2800;
 	player.enableBody = true;
 	player.body.collideWorldBounds = false;
-
+	
 	game.camera.follow(player);
 
 	cursors = game.input.keyboard.createCursorKeys();
@@ -1489,7 +1493,7 @@ function update() {
 	this.bushr.tilePosition.x -= 0.25 + speed
 	this.palacer.tilePosition.x -= 0.5 + speed
 	this.wallr.tilePosition.x -= 1 + speed
-	this.sign.tilePosition.x -= 1.25 + speed
+	this.sign.tilePosition.x -=  -2.05 + speed
 	this.floorback.tilePosition.x -= 1 + speed
 
 	speedobj += 0.0010
@@ -1516,7 +1520,7 @@ function update() {
 		this.bushr.loadTexture('bstone')
 		this.palacer.loadTexture('treedead')
 		this.wallr.kill()
-		//this.sign.kill()
+		this.sign.kill()
 	}
 
 	GenerateTerrain();
@@ -1772,12 +1776,15 @@ function create2() {
 		'wallt'
 	);
 
-	this.sign = this.game.add.tileSprite(0,
-		380,
+	this.sign = this.game.add.tileSprite(
+		0,
+		420,
 		this.game.width,
 		this.game.cache.getImage('sign').height,
 		'sign'
 	);
+	// this.sign.scale.setTo(0.25,0.25);
+
 	this.floorback = this.game.add.tileSprite(0,
 		536,
 		this.game.width,
@@ -1964,7 +1971,7 @@ function update2() {
 	this.busht.tilePosition.x -= 0.25 + speed
 	this.palacet.tilePosition.x -= 0.5 + speed
 	this.wallt.tilePosition.x -= 1 + speed
-	this.sign.tilePosition.x -= 1.25 + speed
+	this.sign.tilePosition.x -=-2.05 + speed
 	this.floorback.tilePosition.x -= 1 + speed
 
 	speedobj += 0.0010

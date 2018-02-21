@@ -284,7 +284,7 @@ function tofacebook() {
 
 	// Open FB share popup
 	FB.ui({
-		method: 'share',
+		method: 'share_open_graph',
 		display: 'popup',
 		href: 'https://pr.game.freezer.wip.camp/',
 		action_type: 'og.shares',

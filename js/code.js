@@ -45,7 +45,7 @@ function logincreate() {
 	loginfacebookl.scale.setTo(0.25, 0.25);
 
 	loginfacebook()
-	
+
 }
 function loginfacebook() {
 	var provider = new firebase.auth.FacebookAuthProvider();
@@ -53,7 +53,7 @@ function loginfacebook() {
 	FB.Event.subscribe('auth.authResponseChange', checkLoginState);
 	firebase.auth().signInWithPopup(provider).then(function (result) {
 		// This gives you a Facebook Access Token. You can use it to access the Facebook API.
-		 token = result.credential.accessToken;
+		token = result.credential.accessToken;
 		// The signed-in user info.
 		var user = result.user;
 		// ...
@@ -71,8 +71,8 @@ function loginfacebook() {
 		if (result.credential) {
 
 			// This gives you a Facebook Access Token. You can use it to access the Facebook API.
-			 token = result.credential.accessToken;
-		
+			token = result.credential.accessToken;
+
 		}
 		var user = result.user;
 	}).catch(function (error) {
@@ -88,7 +88,7 @@ function loginfacebook() {
 
 
 }
-function openpopup(){
+function openpopup() {
 	var provider = new firebase.auth.FacebookAuthProvider();
 	firebase.auth().useDeviceLanguage();
 	FB.Event.subscribe('auth.authResponseChange', checkLoginState);
@@ -113,7 +113,7 @@ function openpopup(){
 
 			// This gives you a Facebook Access Token. You can use it to access the Facebook API.
 			//  token = result.credential.accessToken;
-		
+
 		}
 		var user = result.user;
 	}).catch(function (error) {
@@ -131,9 +131,9 @@ function openpopup(){
 }
 
 function loginupdate() {
-	if(token != null){
+	if (token != null) {
 		game.state.start('Intro')
-	
+
 	}
 }
 
@@ -277,12 +277,29 @@ function tomenu() {
 	game.state.start('Menu');
 }
 function tofacebook() {
+	var img = "images/logo_r.png";
+	var desc = "Ramrun";
+	var title = 'Ramrun';
+	var link = 'http://pr.game.freezer.wip.camp/';
+
+	// Open FB share popup
 	FB.ui({
 		method: 'share',
 		display: 'popup',
 		href: 'https://pr.game.freezer.wip.camp/',
-		
-	}, function (response) { });
+		action_type: 'og.shares',
+		action_properties: JSON.stringify({
+			object: {
+				'og:url': link,
+				'og:title': title,
+				'og:description': desc,
+				'og:image': img
+			}
+		})
+	},
+		function (response) {
+			// Action after response
+		});
 }
 function toranking() {
 	buttonsound = game.add.audio('buttonsound');
@@ -315,7 +332,7 @@ function tosetmute() {
 ////////////////////////////////////////////////Functionsetting System////////////////////////////////////////////////////////////////////
 
 function tosetting() {
-	
+
 	buttonsound = game.add.audio('buttonsound');
 	buttonsound.play();
 
@@ -1705,7 +1722,7 @@ function create2() {
 	countStart = 20;
 	temtimerun = 0
 	itemtimeinvisible = 0
-	
+
 	timespeed = game.time.events.loop(150, updateScore, this)
 
 	background = game.add.tileSprite(0, 0, 2268, 1701, 'blank')
@@ -1754,7 +1771,7 @@ function create2() {
 		this.game.cache.getImage('wallt').height,
 		'wallt'
 	);
-	
+
 	this.sign = this.game.add.tileSprite(0,
 		380,
 		this.game.width,

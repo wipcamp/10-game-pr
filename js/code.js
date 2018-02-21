@@ -281,6 +281,7 @@ function tofacebook() {
 		method: 'share',
 		display: 'popup',
 		href: 'https://pr.game.freezer.wip.camp/',
+		
 	}, function (response) { });
 }
 function toranking() {
@@ -1172,8 +1173,9 @@ function preload() {
 	game.load.image('โยชน์', 'images/โยชน์สีดำ.png')
 
 	//ป้าย 
-	//this.game.load.image('sign', 'images/sign.png')
+	this.game.load.image('sign', 'images/bigsign.png')
 	this.game.load.image('flag', 'images/birdflag.png')
+
 	//ฉากฝั่งราม
 	this.game.load.image('skyr', 'images/sky_r.png')
 	this.game.load.image('cloudr', 'images/cloud_r.png')
@@ -1277,12 +1279,12 @@ function create() {
 		this.game.cache.getImage('wallr').height,
 		'wallr'
 	);
-	// this.sign = this.game.add.tileSprite(0,
-	// 	415,
-	// 	this.game.width,
-	// 	this.game.cache.getImage('sign').height,
-	// 	'sign'
-	// );
+	this.sign = this.game.add.tileSprite(0,
+		380,
+		this.game.width,
+		this.game.cache.getImage('sign').height,
+		'sign'
+	);
 	this.floorback = this.game.add.tileSprite(0,
 		536,
 		this.game.width,
@@ -1470,7 +1472,7 @@ function update() {
 	this.bushr.tilePosition.x -= 0.25 + speed
 	this.palacer.tilePosition.x -= 0.5 + speed
 	this.wallr.tilePosition.x -= 1 + speed
-	//this.sign.tilePosition.x -= 1.25 + speed
+	this.sign.tilePosition.x -= 1.25 + speed
 	this.floorback.tilePosition.x -= 1 + speed
 
 	speedobj += 0.0010
@@ -1647,7 +1649,7 @@ function preload2() {
 	game.load.image('โยชน์', 'images/โยชน์สีดำ.png')
 
 	//ป้าย 
-	//this.game.load.image('sign', 'images/sign.png')
+	this.game.load.image('sign', 'images/bigsign.png')
 	this.game.load.image('flag', 'images/birdflag.png')
 	//ฉากฝั่งทศ 
 	this.game.load.image('skyt', 'images/sky_t.png')
@@ -1752,12 +1754,13 @@ function create2() {
 		this.game.cache.getImage('wallt').height,
 		'wallt'
 	);
-	// this.sign = this.game.add.tileSprite(0,
-	// 	415,
-	// 	this.game.width,
-	// 	this.game.cache.getImage('sign').height,
-	// 	'sign'
-	// );
+	
+	this.sign = this.game.add.tileSprite(0,
+		380,
+		this.game.width,
+		this.game.cache.getImage('sign').height,
+		'sign'
+	);
 	this.floorback = this.game.add.tileSprite(0,
 		536,
 		this.game.width,
@@ -1944,7 +1947,7 @@ function update2() {
 	this.busht.tilePosition.x -= 0.25 + speed
 	this.palacet.tilePosition.x -= 0.5 + speed
 	this.wallt.tilePosition.x -= 1 + speed
-	//this.sign.tilePosition.x -= 1.25 + speed
+	this.sign.tilePosition.x -= 1.25 + speed
 	this.floorback.tilePosition.x -= 1 + speed
 
 	speedobj += 0.0010
@@ -1970,7 +1973,7 @@ function update2() {
 		this.busht.loadTexture('bstone')
 		this.palacet.loadTexture('treedead')
 		this.wallt.kill()
-		//this.sign.kill()
+		this.sign.kill()
 	}
 
 	GenerateTerrain();

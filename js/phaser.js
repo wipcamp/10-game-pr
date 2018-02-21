@@ -35810,13 +35810,13 @@ Phaser.Game.prototype = {
         if (!this.device.ie) // https://developer.mozilla.org/en-US/docs/Web/API/Console/log#Browser_compatibility
         {
             var args = [
-                '%c %c %c Phaser CE v' + v + ' | Pixi.js | ' + r + ' | ' + a + '  %c %c ' + '%c http://phaser.io %c\u2665%c\u2665%c\u2665',
-                'background: #fb8cb3',
-                'background: #d44a52',
-                'color: #ffffff; background: #871905;',
-                'background: #d44a52',
-                'background: #fb8cb3',
-                'background: #ffffff'
+                '%c %c %c GameWipCamp10' + '' + ' | By | ' + 'GameDev10' + ' | ' + '' + '  %c %c ' + '%c Suport by http://phaser.io %c\u2665%c\u2665%c\u2665',
+                'background: #f5324c',
+                'background: #f5324c',
+                'color: #ffffff; background: #f5324c;',
+                'background: #f5324c',
+                'background: #f5324c',
+                'background: #f5324c'
             ];
 
             for (var i = 0; i < 3; i++)
